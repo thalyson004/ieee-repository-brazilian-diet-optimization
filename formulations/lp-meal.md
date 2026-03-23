@@ -8,27 +8,27 @@ LP-Meal optimizes a 5-day diet plan by selecting **complete meals** from the poo
 
 ## Meal Pool Construction
 
-Before optimization, a pool of candidate meals is extracted from all base diets:
+Before optimization, a pool of candidate meals is extracted from all 50 base diets of the target profile:
 
-1. For each base diet (50 per profile), each day (5 days), each meal type (6 types):
+1. For each base diet, each day (5 days), each meal type (6 types):
    - Extract the list of food items
-   - Compute total nutrients using TBCA data (per 100 g reference)
-   - Compute total environmental footprints (per 100 g reference)
-   - Store as a candidate meal: `{items, nutrients, footprints}`
+   - Compute total nutrients from TBCA data (per 100 g reference, `GRAMS_REFERENCE_TBCA = 100`)
+   - Compute total environmental footprints (per 100 g reference, `GRAMS_REFERENCE_FOOTPRINT = 100`)
+   - Store as a candidate meal with structure: `{itens, nutrientes, pegadas}`
 
 2. For optional meal types (Morning Snack, Afternoon Snack, Supper), an **empty meal** candidate is added to allow the optimizer to skip that meal.
 
-The meal pool is grouped by meal type: $\{J_1, J_2, \ldots, J_6\}$ where each $J_t$ contains all candidate meals of type $t$.
+The meal pool is grouped by meal type: {J_1, J_2, ..., J_6} where each J_t contains all candidate meals of type *t*.
 
 ---
 
 ## Decision Variables
 
-Let $q$ be the total number of candidate meals across all types. Each decision variable $y_j$ ($j = 1, \ldots, q$) represents how many times meal $j$ is selected in the 5-day plan. Variables are real-valued (continuous relaxation) and rounded to integers after solving.
+Let *q* be the total number of candidate meals across all types. Each decision variable y_j (j = 1, ..., q) represents how many times meal *j* is selected in the 5-day plan. Variables are real-valued (continuous relaxation) and rounded to integers after solving.
 
-Each meal $j$ belongs to exactly one meal type $t$, with precomputed:
-- $b_{k,j}$: total amount of nutrient $k$ in meal $j$
-- $c_j$: total carbon footprint of meal $j$ (sum of footprints of all food items)
+Each meal *j* belongs to exactly one meal type *t*, with precomputed:
+- b_{k,j}: total amount of nutrient *k* in meal *j*
+- c_j: total carbon footprint of meal *j* (sum of footprints of all food items)
 
 ---
 
@@ -36,7 +36,9 @@ Each meal $j$ belongs to exactly one meal type $t$, with precomputed:
 
 Minimize the total carbon footprint of the plan:
 
-$$\min_{\mathbf{y}} \sum_{j=1}^{q} c_j \cdot y_j$$
+$$
+\min_{\mathbf{y}} \sum_{j=1}^{q} c_j \cdot y_j
+$$
 
 ---
 
@@ -44,105 +46,150 @@ $$\min_{\mathbf{y}} \sum_{j=1}^{q} c_j \cdot y_j$$
 
 ### Nutritional Minimum Constraints
 
-For each nutrient $k$ with a minimum target $m_k$, scaled by the number of days $D = 5$:
+For each nutrient *k* with a minimum target m_k, scaled by the number of days D = 5:
 
-$$\sum_{j=1}^{q} b_{k,j} \cdot y_j \geq D \cdot m_k$$
+$$
+\sum_{j=1}^{q} b_{k,j} \cdot y_j \geq D \cdot m_k
+$$
 
 This ensures the **total** nutrient intake over 5 days meets 5 times the daily minimum.
 
 ### Nutritional Maximum Constraints
 
-For each nutrient $k$ with an upper limit $u_k$:
+For each nutrient *k* with an upper limit u_k:
 
-$$\sum_{j=1}^{q} b_{k,j} \cdot y_j \leq D \cdot u_k$$
+$$
+\sum_{j=1}^{q} b_{k,j} \cdot y_j \leq D \cdot u_k
+$$
 
-**Special cases (same as LP-Food):**
-- **Energy:** $u_k = 2{,}000 \times 1.05 = 2{,}100$ kcal
-- **Sodium:** $u_k = 2{,}300$ mg
-- **Cholesterol:** $u_k = 300$ mg
+Upper limits (same as LP-Food):
+
+| Nutrient | Target | Tolerance | Upper limit (u_k) |
+|---|---|---|---|
+| Energy | 2,000 kcal | 1.05 | 2,100 kcal |
+| Sodium | 2,300 mg | 1.00 | 2,300 mg |
+| Cholesterol | 300 mg | 1.00 | 300 mg |
 
 ### Structural Completeness (Equality Constraints)
 
-For each active meal type $t$:
+For each active meal type *t*:
 
-$$\sum_{j \in J_t} y_j = D$$
+$$
+\sum_{j \in J_t} y_j = D
+$$
 
-This guarantees exactly $D = 5$ meals of each type across the plan (one per day).
+This guarantees exactly D = 5 meals of each type across the plan (one per day). These equality constraints are **never relaxed**, even in the relaxed formulation.
 
 ### Energy Share Constraints per Meal Type
 
-For each meal type $t$ with energy share limits $[\underline{s}_t, \overline{s}_t]$:
+For each meal type *t* with energy share limits [s_t^min, s_t^max]:
 
 **Lower bound:**
-$$\sum_{j \in J_t} E_j \cdot y_j \geq D \cdot E_{target} \cdot \underline{s}_t$$
+
+$$
+\sum_{j \in J_t} E_j \cdot y_j \geq D \cdot E_{\text{target}} \cdot s_t^{\min}
+$$
 
 **Upper bound:**
-$$\sum_{j \in J_t} E_j \cdot y_j \leq D \cdot E_{target} \cdot \overline{s}_t$$
+
+$$
+\sum_{j \in J_t} E_j \cdot y_j \leq D \cdot E_{\text{target}} \cdot s_t^{\max}
+$$
 
 where:
-- $E_j$ is the energy content of meal $j$
-- $E_{target} = 2{,}000$ kcal (daily energy target)
+- E_j is the energy content of meal *j*
+- E_target = 2,000 kcal (daily energy target)
 
 ### Energy Share Ranges
 
-| Meal Type | Min Share ($\underline{s}_t$) | Max Share ($\overline{s}_t$) |
-|---|---|---|
-| Breakfast (Café da Manhã) | 15% | 25% |
-| Morning Snack (Lanche da Manhã) | 0% | 10% |
-| Lunch (Almoço) | 25% | 35% |
-| Afternoon Snack (Lanche da Tarde) | 0% | 15% |
-| Dinner (Jantar) | 20% | 30% |
-| Supper (Ceia) | 0% | 10% |
+| Meal Type | Code in system | Min Share | Max Share |
+|---|---|---|---|
+| Breakfast | Café da Manhã | 15% | 25% |
+| Morning Snack | Lanche da Manhã | 0% | 10% |
+| Lunch | Almoço | 25% | 35% |
+| Afternoon Snack | Lanche da Tarde | 0% | 15% |
+| Dinner | Jantar | 20% | 30% |
+| Supper | Ceia | 0% | 10% |
 
 ### Non-negativity
 
-$$y_j \geq 0 \quad \forall \; j = 1, \ldots, q$$
+$$
+y_j \geq 0 \quad \forall \; j = 1, \ldots, q
+$$
 
 ---
 
 ## Complete Formulation
 
-$$\begin{aligned}
-\min_{\mathbf{y}} \quad & \sum_{j=1}^{q} c_j \cdot y_j \\
-\text{s.t.} \quad & \sum_{j=1}^{q} b_{k,j} \cdot y_j \geq D \cdot m_k, && \forall \; k \in K_{min} \\
-& \sum_{j=1}^{q} b_{k,j} \cdot y_j \leq D \cdot u_k, && \forall \; k \in K_{max} \\
-& \sum_{j \in J_t} E_j \cdot y_j \geq D \cdot E_{target} \cdot \underline{s}_t, && \forall \; t \in T \\
-& \sum_{j \in J_t} E_j \cdot y_j \leq D \cdot E_{target} \cdot \overline{s}_t, && \forall \; t \in T \\
-& \sum_{j \in J_t} y_j = D, && \forall \; t \in T \\
-& y_j \geq 0, && \forall \; j
-\end{aligned}$$
+$$
+\min_{\mathbf{y}} \sum_{j=1}^{q} c_j \cdot y_j
+$$
+
+subject to:
+
+$$
+\sum_{j=1}^{q} b_{k,j} \cdot y_j \geq D \cdot m_k \quad \forall \; k \in K_{\min}
+$$
+
+$$
+\sum_{j=1}^{q} b_{k,j} \cdot y_j \leq D \cdot u_k \quad \forall \; k \in K_{\max}
+$$
+
+$$
+\sum_{j \in J_t} E_j \cdot y_j \geq D \cdot E_{\text{target}} \cdot s_t^{\min} \quad \forall \; t \in T
+$$
+
+$$
+\sum_{j \in J_t} E_j \cdot y_j \leq D \cdot E_{\text{target}} \cdot s_t^{\max} \quad \forall \; t \in T
+$$
+
+$$
+\sum_{j \in J_t} y_j = D \quad \forall \; t \in T
+$$
+
+$$
+y_j \geq 0 \quad \forall \; j
+$$
 
 ### Sets
 
-- $K_{min} = \{$Energy, Carbohydrate, Protein, Lipids, Fiber, Vitamin A, Vitamin C, Vitamin D, Vitamin E, Thiamine, Riboflavin, Niacin, Vitamin B6, Vitamin B12, Calcium, Magnesium$\}$
-- $K_{max} = \{$Energy, Sodium, Cholesterol$\}$
-- $T = \{$Breakfast, Morning Snack, Lunch, Afternoon Snack, Dinner, Supper$\}$
-- $J_t$: set of candidate meal indices of type $t$
+- **K_min** (16 nutrients): Energy, Carbohydrate, Protein, Lipids, Fiber, Vitamin A (RE), Vitamin C, Vitamin D, Vitamin E, Thiamine, Riboflavin, Niacin, Vitamin B6, Vitamin B12, Calcium, Magnesium
+- **K_max** (3 nutrients): Energy, Sodium, Cholesterol
+- **T** (6 meal types): Breakfast, Morning Snack, Lunch, Afternoon Snack, Dinner, Supper
+- **J_t**: set of candidate meal indices of type *t*
 
 ---
 
 ## Nutritional Targets
 
-| Nutrient | Minimum ($m_k$) | Maximum ($u_k$) |
-|---|---|---|
-| Energy | 2,000 kcal | 2,100 kcal |
-| Carbohydrate | 302.5 g | — |
-| Protein | 110.0 g | — |
-| Lipids | 61.11 g | — |
-| Fiber | 25.0 g | — |
-| Vitamin A (RE) | 900.0 µg | — |
-| Vitamin C | 90.0 mg | — |
-| Vitamin D | 15.0 µg | — |
-| Vitamin E | 15.0 mg | — |
-| Thiamine | 1.2 mg | — |
-| Riboflavin | 1.3 mg | — |
-| Niacin | 16.0 mg | — |
-| Vitamin B6 | 1.3 mg | — |
-| Vitamin B12 | 2.4 µg | — |
-| Calcium | 1,000 mg | — |
-| Magnesium | 420.0 mg | — |
-| Sodium | — | 2,300 mg |
-| Cholesterol | — | 300 mg |
+### Minimum Targets (K_min)
+
+| Nutrient | Code in system | Minimum (m_k) | Unit |
+|---|---|---|---|
+| Energy | Energia | 2,000 | kcal |
+| Carbohydrate | Carboidrato total | 302.5 | g |
+| Protein | Proteína | 110.0 | g |
+| Lipids | Lipídios | 61.11 | g |
+| Fiber | Fibra alimentar | 25.0 | g |
+| Vitamin A (RE) | Vitamina A (RE) | 900.0 | µg |
+| Vitamin C | Vitamina C | 90.0 | mg |
+| Vitamin D | Vitamina D | 15.0 | µg |
+| Vitamin E | Alfa-tocoferol (Vitamina E) | 15.0 | mg |
+| Thiamine | Tiamina | 1.2 | mg |
+| Riboflavin | Riboflavina | 1.3 | mg |
+| Niacin | Niacina | 16.0 | mg |
+| Vitamin B6 | Vitamina B6 | 1.3 | mg |
+| Vitamin B12 | Vitamina B12 | 2.4 | µg |
+| Calcium | Cálcio | 1,000 | mg |
+| Magnesium | Magnésio | 420.0 | mg |
+
+### Upper Limits (K_max)
+
+| Nutrient | Code in system | Target | Tolerance | Upper limit (u_k) | Unit |
+|---|---|---|---|---|---|
+| Energy | Energia | 2,000 | 1.05 | 2,100 | kcal |
+| Sodium | Sódio | 2,300 | 1.00 | 2,300 | mg |
+| Cholesterol | Colesterol | 300 | 1.00 | 300 | mg |
 
 ---
 
@@ -152,71 +199,54 @@ For restrictive dietary profiles (especially vegetarian and vegan), the original
 
 ### Relaxed Formulation
 
-Nonnegative slack variables $s_r$ ($r = 1, \ldots, R$) are added to each **inequality** constraint (both nutritional and energy-share):
+Nonnegative slack variables s_r (r = 1, ..., R) are added to each **inequality** constraint (both nutritional and energy-share):
 
-$$\min_{\mathbf{y}, \mathbf{s}} \sum_{j=1}^{q} c_j \cdot y_j + M \sum_{r=1}^{R} s_r$$
+$$
+\min_{\mathbf{y}, \mathbf{s}} \left( \sum_{j=1}^{q} c_j \cdot y_j + M \sum_{r=1}^{R} s_r \right)
+$$
 
 subject to:
 
-$$A \mathbf{y} - \mathbf{s} \leq \mathbf{b}$$
-$$A_{eq} \mathbf{y} = \mathbf{b}_{eq}$$
-$$\mathbf{y} \geq 0, \quad \mathbf{s} \geq 0$$
+$$
+A\mathbf{y} - \mathbf{s} \leq \mathbf{b}, \quad A_{\text{eq}}\mathbf{y} = \mathbf{b}_{\text{eq}}, \quad \mathbf{y} \geq 0, \quad \mathbf{s} \geq 0
+$$
 
 where:
-- $A \mathbf{y} \leq \mathbf{b}$ is the **stacked** system of all inequality constraints:
-  - Minimum nutrient constraints (negated to $\leq$ form): $-\sum b_{k,j} y_j \leq -D \cdot m_k$
-  - Maximum nutrient constraints: $\sum b_{k,j} y_j \leq D \cdot u_k$
-  - Energy share lower bounds (negated): $-\sum_{j \in J_t} E_j y_j \leq -D \cdot E_{target} \cdot \underline{s}_t$
-  - Energy share upper bounds: $\sum_{j \in J_t} E_j y_j \leq D \cdot E_{target} \cdot \overline{s}_t$
-- $A_{eq} \mathbf{y} = \mathbf{b}_{eq}$ represents the structural equality constraints ($\sum_{j \in J_t} y_j = D$), which remain **unchanged** (not relaxed)
-- $R$ is the total number of inequality constraints
-- $M = 10{,}000$ is the Big-M penalty constant
-- $s_r$ is the slack variable for the $r$-th inequality
 
-**Key property:** The equality constraints (meal completeness) are never relaxed. Only nutritional and energy-share inequalities may be violated, ensuring the plan always has exactly 5 meals of each type. The slack variables are added with coefficient $-1$ in the constraint matrix:
+| Symbol | Description |
+|---|---|
+| A**y** ≤ **b** | Stacked inequality constraints (see below) |
+| A_eq **y** = **b**_eq | Structural equality constraints (∑ y_j = D per meal type) |
+| R | Total number of inequality constraints |
+| M | 10,000 (`BIG_M_PENALTY`) |
+| s_r | Slack variable for the *r*-th inequality |
 
-$$A \mathbf{y} - \mathbf{s} \leq \mathbf{b} \quad \Leftrightarrow \quad A \mathbf{y} \leq \mathbf{b} + \mathbf{s}$$
+**Stacked inequality constraints include:**
+- Minimum nutrient constraints (negated to ≤ form): −∑ b_{k,j} y_j ≤ −D · m_k
+- Maximum nutrient constraints: ∑ b_{k,j} y_j ≤ D · u_k
+- Energy share lower bounds (negated): −∑_{j ∈ J_t} E_j y_j ≤ −D · E_target · s_t^min
+- Energy share upper bounds: ∑_{j ∈ J_t} E_j y_j ≤ D · E_target · s_t^max
 
-This allows each constraint to be violated by up to $s_r$ units, penalized by $M \cdot s_r$ in the objective.
+**Key property:** The equality constraints (meal completeness: ∑_{j ∈ J_t} y_j = D) are **never relaxed**. Only nutritional and energy-share inequalities may be violated. This ensures the plan always has exactly 5 meals of each type.
 
-**Interpretation:** The relaxed LP produces a **best-effort** solution that minimizes carbon footprint while allowing the minimum necessary nutritional violations. This is particularly relevant for vegan profiles where Vitamin B12 targets may be unachievable with the available food pool.
+**Interpretation:** The relaxed LP produces a best-effort solution that minimizes carbon footprint while allowing the minimum necessary nutritional violations. This is particularly relevant for vegan profiles where Vitamin B12 targets may be unachievable with the available food pool.
 
 ---
 
 ## Integer Rounding
 
-The LP is solved in continuous form (real-valued $y_j$). The solution is then converted to integer meal counts using the **largest-remainder rounding rule**:
+The LP is solved in continuous form (real-valued y_j). The solution is then converted to integer meal counts using the **largest-remainder rounding rule**.
 
 ### Algorithm
 
-For each meal type $t$:
-1. Compute the floor of each variable: $\lfloor y_j \rfloor$ for $j \in J_t$
-2. Sum the floors: $S_t = \sum_{j \in J_t} \lfloor y_j \rfloor$
-3. Compute remaining slots: $R_t = D - S_t$
-4. Sort meals by their fractional part $(y_j - \lfloor y_j \rfloor)$ in descending order
-5. Assign one extra unit to the top $R_t$ meals
+For each meal type *t*:
+1. Compute the floor of each variable: ⌊y_j⌋ for j ∈ J_t
+2. Sum the floors: S_t = ∑_{j ∈ J_t} ⌊y_j⌋
+3. Compute remaining slots: R_t = D − S_t
+4. Sort meals by their fractional part (y_j − ⌊y_j⌋) in descending order
+5. Assign one extra unit to the top R_t meals
 
-This ensures that $\sum_{j \in J_t} \text{round}(y_j) = D$ for every meal type, preserving exactly 5 instances.
-
----
-
-## Solver
-
-- **Method:** HiGHS (via `scipy.optimize.linprog`)
-- **Variable type:** Continuous, with post-hoc integer rounding
-
----
-
-## Output Processing
-
-1. The solver returns a continuous vector $\mathbf{y}^*$
-2. Integer rounding assigns each meal type exactly $D = 5$ instances
-3. A 5-day plan is assembled: for each day $d$ and meal type $t$, the $d$-th assigned meal of type $t$ is placed
-4. If a meal type has fewer assignments than days (fallback), the first available meal is used
-
-### Output Structure
-
-The output is a 5-day plan with 6 meals per day, preserving the meal types (Breakfast, Lunch, Dinner, etc.) from the original base diets. Each meal retains its complete food composition as generated by the LLM.
+This ensures ∑_{j ∈ J_t} round(y_j) = D for every meal type, preserving exactly 5 instances.
 
 ---
 
@@ -224,10 +254,11 @@ The output is a 5-day plan with 6 meals per day, preserving the meal types (Brea
 
 | Aspect | Description |
 |---|---|
-| Decision unit | Complete meals (selection count) |
-| Meal structure | Preserved (6 types per day) |
+| Decision unit | Complete precomputed meals |
+| Meal structure | Preserved (meals from LLM base diets) |
 | Energy share constraints | Applied per meal type |
-| Optimization type | Exact (global optimum, with rounding) |
-| Cultural coherence | Preserved (original LLM meals) |
-| Constraint relaxation | Available for infeasible profiles |
-| Typical result | 23–32 unique foods across profiles |
+| Structural constraints | Exactly 5 meals of each type |
+| Optimization type | Exact (global optimum via HiGHS) |
+| Variable type | Continuous, rounded to integer post-solve |
+| Cultural coherence | Partially preserved (reuses LLM-generated meals) |
+| Number of days | 5 |
