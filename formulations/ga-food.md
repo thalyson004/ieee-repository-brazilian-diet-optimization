@@ -1,0 +1,248 @@
+# GA-Food: Genetic Algorithm at Food-Level Granularity
+
+## Overview
+
+GA-Food optimizes a 5-day diet plan by manipulating **individual foods** within meals. Each food item can be replaced, added, or removed during mutation, giving the algorithm maximum freedom to recombine ingredients across the entire nutritional search space. Global mutation (replacing entire meals) is **disabled** in this mode.
+
+---
+
+## Chromosome Representation
+
+A chromosome encodes a complete 5-day food plan. Let:
+
+- $D = 5$: number of days in the plan
+- $M = 6$: number of meal types per day (Breakfast, Morning Snack, Lunch, Afternoon Snack, Dinner, Supper)
+- $G = D \times M = 30$: total number of genes
+
+The chromosome is written as:
+
+$$\mathbf{x} = (x_1, x_2, \ldots, x_G)$$
+
+Each gene $x_g$ stores one meal instance containing:
+- A list of food items (name and quantity in grams)
+- Precomputed nutrient totals (per meal)
+- Precomputed environmental footprint totals (per meal)
+
+Genes are arranged sequentially: genes 1–6 correspond to the 6 meals of day 1, genes 7–12 to day 2, and so on.
+
+---
+
+## Fitness Function
+
+The GA **maximizes** a fitness value defined as the negative of a weighted penalty sum:
+
+$$F(\mathbf{x}) = -\bigl(w_n \cdot P_{nut}(\mathbf{x}) + w_e \cdot P_{env}(\mathbf{x}) + P_{share}(\mathbf{x})\bigr)$$
+
+where:
+- $w_n = 1.0$: global weight of the nutritional criterion
+- $w_e = 1.0$: global weight of the environmental criterion
+- $P_{nut}$: nutritional penalty
+- $P_{env}$: environmental penalty
+- $P_{share}$: energy-share penalty
+
+Higher fitness (closer to zero) indicates a better diet.
+
+---
+
+## Nutritional Penalty ($P_{nut}$)
+
+### Daily Averages
+
+For each nutrient $k$, the mean daily intake is computed from the chromosome:
+
+$$\bar{v}_k = \frac{1}{D} \sum_{g=1}^{G} v_{g,k}$$
+
+where $v_{g,k}$ is the amount of nutrient $k$ contributed by gene $g$.
+
+### Penalty Computation
+
+The penalty uses established nutritional targets. Nutrients are partitioned into:
+
+- $K_{min}$: nutrients with **minimum** daily targets (16 nutrients including energy, protein, carbohydrates, lipids, fiber, vitamins A/C/D/E, thiamine, riboflavin, niacin, B6, B12, calcium, magnesium)
+- $K_{max}$: nutrients with **upper** daily limits (energy, sodium, cholesterol)
+
+For nutrients that appear **only** in $K_{min}$ (e.g., protein, fiber):
+
+$$\text{penalty}_k = \max\left(0, \frac{m_k - \bar{v}_k}{m_k}\right)$$
+
+For nutrients that appear **only** in $K_{max}$ (e.g., sodium, cholesterol):
+
+$$\text{penalty}_k = \max\left(0, \frac{\bar{v}_k - u_k}{u_k}\right)$$
+
+For nutrients that appear in **both** $K_{min}$ and $K_{max}$ (energy):
+- If $\bar{v}_k < m_k$: penalize deficit as $\frac{m_k - \bar{v}_k}{m_k}$
+- If $\bar{v}_k > u_k \times (1 + \epsilon)$: penalize excess as $\frac{\bar{v}_k - u_k \times (1+\epsilon)}{u_k}$
+- Otherwise: no penalty
+
+where $\epsilon = 0.05$ is the energy upper flexibility.
+
+The total nutritional penalty is:
+
+$$P_{nut}(\mathbf{x}) = \lambda \sum_{k} \text{penalty}_k$$
+
+with $\lambda = 10{,}007$ (a large penalty factor to strongly discourage nutritionally infeasible diets).
+
+### Nutritional Targets Used
+
+| Nutrient | Minimum Target | Upper Limit |
+|---|---|---|
+| Energy | 2,000 kcal | 2,000 kcal × 1.05 = 2,100 kcal |
+| Carbohydrate | 302.5 g | — |
+| Protein | 110.0 g | — |
+| Lipids | 61.11 g | — |
+| Fiber | 25.0 g | — |
+| Vitamin A (RE) | 900.0 µg | — |
+| Vitamin C | 90.0 mg | — |
+| Vitamin D | 15.0 µg | — |
+| Vitamin E | 15.0 mg | — |
+| Thiamine | 1.2 mg | — |
+| Riboflavin | 1.3 mg | — |
+| Niacin | 16.0 mg | — |
+| Vitamin B6 | 1.3 mg | — |
+| Vitamin B12 | 2.4 µg | — |
+| Calcium | 1,000 mg | — |
+| Magnesium | 420.0 mg | — |
+| Sodium | — | 2,300 mg |
+| Cholesterol | — | 300 mg |
+
+---
+
+## Environmental Penalty ($P_{env}$)
+
+The environmental penalty uses the mean daily footprint of the chromosome. Let $\bar{z}_f$ be the average daily value of footprint $f$:
+
+$$\bar{z}_f = \frac{1}{D} \sum_{g=1}^{G} z_{g,f}$$
+
+where $z_{g,f}$ is the footprint $f$ contributed by gene $g$.
+
+The penalty is:
+
+$$P_{env}(\mathbf{x}) = \sum_{f \in \mathcal{F}} \alpha_f \cdot \frac{\bar{z}_f}{r_f}$$
+
+where:
+- $\mathcal{F}$: set of active footprints (in the experiments, only carbon footprint)
+- $\alpha_f$: weight assigned to footprint $f$ (default: 1.0)
+- $r_f$: normalization reference for footprint $f$
+
+### Normalization References
+
+| Footprint | Reference Value | Normalization Function |
+|---|---|---|
+| Carbon (gCO₂eq/day) | 2,000 | ratio: $\bar{z}_f / r_f$ |
+| Water (L/day) | 1,500 | ratio |
+| Ecological (points/day) | 10 | ratio |
+
+In the experiments, only carbon footprint was active ($\mathcal{F} = \{\text{carbon}\}$).
+
+---
+
+## Energy-Share Penalty ($P_{share}$)
+
+This penalty controls the distribution of calories among meal types within each day. For day $d$ and meal type $t$:
+
+$$s_{d,t} = \frac{E_{d,t}}{\sum_{j=1}^{M} E_{d,j}}$$
+
+where $E_{d,t}$ is the energy of meal type $t$ on day $d$.
+
+The penalty is:
+
+$$P_{share}(\mathbf{x}) = \eta \sum_{d=1}^{D} \sum_{t=1}^{M} \left[ \max\left(0, \frac{\underline{s}_t - s_{d,t}}{\underline{s}_t}\right) + \max\left(0, \frac{s_{d,t} - \overline{s}_t}{\overline{s}_t}\right) \right]$$
+
+where:
+- $\eta = 200$: energy-share penalty weight
+- $\underline{s}_t$, $\overline{s}_t$: minimum and maximum energy shares for meal type $t$
+
+**Implementation note:** When $\underline{s}_t = 0$ (optional meals), only the upper-bound term is active.
+
+### Energy Share Ranges
+
+| Meal Type | Min Share | Max Share |
+|---|---|---|
+| Breakfast (Café da Manhã) | 15% | 25% |
+| Morning Snack (Lanche da Manhã) | 0% | 10% |
+| Lunch (Almoço) | 25% | 35% |
+| Afternoon Snack (Lanche da Tarde) | 0% | 15% |
+| Dinner (Jantar) | 20% | 30% |
+| Supper (Ceia) | 0% | 10% |
+
+---
+
+## Evolutionary Operators
+
+### Population Initialization
+
+- **Population size:** 45
+- **Seed with base chromosomes:** No (disabled in food-level mode)
+- Random individuals are generated by sampling meals from the pool for each gene position
+
+### Selection
+
+- **Tournament selection** with tournament size = 3
+- Each parent is selected by sampling 3 individuals at random and choosing the one with highest fitness
+
+### Elitism
+
+- **Elitism rate:** 5%
+- At least 1 individual is always preserved
+- Elite individuals are copied unchanged to the next generation
+
+### Crossover
+
+- **Strategy:** by-meal (gene-level)
+- For each of the 30 gene positions, the offspring inherits from parent 1 with 50% probability and from parent 2 with 50% probability
+- **Crossover repair:** enabled (max 12 repair attempts per day)
+
+### Mutation (Food-Level Specific)
+
+In food-level mode:
+- **Global mutation:** DISABLED
+- **Local mutation rate:** 15% (normal), 30% (hypermutation)
+- **Local mutation operations:** replace, add, remove
+
+Local mutation edits individual foods within a meal:
+- **Replace:** Replaces one food item with another from the same meal-type food pool
+- **Add:** Adds a new food item to the meal from the food pool
+- **Remove:** Removes one food item from the meal (if more than one item exists)
+
+After local mutation, meal nutrient and footprint totals are recalculated.
+
+### Hypermutation
+
+When the best fitness does not improve for **15 consecutive generations**, mutation rates are increased:
+- Local mutation rate: 15% → 30%
+- This intensifies exploration to escape local optima
+
+### Stopping Criteria
+
+The GA terminates when:
+- **18 generations** without fitness improvement (stagnation limit for food-level), OR
+- **90 generations** total (absolute limit for food-level)
+
+---
+
+## Execution Parameters
+
+| Parameter | Value |
+|---|---|
+| Population size | 45 |
+| Tournament size | 3 |
+| Elitism rate | 5% |
+| Max generations | 90 |
+| Stagnation limit | 18 |
+| Hypermutation trigger | 15 generations |
+| Local mutation rate (normal) | 15% |
+| Local mutation rate (hyper) | 30% |
+| Global mutation | Disabled |
+| Crossover strategy | by-meal |
+| Crossover repair | Enabled |
+| Number of independent runs | 10 per diet |
+| Nutritional weight ($w_n$) | 1.0 |
+| Environmental weight ($w_e$) | 1.0 |
+| Nutritional penalty factor ($\lambda$) | 10,007 |
+| Energy-share penalty weight ($\eta$) | 200 |
+
+---
+
+## Output
+
+The best chromosome from each run is converted back into a structured 5-day diet plan in JSON format. Each run produces one optimized diet. The 10 independent runs allow statistical analysis of optimization quality.
