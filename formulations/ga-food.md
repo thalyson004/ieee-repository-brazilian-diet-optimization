@@ -18,9 +18,9 @@ A chromosome encodes a complete 5-day food plan:
 
 The chromosome is a vector of G = 30 genes:
 
-**x** = (x_1, x_2, ..., x_30)
+**x** = (x₁, x₂, ..., x₃₀)
 
-Each gene x_g stores one meal instance containing:
+Each gene *x<sub>g</sub>* stores one meal instance containing:
 - A list of food items (name and quantity in grams)
 - Precomputed nutrient totals (per meal)
 - Precomputed environmental footprint totals (per meal)
@@ -57,58 +57,50 @@ Individual food items are extracted from all meals across all base diets, dedupl
 
 The GA **maximizes** a fitness value defined as the negative of a weighted penalty sum:
 
-$$
-F(\mathbf{x}) = -\Big( w_n \cdot P_{\text{nut}}(\mathbf{x}) + w_e \cdot P_{\text{env}}(\mathbf{x}) + P_{\text{share}}(\mathbf{x}) \Big)
-$$
+F(**x**) = - [ *w<sub>n</sub>* · P<sub>nut</sub>(**x**) + *w<sub>e</sub>* · P<sub>env</sub>(**x**) + P<sub>share</sub>(**x**) ]
 
 where:
 
 | Symbol | Description | Value |
 |---|---|---|
-| w_n | Nutritional criterion weight | 1.0 |
-| w_e | Environmental criterion weight | 1.0 |
-| P_nut | Nutritional penalty | see below |
-| P_env | Environmental penalty | see below |
-| P_share | Energy-share penalty | see below |
+| *w<sub>n</sub>* | Nutritional criterion weight | 1.0 |
+| *w<sub>e</sub>* | Environmental criterion weight | 1.0 |
+| P<sub>nut</sub> | Nutritional penalty | see below |
+| P<sub>env</sub> | Environmental penalty | see below |
+| P<sub>share</sub> | Energy-share penalty | see below |
 
-Higher fitness (closer to zero) indicates a better diet. A perfect diet with no violations has fitness = −P_env (the irreducible environmental cost).
+Higher fitness (closer to zero) indicates a better diet. A perfect diet with no violations has fitness = -P<sub>env</sub> (the irreducible environmental cost).
 
 ---
 
-## Nutritional Penalty (P_nut)
+## Nutritional Penalty (P<sub>nut</sub>)
 
 ### Daily Averages
 
 For each nutrient *k*, the mean daily intake is computed from the chromosome:
 
-$$
-\bar{v}_k = \frac{1}{D} \sum_{g=1}^{G} v_{g,k}
-$$
+*v̄<sub>k</sub>* = (1 / D) ∑ *v<sub>g,k</sub>*
 
-where v_{g,k} is the amount of nutrient *k* contributed by gene *g*.
+where *v<sub>g,k</sub>* is the amount of nutrient *k* contributed by gene *g*.
 
 ### Penalty Computation
 
 Nutrients are partitioned into:
 
-- **K_min** (16 nutrients): nutrients with minimum daily targets
-- **K_max** (3 nutrients): nutrients with upper daily limits
+- K<sub>min</sub> (16 nutrients): nutrients with minimum daily targets
+- K<sub>max</sub> (3 nutrients): nutrients with upper daily limits
 
-**For nutrients only in K_min** (e.g., protein, fiber):
+**For nutrients only in K<sub>min</sub>** (e.g., protein, fiber):
 
-$$
-\text{penalty}_k = \max\!\left(0,\; \frac{m_k - \bar{v}_k}{m_k}\right) \times \lambda
-$$
+penalty<sub>*k*</sub> = max(0, (*m<sub>k</sub>* - *v̄<sub>k</sub>*) / *m<sub>k</sub>*) × λ
 
-**For nutrients only in K_max** (e.g., sodium, cholesterol):
+**For nutrients only in K<sub>max</sub>** (e.g., sodium, cholesterol):
 
-$$
-\text{penalty}_k = \max\!\left(0,\; \frac{\bar{v}_k - u_k}{u_k}\right) \times \lambda
-$$
+penalty<sub>*k*</sub> = max(0, (*v̄<sub>k</sub>* - *u<sub>k</sub>*) / *u<sub>k</sub>*) × λ
 
-**For nutrients in both K_min and K_max** (energy only):
-- If v̄_k < m_k: penalty = ((m_k − v̄_k) / m_k) × λ
-- If v̄_k > u_k × (1 + ε): penalty = ((v̄_k − u_k × (1 + ε)) / u_k) × λ
+**For nutrients in both K<sub>min</sub> and K<sub>max</sub>** (energy only):
+- If *v̄<sub>k</sub>* < *m<sub>k</sub>*: penalty = ((*m<sub>k</sub>* - *v̄<sub>k</sub>*) / *m<sub>k</sub>*) × λ
+- If *v̄<sub>k</sub>* > *u<sub>k</sub>* × (1 + ε): penalty = ((*v̄<sub>k</sub>* - *u<sub>k</sub>* × (1 + ε)) / *u<sub>k</sub>*) × λ
 - Otherwise: no penalty
 
 where:
@@ -117,22 +109,20 @@ where:
 |---|---|---|
 | λ | Nutrient penalty factor (`NUTRIENT_PENALTY_FACTOR`) | 10,007 |
 | ε | Energy upper flexibility (`ENERGY_UPPER_FLEXIBILITY`) | 0.05 |
-| m_k | Minimum target for nutrient *k* | see table below |
-| u_k | Upper limit for nutrient *k* | see table below |
+| *m<sub>k</sub>* | Minimum target for nutrient *k* | see table below |
+| *u<sub>k</sub>* | Upper limit for nutrient *k* | see table below |
 
 The total nutritional penalty is:
 
-$$
-P_{\text{nut}}(\mathbf{x}) = \sum_{k} \text{penalty}_k
-$$
+P<sub>nut</sub>(**x**) = ∑ penalty<sub>*k*</sub>
 
-Note: The factor λ = 10,007 is already applied inside each individual penalty_k.
+Note: The factor λ = 10,007 is already applied inside each individual penalty<sub>*k*</sub>.
 
 ### Nutritional Targets
 
-#### Minimum Targets (K_min)
+#### Minimum Targets (K<sub>min</sub>)
 
-| Nutrient | Code in system | Minimum (m_k) | Unit |
+| Nutrient | Code in system | Minimum (*m<sub>k</sub>*) | Unit |
 |---|---|---|---|
 | Energy | Energia | 2,000 | kcal |
 | Carbohydrate | Carboidrato total | 302.5 | g |
@@ -151,9 +141,9 @@ Note: The factor λ = 10,007 is already applied inside each individual penalty_k
 | Calcium | Cálcio | 1,000 | mg |
 | Magnesium | Magnésio | 420.0 | mg |
 
-#### Upper Limits (K_max)
+#### Upper Limits (K<sub>max</sub>)
 
-| Nutrient | Code in system | Target | Tolerance | Upper limit (u_k) | Unit |
+| Nutrient | Code in system | Target | Tolerance | Upper limit (*u<sub>k</sub>*) | Unit |
 |---|---|---|---|---|---|
 | Energy | Energia | 2,000 | 1.05 | 2,100 | kcal |
 | Sodium | Sódio | 2,300 | 1.00 | 2,300 | mg |
@@ -161,33 +151,29 @@ Note: The factor λ = 10,007 is already applied inside each individual penalty_k
 
 ---
 
-## Environmental Penalty (P_env)
+## Environmental Penalty (P<sub>env</sub>)
 
 The environmental penalty uses the mean daily footprint of the chromosome:
 
-$$
-\bar{z}_f = \frac{1}{D} \sum_{g=1}^{G} z_{g,f}
-$$
+*z̄<sub>f</sub>* = (1 / D) ∑ *z<sub>g,f</sub>*
 
-where z_{g,f} is the footprint *f* contributed by gene *g*.
+where *z<sub>g,f</sub>* is the footprint *f* contributed by gene *g*.
 
 The penalty is:
 
-$$
-P_{\text{env}}(\mathbf{x}) = \sum_{f \in \mathcal{F}} \alpha_f \cdot \frac{\bar{z}_f}{r_f}
-$$
+P<sub>env</sub>(**x**) = ∑ [ α<sub>*f*</sub> · (*z̄<sub>f</sub>* / *r<sub>f</sub>*) ]
 
 | Symbol | Description | Value |
 |---|---|---|
-| F | Set of active footprints | {carbon_footprint} (in experiments) |
-| α_f | Weight for footprint *f* | 1.0 (default) |
-| r_f | Normalization reference for footprint *f* | see table below |
+| F | Set of active footprints | {`carbon_footprint`} (in experiments) |
+| α<sub>*f*</sub> | Weight for footprint *f* | 1.0 (default) |
+| *r<sub>f</sub>* | Normalization reference for footprint *f* | see table below |
 
 ### Normalization References
 
-| Footprint | Reference (r_f) | Normalization |
+| Footprint | Reference (*r<sub>f</sub>*) | Normalization |
 |---|---|---|
-| Carbon (gCO₂eq/day) | 2,000 | ratio: z̄_f / r_f |
+| Carbon (gCO₂eq/day) | 2,000 | ratio: *z̄<sub>f</sub>* / *r<sub>f</sub>* |
 | Water (L/day) | 1,500 | ratio |
 | Ecological (points/day) | 10 | ratio |
 
@@ -195,27 +181,23 @@ In the experiments, only carbon footprint was active.
 
 ---
 
-## Energy-Share Penalty (P_share)
+## Energy-Share Penalty (P<sub>share</sub>)
 
 Controls the distribution of calories among meal types within each day. For day *d* and meal type *t*:
 
-$$
-s_{d,t} = \frac{E_{d,t}}{\sum_{j=1}^{M} E_{d,j}}
-$$
+*s<sub>d,t</sub>* = *E<sub>d,t</sub>* / ∑ *E<sub>d,j</sub>*
 
-where E_{d,t} is the energy of meal type *t* on day *d*.
+where *E<sub>d,t</sub>* is the energy of meal type *t* on day *d*.
 
 The penalty is:
 
-$$
-P_{\text{share}}(\mathbf{x}) = \eta \sum_{d=1}^{D} \sum_{t=1}^{M} \left[ \max\!\left(0,\; \frac{s_t^{\min} - s_{d,t}}{s_t^{\min}}\right) + \max\!\left(0,\; \frac{s_{d,t} - s_t^{\max}}{s_t^{\max}}\right) \right]
-$$
+P<sub>share</sub>(**x**) = η ∑ ∑ [ max(0, (*s*<sub>*t*</sub><sup>min</sup> - *s<sub>d,t</sub>*) / *s*<sub>*t*</sub><sup>min</sup>) + max(0, (*s<sub>d,t</sub>* - *s*<sub>*t*</sub><sup>max</sup>) / *s*<sub>*t*</sub><sup>max</sup>) ]
 
 | Symbol | Description | Value |
 |---|---|---|
 | η | Energy-share penalty weight | 200 (`MEAL_ENERGY_SHARE_PENALTY_WEIGHT`) |
 
-When s_t^min = 0 (optional meals), only the upper-bound term is active. If total daily energy is ≤ 0, the day is skipped.
+When *s*<sub>*t*</sub><sup>min</sup> = 0 (optional meals), only the upper-bound term is active. If total daily energy is ≤ 0, the day is skipped.
 
 ### Energy Share Ranges
 
@@ -286,8 +268,8 @@ After crossover, if any day exceeds the energy ceiling (2,100 kcal), a greedy re
 In food-level mode, **global mutation is disabled** (`enable_global_mutation = False`).
 
 For each gene independently, a random number *p* ∈ [0, 1) is drawn:
-- If p < 0 (global disabled): not applied
-- If p < 0 + local_rate: apply **local mutation**
+- If *p* < 0 (global disabled): not applied
+- If *p* < 0 + `local_rate`: apply **local mutation**
 - Otherwise: no mutation
 
 **Local mutation operations** (one is randomly selected per gene):
@@ -333,13 +315,13 @@ A generation is considered stagnant if the best fitness does not improve by at l
 | Local mutation rate (hyper) | 30% |
 | Global mutation | Disabled |
 | Seed with base chromosomes | No |
-| Crossover strategy | by_meal |
+| Crossover strategy | `by_meal` |
 | Crossover repair | Enabled (max 12 attempts/day) |
 | Energy ceiling for repair | 2,100 kcal |
 | Local mutation operations | replace, add, remove |
 | Number of independent runs | 10 per profile |
-| Nutritional criterion weight (w_n) | 1.0 |
-| Environmental criterion weight (w_e) | 1.0 |
+| Nutritional criterion weight (*w<sub>n</sub>*) | 1.0 |
+| Environmental criterion weight (*w<sub>e</sub>*) | 1.0 |
 | Nutrient penalty factor (λ) | 10,007 |
 | Energy upper flexibility (ε) | 0.05 |
 | Energy-share penalty weight (η) | 200 |

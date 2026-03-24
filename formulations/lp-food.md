@@ -8,7 +8,7 @@ LP-Food optimizes a diet by selecting **individual foods** and their quantities 
 
 ## Decision Variables
 
-Let *n* be the total number of foods available in both the TBCA nutritional database and the environmental footprint database. Each decision variable x_i (i = 1, ..., n) represents the **daily grams** of food *i* in the optimized diet.
+Let *n* be the total number of foods available in both the TBCA nutritional database and the environmental footprint database. Each decision variable *x<sub>i</sub>* (*i* = 1, ..., *n*) represents the **daily grams** of food *i* in the optimized diet.
 
 ---
 
@@ -16,15 +16,11 @@ Let *n* be the total number of foods available in both the TBCA nutritional data
 
 Minimize the total daily carbon footprint:
 
-$$
-\min_{\mathbf{x}} \sum_{i=1}^{n} c_i \cdot x_i
-$$
+min<sub>**x**</sub> ∑ (*c<sub>i</sub>* · *x<sub>i</sub>*)
 
-where c_i is the carbon footprint **per gram** of food *i*, computed as:
+where *c<sub>i</sub>* is the carbon footprint **per gram** of food *i*, computed as:
 
-$$
-c_i = \frac{\text{carbon\\_footprint}_i}{100}
-$$
+*c<sub>i</sub>* = (carbon_footprint<sub>*i*</sub>) / 100
 
 The environmental footprint database stores values per 100 g of each food (`GRAMS_REFERENCE_FOOTPRINT = 100`).
 
@@ -34,21 +30,17 @@ The environmental footprint database stores values per 100 g of each food (`GRAM
 
 ### Nutritional Minimum Constraints
 
-For each nutrient *k* with a minimum target m_k:
+For each nutrient *k* with a minimum target *m<sub>k</sub>*:
 
-$$
-\sum_{i=1}^{n} a_{k,i} \cdot x_i \geq m_k
-$$
+∑ (*a<sub>k,i</sub>* · *x<sub>i</sub>*) ≥ *m<sub>k</sub>*
 
-where a_{k,i} is the amount of nutrient *k* per gram of food *i*, computed from the TBCA database (values per 100 g divided by 100; `GRAMS_REFERENCE_TBCA = 100`).
+where *a<sub>k,i</sub>* is the amount of nutrient *k* per gram of food *i*, computed from the TBCA database (values per 100 g divided by 100; `GRAMS_REFERENCE_TBCA = 100`).
 
 ### Nutritional Maximum Constraints
 
-For each nutrient *k* with an upper limit u_k:
+For each nutrient *k* with an upper limit *u<sub>k</sub>*:
 
-$$
-\sum_{i=1}^{n} a_{k,i} \cdot x_i \leq u_k
-$$
+∑ (*a<sub>k,i</sub>* · *x<sub>i</sub>*) ≤ *u<sub>k</sub>*
 
 Upper limit computation:
 
@@ -62,36 +54,26 @@ The energy tolerance factor is `ENERGY_UPPER_FLEXIBILITY = 0.05`. Sodium and cho
 
 ### Non-negativity
 
-$$
-x_i \geq 0 \quad \forall \; i = 1, \ldots, n
-$$
+*x<sub>i</sub>* ≥ 0  (for all *i* = 1, ..., *n*)
 
 ---
 
 ## Complete Formulation
 
-$$
-\min_{\mathbf{x}} \sum_{i=1}^{n} c_i \cdot x_i
-$$
+min<sub>**x**</sub> ∑ (*c<sub>i</sub>* · *x<sub>i</sub>*)
 
 subject to:
 
-$$
-\sum_{i=1}^{n} a_{k,i} \cdot x_i \geq m_k \quad \forall \; k \in K_{\min}
-$$
+∑ (*a<sub>k,i</sub>* · *x<sub>i</sub>*) ≥ *m<sub>k</sub>* (for all *k* ∈ K<sub>min</sub>)
 
-$$
-\sum_{i=1}^{n} a_{k,i} \cdot x_i \leq u_k \quad \forall \; k \in K_{\max}
-$$
+∑ (*a<sub>k,i</sub>* · *x<sub>i</sub>*) ≤ *u<sub>k</sub>* (for all *k* ∈ K<sub>max</sub>)
 
-$$
-x_i \geq 0 \quad \forall \; i
-$$
+*x<sub>i</sub>* ≥ 0  (for all *i*)
 
 ### Sets
 
-- **K_min** (16 nutrients with minimum targets): Energy, Carbohydrate, Protein, Lipids, Fiber, Vitamin A (RE), Vitamin C, Vitamin D, Vitamin E, Thiamine, Riboflavin, Niacin, Vitamin B6, Vitamin B12, Calcium, Magnesium
-- **K_max** (3 nutrients with upper limits): Energy, Sodium, Cholesterol
+- K<sub>min</sub> (16 nutrients with minimum targets): Energy, Carbohydrate, Protein, Lipids, Fiber, Vitamin A (RE), Vitamin C, Vitamin D, Vitamin E, Thiamine, Riboflavin, Niacin, Vitamin B6, Vitamin B12, Calcium, Magnesium
+- K<sub>max</sub> (3 nutrients with upper limits): Energy, Sodium, Cholesterol
 
 Note: Energy appears in both sets — it has a minimum of 2,000 kcal and a maximum of 2,100 kcal.
 
@@ -99,9 +81,9 @@ Note: Energy appears in both sets — it has a minimum of 2,000 kcal and a maxim
 
 ## Nutritional Targets
 
-### Minimum Targets (K_min)
+### Minimum Targets (K<sub>min</sub>)
 
-| Nutrient | Code in system | Minimum (m_k) | Unit |
+| Nutrient | Code in system | Minimum (*m<sub>k</sub>*) | Unit |
 |---|---|---|---|
 | Energy | Energia | 2,000 | kcal |
 | Carbohydrate | Carboidrato total | 302.5 | g |
@@ -120,9 +102,9 @@ Note: Energy appears in both sets — it has a minimum of 2,000 kcal and a maxim
 | Calcium | Cálcio | 1,000 | mg |
 | Magnesium | Magnésio | 420.0 | mg |
 
-### Upper Limits (K_max)
+### Upper Limits (K<sub>max</sub>)
 
-| Nutrient | Code in system | Target | Tolerance | Upper limit (u_k) | Unit |
+| Nutrient | Code in system | Target | Tolerance | Upper limit (*u<sub>k</sub>*) | Unit |
 |---|---|---|---|---|---|
 | Energy | Energia | 2,000 | 1.05 | 2,100 | kcal |
 | Sodium | Sódio | 2,300 | 1.00 | 2,300 | mg |
@@ -136,17 +118,13 @@ If the LP is **infeasible** (no combination of foods satisfies all constraints s
 
 ### Relaxed Formulation
 
-Nonnegative slack variables s_r (r = 1, ..., R) are added to each inequality constraint:
+Nonnegative slack variables *s<sub>r</sub>* (*r* = 1, ..., R) are added to each inequality constraint:
 
-$$
-\min_{\mathbf{x}, \mathbf{s}} \left( \sum_{i=1}^{n} c_i \cdot x_i + M \sum_{r=1}^{R} s_r \right)
-$$
+min<sub>**x**, **s**</sub> [ ∑ (*c<sub>i</sub>* · *x<sub>i</sub>*) + M ∑ *s<sub>r</sub>* ]
 
 subject to:
 
-$$
-A\mathbf{x} - \mathbf{s} \leq \mathbf{b}, \quad \mathbf{x} \geq 0, \quad \mathbf{s} \geq 0
-$$
+A**x** - **s** ≤ **b**,   **x** ≥ 0,   **s** ≥ 0
 
 where:
 
@@ -155,11 +133,11 @@ where:
 | A**x** ≤ **b** | Stacked system of all inequality constraints (min and max, converted to ≤ form) |
 | R | Total number of inequality constraints |
 | M | 10,000 (`BIG_M_PENALTY`) |
-| s_r | Slack variable for the *r*-th constraint |
+| *s<sub>r</sub>* | Slack variable for the *r*-th constraint |
 
 **How the stacking works:**
-- Minimum constraints (∑ a_{k,i} x_i ≥ m_k) are negated: −∑ a_{k,i} x_i ≤ −m_k
-- Maximum constraints (∑ a_{k,i} x_i ≤ u_k) stay as-is
+- Minimum constraints (∑ *a<sub>k,i</sub>* · *x<sub>i</sub>* ≥ *m<sub>k</sub>*) are negated: -∑ *a<sub>k,i</sub>* · *x<sub>i</sub>* ≤ -*m<sub>k</sub>*
+- Maximum constraints (∑ *a<sub>k,i</sub>* · *x<sub>i</sub>* ≤ *u<sub>k</sub>*) stay as-is
 
 The relaxed solution allows the minimum necessary violation of nutritional bounds, penalized proportionally by M. This produces a best-effort solution when the original problem has no feasible region.
 
@@ -177,8 +155,8 @@ The relaxed solution allows the minimum necessary violation of nutritional bound
 
 ## Output Processing
 
-1. The solver returns a vector **x**\* of daily food quantities
-2. Foods with x_i\* < 1 gram are discarded (threshold)
+1. The solver returns a vector **x*** of daily food quantities
+2. Foods with *x<sub>i</sub>** < 1 gram are discarded (threshold)
 3. Remaining foods are rounded to 1 decimal place
 4. All selected foods are grouped into a single meal called "Refeição LP"
 5. The same food selection is replicated across all 5 days (identical daily plan)

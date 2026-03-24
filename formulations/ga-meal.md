@@ -16,9 +16,9 @@ Same structure as GA-Food:
 | M | Meal types per day | 6 |
 | G | Total genes (D × M) | 30 |
 
-**x** = (x_1, x_2, ..., x_30)
+**x** = (x₁, x₂, ..., x₃₀)
 
-Each gene x_g stores one meal instance containing:
+Each gene *x<sub>g</sub>* stores one meal instance containing:
 - A list of food items (name and quantity in grams)
 - Precomputed nutrient totals (per meal)
 - Precomputed environmental footprint totals (per meal)
@@ -51,20 +51,18 @@ The food pool exists in meal-level mode as well: local mutation still operates a
 
 Identical to GA-Food:
 
-$$
-F(\mathbf{x}) = -\Big( w_n \cdot P_{\text{nut}}(\mathbf{x}) + w_e \cdot P_{\text{env}}(\mathbf{x}) + P_{\text{share}}(\mathbf{x}) \Big)
-$$
+F(**x**) = - [ *w<sub>n</sub>* · P<sub>nut</sub>(**x**) + *w<sub>e</sub>* · P<sub>env</sub>(**x**) + P<sub>share</sub>(**x**) ]
 
 All three penalty components (nutritional, environmental, energy-share) use the same formulas, parameters, and targets as GA-Food. See the [GA-Food formulation](ga-food.md) for the complete penalty definitions. The key constants are repeated below for reference:
 
 | Symbol | Description | Value |
 |---|---|---|
-| w_n | Nutritional criterion weight | 1.0 |
-| w_e | Environmental criterion weight | 1.0 |
+| *w<sub>n</sub>* | Nutritional criterion weight | 1.0 |
+| *w<sub>e</sub>* | Environmental criterion weight | 1.0 |
 | λ | Nutrient penalty factor (`NUTRIENT_PENALTY_FACTOR`) | 10,007 |
 | ε | Energy upper flexibility (`ENERGY_UPPER_FLEXIBILITY`) | 0.05 |
 | η | Energy-share penalty weight (`MEAL_ENERGY_SHARE_PENALTY_WEIGHT`) | 200 |
-| r_carbon | Carbon footprint normalization reference | 2,000 |
+| *r*<sub>carbon</sub> | Carbon footprint normalization reference | 2,000 |
 
 ---
 
@@ -115,8 +113,8 @@ Identical to GA-Food: greedy largest-reduction replacement per day, max 12 attem
 In meal-level mode, **both global and local mutation are enabled**.
 
 For each gene independently, a random number *p* ∈ [0, 1) is drawn:
-- If p < global_rate: apply **global mutation**
-- If p < global_rate + local_rate: apply **local mutation**
+- If *p* < `global_rate`: apply **global mutation**
+- If *p* < `global_rate` + `local_rate`: apply **local mutation**
 - Otherwise: no mutation
 
 **Global mutation (replaces the entire meal):**
@@ -182,13 +180,13 @@ GA-Meal has a larger population, runs longer, and uses global mutation to explor
 | Local mutation rate (normal) | 15% |
 | Local mutation rate (hyper) | 30% |
 | Seed with base chromosomes | Yes |
-| Crossover strategy | by_meal |
+| Crossover strategy | `by_meal` |
 | Crossover repair | Enabled (max 12 attempts/day) |
 | Energy ceiling for repair | 2,100 kcal |
 | Local mutation operations | replace, add, remove |
 | Number of independent runs | 10 per profile |
-| Nutritional criterion weight (w_n) | 1.0 |
-| Environmental criterion weight (w_e) | 1.0 |
+| Nutritional criterion weight (*w<sub>n</sub>*) | 1.0 |
+| Environmental criterion weight (*w<sub>e</sub>*) | 1.0 |
 | Nutrient penalty factor (λ) | 10,007 |
 | Energy upper flexibility (ε) | 0.05 |
 | Energy-share penalty weight (η) | 200 |
