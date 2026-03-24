@@ -1,4 +1,4 @@
-# Dataset Repository: Sustainable Diet Optimization Data
+# Neuro-Symbolic Optimization for a Sustainable Diet Recommendation System under Climate Emergency
 
 This repository contains all data, optimization outputs, and detailed formulations used in the article **"Neuro-Symbolic Optimization for a Sustainable Diet Recommendation System under Climate Emergency"**.
 
