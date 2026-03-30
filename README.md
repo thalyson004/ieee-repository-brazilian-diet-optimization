@@ -1,6 +1,6 @@
-# Neuro-Symbolic Sustainable Diet Recommendation System under Climate Emergency: Comparing GA and LP Optimization of LLM-Generated Brazilian Diets
+# Optimizing LLM-Generated Diets for Sustainability: A Comparison of Genetic Algorithms and Linear Programming Across Brazilian Dietary Profiles
 
-This repository contains all data, optimization outputs, and detailed formulations used in the article **"Neuro-Symbolic Sustainable Diet Recommendation System under Climate Emergency: Comparing GA and LP Optimization of LLM-Generated Brazilian Diets"**.
+This repository contains all data, optimization outputs, and detailed formulations used in the article **"Optimizing LLM-Generated Diets for Sustainability: A Comparison of Genetic Algorithms and Linear Programming Across Brazilian Dietary Profiles"**.
 
 ## Overview
 
