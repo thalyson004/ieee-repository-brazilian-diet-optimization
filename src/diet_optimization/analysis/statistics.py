@@ -5,19 +5,14 @@ import json
 import os
 import shutil
 import statistics
-import sys
 import unicodedata
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
-
 os.environ["MPLBACKEND"] = "Agg"
 
-from otimizar.hyperparameters import (
+from diet_optimization.optimization.hyperparameters import (
     RESOLUTION_AG_ALIMENTOS,
     RESOLUTION_AG_REFEICOES,
     RESOLUTION_PL_ALIMENTOS,
@@ -1824,7 +1819,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    project_root = Path(__file__).resolve().parents[1]
+    project_root = Path.cwd()
     reports_dir = project_root / "data" / "outputs" / "reports"
     figures_dir = project_root / "data" / "outputs" / "figures"
 

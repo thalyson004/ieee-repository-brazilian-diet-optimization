@@ -64,6 +64,8 @@ class ExecutionResult:
     convergence_generation: int
     final_fitness: float
     fitness_history: List[float]
+    random_seed: Optional[int] = None
+    duration_seconds: Optional[float] = None
 
 
 @dataclass

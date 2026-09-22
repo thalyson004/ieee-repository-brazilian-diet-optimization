@@ -1,6 +1,9 @@
 """Module pipeline."""
 
 import copy
+import hashlib
+import random
+import time
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -171,6 +174,7 @@ def process_optimization_pipeline(
     context_files: ContextFiles,
     number_of_runs: int,
     hyperparameters: GeneticAlgorithmHyperparameters,
+    base_seed: int | None = None,
 ) -> None:
     """Orquestra o pipeline completo de otimização para múltiplos arquivos de dieta.
 
@@ -250,9 +254,19 @@ def process_optimization_pipeline(
             all_chromosomes: List[List[Dict]] = []
 
             for execution_identifier in range(1, number_of_runs + 1):
-                print(
-                    f"[{resolution_label}] Execucao {execution_identifier}/{number_of_runs}"
+                execution_seed = derive_execution_seed(
+                    base_seed,
+                    resolution_label,
+                    diet_file_path.stem,
+                    execution_identifier,
                 )
+                if execution_seed is not None:
+                    random.seed(execution_seed)
+                print(
+                    f"[{resolution_label}] Execucao {execution_identifier}/{number_of_runs} "
+                    f"(seed={execution_seed})"
+                )
+                started_at = time.perf_counter()
                 genetic_algorithm = GeneticAlgorithm(
                     meal_pool=meal_pool,
                     food_pool=food_pool,
@@ -264,6 +278,7 @@ def process_optimization_pipeline(
                     genetic_algorithm.run()
                 )
                 final_fitness = fitness_history[-1]
+                duration_seconds = time.perf_counter() - started_at
 
                 execution_results.append(
                     ExecutionResult(
@@ -271,6 +286,8 @@ def process_optimization_pipeline(
                         convergence_generation=convergence_generation,
                         final_fitness=final_fitness,
                         fitness_history=fitness_history,
+                        random_seed=execution_seed,
+                        duration_seconds=duration_seconds,
                     )
                 )
 
@@ -293,6 +310,7 @@ def process_optimization_pipeline(
                 "arquivo_base": diet_file_name,
                 "tipo_resolucao": resolution_label,
                 "total_execucoes": number_of_runs,
+                "semente_base": base_seed,
                 "media_geracao_convergencia": average_convergence_generation,
                 "melhor_fitness_global": overall_best_fitness,
                 "execucoes": [
@@ -301,6 +319,8 @@ def process_optimization_pipeline(
                         "geracao_convergencia": execution_result.convergence_generation,
                         "fitness_final": execution_result.final_fitness,
                         "historico_fitness": execution_result.fitness_history,
+                        "semente": execution_result.random_seed,
+                        "duracao_segundos": execution_result.duration_seconds,
                     }
                     for execution_result in execution_results
                 ],
@@ -326,3 +346,18 @@ def process_optimization_pipeline(
                 print(
                     f"[{resolution_label}] {len(all_chromosomes)} dieta(s) otimizada(s) salva(s) em: {optimized_diet_file_path}"
                 )
+
+
+def derive_execution_seed(
+    base_seed: int | None,
+    resolution_label: str,
+    diet_identifier: str,
+    execution_identifier: int,
+) -> int | None:
+    """Derive a stable, independent seed for one GA execution."""
+    if base_seed is None:
+        return None
+    material = (
+        f"{base_seed}|{resolution_label}|{diet_identifier}|{execution_identifier}"
+    ).encode("utf-8")
+    return int.from_bytes(hashlib.sha256(material).digest()[:8], "big")

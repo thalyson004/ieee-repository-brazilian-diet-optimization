@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
-"""Reproduce or audit the optimization experiments from the article.
+"""Run archived reconstruction or new optimization experiments.
 
-The optimization implementation under ``reproducibility/code`` is an exact
-source snapshot from the parent repository at commit e5f760c. This runner adds
-only path staging, an explicit seed for new runs, and a machine-readable run
-manifest. The original March 2026 GA seeds were not recorded; consequently,
-``--mode archived`` reproduces the published aggregates from archived outputs,
-whereas ``--mode rerun`` performs a new deterministic replication.
+The optimization package originated from parent-repository commit ``e5f760c``.
+Archived mode reconstructs the submitted artifacts; rerun mode executes a new
+seeded replication. The original March 2026 GA seeds were not recorded.
 """
 
 from __future__ import annotations
@@ -15,7 +12,6 @@ import argparse
 import json
 import os
 import platform
-import random
 import shutil
 import subprocess
 import sys
@@ -23,17 +19,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-SCRIPT_PATH = Path(__file__).resolve()
-REPRO_DIR = SCRIPT_PATH.parents[1]
-REPOSITORY_ROOT = SCRIPT_PATH.parents[2]
-CODE_DIR = REPRO_DIR / "code"
-if str(CODE_DIR) not in sys.path:
-    sys.path.insert(0, str(CODE_DIR))
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+ARCHIVE_ROOT = PROJECT_ROOT / "archive"
 
-from otimizar.hyperparameters import GeneticAlgorithmHyperparameters  # noqa: E402
-from otimizar.linear_optimizer import optimize_food_level, optimize_meal_level  # noqa: E402
-from otimizar.pipeline import build_context, process_optimization_pipeline  # noqa: E402
-from otimizar.utils import load_json_file, save_json_file  # noqa: E402
+from diet_optimization.optimization.hyperparameters import GeneticAlgorithmHyperparameters
+from diet_optimization.optimization.linear_optimizer import optimize_food_level, optimize_meal_level
+from diet_optimization.optimization.pipeline import build_context, process_optimization_pipeline
+from diet_optimization.optimization.utils import load_json_file, save_json_file
 
 
 PROFILES = ("regular", "vegetariana", "vegana")
@@ -63,7 +55,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=REPRO_DIR / "generated",
+        default=PROJECT_ROOT / "tests" / "results" / "artifacts" / "manual-run",
         help="New output workspace. It must not already contain a run.",
     )
     return parser.parse_args()
@@ -83,25 +75,25 @@ def stage_inputs(workspace: Path) -> dict[str, Path]:
 
     diet_files: dict[str, Path] = {}
     for profile in PROFILES:
-        source = REPOSITORY_ROOT / "diets-base" / f"dietas-{profile}.json"
+        source = PROJECT_ROOT / "diets-base" / f"dietas-{profile}.json"
         destination = workspace / "data" / "diets" / "base" / source.name
         copy_file(source, destination)
         diet_files[profile] = destination
 
     input_map = {
-        REPOSITORY_ROOT / "maps" / "base" / "mapa-nome-tbca.json": (
+        PROJECT_ROOT / "maps" / "base" / "mapa-nome-tbca.json": (
             workspace / "data" / "maps" / "base" / "mapa-nome-tbca.json"
         ),
-        REPOSITORY_ROOT / "maps" / "base" / "mapa-sustentavel-nome.json": (
+        PROJECT_ROOT / "maps" / "base" / "mapa-sustentavel-nome.json": (
             workspace / "data" / "maps" / "base" / "mapa-sustentavel-nome.json"
         ),
-        REPOSITORY_ROOT / "maps" / "derived" / "mapa-sustentavel-tbca.json": (
+        PROJECT_ROOT / "maps" / "derived" / "mapa-sustentavel-tbca.json": (
             workspace / "data" / "maps" / "derived" / "mapa-sustentavel-tbca.json"
         ),
-        REPRO_DIR / "inputs" / "mapa-tbca-completo.json": (
+        PROJECT_ROOT / "maps" / "base" / "mapa-tbca-completo.json": (
             workspace / "data" / "maps" / "base" / "mapa-tbca-completo.json"
         ),
-        REPRO_DIR / "inputs" / "mapa-sustentavel-pegadas.json": (
+        PROJECT_ROOT / "maps" / "base" / "mapa-sustentavel-pegadas.json": (
             workspace / "data" / "maps" / "base" / "mapa-sustentavel-pegadas.json"
         ),
     }
@@ -135,19 +127,19 @@ def stage_archived_results(workspace: Path) -> None:
     # tables. Preserve both populations so the published artifacts are exactly
     # reconstructable and the inconsistency remains auditable.
     optimized_root = workspace / "data" / "outputs" / "optimized_diets"
-    table_source_root = REPRO_DIR / "published-table-solutions"
+    table_source_root = ARCHIVE_ROOT / "published-table-solutions"
     for source in sorted(table_source_root.rglob("*.json")):
         relative = source.relative_to(table_source_root)
         copy_file(source, optimized_root / relative)
 
     all_runs_root = workspace / "data" / "outputs" / "all_run_solutions"
-    for source in sorted((REPOSITORY_ROOT / "optimized-diets").rglob("*.json")):
-        relative = source.relative_to(REPOSITORY_ROOT / "optimized-diets")
+    for source in sorted((PROJECT_ROOT / "optimized-diets").rglob("*.json")):
+        relative = source.relative_to(PROJECT_ROOT / "optimized-diets")
         copy_file(source, all_runs_root / relative)
 
     run_root = workspace / "data" / "outputs" / "optimization_runs"
-    for source in sorted((REPRO_DIR / "archived-runs").rglob("*.json")):
-        relative = source.relative_to(REPRO_DIR / "archived-runs")
+    for source in sorted((ARCHIVE_ROOT / "optimization-runs").rglob("*.json")):
+        relative = source.relative_to(ARCHIVE_ROOT / "optimization-runs")
         copy_file(source, run_root / relative)
 
 
@@ -157,12 +149,12 @@ def run_optimizers(
     previous_cwd = Path.cwd()
     try:
         os.chdir(workspace)
-        random.seed(seed)
         process_optimization_pipeline(
             diet_files=[str(diet_files[p]) for p in PROFILES],
             context_files=context_files(workspace),
             number_of_runs=runs,
             hyperparameters=GeneticAlgorithmHyperparameters(),
+            base_seed=seed,
         )
 
         context = build_context(context_files(workspace))
@@ -234,9 +226,8 @@ def main() -> None:
         run_optimizers(workspace, diet_files, args.runs, args.seed)
 
     write_manifest(workspace, args.mode, args.runs, args.seed, sys.argv)
-    analysis_script = SCRIPT_PATH.with_name("generate_article_outputs.py")
     subprocess.run(
-        [sys.executable, str(analysis_script), "--workspace", str(workspace)],
+        [sys.executable, "-m", "diet_optimization.analysis.article_outputs", "--workspace", str(workspace)],
         check=True,
     )
     print(f"Reproduction workspace: {workspace}")

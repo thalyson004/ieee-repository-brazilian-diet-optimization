@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "brazilian-sustainable-diet-optimization"
+version = "0.2.0"
+description = "Experimental pipeline for sustainable Brazilian diet optimization"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "Jinja2>=3.1,<4",
+  "matplotlib>=3.8,<4",
+  "numpy>=1.26,<3",
+  "pandas>=2.1,<3",
+  "scipy>=1.11,<2",
+  "seaborn>=0.13,<1"
+]
+
+[project.scripts]
+diet-experiment = "diet_optimization.experiments.runner:main"
+diet-report = "diet_optimization.analysis.article_outputs:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

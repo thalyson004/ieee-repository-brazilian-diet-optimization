@@ -10,9 +10,8 @@ from pathlib import Path
 import pandas as pd
 
 
-SCRIPT_PATH = Path(__file__).resolve()
-REPRO_DIR = SCRIPT_PATH.parents[1]
-REPOSITORY_ROOT = SCRIPT_PATH.parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+ARCHIVE_ROOT = PROJECT_ROOT / "archive"
 
 EXPECTED_DIVERSITY = {
     ("Regular", "Base"): (50, 187, 61.94),
@@ -38,8 +37,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--workspace",
         type=Path,
-        default=REPRO_DIR / "generated",
-        help="Workspace created by run_experiments.py --mode archived.",
+        default=PROJECT_ROOT / "tests" / "results" / "artifacts" / "manual-run",
+        help="Workspace created by the archived experiment runner.",
     )
     return parser.parse_args()
 
@@ -58,17 +57,17 @@ def assert_csv_equal(generated: Path, expected: Path) -> None:
 
 
 def validate_archived_population() -> None:
-    for path in sorted((REPRO_DIR / "published-table-solutions").rglob("*.json")):
+    for path in sorted((ARCHIVE_ROOT / "published-table-solutions").rglob("*.json")):
         diets = json.loads(path.read_text(encoding="utf-8"))
         if len(diets) != 1:
             raise AssertionError(f"Expected one selected solution in {path}: {len(diets)}")
 
-    for path in sorted((REPOSITORY_ROOT / "optimized-diets").glob("ag-*/*.json")):
+    for path in sorted((PROJECT_ROOT / "optimized-diets").glob("ag-*/*.json")):
         diets = json.loads(path.read_text(encoding="utf-8"))
         if len(diets) != 10:
             raise AssertionError(f"Expected ten GA solutions in {path}: {len(diets)}")
 
-    for path in sorted((REPOSITORY_ROOT / "diets-base").glob("dietas-*.json")):
+    for path in sorted((PROJECT_ROOT / "diets-base").glob("dietas-*.json")):
         diets = json.loads(path.read_text(encoding="utf-8"))
         if len(diets) != 50:
             raise AssertionError(f"Expected fifty base diets in {path}: {len(diets)}")
@@ -89,7 +88,7 @@ def validate_diversity(path: Path) -> None:
 def main() -> None:
     workspace = parse_args().workspace.resolve()
     outputs = workspace / "article_outputs"
-    submitted = REPOSITORY_ROOT.parent / "tests" / "resultados"
+    submitted = ARCHIVE_ROOT / "submitted-results"
 
     assert_csv_equal(outputs / "tabela_consolidada.csv", submitted / "tabela_consolidada.csv")
     assert_csv_equal(outputs / "variacao_percentual.csv", submitted / "variacao_percentual.csv")

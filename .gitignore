@@ -1,5 +1,12 @@
-reproducibility/generated*/
-reproducibility/.venv/
+.venv/
+build/
+dist/
+*.egg-info/
 **/__pycache__/
 *.py[cod]
+
+tests/logs/*
+!tests/logs/.gitkeep
+tests/results/*
+!tests/results/.gitkeep
 

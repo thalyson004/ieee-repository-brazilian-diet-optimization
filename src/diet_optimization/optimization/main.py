@@ -137,6 +137,12 @@ def main() -> None:
         help="Numero de execucoes por arquivo de dieta",
     )
     argument_parser.add_argument(
+        "--seed",
+        type=int,
+        default=20260323,
+        help="Semente base usada para derivar uma semente independente por execucao.",
+    )
+    argument_parser.add_argument(
         "--nutritional-weight",
         type=float,
         default=NUTRITIONAL_CRITERION_WEIGHT,
@@ -194,6 +200,7 @@ def main() -> None:
         context_files=default_context_files(),
         number_of_runs=parsed_arguments.runs,
         hyperparameters=hyperparameters,
+        base_seed=parsed_arguments.seed,
     )
 
 

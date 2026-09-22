@@ -1,8 +1,26 @@
 # Optimizing LLM-Generated Diets for Sustainability: A Comparison of Genetic Algorithms and Linear Programming Across Brazilian Dietary Profiles
 
-This repository contains all data, optimization outputs, and detailed formulations used in the article **"Optimizing LLM-Generated Diets for Sustainability: A Comparison of Genetic Algorithms and Linear Programming Across Brazilian Dietary Profiles"**.
+This repository is the executable research project for the article **"Optimizing LLM-Generated Diets for Sustainability: A Comparison of Genetic Algorithms and Linear Programming Across Brazilian Dietary Profiles"**. It contains the optimization package, command-driven experiments, input data, historical artifacts, results, and execution logs.
 
-The recovered historical implementation, archived GA run records, source maps, and executable reconstruction instructions are available in [`reproducibility/`](reproducibility/README.md). That package distinguishes exact reconstruction from archived solutions from a new seeded stochastic replication and documents the unavailable original GA seeds and LLM API logs.
+The active implementation lives in [`src/diet_optimization/`](src/diet_optimization/). Every experiment is launched through [`tests/run_experiments.py`](tests/run_experiments.py), which creates a JSON result in `tests/results/` and a complete log in `tests/logs/`. Historical submitted artifacts are isolated in [`archive/`](archive/README.md); they are evidence, not the destination for new results.
+
+## Installation and commands
+
+```bash
+python -m venv .venv
+.venv/Scripts/python -m pip install -e .
+.venv/Scripts/python -m unittest discover -s tests -v
+.venv/Scripts/python -m tests.run_experiments --experiments archived-reconstruction
+```
+
+New bounded and full replications use the same command interface:
+
+```bash
+.venv/Scripts/python -m tests.run_experiments --experiments ga-smoke --seed 20260323
+.venv/Scripts/python -m tests.run_experiments --experiments full-replication --runs 10 --seed 20260323
+```
+
+See [`tests/README.md`](tests/README.md) for the artifact contract and [`archive/README.md`](archive/README.md) for the limits of the recovered experiment.
 
 ## Overview
 
@@ -28,18 +46,15 @@ This dataset accompanies the research on sustainable diet optimization combining
 
 ```
 dataset-repository/
-├── README.md                    # This file
-├── maps/                        # Knowledge maps for food identification
-│   ├── base/                    # Source maps
-│   └── derived/                 # Derived maps
-├── diets-base/                  # 50 base diets per profile (150 total)
-├── optimized-diets/             # Results from all optimization approaches
-│   ├── ag-alimentos/            # GA-Food results (10 diets per profile)
-│   ├── ag-refeicoes/            # GA-Meal results (10 diets per profile)
-│   ├── pl-alimentos/            # LP-Food results (1 diet per profile)
-│   └── pl-refeicoes/            # LP-Meal results (1 diet per profile)
-├── formulations/                # Mathematical formulations for each approach
-└── prompts/                     # LLM prompts used for base diet generation
+├── pyproject.toml                 # Installable Python project and CLI entry points
+├── src/diet_optimization/         # Active optimization, analysis, and experiment code
+├── tests/                         # Command runners, regressions, results, and logs
+├── archive/                       # Immutable submitted-result lineage
+├── maps/                          # Nutritional/environmental source and derived maps
+├── diets-base/                    # 50 base diets per profile (150 total)
+├── optimized-diets/               # Ten-run GA and deterministic LP historical outputs
+├── formulations/                  # Mathematical formulations for each approach
+└── prompts/                       # LLM prompts used for base diet generation
 ```
 
 ---

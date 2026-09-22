@@ -5,15 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
-import sys
 from pathlib import Path
-
-
-SCRIPT_PATH = Path(__file__).resolve()
-REPRO_DIR = SCRIPT_PATH.parents[1]
-CODE_DIR = REPRO_DIR / "code"
-if str(CODE_DIR) not in sys.path:
-    sys.path.insert(0, str(CODE_DIR))
 
 import matplotlib  # noqa: E402
 
@@ -23,18 +15,18 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 import seaborn as sns  # noqa: E402
 
-from scripts.calculate_statistics import (  # noqa: E402
+from diet_optimization.analysis.statistics import (  # noqa: E402
     _filter_existing_files,
     _process_group,
     resolve_diet_file_groups,
 )
-from otimizar.hyperparameters import (  # noqa: E402
+from diet_optimization.optimization.hyperparameters import (  # noqa: E402
     RESOLUTION_AG_ALIMENTOS,
     RESOLUTION_AG_REFEICOES,
     RESOLUTION_PL_ALIMENTOS,
     RESOLUTION_PL_REFEICOES,
 )
-from otimizar.utils import load_json_file  # noqa: E402
+from diet_optimization.optimization.utils import load_json_file  # noqa: E402
 
 
 PROFILES = ["Regular", "Vegetariana", "Vegana"]
