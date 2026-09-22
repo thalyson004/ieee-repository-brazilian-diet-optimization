@@ -2,6 +2,8 @@
 
 This repository contains all data, optimization outputs, and detailed formulations used in the article **"Optimizing LLM-Generated Diets for Sustainability: A Comparison of Genetic Algorithms and Linear Programming Across Brazilian Dietary Profiles"**.
 
+The recovered historical implementation, archived GA run records, source maps, and executable reconstruction instructions are available in [`reproducibility/`](reproducibility/README.md). That package distinguishes exact reconstruction from archived solutions from a new seeded stochastic replication and documents the unavailable original GA seeds and LLM API logs.
+
 ## Overview
 
 This dataset accompanies the research on sustainable diet optimization combining Large Language Models (LLMs) with Genetic Algorithms (GA) and Linear Programming (LP). The study compares four optimization approaches across three dietary profiles (**Regular**, **Vegetarian**, and **Vegan**) with two granularity levels (**Food-level** and **Meal-level**).
