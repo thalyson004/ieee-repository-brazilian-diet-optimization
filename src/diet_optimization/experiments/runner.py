@@ -15,6 +15,7 @@ import platform
 import shutil
 import subprocess
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -26,6 +27,7 @@ from diet_optimization.optimization.hyperparameters import GeneticAlgorithmHyper
 from diet_optimization.optimization.linear_optimizer import optimize_food_level, optimize_meal_level
 from diet_optimization.optimization.pipeline import build_context, process_optimization_pipeline
 from diet_optimization.optimization.utils import load_json_file, save_json_file
+from diet_optimization.experiments.diagnostics import environment_metadata, evaluate_plan
 
 
 PROFILES = ("regular", "vegetariana", "vegana")
@@ -160,7 +162,20 @@ def run_optimizers(
         context = build_context(context_files(workspace))
         footprint_key = "carbon_footprint"
         for profile in PROFILES:
-            food_result = optimize_food_level(context, footprint_key=footprint_key)
+            food_diagnostics: dict = {}
+            started = time.perf_counter()
+            food_result = optimize_food_level(
+                context, footprint_key=footprint_key, diagnostics=food_diagnostics
+            )
+            food_duration = time.perf_counter() - started
+            save_json_file(
+                workspace / "data" / "outputs" / "optimization_runs" / "pl-alimentos"
+                / f"execution-{profile}.json",
+                {"schema_version": "1.0", "profile": profile, "resolution": "pl-alimentos",
+                 "solver": food_diagnostics, "duration_seconds": food_duration,
+                 "final_solution": food_result,
+                 "metrics_and_violations": evaluate_plan(food_result[0], context) if food_result else None},
+            )
             if food_result:
                 save_json_file(
                     workspace
@@ -172,10 +187,22 @@ def run_optimizers(
                     food_result,
                 )
 
+            meal_diagnostics: dict = {}
+            started = time.perf_counter()
             meal_result = optimize_meal_level(
                 load_json_file(diet_files[profile]),
                 context,
                 footprint_key=footprint_key,
+                diagnostics=meal_diagnostics,
+            )
+            meal_duration = time.perf_counter() - started
+            save_json_file(
+                workspace / "data" / "outputs" / "optimization_runs" / "pl-refeicoes"
+                / f"execution-{profile}.json",
+                {"schema_version": "1.0", "profile": profile, "resolution": "pl-refeicoes",
+                 "solver": meal_diagnostics, "duration_seconds": meal_duration,
+                 "final_solution": meal_result,
+                 "metrics_and_violations": evaluate_plan(meal_result[0], context) if meal_result else None},
             )
             if meal_result:
                 save_json_file(
@@ -204,6 +231,7 @@ def write_manifest(
         "ga_runs_per_profile_and_granularity": runs if mode == "rerun" else 10,
         "python": sys.version,
         "platform": platform.platform(),
+        "execution_environment": environment_metadata(),
         "command": command,
         "notes": [
             "Archived mode rebuilds main tables from the fb34919 selected-solution snapshot and diversity from the e5f760c ten-run solution files, matching the published artifact history.",
@@ -220,12 +248,12 @@ def main() -> None:
     args = parse_args()
     workspace = args.output_dir.resolve()
     diet_files = stage_inputs(workspace)
+    write_manifest(workspace, args.mode, args.runs, args.seed, sys.argv)
     if args.mode == "archived":
         stage_archived_results(workspace)
     else:
         run_optimizers(workspace, diet_files, args.runs, args.seed)
 
-    write_manifest(workspace, args.mode, args.runs, args.seed, sys.argv)
     subprocess.run(
         [sys.executable, "-m", "diet_optimization.analysis.article_outputs", "--workspace", str(workspace)],
         check=True,

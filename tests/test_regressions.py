@@ -10,6 +10,8 @@ from pathlib import Path
 
 from diet_optimization.analysis.diet_audit import audit
 from diet_optimization.optimization.pipeline import derive_execution_seed
+from diet_optimization.optimization.data_types import NutritionalContext
+from diet_optimization.experiments.diagnostics import environment_metadata, evaluate_plan
 from tests.run_experiments import EXPERIMENTS, commands_for
 
 
@@ -70,6 +72,29 @@ class CommandCatalogTests(unittest.TestCase):
             derive_execution_seed(20260323, "ag-alimentos", "regular", 1),
             derive_execution_seed(20260323, "ag-alimentos", "regular", 1),
         )
+
+
+class ExecutionDiagnosticsTests(unittest.TestCase):
+    def test_violations_include_daily_and_plan_mean(self) -> None:
+        context = NutritionalContext(
+            tbca_map={"test-food": "1"},
+            tbca_database={"1": {"nutrientes": {"Energia": 100.0}}},
+            footprint_map={"test-food": {"carbon_footprint": 20.0}},
+        )
+        plan = {"1": {"Lunch": [{"alimento": "test-food", "quantidade": "100"}]}}
+        report = evaluate_plan(plan, context)
+        self.assertEqual(report["mean_daily_nutrients"]["Energia"], 100.0)
+        self.assertEqual(report["mean_daily_footprints"]["carbon_footprint"], 20.0)
+        self.assertTrue(any(v["nutrient"] == "Energia" for v in report["daily"][0]["violations"]))
+        self.assertTrue(any(v["nutrient"] == "Energia" for v in report["mean_daily_violations"]))
+
+    def test_environment_identifies_lp_backend(self) -> None:
+        report = environment_metadata()
+        self.assertTrue(report["os"])
+        self.assertGreater(report["logical_cpu_count"], 0)
+        self.assertTrue(report["physical_ram_bytes"])
+        self.assertTrue(report["dependencies"]["scipy"])
+        self.assertEqual(report["lp_solver"]["method"], "highs")
 
 
 class BaseDietAuditTests(unittest.TestCase):

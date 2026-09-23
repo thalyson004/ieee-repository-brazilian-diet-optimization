@@ -4,6 +4,7 @@ import copy
 import hashlib
 import random
 import time
+from dataclasses import asdict
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -20,6 +21,7 @@ from .hyperparameters import (
     build_hyperparameters_for_resolution,
 )
 from .utils import calculate_totals, load_json_file, save_json_file
+from diet_optimization.experiments.diagnostics import evaluate_plan
 
 
 def build_context(context_files: ContextFiles) -> NutritionalContext:
@@ -252,6 +254,8 @@ def process_optimization_pipeline(
             overall_best_fitness = float("-inf")
             overall_best_chromosome: List[Dict] = []
             all_chromosomes: List[List[Dict]] = []
+            per_run_directory = optimization_runs_directory / "runs" / diet_file_path.stem
+            per_run_directory.mkdir(parents=True, exist_ok=True)
 
             for execution_identifier in range(1, number_of_runs + 1):
                 execution_seed = derive_execution_seed(
@@ -279,6 +283,25 @@ def process_optimization_pipeline(
                 )
                 final_fitness = fitness_history[-1]
                 duration_seconds = time.perf_counter() - started_at
+                final_plan = chromosome_to_optimized_diet(best_chromosome)
+                run_artifact = per_run_directory / f"execution-{execution_identifier:03d}.json"
+                run_payload = {
+                    "schema_version": "1.0",
+                    "resolution": resolution_label,
+                    "source_diet_file": diet_file_path.name,
+                    "execution_id": execution_identifier,
+                    "effective_configuration": asdict(tuned_hyperparameters),
+                    "seed": execution_seed,
+                    "objective_by_generation": fitness_history,
+                    "objective_direction": "maximize_fitness",
+                    "stop_criterion": genetic_algorithm.stop_reason,
+                    "stop_generation": convergence_generation,
+                    "duration_seconds": duration_seconds,
+                    "final_fitness": final_fitness,
+                    "final_solution": final_plan,
+                    "metrics_and_violations": evaluate_plan(final_plan, nutritional_context),
+                }
+                save_json_file(run_artifact, run_payload)
 
                 execution_results.append(
                     ExecutionResult(
@@ -321,6 +344,7 @@ def process_optimization_pipeline(
                         "historico_fitness": execution_result.fitness_history,
                         "semente": execution_result.random_seed,
                         "duracao_segundos": execution_result.duration_seconds,
+                        "arquivo_execucao": str((per_run_directory / f"execution-{execution_result.execution_identifier:03d}.json").as_posix()),
                     }
                     for execution_result in execution_results
                 ],

@@ -251,6 +251,7 @@ class GeneticAlgorithm:
         stagnation_counter = 0
         convergence_generation = 0
         fitness_history: List[float] = []
+        self.stop_reason = None
 
         while True:
             population = self.apply_constructive_greedy_expansion(population)
@@ -276,6 +277,7 @@ class GeneticAlgorithm:
 
             if stagnation_counter >= self.hyperparameters.max_stagnation_generations:
                 convergence_generation = generation_number
+                self.stop_reason = "stagnation_limit"
                 print(
                     f"   Convergencia atingida na geracao {generation_number}.{' ' * 20}"
                 )
@@ -283,6 +285,7 @@ class GeneticAlgorithm:
 
             if generation_number >= self.hyperparameters.max_generations:
                 convergence_generation = generation_number
+                self.stop_reason = "generation_limit"
                 print(
                     f"   Limite maximo de geracoes ({self.hyperparameters.max_generations}) atingido.{' ' * 8}"
                 )

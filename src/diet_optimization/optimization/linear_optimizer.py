@@ -211,6 +211,7 @@ def optimize_food_level(
     nutritional_context: NutritionalContext,
     footprint_key: str = "carbon_footprint",
     days_per_plan: int = DAYS_PER_PLAN,
+    diagnostics: Optional[Dict] = None,
 ) -> Optional[List[Dict]]:
     """Otimiza a dieta no nível de alimentos usando Programação Linear.
 
@@ -250,6 +251,10 @@ def optimize_food_level(
     bounds = [(0.0, None)] * n_foods
 
     result = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=bounds, method="highs")
+    if diagnostics is not None:
+        diagnostics.update({"initial_status": int(result.status), "initial_message": result.message,
+                            "method": "highs", "options": {}, "fallback_used": False,
+                            "n_variables": n_foods, "n_inequalities": int(A_ub.shape[0])})
 
     if result.status != 0:
         print(
@@ -264,6 +269,9 @@ def optimize_food_level(
         result_relax = linprog(
             c_relax, A_ub=A_ub_relax, b_ub=b_ub, bounds=bounds_relax, method="highs"
         )
+        if diagnostics is not None:
+            diagnostics.update({"fallback_used": True, "fallback_status": int(result_relax.status),
+                                "fallback_message": result_relax.message, "slack_penalty": 1e4})
         if result_relax.status != 0:
             print("AVISO: Versao relaxada tambem inviavel.")
             return None
@@ -404,6 +412,7 @@ def _solve_relaxed_meal_level(
     variable_list: List[Tuple[str, int]],
     days_per_plan: int,
     big_m: float = 1e4,
+    diagnostics: Optional[Dict] = None,
 ) -> Optional[np.ndarray]:
     """Resolve o PL de refeições com todas as restrições de desigualdade relaxadas.
 
@@ -450,6 +459,9 @@ def _solve_relaxed_meal_level(
         bounds=bounds_relax,
         method="highs",
     )
+    if diagnostics is not None:
+        diagnostics.update({"fallback_used": True, "fallback_status": int(result.status),
+                            "fallback_message": result.message, "slack_penalty": big_m})
 
     if result.status != 0:
         return None
@@ -463,6 +475,7 @@ def optimize_meal_level(
     footprint_key: str = "carbon_footprint",
     days_per_plan: int = DAYS_PER_PLAN,
     meal_energy_share_limits: Dict[str, Dict[str, float]] = LIMITES_ENERGIA_REFEICAO,
+    diagnostics: Optional[Dict] = None,
 ) -> Optional[List[Dict]]:
     """Otimiza a dieta selecionando refeições existentes via Programação Linear.
 
@@ -553,6 +566,11 @@ def optimize_meal_level(
     result = linprog(
         c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs"
     )
+    if diagnostics is not None:
+        diagnostics.update({"initial_status": int(result.status), "initial_message": result.message,
+                            "method": "highs", "options": {}, "fallback_used": False,
+                            "n_variables": n_vars, "n_inequalities": int(A_ub.shape[0]),
+                            "n_equalities": int(A_eq.shape[0])})
 
     if result.status != 0:
         print(
@@ -560,7 +578,8 @@ def optimize_meal_level(
             f"(status={result.status}: {result.message}). Tentando versao relaxada..."
         )
         x_relaxed = _solve_relaxed_meal_level(
-            c, A_ub, b_ub, A_eq, b_eq, variable_list, days_per_plan
+            c, A_ub, b_ub, A_eq, b_eq, variable_list, days_per_plan,
+            diagnostics=diagnostics,
         )
         if x_relaxed is None:
             print(
