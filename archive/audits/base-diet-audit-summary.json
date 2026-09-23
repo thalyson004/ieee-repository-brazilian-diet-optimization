@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "scope": "archived normalized diet files; raw API responses were not preserved",
+  "files": [
+    {
+      "profile": "regular",
+      "path": "diets-base/dietas-regular.json",
+      "sha256": "ab720c3beaf7348e2a15e645cf5cc712601be4bfa4deec046d7f55e3758e7e4f",
+      "json_valid": true,
+      "plan_count": 50
+    },
+    {
+      "profile": "vegetarian",
+      "path": "diets-base/dietas-vegetariana.json",
+      "sha256": "584eb2d63403ed6f1d41dcc494f453e68260be190ab6539308bb1f5baa66bb93",
+      "json_valid": true,
+      "plan_count": 50
+    },
+    {
+      "profile": "vegan",
+      "path": "diets-base/dietas-vegana.json",
+      "sha256": "f69ef277d6e14f72e6e084f5789bc7eab72452672058ee56d34c3146553be449",
+      "json_valid": true,
+      "plan_count": 50
+    }
+  ],
+  "totals": {
+    "profiles": 3,
+    "plans": 150,
+    "plans_with_valid_schema": 150,
+    "food_occurrences": 12670,
+    "unique_food_names": 292,
+    "unique_food_names_exactly_in_tbca_name_map": 122,
+    "unique_food_names_requiring_explicit_name_mapping": 170,
+    "used_mapping_targets_with_multiple_source_names": 16,
+    "invalid_items": 0,
+    "invalid_quantities": 0,
+    "quantities_above_1000g_screening_threshold": 0,
+    "duplicate_items_within_meal": 0,
+    "unmapped_tbca_occurrences": 0,
+    "unmapped_environmental_occurrences": 0,
+    "plans_with_nutritional_target_violations": 150,
+    "nutritional_target_violations": 1418
+  },
+  "by_profile": {
+    "regular": {
+      "plans": 50,
+      "schema_valid": 50,
+      "nutritional_target_violations": 450
+    },
+    "vegetarian": {
+      "plans": 50,
+      "schema_valid": 50,
+      "nutritional_target_violations": 494
+    },
+    "vegan": {
+      "plans": 50,
+      "schema_valid": 50,
+      "nutritional_target_violations": 474
+    }
+  },
+  "nutritional_violation_counts_by_nutrient": {
+    "Alfa-tocoferol (Vitamina E)": 149,
+    "Carboidrato total": 103,
+    "Colesterol": 99,
+    "Cálcio": 67,
+    "Energia": 119,
+    "Fibra alimentar": 6,
+    "Lipídios": 31,
+    "Magnésio": 110,
+    "Niacina": 100,
+    "Proteína": 109,
+    "Riboflavina": 64,
+    "Sódio": 38,
+    "Tiamina": 75,
+    "Vitamina A (RE)": 4,
+    "Vitamina B12": 50,
+    "Vitamina B6": 144,
+    "Vitamina D": 150
+  },
+  "interpretation_limits": [
+    "JSON validity before aggregation and counts of failed/regenerated API calls cannot be reconstructed.",
+    "A mapped food is not proof that the LLM originally copied it from the attached list.",
+    "The 1000 g threshold is a screening flag, not a clinically validated portion limit.",
+    "Nutritional violations use the thresholds implemented by the submitted optimizer and do not establish clinical safety."
+  ]
+}

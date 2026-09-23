@@ -2,6 +2,7 @@
 
 Examples:
     python -m tests.run_experiments --experiments archived-reconstruction
+    python -m tests.run_experiments --experiments base-diet-audit
     python -m tests.run_experiments --experiments ga-smoke --seed 20260323
     python -m tests.run_experiments --experiments full-replication --runs 10 --seed 20260323
 """
@@ -23,6 +24,7 @@ from tests.result_writer import RESULTS_DIR, save_result
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 EXPERIMENTS = (
     "archived-reconstruction",
+    "base-diet-audit",
     "ga-smoke",
     "full-replication",
 )
@@ -70,6 +72,16 @@ def commands_for(experiment: str, workspace: Path, runs: int, seed: int) -> list
             runner + ["--mode", "archived", "--output-dir", str(workspace)],
             [sys.executable, "-m", "tests.validate_reconstruction", "--workspace", str(workspace)],
         ]
+    if experiment == "base-diet-audit":
+        return [
+            [
+                sys.executable,
+                "-m",
+                "diet_optimization.analysis.diet_audit",
+                "--output-dir",
+                str(workspace / "audit"),
+            ]
+        ]
     if experiment == "ga-smoke":
         return [runner + ["--mode", "rerun", "--runs", "1", "--seed", str(seed), "--output-dir", str(workspace)]]
     return [runner + ["--mode", "rerun", "--runs", str(runs), "--seed", str(seed), "--output-dir", str(workspace)]]
@@ -104,8 +116,8 @@ def execute(experiment: str, runs: int, seed: int) -> Path:
             "duration_seconds": elapsed,
             "python": platform.python_version(),
             "platform": platform.platform(),
-            "runs": 1 if experiment == "ga-smoke" else runs,
-            "seed": None if experiment == "archived-reconstruction" else seed,
+            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit"} else runs,
+            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit"} else seed,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),
             "artifact_workspace": str(workspace.relative_to(PROJECT_ROOT)),

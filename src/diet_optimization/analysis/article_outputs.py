@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
+import unicodedata
 from pathlib import Path
 
 import matplotlib  # noqa: E402
@@ -60,6 +62,19 @@ NUTRIENTS = [
     "Colesterol",
     "Pegada de Carbono",
 ]
+NUTRIENT_UNITS = {
+    "Energia": "kcal/day",
+    "Proteína": "g/day",
+    "Lipídios": "g/day",
+    "Carboidrato disponível": "g/day",
+    "Fibra alimentar": "g/day",
+    "Cálcio": "mg/day",
+    "Ferro": "mg/day",
+    "Vitamina C": "mg/day",
+    "Sódio": "mg/day",
+    "Colesterol": "mg/day",
+    "Pegada de Carbono": "gCO2eq/day",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -97,7 +112,7 @@ def load_consolidated(workspace: Path, output_dir: Path):
     return consolidated
 
 
-def result_tables(consolidated, output_dir: Path) -> pd.DataFrame:
+def result_tables(consolidated, output_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     rows = []
     for group, group_data in consolidated.items():
         for profile, values in group_data.items():
@@ -131,7 +146,7 @@ def result_tables(consolidated, output_dir: Path) -> pd.DataFrame:
             label=f"tab:{profile.lower()}",
             bold_rows=True,
         )
-    return pivot
+    return pivot, variation
 
 
 def count_unique_foods(diet: dict) -> int:
@@ -157,7 +172,7 @@ def count_unique_foods_across(diets: list[dict]) -> int:
     )
 
 
-def diversity_table(workspace: Path, output_dir: Path) -> pd.DataFrame:
+def diversity_table(workspace: Path, output_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     all_runs = workspace / "data" / "outputs" / "all_run_solutions"
     ga_root = (
         "data/outputs/all_run_solutions"
@@ -199,7 +214,8 @@ def diversity_table(workspace: Path, output_dir: Path) -> pd.DataFrame:
     means = pd.DataFrame(mean_rows).set_index("Profile")
     totals = pd.DataFrame(total_rows).set_index("Profile")
     totals.to_csv(output_dir / "diversity_unique_foods.csv")
-    pd.DataFrame(long_rows).round(2).to_csv(
+    long_frame = pd.DataFrame(long_rows)
+    long_frame.round(2).to_csv(
         output_dir / "diversity_summary.csv", index=False
     )
     combined = pd.concat({"Total": totals, "Mean/week": means}, axis=1).swaplevel(0, 1, axis=1)
@@ -209,7 +225,104 @@ def diversity_table(workspace: Path, output_dir: Path) -> pd.DataFrame:
         caption="Unique foods across recommendations and mean per weekly diet",
         label="tab:diversity",
     )
-    return means
+    return means, long_frame
+
+
+def result_observation_counts(workspace: Path) -> dict[tuple[str, str], int]:
+    templates = {
+        "Base": "data/diets/base/dietas-{profile}.json",
+        "GA-Food": "data/outputs/optimized_diets/ag-alimentos/otimizada-dietas-{profile}.json",
+        "GA-Meal": "data/outputs/optimized_diets/ag-refeicoes/otimizada-dietas-{profile}.json",
+        "LP-Food": "data/outputs/optimized_diets/pl-alimentos/otimizada-dietas-{profile}.json",
+        "LP-Meal": "data/outputs/optimized_diets/pl-refeicoes/otimizada-dietas-{profile}.json",
+    }
+    counts = {}
+    for profile in PROFILES:
+        key = PROFILE_KEYS[profile]
+        for approach, template in templates.items():
+            path = workspace / template.format(profile=key)
+            counts[(PROFILE_EN[profile], approach)] = len(
+                json.loads(path.read_text(encoding="utf-8"))
+            )
+    return counts
+
+
+def canonical_results(
+    workspace: Path,
+    pivot: pd.DataFrame,
+    variation: pd.DataFrame,
+    diversity_long: pd.DataFrame,
+) -> pd.DataFrame:
+    counts = result_observation_counts(workspace)
+    rows = []
+    for (profile_pt, nutrient), values in pivot.iterrows():
+        profile = PROFILE_EN[profile_pt]
+        for approach, value in values.items():
+            rows.append(
+                {
+                    "profile": profile,
+                    "approach": approach,
+                    "metric": nutrient,
+                    "statistic": "mean_daily",
+                    "value": value,
+                    "unit": NUTRIENT_UNITS[nutrient],
+                    "n": counts[(profile, approach)],
+                    "comparison_basis": "diet files used by the main submitted tables",
+                }
+            )
+            if approach != "Base":
+                rows.append(
+                    {
+                        "profile": profile,
+                        "approach": approach,
+                        "metric": nutrient,
+                        "statistic": "relative_change_from_base_percent",
+                        "value": variation.loc[(profile_pt, nutrient), approach],
+                        "unit": "percent",
+                        "n": counts[(profile, approach)],
+                        "comparison_basis": "same-profile Base mean",
+                    }
+                )
+    for row in diversity_long.to_dict(orient="records"):
+        for statistic, column in (
+            ("unique_foods_total", "Total"),
+            ("unique_foods_mean_per_week", "Mean/week"),
+        ):
+            rows.append(
+                {
+                    "profile": row["Profile"],
+                    "approach": row["Approach"],
+                    "metric": "Food diversity",
+                    "statistic": statistic,
+                    "value": row[column],
+                    "unit": "unique_foods",
+                    "n": int(row["N"]),
+                    "comparison_basis": "all archived solutions available for diversity",
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+def macro_name(*parts: str) -> str:
+    raw = " ".join(parts)
+    ascii_name = unicodedata.normalize("NFKD", raw).encode("ascii", "ignore").decode()
+    words = re.findall(r"[A-Za-z]+|\d+", ascii_name)
+    return "Result" + "".join(word[:1].upper() + word[1:] for word in words)
+
+
+def write_canonical_outputs(frame: pd.DataFrame, output_dir: Path) -> None:
+    canonical_path = output_dir / "canonical_results_long.csv"
+    frame.round({"value": 6}).to_csv(canonical_path, index=False, encoding="utf-8")
+    macros = [
+        "% Generated from canonical_results_long.csv; do not edit manually.",
+    ]
+    for row in frame.to_dict(orient="records"):
+        name = macro_name(row["profile"], row["approach"], row["metric"], row["statistic"])
+        value = f"{float(row['value']):.2f}".rstrip("0").rstrip(".")
+        macros.append(f"\\providecommand{{\\{name}}}{{{value}}}")
+    (output_dir / "canonical_results_macros.tex").write_text(
+        "\n".join(macros) + "\n", encoding="utf-8"
+    )
 
 
 def annotate(ax, fmt: str = ".0f") -> None:
@@ -227,7 +340,7 @@ def annotate(ax, fmt: str = ".0f") -> None:
             )
 
 
-def article_figures(consolidated, diversity: pd.DataFrame, output_dir: Path) -> None:
+def article_figures(pivot: pd.DataFrame, diversity: pd.DataFrame, output_dir: Path) -> None:
     sns.set_style("whitegrid")
     figure_dir = output_dir / "figures"
     figure_dir.mkdir(parents=True, exist_ok=True)
@@ -240,10 +353,10 @@ def article_figures(consolidated, diversity: pd.DataFrame, output_dir: Path) -> 
     ]:
         fig, ax = plt.subplots(figsize=(10, 5))
         maximum = 0.0
-        for index, group in enumerate(GROUPS):
-            values = [consolidated[group][profile].get(metric, 0) for profile in PROFILES]
+        for index, approach in enumerate(LABELS.values()):
+            values = [pivot.loc[(profile, metric), approach] for profile in PROFILES]
             maximum = max(maximum, *values)
-            ax.bar(x + index * width, values, width, label=LABELS[group], color=COLORS[index])
+            ax.bar(x + index * width, values, width, label=approach, color=COLORS[index])
         if metric == "Energia":
             ax.axhline(2000, color="red", linestyle="--", linewidth=1.2, label="Goal (2000 kcal)")
             ax.axhspan(1900, 2100, alpha=0.1, color="red", label="Range ±5%")
@@ -269,12 +382,12 @@ def article_figures(consolidated, diversity: pd.DataFrame, output_dir: Path) -> 
     }
     heatmap_rows = []
     labels = []
-    for group in GROUPS:
+    for approach in LABELS.values():
         for profile in PROFILES:
-            labels.append(f"{LABELS[group]} ({PROFILE_EN[profile]})")
+            labels.append(f"{approach} ({PROFILE_EN[profile]})")
             heatmap_rows.append(
                 {
-                    nutrient: consolidated[group][profile].get(nutrient, 0) / target * 100
+                    nutrient: pivot.loc[(profile, nutrient), approach] / target * 100
                     for nutrient, target in nutrient_targets.items()
                 }
             )
@@ -323,9 +436,11 @@ def main() -> None:
     if set(consolidated) != set(GROUPS):
         missing = sorted(set(GROUPS) - set(consolidated))
         raise RuntimeError(f"Missing result groups: {missing}")
-    pivot = result_tables(consolidated, output_dir)
-    diversity = diversity_table(workspace, output_dir)
-    article_figures(consolidated, diversity, output_dir)
+    pivot, variation = result_tables(consolidated, output_dir)
+    diversity, diversity_long = diversity_table(workspace, output_dir)
+    canonical = canonical_results(workspace, pivot, variation, diversity_long)
+    write_canonical_outputs(canonical, output_dir)
+    article_figures(pivot, diversity, output_dir)
     print(f"Generated {pivot.shape[0]} result rows in {output_dir}")
 
 

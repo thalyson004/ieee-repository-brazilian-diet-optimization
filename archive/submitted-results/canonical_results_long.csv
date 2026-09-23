@@ -1,0 +1,328 @@
+profile,approach,metric,statistic,value,unit,n,comparison_basis
+Regular,Base,Carboidrato disponível,mean_daily,197.640174,g/day,50,diet files used by the main submitted tables
+Regular,GA-Food,Carboidrato disponível,mean_daily,216.7794,g/day,1,diet files used by the main submitted tables
+Regular,GA-Food,Carboidrato disponível,relative_change_from_base_percent,9.683874,percent,1,same-profile Base mean
+Regular,GA-Meal,Carboidrato disponível,mean_daily,236.1646,g/day,1,diet files used by the main submitted tables
+Regular,GA-Meal,Carboidrato disponível,relative_change_from_base_percent,19.492204,percent,1,same-profile Base mean
+Regular,LP-Food,Carboidrato disponível,mean_daily,240.6334,g/day,1,diet files used by the main submitted tables
+Regular,LP-Food,Carboidrato disponível,relative_change_from_base_percent,21.753283,percent,1,same-profile Base mean
+Regular,LP-Meal,Carboidrato disponível,mean_daily,257.2414,g/day,1,diet files used by the main submitted tables
+Regular,LP-Meal,Carboidrato disponível,relative_change_from_base_percent,30.156433,percent,1,same-profile Base mean
+Regular,Base,Colesterol,mean_daily,481.876008,mg/day,50,diet files used by the main submitted tables
+Regular,GA-Food,Colesterol,mean_daily,255.203,mg/day,1,diet files used by the main submitted tables
+Regular,GA-Food,Colesterol,relative_change_from_base_percent,-47.039696,percent,1,same-profile Base mean
+Regular,GA-Meal,Colesterol,mean_daily,286.4616,mg/day,1,diet files used by the main submitted tables
+Regular,GA-Meal,Colesterol,relative_change_from_base_percent,-40.55284,percent,1,same-profile Base mean
+Regular,LP-Food,Colesterol,mean_daily,22.3002,mg/day,1,diet files used by the main submitted tables
+Regular,LP-Food,Colesterol,relative_change_from_base_percent,-95.372212,percent,1,same-profile Base mean
+Regular,LP-Meal,Colesterol,mean_daily,291.038,mg/day,1,diet files used by the main submitted tables
+Regular,LP-Meal,Colesterol,relative_change_from_base_percent,-39.603135,percent,1,same-profile Base mean
+Regular,Base,Cálcio,mean_daily,1085.529212,mg/day,50,diet files used by the main submitted tables
+Regular,GA-Food,Cálcio,mean_daily,1319.1296,mg/day,1,diet files used by the main submitted tables
+Regular,GA-Food,Cálcio,relative_change_from_base_percent,21.519493,percent,1,same-profile Base mean
+Regular,GA-Meal,Cálcio,mean_daily,1299.1428,mg/day,1,diet files used by the main submitted tables
+Regular,GA-Meal,Cálcio,relative_change_from_base_percent,19.67829,percent,1,same-profile Base mean
+Regular,LP-Food,Cálcio,mean_daily,999.73343,mg/day,1,diet files used by the main submitted tables
+Regular,LP-Food,Cálcio,relative_change_from_base_percent,-7.90359,percent,1,same-profile Base mean
+Regular,LP-Meal,Cálcio,mean_daily,1094.5468,mg/day,1,diet files used by the main submitted tables
+Regular,LP-Meal,Cálcio,relative_change_from_base_percent,0.830709,percent,1,same-profile Base mean
+Regular,Base,Energia,mean_daily,1916.3116,kcal/day,50,diet files used by the main submitted tables
+Regular,GA-Food,Energia,mean_daily,2151.69,kcal/day,1,diet files used by the main submitted tables
+Regular,GA-Food,Energia,relative_change_from_base_percent,12.282888,percent,1,same-profile Base mean
+Regular,GA-Meal,Energia,mean_daily,2022.26,kcal/day,1,diet files used by the main submitted tables
+Regular,GA-Meal,Energia,relative_change_from_base_percent,5.528767,percent,1,same-profile Base mean
+Regular,LP-Food,Energia,mean_daily,2099.428,kcal/day,1,diet files used by the main submitted tables
+Regular,LP-Food,Energia,relative_change_from_base_percent,9.555669,percent,1,same-profile Base mean
+Regular,LP-Meal,Energia,mean_daily,2150.78,kcal/day,1,diet files used by the main submitted tables
+Regular,LP-Meal,Energia,relative_change_from_base_percent,12.235401,percent,1,same-profile Base mean
+Regular,Base,Ferro,mean_daily,11.845112,mg/day,50,diet files used by the main submitted tables
+Regular,GA-Food,Ferro,mean_daily,15.171,mg/day,1,diet files used by the main submitted tables
+Regular,GA-Food,Ferro,relative_change_from_base_percent,28.078152,percent,1,same-profile Base mean
+Regular,GA-Meal,Ferro,mean_daily,13.7572,mg/day,1,diet files used by the main submitted tables
+Regular,GA-Meal,Ferro,relative_change_from_base_percent,16.142426,percent,1,same-profile Base mean
+Regular,LP-Food,Ferro,mean_daily,15.96752,mg/day,1,diet files used by the main submitted tables
+Regular,LP-Food,Ferro,relative_change_from_base_percent,34.802613,percent,1,same-profile Base mean
+Regular,LP-Meal,Ferro,mean_daily,16.4878,mg/day,1,diet files used by the main submitted tables
+Regular,LP-Meal,Ferro,relative_change_from_base_percent,39.194974,percent,1,same-profile Base mean
+Regular,Base,Fibra alimentar,mean_daily,28.983908,g/day,50,diet files used by the main submitted tables
+Regular,GA-Food,Fibra alimentar,mean_daily,34.1423,g/day,1,diet files used by the main submitted tables
+Regular,GA-Food,Fibra alimentar,relative_change_from_base_percent,17.797434,percent,1,same-profile Base mean
+Regular,GA-Meal,Fibra alimentar,mean_daily,35.3791,g/day,1,diet files used by the main submitted tables
+Regular,GA-Meal,Fibra alimentar,relative_change_from_base_percent,22.06463,percent,1,same-profile Base mean
+Regular,LP-Food,Fibra alimentar,mean_daily,72.72159,g/day,1,diet files used by the main submitted tables
+Regular,LP-Food,Fibra alimentar,relative_change_from_base_percent,150.903329,percent,1,same-profile Base mean
+Regular,LP-Meal,Fibra alimentar,mean_daily,49.8892,g/day,1,diet files used by the main submitted tables
+Regular,LP-Meal,Fibra alimentar,relative_change_from_base_percent,72.127237,percent,1,same-profile Base mean
+Regular,Base,Lipídios,mean_daily,63.880126,g/day,50,diet files used by the main submitted tables
+Regular,GA-Food,Lipídios,mean_daily,82.1908,g/day,1,diet files used by the main submitted tables
+Regular,GA-Food,Lipídios,relative_change_from_base_percent,28.664117,percent,1,same-profile Base mean
+Regular,GA-Meal,Lipídios,mean_daily,63.6579,g/day,1,diet files used by the main submitted tables
+Regular,GA-Meal,Lipídios,relative_change_from_base_percent,-0.34788,percent,1,same-profile Base mean
+Regular,LP-Food,Lipídios,mean_daily,61.08976,g/day,1,diet files used by the main submitted tables
+Regular,LP-Food,Lipídios,relative_change_from_base_percent,-4.368129,percent,1,same-profile Base mean
+Regular,LP-Meal,Lipídios,mean_daily,64.0512,g/day,1,diet files used by the main submitted tables
+Regular,LP-Meal,Lipídios,relative_change_from_base_percent,0.267805,percent,1,same-profile Base mean
+Regular,Base,Pegada de Carbono,mean_daily,6638.01004,gCO2eq/day,50,diet files used by the main submitted tables
+Regular,GA-Food,Pegada de Carbono,mean_daily,5304.71,gCO2eq/day,1,diet files used by the main submitted tables
+Regular,GA-Food,Pegada de Carbono,relative_change_from_base_percent,-20.085839,percent,1,same-profile Base mean
+Regular,GA-Meal,Pegada de Carbono,mean_daily,5450.83,gCO2eq/day,1,diet files used by the main submitted tables
+Regular,GA-Meal,Pegada de Carbono,relative_change_from_base_percent,-17.884577,percent,1,same-profile Base mean
+Regular,LP-Food,Pegada de Carbono,mean_daily,112.402,gCO2eq/day,1,diet files used by the main submitted tables
+Regular,LP-Food,Pegada de Carbono,relative_change_from_base_percent,-98.306691,percent,1,same-profile Base mean
+Regular,LP-Meal,Pegada de Carbono,mean_daily,2499.8,gCO2eq/day,1,diet files used by the main submitted tables
+Regular,LP-Meal,Pegada de Carbono,relative_change_from_base_percent,-62.341124,percent,1,same-profile Base mean
+Regular,Base,Proteína,mean_daily,123.348076,g/day,50,diet files used by the main submitted tables
+Regular,GA-Food,Proteína,mean_daily,119.1802,g/day,1,diet files used by the main submitted tables
+Regular,GA-Food,Proteína,relative_change_from_base_percent,-3.378955,percent,1,same-profile Base mean
+Regular,GA-Meal,Proteína,mean_daily,108.5314,g/day,1,diet files used by the main submitted tables
+Regular,GA-Meal,Proteína,relative_change_from_base_percent,-12.012085,percent,1,same-profile Base mean
+Regular,LP-Food,Proteína,mean_daily,109.95407,g/day,1,diet files used by the main submitted tables
+Regular,LP-Food,Proteína,relative_change_from_base_percent,-10.858707,percent,1,same-profile Base mean
+Regular,LP-Meal,Proteína,mean_daily,111.6748,g/day,1,diet files used by the main submitted tables
+Regular,LP-Meal,Proteína,relative_change_from_base_percent,-9.463687,percent,1,same-profile Base mean
+Regular,Base,Sódio,mean_daily,2125.994476,mg/day,50,diet files used by the main submitted tables
+Regular,GA-Food,Sódio,mean_daily,2784.9589,mg/day,1,diet files used by the main submitted tables
+Regular,GA-Food,Sódio,relative_change_from_base_percent,30.995585,percent,1,same-profile Base mean
+Regular,GA-Meal,Sódio,mean_daily,2413.4887,mg/day,1,diet files used by the main submitted tables
+Regular,GA-Meal,Sódio,relative_change_from_base_percent,13.522811,percent,1,same-profile Base mean
+Regular,LP-Food,Sódio,mean_daily,876.79334,mg/day,1,diet files used by the main submitted tables
+Regular,LP-Food,Sódio,relative_change_from_base_percent,-58.758438,percent,1,same-profile Base mean
+Regular,LP-Meal,Sódio,mean_daily,2288.8908,mg/day,1,diet files used by the main submitted tables
+Regular,LP-Meal,Sódio,relative_change_from_base_percent,7.662124,percent,1,same-profile Base mean
+Regular,Base,Vitamina C,mean_daily,161.496394,mg/day,50,diet files used by the main submitted tables
+Regular,GA-Food,Vitamina C,mean_daily,265.0046,mg/day,1,diet files used by the main submitted tables
+Regular,GA-Food,Vitamina C,relative_change_from_base_percent,64.0932,percent,1,same-profile Base mean
+Regular,GA-Meal,Vitamina C,mean_daily,348.9068,mg/day,1,diet files used by the main submitted tables
+Regular,GA-Meal,Vitamina C,relative_change_from_base_percent,116.046186,percent,1,same-profile Base mean
+Regular,LP-Food,Vitamina C,mean_daily,89.49352,mg/day,1,diet files used by the main submitted tables
+Regular,LP-Food,Vitamina C,relative_change_from_base_percent,-44.584818,percent,1,same-profile Base mean
+Regular,LP-Meal,Vitamina C,mean_daily,268.7852,mg/day,1,diet files used by the main submitted tables
+Regular,LP-Meal,Vitamina C,relative_change_from_base_percent,66.434181,percent,1,same-profile Base mean
+Vegan,Base,Carboidrato disponível,mean_daily,282.441732,g/day,50,diet files used by the main submitted tables
+Vegan,GA-Food,Carboidrato disponível,mean_daily,234.3397,g/day,1,diet files used by the main submitted tables
+Vegan,GA-Food,Carboidrato disponível,relative_change_from_base_percent,-17.030781,percent,1,same-profile Base mean
+Vegan,GA-Meal,Carboidrato disponível,mean_daily,251.8599,g/day,1,diet files used by the main submitted tables
+Vegan,GA-Meal,Carboidrato disponível,relative_change_from_base_percent,-10.827661,percent,1,same-profile Base mean
+Vegan,LP-Food,Carboidrato disponível,mean_daily,240.6334,g/day,1,diet files used by the main submitted tables
+Vegan,LP-Food,Carboidrato disponível,relative_change_from_base_percent,-14.802463,percent,1,same-profile Base mean
+Vegan,LP-Meal,Carboidrato disponível,mean_daily,251.1262,g/day,1,diet files used by the main submitted tables
+Vegan,LP-Meal,Carboidrato disponível,relative_change_from_base_percent,-11.087431,percent,1,same-profile Base mean
+Vegan,Base,Colesterol,mean_daily,26.363436,mg/day,50,diet files used by the main submitted tables
+Vegan,GA-Food,Colesterol,mean_daily,45.45,mg/day,1,diet files used by the main submitted tables
+Vegan,GA-Food,Colesterol,relative_change_from_base_percent,72.397862,percent,1,same-profile Base mean
+Vegan,GA-Meal,Colesterol,mean_daily,60.179,mg/day,1,diet files used by the main submitted tables
+Vegan,GA-Meal,Colesterol,relative_change_from_base_percent,128.266907,percent,1,same-profile Base mean
+Vegan,LP-Food,Colesterol,mean_daily,22.3002,mg/day,1,diet files used by the main submitted tables
+Vegan,LP-Food,Colesterol,relative_change_from_base_percent,-15.412392,percent,1,same-profile Base mean
+Vegan,LP-Meal,Colesterol,mean_daily,45.45,mg/day,1,diet files used by the main submitted tables
+Vegan,LP-Meal,Colesterol,relative_change_from_base_percent,72.397862,percent,1,same-profile Base mean
+Vegan,Base,Cálcio,mean_daily,607.485097,mg/day,50,diet files used by the main submitted tables
+Vegan,GA-Food,Cálcio,mean_daily,1013.779,mg/day,1,diet files used by the main submitted tables
+Vegan,GA-Food,Cálcio,relative_change_from_base_percent,66.881296,percent,1,same-profile Base mean
+Vegan,GA-Meal,Cálcio,mean_daily,1012.279,mg/day,1,diet files used by the main submitted tables
+Vegan,GA-Meal,Cálcio,relative_change_from_base_percent,66.634376,percent,1,same-profile Base mean
+Vegan,LP-Food,Cálcio,mean_daily,999.73343,mg/day,1,diet files used by the main submitted tables
+Vegan,LP-Food,Cálcio,relative_change_from_base_percent,64.569211,percent,1,same-profile Base mean
+Vegan,LP-Meal,Cálcio,mean_daily,1039.093,mg/day,1,diet files used by the main submitted tables
+Vegan,LP-Meal,Cálcio,relative_change_from_base_percent,71.048311,percent,1,same-profile Base mean
+Vegan,Base,Energia,mean_daily,2268.38112,kcal/day,50,diet files used by the main submitted tables
+Vegan,GA-Food,Energia,mean_daily,2080.61,kcal/day,1,diet files used by the main submitted tables
+Vegan,GA-Food,Energia,relative_change_from_base_percent,-8.277759,percent,1,same-profile Base mean
+Vegan,GA-Meal,Energia,mean_daily,2017.25,kcal/day,1,diet files used by the main submitted tables
+Vegan,GA-Meal,Energia,relative_change_from_base_percent,-11.07094,percent,1,same-profile Base mean
+Vegan,LP-Food,Energia,mean_daily,2099.428,kcal/day,1,diet files used by the main submitted tables
+Vegan,LP-Food,Energia,relative_change_from_base_percent,-7.44818,percent,1,same-profile Base mean
+Vegan,LP-Meal,Energia,mean_daily,2139.28,kcal/day,1,diet files used by the main submitted tables
+Vegan,LP-Meal,Energia,relative_change_from_base_percent,-5.691333,percent,1,same-profile Base mean
+Vegan,Base,Ferro,mean_daily,16.439062,mg/day,50,diet files used by the main submitted tables
+Vegan,GA-Food,Ferro,mean_daily,21.07,mg/day,1,diet files used by the main submitted tables
+Vegan,GA-Food,Ferro,relative_change_from_base_percent,28.170327,percent,1,same-profile Base mean
+Vegan,GA-Meal,Ferro,mean_daily,14.2151,mg/day,1,diet files used by the main submitted tables
+Vegan,GA-Meal,Ferro,relative_change_from_base_percent,-13.528523,percent,1,same-profile Base mean
+Vegan,LP-Food,Ferro,mean_daily,15.96752,mg/day,1,diet files used by the main submitted tables
+Vegan,LP-Food,Ferro,relative_change_from_base_percent,-2.868426,percent,1,same-profile Base mean
+Vegan,LP-Meal,Ferro,mean_daily,26.3284,mg/day,1,diet files used by the main submitted tables
+Vegan,LP-Meal,Ferro,relative_change_from_base_percent,60.157553,percent,1,same-profile Base mean
+Vegan,Base,Fibra alimentar,mean_daily,51.49763,g/day,50,diet files used by the main submitted tables
+Vegan,GA-Food,Fibra alimentar,mean_daily,53.1788,g/day,1,diet files used by the main submitted tables
+Vegan,GA-Food,Fibra alimentar,relative_change_from_base_percent,3.264557,percent,1,same-profile Base mean
+Vegan,GA-Meal,Fibra alimentar,mean_daily,57.9272,g/day,1,diet files used by the main submitted tables
+Vegan,GA-Meal,Fibra alimentar,relative_change_from_base_percent,12.485176,percent,1,same-profile Base mean
+Vegan,LP-Food,Fibra alimentar,mean_daily,72.72159,g/day,1,diet files used by the main submitted tables
+Vegan,LP-Food,Fibra alimentar,relative_change_from_base_percent,41.213468,percent,1,same-profile Base mean
+Vegan,LP-Meal,Fibra alimentar,mean_daily,47.9354,g/day,1,diet files used by the main submitted tables
+Vegan,LP-Meal,Fibra alimentar,relative_change_from_base_percent,-6.917271,percent,1,same-profile Base mean
+Vegan,Base,Lipídios,mean_daily,86.411502,g/day,50,diet files used by the main submitted tables
+Vegan,GA-Food,Lipídios,mean_daily,74.8552,g/day,1,diet files used by the main submitted tables
+Vegan,GA-Food,Lipídios,relative_change_from_base_percent,-13.373569,percent,1,same-profile Base mean
+Vegan,GA-Meal,Lipídios,mean_daily,66.4142,g/day,1,diet files used by the main submitted tables
+Vegan,GA-Meal,Lipídios,relative_change_from_base_percent,-23.141945,percent,1,same-profile Base mean
+Vegan,LP-Food,Lipídios,mean_daily,61.08976,g/day,1,diet files used by the main submitted tables
+Vegan,LP-Food,Lipídios,relative_change_from_base_percent,-29.303671,percent,1,same-profile Base mean
+Vegan,LP-Meal,Lipídios,mean_daily,66.8744,g/day,1,diet files used by the main submitted tables
+Vegan,LP-Meal,Lipídios,relative_change_from_base_percent,-22.609377,percent,1,same-profile Base mean
+Vegan,Base,Pegada de Carbono,mean_daily,1668.53256,gCO2eq/day,50,diet files used by the main submitted tables
+Vegan,GA-Food,Pegada de Carbono,mean_daily,1229.03,gCO2eq/day,1,diet files used by the main submitted tables
+Vegan,GA-Food,Pegada de Carbono,relative_change_from_base_percent,-26.340664,percent,1,same-profile Base mean
+Vegan,GA-Meal,Pegada de Carbono,mean_daily,1244.11,gCO2eq/day,1,diet files used by the main submitted tables
+Vegan,GA-Meal,Pegada de Carbono,relative_change_from_base_percent,-25.436876,percent,1,same-profile Base mean
+Vegan,LP-Food,Pegada de Carbono,mean_daily,112.402,gCO2eq/day,1,diet files used by the main submitted tables
+Vegan,LP-Food,Pegada de Carbono,relative_change_from_base_percent,-93.263422,percent,1,same-profile Base mean
+Vegan,LP-Meal,Pegada de Carbono,mean_daily,1552.67,gCO2eq/day,1,diet files used by the main submitted tables
+Vegan,LP-Meal,Pegada de Carbono,relative_change_from_base_percent,-6.94398,percent,1,same-profile Base mean
+Vegan,Base,Proteína,mean_daily,65.098291,g/day,50,diet files used by the main submitted tables
+Vegan,GA-Food,Proteína,mean_daily,90.9528,g/day,1,diet files used by the main submitted tables
+Vegan,GA-Food,Proteína,relative_change_from_base_percent,39.716111,percent,1,same-profile Base mean
+Vegan,GA-Meal,Proteína,mean_daily,75.4097,g/day,1,diet files used by the main submitted tables
+Vegan,GA-Meal,Proteína,relative_change_from_base_percent,15.839754,percent,1,same-profile Base mean
+Vegan,LP-Food,Proteína,mean_daily,109.95407,g/day,1,diet files used by the main submitted tables
+Vegan,LP-Food,Proteína,relative_change_from_base_percent,68.904696,percent,1,same-profile Base mean
+Vegan,LP-Meal,Proteína,mean_daily,112.5996,g/day,1,diet files used by the main submitted tables
+Vegan,LP-Meal,Proteína,relative_change_from_base_percent,72.968597,percent,1,same-profile Base mean
+Vegan,Base,Sódio,mean_daily,1776.525888,mg/day,50,diet files used by the main submitted tables
+Vegan,GA-Food,Sódio,mean_daily,2307.7817,mg/day,1,diet files used by the main submitted tables
+Vegan,GA-Food,Sódio,relative_change_from_base_percent,29.904198,percent,1,same-profile Base mean
+Vegan,GA-Meal,Sódio,mean_daily,2224.5579,mg/day,1,diet files used by the main submitted tables
+Vegan,GA-Meal,Sódio,relative_change_from_base_percent,25.21956,percent,1,same-profile Base mean
+Vegan,LP-Food,Sódio,mean_daily,876.79334,mg/day,1,diet files used by the main submitted tables
+Vegan,LP-Food,Sódio,relative_change_from_base_percent,-50.64562,percent,1,same-profile Base mean
+Vegan,LP-Meal,Sódio,mean_daily,2352.7126,mg/day,1,diet files used by the main submitted tables
+Vegan,LP-Meal,Sódio,relative_change_from_base_percent,32.433342,percent,1,same-profile Base mean
+Vegan,Base,Vitamina C,mean_daily,191.334032,mg/day,50,diet files used by the main submitted tables
+Vegan,GA-Food,Vitamina C,mean_daily,233.1492,mg/day,1,diet files used by the main submitted tables
+Vegan,GA-Food,Vitamina C,relative_change_from_base_percent,21.854538,percent,1,same-profile Base mean
+Vegan,GA-Meal,Vitamina C,mean_daily,248.9058,mg/day,1,diet files used by the main submitted tables
+Vegan,GA-Meal,Vitamina C,relative_change_from_base_percent,30.089664,percent,1,same-profile Base mean
+Vegan,LP-Food,Vitamina C,mean_daily,89.49352,mg/day,1,diet files used by the main submitted tables
+Vegan,LP-Food,Vitamina C,relative_change_from_base_percent,-53.226554,percent,1,same-profile Base mean
+Vegan,LP-Meal,Vitamina C,mean_daily,137.9484,mg/day,1,diet files used by the main submitted tables
+Vegan,LP-Meal,Vitamina C,relative_change_from_base_percent,-27.901796,percent,1,same-profile Base mean
+Vegetarian,Base,Carboidrato disponível,mean_daily,231.010039,g/day,50,diet files used by the main submitted tables
+Vegetarian,GA-Food,Carboidrato disponível,mean_daily,261.6146,g/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Food,Carboidrato disponível,relative_change_from_base_percent,13.248152,percent,1,same-profile Base mean
+Vegetarian,GA-Meal,Carboidrato disponível,mean_daily,260.2555,g/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Meal,Carboidrato disponível,relative_change_from_base_percent,12.659822,percent,1,same-profile Base mean
+Vegetarian,LP-Food,Carboidrato disponível,mean_daily,240.6334,g/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Food,Carboidrato disponível,relative_change_from_base_percent,4.165776,percent,1,same-profile Base mean
+Vegetarian,LP-Meal,Carboidrato disponível,mean_daily,254.3826,g/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Meal,Carboidrato disponível,relative_change_from_base_percent,10.117552,percent,1,same-profile Base mean
+Vegetarian,Base,Colesterol,mean_daily,463.770248,mg/day,50,diet files used by the main submitted tables
+Vegetarian,GA-Food,Colesterol,mean_daily,197.521,mg/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Food,Colesterol,relative_change_from_base_percent,-57.40973,percent,1,same-profile Base mean
+Vegetarian,GA-Meal,Colesterol,mean_daily,272.2994,mg/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Meal,Colesterol,relative_change_from_base_percent,-41.285712,percent,1,same-profile Base mean
+Vegetarian,LP-Food,Colesterol,mean_daily,22.3002,mg/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Food,Colesterol,relative_change_from_base_percent,-95.191541,percent,1,same-profile Base mean
+Vegetarian,LP-Meal,Colesterol,mean_daily,284.1612,mg/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Meal,Colesterol,relative_change_from_base_percent,-38.728023,percent,1,same-profile Base mean
+Vegetarian,Base,Cálcio,mean_daily,1229.632436,mg/day,50,diet files used by the main submitted tables
+Vegetarian,GA-Food,Cálcio,mean_daily,1366.9922,mg/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Food,Cálcio,relative_change_from_base_percent,11.170799,percent,1,same-profile Base mean
+Vegetarian,GA-Meal,Cálcio,mean_daily,1532.2592,mg/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Meal,Cálcio,relative_change_from_base_percent,24.611157,percent,1,same-profile Base mean
+Vegetarian,LP-Food,Cálcio,mean_daily,999.73343,mg/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Food,Cálcio,relative_change_from_base_percent,-18.696563,percent,1,same-profile Base mean
+Vegetarian,LP-Meal,Cálcio,mean_daily,1719.1986,mg/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Meal,Cálcio,relative_change_from_base_percent,39.814025,percent,1,same-profile Base mean
+Vegetarian,Base,Energia,mean_daily,2046.58284,kcal/day,50,diet files used by the main submitted tables
+Vegetarian,GA-Food,Energia,mean_daily,2034.75,kcal/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Food,Energia,relative_change_from_base_percent,-0.578175,percent,1,same-profile Base mean
+Vegetarian,GA-Meal,Energia,mean_daily,2119.84,kcal/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Meal,Energia,relative_change_from_base_percent,3.579487,percent,1,same-profile Base mean
+Vegetarian,LP-Food,Energia,mean_daily,2099.428,kcal/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Food,Energia,relative_change_from_base_percent,2.582117,percent,1,same-profile Base mean
+Vegetarian,LP-Meal,Energia,mean_daily,2103.5,kcal/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Meal,Energia,relative_change_from_base_percent,2.781083,percent,1,same-profile Base mean
+Vegetarian,Base,Ferro,mean_daily,14.426906,mg/day,50,diet files used by the main submitted tables
+Vegetarian,GA-Food,Ferro,mean_daily,18.1746,mg/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Food,Ferro,relative_change_from_base_percent,25.977112,percent,1,same-profile Base mean
+Vegetarian,GA-Meal,Ferro,mean_daily,24.8603,mg/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Meal,Ferro,relative_change_from_base_percent,72.318994,percent,1,same-profile Base mean
+Vegetarian,LP-Food,Ferro,mean_daily,15.96752,mg/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Food,Ferro,relative_change_from_base_percent,10.678752,percent,1,same-profile Base mean
+Vegetarian,LP-Meal,Ferro,mean_daily,29.2984,mg/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Meal,Ferro,relative_change_from_base_percent,103.081653,percent,1,same-profile Base mean
+Vegetarian,Base,Fibra alimentar,mean_daily,35.822696,g/day,50,diet files used by the main submitted tables
+Vegetarian,GA-Food,Fibra alimentar,mean_daily,57.5586,g/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Food,Fibra alimentar,relative_change_from_base_percent,60.676351,percent,1,same-profile Base mean
+Vegetarian,GA-Meal,Fibra alimentar,mean_daily,59.0707,g/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Meal,Fibra alimentar,relative_change_from_base_percent,64.897418,percent,1,same-profile Base mean
+Vegetarian,LP-Food,Fibra alimentar,mean_daily,72.72159,g/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Food,Fibra alimentar,relative_change_from_base_percent,103.004237,percent,1,same-profile Base mean
+Vegetarian,LP-Meal,Fibra alimentar,mean_daily,50.305,g/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Meal,Fibra alimentar,relative_change_from_base_percent,40.427735,percent,1,same-profile Base mean
+Vegetarian,Base,Lipídios,mean_daily,81.823851,g/day,50,diet files used by the main submitted tables
+Vegetarian,GA-Food,Lipídios,mean_daily,60.1798,g/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Food,Lipídios,relative_change_from_base_percent,-26.452007,percent,1,same-profile Base mean
+Vegetarian,GA-Meal,Lipídios,mean_daily,68.317,g/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Meal,Lipídios,relative_change_from_base_percent,-16.507229,percent,1,same-profile Base mean
+Vegetarian,LP-Food,Lipídios,mean_daily,61.08976,g/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Food,Lipídios,relative_change_from_base_percent,-25.339911,percent,1,same-profile Base mean
+Vegetarian,LP-Meal,Lipídios,mean_daily,60.2634,g/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Meal,Lipídios,relative_change_from_base_percent,-26.349836,percent,1,same-profile Base mean
+Vegetarian,Base,Pegada de Carbono,mean_daily,2481.10736,gCO2eq/day,50,diet files used by the main submitted tables
+Vegetarian,GA-Food,Pegada de Carbono,mean_daily,2418.07,gCO2eq/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Food,Pegada de Carbono,relative_change_from_base_percent,-2.540695,percent,1,same-profile Base mean
+Vegetarian,GA-Meal,Pegada de Carbono,mean_daily,2500.03,gCO2eq/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Meal,Pegada de Carbono,relative_change_from_base_percent,0.762669,percent,1,same-profile Base mean
+Vegetarian,LP-Food,Pegada de Carbono,mean_daily,112.402,gCO2eq/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Food,Pegada de Carbono,relative_change_from_base_percent,-95.469684,percent,1,same-profile Base mean
+Vegetarian,LP-Meal,Pegada de Carbono,mean_daily,2408.58,gCO2eq/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Meal,Pegada de Carbono,relative_change_from_base_percent,-2.923185,percent,1,same-profile Base mean
+Vegetarian,Base,Proteína,mean_daily,78.978034,g/day,50,diet files used by the main submitted tables
+Vegetarian,GA-Food,Proteína,mean_daily,83.1416,g/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Food,Proteína,relative_change_from_base_percent,5.271803,percent,1,same-profile Base mean
+Vegetarian,GA-Meal,Proteína,mean_daily,86.3716,g/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Meal,Proteína,relative_change_from_base_percent,9.361547,percent,1,same-profile Base mean
+Vegetarian,LP-Food,Proteína,mean_daily,109.95407,g/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Food,Proteína,relative_change_from_base_percent,39.221078,percent,1,same-profile Base mean
+Vegetarian,LP-Meal,Proteína,mean_daily,111.7076,g/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Meal,Proteína,relative_change_from_base_percent,41.441353,percent,1,same-profile Base mean
+Vegetarian,Base,Sódio,mean_daily,2338.36956,mg/day,50,diet files used by the main submitted tables
+Vegetarian,GA-Food,Sódio,mean_daily,2371.0204,mg/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Food,Sódio,relative_change_from_base_percent,1.396308,percent,1,same-profile Base mean
+Vegetarian,GA-Meal,Sódio,mean_daily,2274.8131,mg/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Meal,Sódio,relative_change_from_base_percent,-2.717982,percent,1,same-profile Base mean
+Vegetarian,LP-Food,Sódio,mean_daily,876.79334,mg/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Food,Sódio,relative_change_from_base_percent,-62.504073,percent,1,same-profile Base mean
+Vegetarian,LP-Meal,Sódio,mean_daily,2360.556,mg/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Meal,Sódio,relative_change_from_base_percent,0.9488,percent,1,same-profile Base mean
+Vegetarian,Base,Vitamina C,mean_daily,157.971276,mg/day,50,diet files used by the main submitted tables
+Vegetarian,GA-Food,Vitamina C,mean_daily,269.8208,mg/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Food,Vitamina C,relative_change_from_base_percent,70.803709,percent,1,same-profile Base mean
+Vegetarian,GA-Meal,Vitamina C,mean_daily,245.5178,mg/day,1,diet files used by the main submitted tables
+Vegetarian,GA-Meal,Vitamina C,relative_change_from_base_percent,55.419267,percent,1,same-profile Base mean
+Vegetarian,LP-Food,Vitamina C,mean_daily,89.49352,mg/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Food,Vitamina C,relative_change_from_base_percent,-43.348233,percent,1,same-profile Base mean
+Vegetarian,LP-Meal,Vitamina C,mean_daily,280.0296,mg/day,1,diet files used by the main submitted tables
+Vegetarian,LP-Meal,Vitamina C,relative_change_from_base_percent,77.26615,percent,1,same-profile Base mean
+Regular,Base,Food diversity,unique_foods_total,187.0,unique_foods,50,all archived solutions available for diversity
+Regular,Base,Food diversity,unique_foods_mean_per_week,61.94,unique_foods,50,all archived solutions available for diversity
+Regular,GA-Food,Food diversity,unique_foods_total,155.0,unique_foods,10,all archived solutions available for diversity
+Regular,GA-Food,Food diversity,unique_foods_mean_per_week,58.7,unique_foods,10,all archived solutions available for diversity
+Regular,GA-Meal,Food diversity,unique_foods_total,147.0,unique_foods,10,all archived solutions available for diversity
+Regular,GA-Meal,Food diversity,unique_foods_mean_per_week,56.8,unique_foods,10,all archived solutions available for diversity
+Regular,LP-Food,Food diversity,unique_foods_total,10.0,unique_foods,1,all archived solutions available for diversity
+Regular,LP-Food,Food diversity,unique_foods_mean_per_week,10.0,unique_foods,1,all archived solutions available for diversity
+Regular,LP-Meal,Food diversity,unique_foods_total,27.0,unique_foods,1,all archived solutions available for diversity
+Regular,LP-Meal,Food diversity,unique_foods_mean_per_week,27.0,unique_foods,1,all archived solutions available for diversity
+Vegetarian,Base,Food diversity,unique_foods_total,207.0,unique_foods,50,all archived solutions available for diversity
+Vegetarian,Base,Food diversity,unique_foods_mean_per_week,72.46,unique_foods,50,all archived solutions available for diversity
+Vegetarian,GA-Food,Food diversity,unique_foods_total,173.0,unique_foods,10,all archived solutions available for diversity
+Vegetarian,GA-Food,Food diversity,unique_foods_mean_per_week,66.1,unique_foods,10,all archived solutions available for diversity
+Vegetarian,GA-Meal,Food diversity,unique_foods_total,164.0,unique_foods,10,all archived solutions available for diversity
+Vegetarian,GA-Meal,Food diversity,unique_foods_mean_per_week,64.6,unique_foods,10,all archived solutions available for diversity
+Vegetarian,LP-Food,Food diversity,unique_foods_total,10.0,unique_foods,1,all archived solutions available for diversity
+Vegetarian,LP-Food,Food diversity,unique_foods_mean_per_week,10.0,unique_foods,1,all archived solutions available for diversity
+Vegetarian,LP-Meal,Food diversity,unique_foods_total,32.0,unique_foods,1,all archived solutions available for diversity
+Vegetarian,LP-Meal,Food diversity,unique_foods_mean_per_week,32.0,unique_foods,1,all archived solutions available for diversity
+Vegan,Base,Food diversity,unique_foods_total,157.0,unique_foods,50,all archived solutions available for diversity
+Vegan,Base,Food diversity,unique_foods_mean_per_week,68.68,unique_foods,50,all archived solutions available for diversity
+Vegan,GA-Food,Food diversity,unique_foods_total,134.0,unique_foods,10,all archived solutions available for diversity
+Vegan,GA-Food,Food diversity,unique_foods_mean_per_week,57.5,unique_foods,10,all archived solutions available for diversity
+Vegan,GA-Meal,Food diversity,unique_foods_total,131.0,unique_foods,10,all archived solutions available for diversity
+Vegan,GA-Meal,Food diversity,unique_foods_mean_per_week,57.5,unique_foods,10,all archived solutions available for diversity
+Vegan,LP-Food,Food diversity,unique_foods_total,10.0,unique_foods,1,all archived solutions available for diversity
+Vegan,LP-Food,Food diversity,unique_foods_mean_per_week,10.0,unique_foods,1,all archived solutions available for diversity
+Vegan,LP-Meal,Food diversity,unique_foods_total,23.0,unique_foods,1,all archived solutions available for diversity
+Vegan,LP-Meal,Food diversity,unique_foods_mean_per_week,23.0,unique_foods,1,all archived solutions available for diversity

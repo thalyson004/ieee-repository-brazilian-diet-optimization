@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "evidence_cutoff": "2026-09-23",
+  "artifact_scope": "150 normalized weekly diets in three aggregated JSON files",
+  "raw_api_responses_preserved": false,
+  "request_logs_preserved": false,
+  "fields": {
+    "model_identifier": {
+      "status": "conflicting_not_recovered",
+      "value": null,
+      "evidence": [
+        {
+          "claim": "Gemini 2.5 Flash",
+          "source": "parent README and SEMISH project README",
+          "first_known_commit": "e28ed2a63b61594816afd5c5d3afa17c9d88cd53",
+          "commit_date": "2026-03-23T12:40:38-03:00"
+        },
+        {
+          "claim": "Gemini 3-Flash",
+          "source": "later availability repository and manuscript text",
+          "availability_repository_first_commit": "6f1f902299cffe173e6d7283b1fab478c70c2257",
+          "commit_date": "2026-03-23T19:56:52-03:00"
+        }
+      ]
+    },
+    "access_date": {"status": "not_recovered", "value": null},
+    "api_or_sdk": {"status": "not_recovered", "value": null},
+    "temperature": {"status": "not_recovered", "value": null},
+    "top_p": {"status": "not_recovered", "value": null},
+    "top_k": {"status": "not_recovered", "value": null},
+    "max_output_tokens": {"status": "not_recovered", "value": null},
+    "seed": {"status": "not_recovered", "value": null},
+    "response_mime_type": {
+      "status": "requested_format_only",
+      "value": "JSON requested in the preserved prompts; API response configuration unknown"
+    },
+    "web_search_or_grounding": {"status": "not_recovered", "value": null},
+    "retry_policy": {"status": "not_recovered", "value": null},
+    "failed_responses": {"status": "not_recovered", "value": null},
+    "regeneration_count": {"status": "not_recovered", "value": null},
+    "attached_food_list_identifier_and_hash": {"status": "not_recovered", "value": null}
+  },
+  "prompt_evidence": {
+    "published_in_full": true,
+    "manifest": "prompts/manifest.json",
+    "first_availability_repository_commit": "6f1f902299cffe173e6d7283b1fab478c70c2257",
+    "byte_identity_across_available_copies": true,
+    "identity_with_executed_requests": "not_verifiable_without_request_logs"
+  },
+  "required_manuscript_treatment": [
+    "Do not state a specific Gemini model as verified until primary request evidence is recovered.",
+    "Do not claim deterministic generation or a particular inference setting.",
+    "State that only normalized outputs and published prompt files were preserved.",
+    "Separate reconstruction of downstream optimization from regeneration of LLM outputs."
+  ]
+}

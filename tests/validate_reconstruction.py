@@ -85,6 +85,36 @@ def validate_diversity(path: Path) -> None:
             raise AssertionError(f"Diversity mismatch for {key}: {actual} != {expected}")
 
 
+def validate_canonical_results(path: Path) -> None:
+    frame = pd.read_csv(path)
+    expected_columns = {
+        "profile",
+        "approach",
+        "metric",
+        "statistic",
+        "value",
+        "unit",
+        "n",
+        "comparison_basis",
+    }
+    if set(frame.columns) != expected_columns:
+        raise AssertionError(f"Unexpected canonical columns: {list(frame.columns)}")
+    if len(frame) != 327:
+        raise AssertionError(f"Expected 327 canonical rows, found {len(frame)}")
+    ga_main = frame[
+        (frame["approach"].isin(["GA-Food", "GA-Meal"]))
+        & (frame["statistic"] == "mean_daily")
+    ]
+    if set(ga_main["n"]) != {1}:
+        raise AssertionError("The historical main GA table must remain marked as n=1.")
+    ga_diversity = frame[
+        (frame["approach"].isin(["GA-Food", "GA-Meal"]))
+        & (frame["statistic"] == "unique_foods_mean_per_week")
+    ]
+    if set(ga_diversity["n"]) != {10}:
+        raise AssertionError("The historical GA diversity result must remain marked as n=10.")
+
+
 def main() -> None:
     workspace = parse_args().workspace.resolve()
     outputs = workspace / "article_outputs"
@@ -92,7 +122,9 @@ def main() -> None:
 
     assert_csv_equal(outputs / "tabela_consolidada.csv", submitted / "tabela_consolidada.csv")
     assert_csv_equal(outputs / "variacao_percentual.csv", submitted / "variacao_percentual.csv")
+    assert_csv_equal(outputs / "canonical_results_long.csv", submitted / "canonical_results_long.csv")
     validate_diversity(outputs / "diversity_summary.csv")
+    validate_canonical_results(outputs / "canonical_results_long.csv")
     validate_archived_population()
     print("Validated 33 main-table rows, variation values, diversity, and archived population sizes.")
 

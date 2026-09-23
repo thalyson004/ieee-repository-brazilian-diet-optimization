@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
-from tests.run_experiments import EXPERIMENTS, commands_for
+from diet_optimization.analysis.diet_audit import audit
 from diet_optimization.optimization.pipeline import derive_execution_seed
+from tests.run_experiments import EXPERIMENTS, commands_for
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -28,6 +31,26 @@ class ArtifactPopulationTests(unittest.TestCase):
         for path in paths:
             self.assertEqual(len(json.loads(path.read_text(encoding="utf-8"))), 1, path)
 
+    def test_published_prompt_hashes_match_manifest(self) -> None:
+        manifest = json.loads(
+            (PROJECT_ROOT / "prompts" / "manifest.json").read_text(encoding="utf-8")
+        )
+        for entry in manifest["files"]:
+            content = (PROJECT_ROOT / entry["path"]).read_bytes()
+            self.assertEqual(hashlib.sha256(content).hexdigest(), entry["sha256"])
+
+    def test_unverified_generation_settings_remain_explicitly_unknown(self) -> None:
+        metadata = json.loads(
+            (PROJECT_ROOT / "generation" / "original-generation-metadata.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertFalse(metadata["raw_api_responses_preserved"])
+        self.assertFalse(metadata["request_logs_preserved"])
+        self.assertEqual(metadata["fields"]["model_identifier"]["status"], "conflicting_not_recovered")
+        for field in ("temperature", "top_p", "top_k", "max_output_tokens", "seed"):
+            self.assertIsNone(metadata["fields"][field]["value"])
+
 
 class CommandCatalogTests(unittest.TestCase):
     def test_every_registered_experiment_has_a_command(self) -> None:
@@ -47,6 +70,18 @@ class CommandCatalogTests(unittest.TestCase):
             derive_execution_seed(20260323, "ag-alimentos", "regular", 1),
             derive_execution_seed(20260323, "ag-alimentos", "regular", 1),
         )
+
+
+class BaseDietAuditTests(unittest.TestCase):
+    def test_all_150_base_diets_are_auditable_and_mapped(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            output = Path(temporary_directory) / "audit"
+            totals = audit(output)["totals"]
+
+        self.assertEqual(totals["plans"], 150)
+        self.assertEqual(totals["plans_with_valid_schema"], 150)
+        self.assertEqual(totals["unmapped_tbca_occurrences"], 0)
+        self.assertEqual(totals["unmapped_environmental_occurrences"], 0)
 
 
 if __name__ == "__main__":

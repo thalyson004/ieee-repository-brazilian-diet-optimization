@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "first_availability_repository_commit": "6f1f902299cffe173e6d7283b1fab478c70c2257",
+  "first_commit_date": "2026-03-23T19:56:52-03:00",
+  "files": [
+    {
+      "profile": "regular",
+      "path": "prompts/prompt-regular.txt",
+      "sha256": "f07d8700d10e603541115a4b5e592cc221edda824d0e601037505346dd254a43"
+    },
+    {
+      "profile": "vegetarian",
+      "path": "prompts/prompt-vegetariano.txt",
+      "sha256": "125576a9b0e0f6f24b7b41c5e649185643566725071b54431e371e0ade6082e9"
+    },
+    {
+      "profile": "vegan",
+      "path": "prompts/prompt-vegana.txt",
+      "sha256": "f53885e911ac2baf355fff9fed3f3accf518b792b15384fa742d41ae7d99d066"
+    }
+  ],
+  "cross_repository_verification": {
+    "status": "byte_identical",
+    "copies_checked": [
+      "current IEEE availability repository",
+      "standalone SEMISH2026 availability repository",
+      "SEMISH2026 submodule checkout"
+    ]
+  },
+  "executed_prompt_identity": {
+    "status": "not_verifiable",
+    "reason": "Original API request logs and raw responses were not preserved."
+  }
+}
