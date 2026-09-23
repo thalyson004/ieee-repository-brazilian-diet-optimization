@@ -95,6 +95,8 @@ def audit(output_dir: Path) -> dict[str, Any]:
     item_rows: list[dict[str, Any]] = []
     plan_rows: list[dict[str, Any]] = []
     nutrient_rows: list[dict[str, Any]] = []
+    food_occurrences: Counter[str] = Counter()
+    food_profiles: dict[str, set[str]] = {}
     file_evidence: list[dict[str, Any]] = []
     total_occurrences = 0
 
@@ -175,6 +177,9 @@ def audit(output_dir: Path) -> dict[str, Any]:
                             screened_large_quantities += 1
 
                         names_in_meal[food_name] += 1
+                        if food_name:
+                            food_occurrences[food_name] += 1
+                            food_profiles.setdefault(food_name, set()).add(profile)
                         normalized_name = generated_to_tbca_name.get(food_name)
                         tbca_code = generated_to_tbca_code.get(food_name)
                         tbca_record_exists = bool(tbca_code and tbca_code in tbca_database)
@@ -275,10 +280,6 @@ def audit(output_dir: Path) -> dict[str, Any]:
                 }
             )
 
-    write_csv(output_dir / "diet_audit_items.csv", item_rows, list(item_rows[0]))
-    write_csv(output_dir / "diet_audit_plans.csv", plan_rows, list(plan_rows[0]))
-    write_csv(output_dir / "diet_audit_nutrients.csv", nutrient_rows, list(nutrient_rows[0]))
-
     unique_foods = {row["food_original"] for row in item_rows if row["food_original"]}
     used_targets = {
         food: generated_to_tbca_name.get(food)
@@ -288,6 +289,61 @@ def audit(output_dir: Path) -> dict[str, Any]:
     target_to_used_sources: dict[str, set[str]] = {}
     for source, target in used_targets.items():
         target_to_used_sources.setdefault(target, set()).add(source)
+    mapping_rows: list[dict[str, Any]] = []
+    for food_name in sorted(unique_foods):
+        target_name = generated_to_tbca_name.get(food_name)
+        tbca_code = generated_to_tbca_code.get(food_name)
+        tbca_record = tbca_database.get(tbca_code, {}) if tbca_code else {}
+        footprint = footprint_map.get(food_name, {})
+        used_source_count = len(target_to_used_sources.get(target_name, set()))
+        all_source_count = shared_targets.get(target_name, 0) if target_name else 0
+        mapping_kind = (
+            "identity"
+            if target_name == food_name
+            else "non_identity_unreviewed"
+            if target_name
+            else "missing"
+        )
+        ambiguity_flags: list[str] = []
+        if used_source_count > 1:
+            ambiguity_flags.append("many_used_names_to_one_target")
+        if all_source_count > 1:
+            ambiguity_flags.append("many_map_names_to_one_target")
+        if mapping_kind == "non_identity_unreviewed":
+            ambiguity_flags.append("mapping_classification_not_preserved")
+        if not tbca_record:
+            ambiguity_flags.append("missing_tbca_record")
+        if not footprint:
+            ambiguity_flags.append("missing_environmental_coefficients")
+        mapping_rows.append(
+            {
+                "food_original": food_name,
+                "mapping_kind": mapping_kind,
+                "mapped_tbca_name": target_name,
+                "tbca_code": tbca_code,
+                "tbca_record_name": tbca_record.get("nome"),
+                "tbca_record_exists": bool(tbca_record),
+                "carbon_gco2e_per_100g": footprint.get("carbon_footprint"),
+                "water_l_per_100g": footprint.get("water_footprint"),
+                "ecological_points_per_100g": footprint.get("ecological_footprint"),
+                "environmental_mapping_exists": bool(footprint),
+                "occurrence_count": food_occurrences[food_name],
+                "profiles": "|".join(sorted(food_profiles.get(food_name, set()))),
+                "used_names_sharing_target": used_source_count,
+                "all_map_names_sharing_target": all_source_count,
+                "ambiguity_flags": "|".join(ambiguity_flags) or "none",
+                "selection_provenance": (
+                    "identity_match"
+                    if mapping_kind == "identity"
+                    else "preserved_map_only; original selection rationale unavailable"
+                ),
+            }
+        )
+
+    write_csv(output_dir / "diet_audit_items.csv", item_rows, list(item_rows[0]))
+    write_csv(output_dir / "diet_audit_plans.csv", plan_rows, list(plan_rows[0]))
+    write_csv(output_dir / "diet_audit_nutrients.csv", nutrient_rows, list(nutrient_rows[0]))
+    write_csv(output_dir / "food_mapping_audit.csv", mapping_rows, list(mapping_rows[0]))
     by_profile = {}
     for profile in PROFILE_FILES:
         profile_plans = [row for row in plan_rows if row["profile"] == profile]
@@ -313,6 +369,13 @@ def audit(output_dir: Path) -> dict[str, Any]:
             "unique_food_names": len(unique_foods),
             "unique_food_names_exactly_in_tbca_name_map": len(unique_foods & set(name_to_tbca)),
             "unique_food_names_requiring_explicit_name_mapping": len(unique_foods - set(name_to_tbca)),
+            "identity_food_mappings": sum(
+                row["mapping_kind"] == "identity" for row in mapping_rows
+            ),
+            "non_identity_mappings_without_preserved_classification": sum(
+                row["mapping_kind"] == "non_identity_unreviewed"
+                for row in mapping_rows
+            ),
             "used_mapping_targets_with_multiple_source_names": sum(
                 len(sources) > 1 for sources in target_to_used_sources.values()
             ),
@@ -342,6 +405,8 @@ def audit(output_dir: Path) -> dict[str, Any]:
         "interpretation_limits": [
             "JSON validity before aggregation and counts of failed/regenerated API calls cannot be reconstructed.",
             "A mapped food is not proof that the LLM originally copied it from the attached list.",
+            "Mappings that change the food name cannot be assumed to be lexical normalization: the archived artifacts do not classify lexical edits versus semantic substitutions.",
+            "Many-to-one targets are reported as ambiguity flags and require sensitivity analysis before revised claims are made.",
             "The 1000 g threshold is a screening flag, not a clinically validated portion limit.",
             "Nutritional violations use the thresholds implemented by the submitted optimizer and do not establish clinical safety.",
         ],
@@ -356,6 +421,7 @@ def audit(output_dir: Path) -> dict[str, Any]:
 - Plans: {totals['plans']} ({totals['plans_with_valid_schema']} with the expected 5-day/6-meal schema).
 - Food occurrences: {totals['food_occurrences']} across {totals['unique_food_names']} unique names.
 - Exact TBCA names: {totals['unique_food_names_exactly_in_tbca_name_map']}; names requiring the explicit preserved mapping: {totals['unique_food_names_requiring_explicit_name_mapping']}.
+- Identity mappings: {totals['identity_food_mappings']}; non-identity mappings without a preserved lexical-versus-semantic classification: {totals['non_identity_mappings_without_preserved_classification']}.
 - Used TBCA targets reached by multiple generated names: {totals['used_mapping_targets_with_multiple_source_names']}.
 - Invalid quantities: {totals['invalid_quantities']}.
 - Quantities above the 1000 g screening threshold: {totals['quantities_above_1000g_screening_threshold']}.
@@ -365,7 +431,7 @@ def audit(output_dir: Path) -> dict[str, Any]:
 - Plans with at least one implemented nutritional-target violation: {totals['plans_with_nutritional_target_violations']}.
 - Total implemented nutritional-target violations: {totals['nutritional_target_violations']}.
 
-The machine-readable item, plan, nutrient, and summary files in this directory are the authoritative audit output. Raw API failure and regeneration counts cannot be inferred from these normalized JSON files.
+The machine-readable item, plan, nutrient, mapping, and summary files in this directory are the authoritative audit output. `food_mapping_audit.csv` links every distinct food name to its selected TBCA record, environmental coefficients, occurrence count, mapping type, and ambiguity flags. Raw API failure and regeneration counts cannot be inferred from these normalized JSON files.
 """
     (output_dir / "diet_audit_summary.md").write_text(markdown, encoding="utf-8")
     return summary

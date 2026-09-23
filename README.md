@@ -20,7 +20,7 @@ New bounded and full replications use the same command interface:
 .venv/Scripts/python -m tests.run_experiments --experiments full-replication --runs 10 --seed 20260323
 ```
 
-See [`tests/README.md`](tests/README.md) for the artifact contract and [`archive/README.md`](archive/README.md) for the limits of the recovered experiment.
+See [`tests/README.md`](tests/README.md) for the artifact contract and [`archive/README.md`](archive/README.md) for the limits of the recovered experiment. The complete food-linkage protocol and row-level audit are documented in [`docs/data-mapping.md`](docs/data-mapping.md). The preserved sustainable-name map contains identity and non-identity links; the latter cannot be classified as lexical normalizations or semantic substitutions without item-level review.
 
 ## Overview
 
@@ -73,6 +73,8 @@ Intermediate maps linking food names to TBCA codes and sustainable alternatives.
 #### derived/
 
 - **mapa-sustentavel-tbca.json**: Maps sustainable food variant names to their corresponding TBCA codes. Derived by combining `mapa-sustentavel-nome.json` with `mapa-nome-tbca.json`.
+
+The optimizer looks up the derived TBCA code by the original diet-food key. When the selected target name differs, nutrients are attributed through a non-identity link whose class and rationale were not preserved. The revised protocol treats these rows as a sensitivity factor rather than assuming equivalence.
 
 ### 2. diets-base/ — Base Dietary Profiles
 

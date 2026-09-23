@@ -1,0 +1,229 @@
+{
+  "schema_version": "1.0",
+  "protocol_id": "ieee2026-revision-adult-female-30-v1",
+  "status": "preregistered_for_revised_experiments_not_applied_to_archived_results",
+  "target_population": {
+    "purpose": "fixed computational reference case for method comparison; not an individualized prescription",
+    "sex": "female",
+    "age_years": 30,
+    "body_mass_kg": 73.0,
+    "height_cm": 165.0,
+    "activity": "lightly active as stated in the archived prompt; no standardized physical-activity coefficient was preserved",
+    "energy_goal": "weight maintenance",
+    "modeled_health_scope": "apparently healthy adult",
+    "smoking_status": "non-smoker reference case; the archived prompt did not record smoking status",
+    "excluded_from_scope": [
+      "pregnancy",
+      "lactation",
+      "diagnosed disease",
+      "therapeutic diets",
+      "food allergy or intolerance",
+      "medication-nutrient interactions",
+      "smoking-related nutrient adjustment",
+      "individual laboratory or clinical data"
+    ]
+  },
+  "core_targets": [
+    {
+      "nutrient": "Energia",
+      "tbca_field": "Energia",
+      "unit": "kcal/day",
+      "lower": 1900.0,
+      "upper": 2100.0,
+      "reference_type": "experimental design tolerance",
+      "source": "archived prompt; not a DRI-derived individual energy requirement",
+      "model_rule": "hard daily range in the primary revised scenario; sensitivity analyses vary the tolerance"
+    },
+    {
+      "nutrient": "Carboidrato total",
+      "tbca_field": "Carboidrato total",
+      "unit": "g/day",
+      "lower": 225.0,
+      "upper": 325.0,
+      "reference_type": "AMDR 45-65% of the 2000 kcal experimental target",
+      "source": "IOM 2005, doi:10.17226/10490",
+      "model_rule": "hard daily range"
+    },
+    {
+      "nutrient": "Proteína",
+      "tbca_field": "Proteína",
+      "unit": "g/day",
+      "lower": 58.4,
+      "upper": 175.0,
+      "reference_type": "RDA 0.8 g/kg lower bound and AMDR 35% energy upper bound",
+      "source": "IOM 2005, doi:10.17226/10490",
+      "model_rule": "hard daily range"
+    },
+    {
+      "nutrient": "Lipídios",
+      "tbca_field": "Lipídios",
+      "unit": "g/day",
+      "lower": 44.4,
+      "upper": 77.8,
+      "reference_type": "AMDR 20-35% of the 2000 kcal experimental target",
+      "source": "IOM 2005, doi:10.17226/10490",
+      "model_rule": "hard daily range"
+    },
+    {
+      "nutrient": "Fibra alimentar",
+      "tbca_field": "Fibra alimentar",
+      "unit": "g/day",
+      "lower": 25.0,
+      "upper": null,
+      "reference_type": "AI, females 19-50 years",
+      "source": "IOM 2005, doi:10.17226/10490",
+      "model_rule": "hard daily lower bound"
+    },
+    {
+      "nutrient": "Vitamina A",
+      "tbca_field": "Vitamina A (RAE)",
+      "unit": "µg RAE/day",
+      "lower": 700.0,
+      "upper": null,
+      "reference_type": "RDA, females 19-30 years",
+      "source": "IOM 2001, doi:10.17226/10026",
+      "model_rule": "hard daily lower bound; use RAE rather than the archived RE field"
+    },
+    {
+      "nutrient": "Vitamina C",
+      "tbca_field": "Vitamina C",
+      "unit": "mg/day",
+      "lower": 75.0,
+      "upper": null,
+      "reference_type": "RDA, females 19-30 years",
+      "source": "IOM 2000, doi:10.17226/9810",
+      "model_rule": "hard daily lower bound"
+    },
+    {
+      "nutrient": "Vitamina D",
+      "tbca_field": "Vitamina D",
+      "unit": "µg/day",
+      "lower": 15.0,
+      "upper": null,
+      "reference_type": "RDA, adults 19-50 years",
+      "source": "IOM 2011, doi:10.17226/13050",
+      "model_rule": "hard daily lower bound"
+    },
+    {
+      "nutrient": "Vitamina E",
+      "tbca_field": "Alfa-tocoferol (Vitamina E)",
+      "unit": "mg alpha-tocopherol/day",
+      "lower": 15.0,
+      "upper": null,
+      "reference_type": "RDA, females 19-30 years",
+      "source": "IOM 2000, doi:10.17226/9810",
+      "model_rule": "hard daily lower bound"
+    },
+    {
+      "nutrient": "Tiamina",
+      "tbca_field": "Tiamina",
+      "unit": "mg/day",
+      "lower": 1.1,
+      "upper": null,
+      "reference_type": "RDA, females 19-30 years",
+      "source": "IOM 1998, doi:10.17226/6015",
+      "model_rule": "hard daily lower bound"
+    },
+    {
+      "nutrient": "Riboflavina",
+      "tbca_field": "Riboflavina",
+      "unit": "mg/day",
+      "lower": 1.1,
+      "upper": null,
+      "reference_type": "RDA, females 19-30 years",
+      "source": "IOM 1998, doi:10.17226/6015",
+      "model_rule": "hard daily lower bound"
+    },
+    {
+      "nutrient": "Niacina",
+      "tbca_field": "Niacina",
+      "unit": "mg NE/day",
+      "lower": 14.0,
+      "upper": null,
+      "reference_type": "RDA, females 19-30 years",
+      "source": "IOM 1998, doi:10.17226/6015",
+      "model_rule": "hard daily lower bound"
+    },
+    {
+      "nutrient": "Vitamina B6",
+      "tbca_field": "Vitamina B6",
+      "unit": "mg/day",
+      "lower": 1.3,
+      "upper": null,
+      "reference_type": "RDA, females 19-30 years",
+      "source": "IOM 1998, doi:10.17226/6015",
+      "model_rule": "hard daily lower bound"
+    },
+    {
+      "nutrient": "Vitamina B12",
+      "tbca_field": "Vitamina B12",
+      "unit": "µg/day",
+      "lower": 2.4,
+      "upper": null,
+      "reference_type": "RDA, females 19-30 years",
+      "source": "IOM 1998, doi:10.17226/6015",
+      "model_rule": "hard daily lower bound; report infeasibility separately for vegan food pools"
+    },
+    {
+      "nutrient": "Cálcio",
+      "tbca_field": "Cálcio",
+      "unit": "mg/day",
+      "lower": 1000.0,
+      "upper": null,
+      "reference_type": "RDA, females 19-30 years",
+      "source": "IOM 2011, doi:10.17226/13050",
+      "model_rule": "hard daily lower bound"
+    },
+    {
+      "nutrient": "Magnésio",
+      "tbca_field": "Magnésio",
+      "unit": "mg/day",
+      "lower": 310.0,
+      "upper": null,
+      "reference_type": "RDA, females 19-30 years",
+      "source": "IOM 1997, doi:10.17226/5776",
+      "model_rule": "hard daily lower bound"
+    }
+  ],
+  "additional_rules": [
+    {
+      "nutrient": "Sódio",
+      "tbca_field": "Sódio",
+      "unit": "mg/day",
+      "lower": null,
+      "upper": 2000.0,
+      "reference_type": "WHO population recommendation",
+      "source": "WHO 2012, ISBN 978-92-4-150483-6",
+      "model_rule": "hard daily upper bound; sensitivity scenario may retain the archived 2300 mg threshold"
+    },
+    {
+      "nutrient": "Colesterol",
+      "tbca_field": "Colesterol",
+      "unit": "mg/day",
+      "lower": null,
+      "upper": null,
+      "reference_type": "archived 300 mg threshold lacks a documented current primary source",
+      "source": "none accepted for revised protocol",
+      "model_rule": "report descriptively; do not enforce as a primary hard constraint"
+    },
+    {
+      "nutrient": "Ferro",
+      "tbca_field": "Ferro",
+      "unit": "mg/day",
+      "lower": 18.0,
+      "upper": null,
+      "reference_type": "RDA, females 19-30 years",
+      "source": "IOM 2001, doi:10.17226/10026",
+      "model_rule": "pre-specified secondary adequacy outcome until the 16-target primary analysis is rerun"
+    }
+  ],
+  "meal_structure": {
+    "days_per_plan": 5,
+    "slots_per_day": 6,
+    "required_slots": ["Café da Manhã", "Almoço", "Jantar"],
+    "optional_slots": ["Lanche da Manhã", "Lanche da Tarde", "Ceia"],
+    "justification": "the six-slot schema is retained for comparability with the archived prompts and data contract, not as a universal clinical recommendation",
+    "meal_energy_shares": "archived percentage bands remain audit-only until expert review; revised primary analyses report meal shares and do not label them clinical limits",
+    "food_quantity_bounds": "zero is allowed; positive bounds in the practical model must be derived reproducibly from observed food-by-meal support and tested in sensitivity analyses, not presented as serving advice"
+  }
+}

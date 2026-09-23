@@ -32,6 +32,8 @@
     "unique_food_names": 292,
     "unique_food_names_exactly_in_tbca_name_map": 122,
     "unique_food_names_requiring_explicit_name_mapping": 170,
+    "identity_food_mappings": 122,
+    "non_identity_mappings_without_preserved_classification": 170,
     "used_mapping_targets_with_multiple_source_names": 16,
     "invalid_items": 0,
     "invalid_quantities": 0,
@@ -81,6 +83,8 @@
   "interpretation_limits": [
     "JSON validity before aggregation and counts of failed/regenerated API calls cannot be reconstructed.",
     "A mapped food is not proof that the LLM originally copied it from the attached list.",
+    "Mappings that change the food name cannot be assumed to be lexical normalization: the archived artifacts do not classify lexical edits versus semantic substitutions.",
+    "Many-to-one targets are reported as ambiguity flags and require sensitivity analysis before revised claims are made.",
     "The 1000 g threshold is a screening flag, not a clinically validated portion limit.",
     "Nutritional violations use the thresholds implemented by the submitted optimizer and do not establish clinical safety."
   ]
