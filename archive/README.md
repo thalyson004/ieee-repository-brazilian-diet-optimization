@@ -73,7 +73,7 @@ This package recovers the historical experiment code and artifacts, but it does 
 - GA parameter and objective-weight sensitivity analyses;
 - LP slack/penalty diagnostics and practical diversity/portion constraints;
 - environmental-coefficient uncertainty analysis;
-- complete LLM generation logs and expert nutritional validation, if obtainable.
+- complete LLM generation logs. Professional nutritional evaluation is outside the present computational study and is listed only as future work.
 
 These additions must be versioned as a new protocol rather than retroactively described as properties of the March 2026 experiment.
 

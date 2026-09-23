@@ -223,7 +223,7 @@
     "required_slots": ["Café da Manhã", "Almoço", "Jantar"],
     "optional_slots": ["Lanche da Manhã", "Lanche da Tarde", "Ceia"],
     "justification": "the six-slot schema is retained for comparability with the archived prompts and data contract, not as a universal clinical recommendation",
-    "meal_energy_shares": "archived percentage bands remain audit-only until expert review; revised primary analyses report meal shares and do not label them clinical limits",
+    "meal_energy_shares": "archived percentage bands remain audit-only; revised primary analyses report meal shares and do not label them clinical limits; professional evaluation is outside the present study",
     "food_quantity_bounds": "zero is allowed; positive bounds in the practical model must be derived reproducibly from observed food-by-meal support and tested in sensitivity analyses, not presented as serving advice"
   }
 }
