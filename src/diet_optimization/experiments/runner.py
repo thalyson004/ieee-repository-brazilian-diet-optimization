@@ -392,6 +392,8 @@ GA_OVERRIDE_LIMITS = {
     "population_size": (int, 1, None),
     "max_stagnation_generations": (int, 1, None),
     "max_generations": (int, 1, None),
+    "nutritional_criterion_weight": (float, 0.001, 10.0),
+    "environmental_criterion_weight": (float, 0.001, 10.0),
     "default_global_mutation_rate": (float, 0.0, 1.0),
     "default_local_mutation_rate": (float, 0.0, 1.0),
     "hyper_global_mutation_rate": (float, 0.0, 1.0),

@@ -37,6 +37,8 @@ EXPERIMENTS = (
     "environmental-source-range-sensitivity",
     "lp-meal-frequency-sensitivity",
     "replication-resource-audit",
+    "ga-objective-weight-sensitivity",
+    "ga-objective-weight-review",
     "profile-ingredient-audit",
     "lp-profile-scope",
     "lp-slack-sensitivity",
@@ -131,6 +133,17 @@ def commands_for(
         if source_run_id is None:
             raise ValueError("--source-run-id is required for replication-resource-audit")
         return [[sys.executable, "-m", "tests.replication_resource_audit", "--source-run-id", source_run_id, "--output-dir", str(workspace / "audit")]]
+    if experiment == "ga-objective-weight-sensitivity":
+        return [[
+            sys.executable, "-m", "tests.ga_objective_weight_sensitivity",
+            "--runs", str(runs), "--seed", str(seed),
+            "--nutrition-protocol", nutrition_protocol,
+            "--output-dir", str(workspace / "audit"),
+        ]]
+    if experiment == "ga-objective-weight-review":
+        if source_run_id is None:
+            raise ValueError("--source-run-id is required for ga-objective-weight-review")
+        return [[sys.executable, "-m", "tests.ga_objective_weight_review", "--source-run-id", source_run_id]]
     if experiment == "profile-ingredient-audit":
         return [[sys.executable, "-m", "tests.profile_ingredient_audit", "--output-dir", str(workspace / "audit")]]
     if experiment == "lp-profile-scope":
@@ -195,8 +208,8 @@ def execute(
             "python": platform.python_version(),
             "platform": platform.platform(),
             "source_run_id": source_run_id,
-            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
-            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
+            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
+            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
             "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "ga-hyperparameter-sensitivity", "full-replication"} else None,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),
@@ -213,8 +226,9 @@ def execute(
 
 def main() -> None:
     args = parse_args()
-    if "replication-resource-audit" in args.experiments and not args.source_run_id:
-        raise SystemExit("--source-run-id is required for replication-resource-audit")
+    source_run_experiments = {"replication-resource-audit", "ga-objective-weight-review"}
+    if source_run_experiments.intersection(args.experiments) and not args.source_run_id:
+        raise SystemExit("--source-run-id is required for source-run audit/review experiments")
     for experiment in args.experiments:
         execute(experiment, args.runs, args.seed, args.nutrition_protocol, args.source_run_id)
 

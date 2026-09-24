@@ -87,7 +87,7 @@ class CommandCatalogTests(unittest.TestCase):
     def test_every_registered_experiment_has_a_command(self) -> None:
         workspace = PROJECT_ROOT / "tests" / "results" / "artifacts" / "test"
         for experiment in EXPERIMENTS:
-            if experiment == "replication-resource-audit":
+            if experiment in {"replication-resource-audit", "ga-objective-weight-review"}:
                 self.assertTrue(commands_for(experiment, workspace, 10, 20260323, source_run_id="20260924T000000000000Z_abcdef12"))
             else:
                 self.assertTrue(commands_for(experiment, workspace, 10, 20260323))
@@ -114,6 +114,14 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertIn(
             "tests.environmental_source_range_sensitivity",
             commands_for("environmental-source-range-sensitivity", workspace, 1, 7)[0],
+        )
+        self.assertIn(
+            "tests.ga_objective_weight_sensitivity",
+            commands_for("ga-objective-weight-sensitivity", workspace, 10, 20260935)[0],
+        )
+        self.assertIn(
+            "tests.ga_objective_weight_review",
+            commands_for("ga-objective-weight-review", workspace, 1, 7, source_run_id="20260924T000000000000Z_abcdef12")[0],
         )
         self.assertIn(
             "tests.lp_meal_frequency_sensitivity",
@@ -608,16 +616,23 @@ class RevisedNutritionProtocolTests(unittest.TestCase):
         parameters = GeneticAlgorithmHyperparameters()
         applied = apply_ga_overrides(
             parameters,
-            {"population_size": 30, "default_local_mutation_rate": 0.3},
+            {
+                "population_size": 30,
+                "default_local_mutation_rate": 0.3,
+                "environmental_criterion_weight": 0.5,
+            },
         )
         self.assertEqual(applied["population_size"], 30)
         self.assertEqual(parameters.default_local_mutation_rate, 0.3)
+        self.assertEqual(parameters.environmental_criterion_weight, 0.5)
         with self.assertRaisesRegex(ValueError, "Unsupported GA override"):
             apply_ga_overrides(parameters, {"nutritional_minimum_goals": {}})
         with self.assertRaisesRegex(ValueError, "Invalid value"):
             apply_ga_overrides(parameters, {"population_size": True})
         with self.assertRaisesRegex(ValueError, "at most"):
             apply_ga_overrides(parameters, {"default_local_mutation_rate": 1.1})
+        with self.assertRaisesRegex(ValueError, "at most"):
+            apply_ga_overrides(parameters, {"environmental_criterion_weight": 10.1})
 
     def test_meal_energy_share_constraints_use_injected_energy_target(self) -> None:
         matrix, bounds = _build_meal_energy_share_constraints(
