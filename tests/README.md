@@ -4,7 +4,7 @@ Every experiment is launched by a named command. Each invocation writes an immut
 
 Earlier mapping-review checkpoint (2026-09-24): 49 nutrition-target decisions were indexed and the active-map queue had 121 unresolved links. This historical snapshot does not adjudicate ingredient formulation, preparation, or environmental equivalence.
 
-Latest audit refresh (2026-09-24): 151 target decisions are indexed and the active queue has 19 unresolved links. The latest audit is `base-diet-audit_20260924T201700269011Z_a24d8d01`; the queue refresh is `mapping-review-queue-current_20260924T201700618482Z_77923935`. The strict complete-case meal audit `nutrient-missingness-audit_20260924T202515873539Z_100f3faf` found no eligible mandatory breakfast/lunch candidates for regular and vegan profiles, so the filter cannot support a full meal-based comparison. The current deterministic suite has 36 tests. These diagnostics did not change nutrient/environmental mappings. Remaining blockers include source recipe/ingredient uncertainty, walnut species, oil/preparation differences, missingness, and POF-row environmental ambiguity; every rerun remains diagnostic.
+Latest audit refresh (2026-09-24): 151 target decisions are indexed and the active queue has 19 unresolved links. The latest audit is `base-diet-audit_20260924T201700269011Z_a24d8d01`; the queue refresh is `mapping-review-queue-current_20260924T201700618482Z_77923935`. The strict complete-case meal audit `nutrient-missingness-audit_20260924T202515873539Z_100f3faf` found no eligible mandatory breakfast/lunch candidates for regular and vegan profiles, so the filter cannot support a full meal-based comparison. The current deterministic suite has 38 tests. These diagnostics did not change nutrient/environmental mappings. Remaining blockers include source recipe/ingredient uncertainty, walnut species, oil/preparation differences, missingness, and POF-row environmental ambiguity; every rerun remains diagnostic.
 
 LP-Food daily-quantity sensitivity (2026-09-24): `lp-daily-quantity-support-sensitivity_20260924T203346068167Z_7d3828fd` ran nine profile/scenario combinations. The caps are derived from positive per-food daily totals in the same profile's source diets: observed maximum and the 95th percentile when at least 20 positive days are available (otherwise an explicitly labeled observed-maximum fallback). This is a corpus-support sensitivity, not clinical serving advice; it does not add meal structure or establish an accepted primary cap. All nine scenarios returned a solution and selected quantities respected their caps. The two constrained vegan scenarios used LP relaxation, with vitamin D and B12 minimum shortfalls; those outputs remain diagnostic and are not manuscript results.
 
@@ -13,6 +13,8 @@ LP-Food diversity-floor sensitivity (2026-09-24): `lp-food-diversity-sensitivity
 Environmental-objective endpoints (2026-09-24): `environmental-objective-sensitivity_20260924T204613146732Z_fd0ea9dd` ran 18 solves: carbon, water, and ecological footprint optimized separately for both LP-Food (profile-specific observed-maximum caps) and LP-Meal across all three profiles. All returned a solution; all six vegan cases required relaxation. The vegan LP-Meal returned the same mean footprint vector under the three objectives, indicating that the common relaxed solution dominates this diagnostic endpoint grid. Other profiles show different footprint trade-offs across endpoints. The inputs' environmental food pairings are not fully adjudicated, objective units/scales differ, and method constraints differ; no composite weights, ranking, or manuscript claim are supported.
 
 Pinned environmental-source audit (2026-09-24): `environmental-source-audit_20260924T205706574023Z_0d911e23` downloaded OSF file `655f914c79d42805e93e8434` and verified SHA-256 `988040f8e9c668d823c41b0839132a3494b9a3ad6e5a4945e18757542b16d4af`. All 1,170 distributed footprint-map labels matched the official 100-g preparation sheet and every coefficient was within the source's rounding precision. Among the 292 labels in the 150 preserved base diets (12,670 occurrences), 65 carbon, 35 water, and 37 ecological labels have multiple distinct official values associated with the same preparation label, affecting 2,741, 1,423, and 1,412 occurrences respectively. This verifies source lineage and numeric alignment, not which original POF item, geography, or system boundary is appropriate for each generated food; these ambiguities remain explicit blockers. The workbook is fetched to memory for the audit rather than redistributed with the repository.
+
+LP-Meal frequency sensitivity (2026-09-24): `lp-meal-frequency-sensitivity_20260924T210812872195Z_ee1e352f` ran nine scenarios (three profiles × no cap, cap of one, and profile-specific q95 repeat cap). The q95 caps, derived from the maximum exact-meal recurrence within each source plan, are 3 for regular and 2 for vegetarian/vegan. Every returned plan respected its cap. Vegan cases required relaxation in all scenarios; limiting recurrence added a vitamin-D shortfall and a B12 shortfall in the capped vegan scenarios. Vegetarian capped cases required vitamin-D relaxation. Regular cap-1 had higher environmental cost and more diagnostic target violations than its uncapped solution, while the profile-q95 case changed the endpoint in the opposite direction. These patterns are solver/data diagnostics, not recommendations or manuscript results.
 
 Latest ten-seed rerun after adding provenance tracking: `full-replication_20260924T191513576820Z_55610f6d`, 66 outputs (60 GA + 6 LP), seed-base 20260929, 369.1 s, `status=passed`; scope validation passed with no items outside profile pools. Its manifest records clean source commit `1804a2dde338be0c6e5136fdd8ac4c1dc8c21478` and SHA-256 for the protocol, exclusions, source diets, and nutrition/environment maps. It remains diagnostic; no result is approved for the manuscript. The preceding seed-20260928 run and complete nine-command battery also passed; see `EXPERIMENT-EXECUTION-PLAN.md` for blockers.
 
@@ -124,6 +126,15 @@ fails closed rather than silently updating the source:
 
 ```bash
 python -m tests.run_experiments --experiments environmental-source-audit
+```
+
+Compare LP-Meal with no repeated-meal cap, a one-use-per-meal cap, and a
+profile-specific cap equal to the observed q95 of maximum exact-meal recurrence
+in the source plans. Identical meals are deduplicated only in capped scenarios,
+and the cap remains hard during nutritional-slack fallback:
+
+```bash
+python -m tests.run_experiments --experiments lp-meal-frequency-sensitivity
 ```
 
 Create a lexical review queue for vegetarian/vegan source-food names. It flags
