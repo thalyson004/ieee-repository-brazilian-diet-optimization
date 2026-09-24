@@ -162,12 +162,53 @@ def compare_rounded_values(
     }
 
 
+def count_preserved_diet_food_occurrences() -> tuple[dict[str, int], dict[str, int]]:
+    """Count original unique food labels and occurrences separately by profile."""
+    all_counts: defaultdict[str, int] = defaultdict(int)
+    profile_counts: dict[str, int] = {}
+    for profile in ("regular", "vegetariana", "vegana"):
+        plans = load_json_file(PROJECT_ROOT / "diets-base" / f"dietas-{profile}.json")
+        profile_occurrences = 0
+        for plan in plans:
+            for day in plan.values():
+                if not isinstance(day, dict):
+                    continue
+                for items in day.values():
+                    if not isinstance(items, list):
+                        continue
+                    for item in items:
+                        if isinstance(item, dict) and isinstance(item.get("alimento"), str):
+                            all_counts[item["alimento"]] += 1
+                            profile_occurrences += 1
+        profile_counts[profile] = profile_occurrences
+    return dict(all_counts), profile_counts
+
+
 def run(output_dir: Path) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=False)
     workbook_bytes = fetch_pinned_workbook()
     source_values = parse_official_preparation_sheet(workbook_bytes)
     distributed = load_json_file(PROJECT_ROOT / "maps" / "base" / "mapa-sustentavel-pegadas.json")
     comparison = compare_rounded_values(distributed, source_values)
+    source_food_occurrences, profile_occurrences = count_preserved_diet_food_occurrences()
+    active_food_coefficients = {
+        name: distributed[name] for name in source_food_occurrences if name in distributed
+    }
+    active_comparison = compare_rounded_values(active_food_coefficients, source_values)
+    for metric, summary in active_comparison["metrics"].items():
+        # Count all ambiguous labels, not only the 50 detail rows retained for output.
+        source_index = next(index for name, index, _unit in METRICS if name == metric)
+        summary["ambiguous_occurrence_count"] = sum(
+            source_food_occurrences[name]
+            for name, rows in source_values.items()
+            if name in source_food_occurrences
+            and len({row[source_index] for row in rows}) > 1
+        )
+        summary["ambiguous_active_food_names"] = sum(
+            name in source_values
+            and len({row[source_index] for row in source_values[name]}) > 1
+            for name in source_food_occurrences
+        )
     report = {
         "schema_version": "1.0",
         "status": "source_alignment_audit_not_food_equivalence_adjudication",
@@ -194,6 +235,15 @@ def run(output_dir: Path) -> dict[str, Any]:
             "multiple official POF rows into one TBCA preparation label."
         ),
         "comparison": comparison,
+        "preserved_diet_usage": {
+            "profile_occurrence_counts": profile_occurrences,
+            "distinct_food_names": len(source_food_occurrences),
+            "total_food_occurrences": sum(source_food_occurrences.values()),
+            "food_names_without_exact_distributed_coefficient": sorted(
+                set(source_food_occurrences) - set(distributed)
+            ),
+            "active_food_comparison": active_comparison,
+        },
     }
     path = output_dir / "environmental-source-audit.json"
     path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -203,6 +253,8 @@ def run(output_dir: Path) -> dict[str, Any]:
         "map_entries": comparison["distributed_map_entry_count"],
         "exact_label_matches": comparison["exact_prep_label_matches"],
         "unmatched_map_names": len(comparison["distributed_names_without_official_exact_label"]),
+        "active_distinct_food_names": len(source_food_occurrences),
+        "active_occurrences": sum(source_food_occurrences.values()),
         "metrics": {
             metric: {
                 "aligned_after_rounding": result[
