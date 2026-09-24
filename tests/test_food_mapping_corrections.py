@@ -109,6 +109,10 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Torrada, trigo, integral": (
                 "Torrada, integral, c/ farinha de trigo refinada, Brasil", "BRC0170A"
             ),
+            "Pão, trigo, leite, industrializado (média de diferentes marcas)": (
+                "Pão, de leite, c/ farinha de trigo refinada, industrializado (média de diferentes marcas), Brasil",
+                "BRC0147A",
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
