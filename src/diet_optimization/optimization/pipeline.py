@@ -314,6 +314,12 @@ def process_optimization_pipeline(
                         maximum_goals=tuned_hyperparameters.nutritional_maximum_goals,
                         meal_energy_share_limits=tuned_hyperparameters.meal_energy_share_limits,
                         protocol_id=tuned_hyperparameters.nutrition_protocol_id,
+                        data_quality_fields=(
+                            set(tuned_hyperparameters.nutritional_minimum_goals)
+                            | set(tuned_hyperparameters.nutritional_maximum_goals)
+                            | {target["tbca_field"] for target in tuned_hyperparameters.secondary_nutrition_targets}
+                            | {target["tbca_field"] for target in tuned_hyperparameters.descriptive_nutrition_targets}
+                        ),
                     ),
                 }
                 save_json_file(run_artifact, run_payload)

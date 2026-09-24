@@ -18,7 +18,44 @@ from diet_optimization.optimization.hyperparameters import (
     MAXIMUM_GOALS,
     MINIMUM_GOALS,
 )
-from diet_optimization.optimization.utils import calculate_totals
+from diet_optimization.optimization.utils import calculate_totals, parse_quantity_in_grams
+
+
+def audit_nutrient_data_coverage(plan: dict, context, nutrient_fields: set[str]) -> dict:
+    """Count missing TBCA cells actually encountered in a serialized plan."""
+    report = {
+        field: {"missing_occurrences": 0, "missing_quantity_g": 0.0, "food_names": set()}
+        for field in sorted(nutrient_fields)
+    }
+    for meals in plan.values():
+        if not isinstance(meals, dict):
+            continue
+        for items in meals.values():
+            if not isinstance(items, list):
+                continue
+            for item in items:
+                if not isinstance(item, dict):
+                    continue
+                food_name = str(item.get("alimento", ""))
+                code = context.tbca_map.get(food_name)
+                nutrients = context.tbca_database.get(code, {}).get("nutrientes", {}) if code else {}
+                try:
+                    quantity_g = parse_quantity_in_grams(item.get("quantidade", 0))
+                except (TypeError, ValueError):
+                    quantity_g = 0.0
+                for field in nutrient_fields:
+                    if nutrients.get(field) is None:
+                        report[field]["missing_occurrences"] += 1
+                        report[field]["missing_quantity_g"] += quantity_g
+                        report[field]["food_names"].add(food_name)
+    return {
+        "missing_values_are_currently_scored_as_zero": True,
+        "by_nutrient": {
+            field: {**values, "missing_quantity_g": round(values["missing_quantity_g"], 6),
+                    "food_names": sorted(values["food_names"])}
+            for field, values in report.items()
+        },
+    }
 
 
 def evaluate_plan(
@@ -28,12 +65,17 @@ def evaluate_plan(
     maximum_goals: dict[str, dict[str, float]] | None = None,
     meal_energy_share_limits: dict[str, dict[str, float]] | None = None,
     protocol_id: str = "historical-implemented-v1",
+    data_quality_fields: set[str] | None = None,
 ) -> dict:
     """Recalculate daily and mean values from the serialized final solution."""
     minimum_goals = MINIMUM_GOALS if minimum_goals is None else minimum_goals
     maximum_goals = MAXIMUM_GOALS if maximum_goals is None else maximum_goals
     meal_energy_share_limits = (
         LIMITES_ENERGIA_REFEICAO if meal_energy_share_limits is None else meal_energy_share_limits
+    )
+    data_quality_fields = (
+        set(minimum_goals) | set(maximum_goals)
+        if data_quality_fields is None else set(data_quality_fields)
     )
     daily = []
     energy_by_meal: dict[str, float] = {}
@@ -106,6 +148,9 @@ def evaluate_plan(
                                                   "amount": amount})
     return {
         "constraint_set": protocol_id,
+        "nutrient_data_coverage": audit_nutrient_data_coverage(
+            plan, context, data_quality_fields
+        ),
         "daily": daily,
         "mean_daily_nutrients": mean_nutrients,
         "mean_daily_footprints": {key: sum(row["footprints"].get(key, 0.0) for row in daily) / count

@@ -217,6 +217,12 @@ def run_optimizers(
                      maximum_goals=hyperparameters.nutritional_maximum_goals,
                      meal_energy_share_limits=hyperparameters.meal_energy_share_limits,
                      protocol_id=hyperparameters.nutrition_protocol_id,
+                     data_quality_fields=(
+                         set(hyperparameters.nutritional_minimum_goals)
+                         | set(hyperparameters.nutritional_maximum_goals)
+                         | {target["tbca_field"] for target in hyperparameters.secondary_nutrition_targets}
+                         | {target["tbca_field"] for target in hyperparameters.descriptive_nutrition_targets}
+                     ),
                  ) if food_result else None},
             )
             if food_result:
@@ -259,6 +265,12 @@ def run_optimizers(
                      maximum_goals=hyperparameters.nutritional_maximum_goals,
                      meal_energy_share_limits=hyperparameters.meal_energy_share_limits,
                      protocol_id=hyperparameters.nutrition_protocol_id,
+                     data_quality_fields=(
+                         set(hyperparameters.nutritional_minimum_goals)
+                         | set(hyperparameters.nutritional_maximum_goals)
+                         | {target["tbca_field"] for target in hyperparameters.secondary_nutrition_targets}
+                         | {target["tbca_field"] for target in hyperparameters.descriptive_nutrition_targets}
+                     ),
                  ) if meal_result else None},
             )
             if meal_result:

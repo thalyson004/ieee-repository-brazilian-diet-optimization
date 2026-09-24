@@ -152,6 +152,8 @@ class ExecutionDiagnosticsTests(unittest.TestCase):
         self.assertEqual(report["mean_daily_footprints"]["carbon_footprint"], 20.0)
         self.assertTrue(any(v["nutrient"] == "Energia" for v in report["daily"][0]["violations"]))
         self.assertTrue(any(v["nutrient"] == "Energia" for v in report["mean_daily_violations"]))
+        self.assertTrue(report["nutrient_data_coverage"]["missing_values_are_currently_scored_as_zero"])
+        self.assertEqual(report["nutrient_data_coverage"]["by_nutrient"]["Energia"]["missing_occurrences"], 0)
 
     def test_environment_identifies_lp_backend(self) -> None:
         report = environment_metadata()
