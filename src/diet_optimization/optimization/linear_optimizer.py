@@ -175,6 +175,60 @@ def _build_nutrient_constraints(
     return np.vstack(A_rows), np.array(b_rows)
 
 
+def _nutrient_constraint_labels(
+    minimum_goals: Optional[Dict[str, float]],
+    maximum_goals: Optional[Dict[str, Dict[str, float]]],
+    days_multiplier: float = 1.0,
+) -> List[Dict[str, object]]:
+    """Describe inequality rows in the same order as _build_nutrient_constraints."""
+    minimum_goals = MINIMUM_GOALS if minimum_goals is None else minimum_goals
+    maximum_goals = MAXIMUM_GOALS if maximum_goals is None else maximum_goals
+    rows: List[Dict[str, object]] = []
+    for nutrient, target in minimum_goals.items():
+        rows.append({
+            "constraint": f"{nutrient}:minimum", "kind": "nutrient_minimum",
+            "nutrient": nutrient, "target": float(target) * days_multiplier,
+            "unit": "nutrient_unit_over_plan",
+        })
+    for nutrient, rules in maximum_goals.items():
+        target = float(rules["meta"]) * float(rules.get("tolerancia", 1.0))
+        rows.append({
+            "constraint": f"{nutrient}:maximum", "kind": "nutrient_maximum",
+            "nutrient": nutrient, "target": target * days_multiplier,
+            "unit": "nutrient_unit_over_plan",
+        })
+    return rows
+
+
+def _record_relaxation_slacks(
+    diagnostics: Optional[Dict], slack_values: np.ndarray, penalty: float
+) -> None:
+    """Attach row-labeled absolute and target-relative slacks to LP diagnostics."""
+    if diagnostics is None:
+        return
+    labels = diagnostics.get("inequality_constraints", [])
+    rows = []
+    for index, raw_value in enumerate(slack_values):
+        value = max(0.0, float(raw_value))
+        label = labels[index] if index < len(labels) else {
+            "constraint": f"inequality_{index}", "kind": "unlabeled_inequality",
+            "target": None, "unit": "unknown",
+        }
+        target = label.get("target")
+        rows.append({
+            **label, "slack_absolute": value,
+            "slack_relative_to_target": value / abs(float(target))
+            if target not in (None, 0) else None,
+            "penalty_coefficient": float(penalty),
+        })
+    diagnostics["slack_analysis"] = {
+        "used": True,
+        "nonzero_slack_count": sum(row["slack_absolute"] > 1e-7 for row in rows),
+        "sum_absolute_slack": sum(row["slack_absolute"] for row in rows),
+        "constraints": rows,
+    }
+
+
 def _build_meal_energy_share_constraints(
     meal_pool: Dict[str, List[Dict]],
     variable_list: List[Tuple[str, int]],
@@ -272,7 +326,10 @@ def optimize_food_level(
     if diagnostics is not None:
         diagnostics.update({"allowed_source_food_count": len(allowed_food_names),
                             "eligible_mapped_food_count": len(food_names),
-                            "candidate_food_names": food_names})
+                            "candidate_food_names": food_names,
+                            "inequality_constraints": _nutrient_constraint_labels(
+                                minimum_goals, maximum_goals
+                            )})
 
     if not food_names:
         print("ERRO: Nenhum alimento disponivel para otimizacao PL nivel de alimentos.")
@@ -312,9 +369,14 @@ def optimize_food_level(
             print("AVISO: Versao relaxada tambem inviavel.")
             return None
         x = result_relax.x[:n_foods]
+        _record_relaxation_slacks(diagnostics, result_relax.x[n_foods:], 1e4)
         print("INFO: Solucao obtida via PL relaxado (melhor esforco nutricional).")
     else:
         x = result.x
+        if diagnostics is not None:
+            diagnostics["slack_analysis"] = {
+                "used": False, "nonzero_slack_count": 0, "constraints": []
+            }
     threshold_grams = 1.0
     food_items = [
         {"alimento": food_names[i], "quantidade": str(round(float(x[i]), 1))}
@@ -502,6 +564,7 @@ def _solve_relaxed_meal_level(
     if result.status != 0:
         return None
 
+    _record_relaxation_slacks(diagnostics, result.x[n_orig:], big_m)
     return result.x[:n_orig]
 
 
@@ -588,6 +651,30 @@ def optimize_meal_level(
     if meal_energy_A_ub.shape[0] > 0:
         A_ub = np.vstack([A_ub, meal_energy_A_ub])
         b_ub = np.concatenate([b_ub, meal_energy_b_ub])
+    constraint_labels = _nutrient_constraint_labels(
+        minimum_goals, maximum_goals, days_multiplier=float(days_per_plan)
+    )
+    energy_target = float(MAXIMUM_GOALS.get("Energia", {}).get("meta", 0.0))
+    for meal_type in MEAL_ORDER:
+        if meal_type not in meal_energy_share_limits:
+            continue
+        has_energy = any(
+            mtype == meal_type
+            and float(meal_pool[mtype][meal_idx].get("nutrientes", {}).get("Energia", 0.0)) != 0.0
+            for mtype, meal_idx in variable_list
+        )
+        if has_energy and energy_target > 0:
+            limits = meal_energy_share_limits[meal_type]
+            constraint_labels.extend((
+                {"constraint": f"{meal_type}:energy_minimum", "kind": "meal_energy_minimum",
+                 "nutrient": "Energia", "target": float(limits.get("min", 0.0)) * energy_target * days_per_plan,
+                 "unit": "kcal_over_plan"},
+                {"constraint": f"{meal_type}:energy_maximum", "kind": "meal_energy_maximum",
+                 "nutrient": "Energia", "target": float(limits.get("max", 1.0)) * energy_target * days_per_plan,
+                 "unit": "kcal_over_plan"},
+            ))
+    if diagnostics is not None:
+        diagnostics["inequality_constraints"] = constraint_labels
 
     # Restrições de igualdade: completude por tipo de refeição
     meal_type_to_vars: Dict[str, List[int]] = defaultdict(list)
@@ -631,6 +718,10 @@ def optimize_meal_level(
         print("INFO: Solucao obtida via PL relaxado (melhor esforco nutricional).")
     else:
         x = result.x
+        if diagnostics is not None:
+            diagnostics["slack_analysis"] = {
+                "used": False, "nonzero_slack_count": 0, "constraints": []
+            }
 
     int_assignments = _round_lp_solution_to_integers(
         x, variable_list, meal_type_to_vars, active_meal_types, days_per_plan

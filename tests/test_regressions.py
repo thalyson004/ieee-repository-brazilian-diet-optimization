@@ -15,6 +15,7 @@ from diet_optimization.optimization.pipeline import derive_execution_seed
 from diet_optimization.optimization.linear_optimizer import (
     _build_nutrient_constraints,
     _compute_food_vectors,
+    _solve_relaxed_meal_level,
     food_names_in_diets,
 )
 from diet_optimization.optimization.nutritional_targets import load_protocol
@@ -126,6 +127,40 @@ class CommandCatalogTests(unittest.TestCase):
 
 
 class ExecutionDiagnosticsTests(unittest.TestCase):
+    def test_relaxed_lp_exports_named_absolute_and_relative_slacks(self) -> None:
+        diagnostics = {
+            "inequality_constraints": [
+                {"constraint": "Protein:minimum", "kind": "nutrient_minimum",
+                 "nutrient": "Protein", "target": 1.0, "unit": "g_over_plan"},
+                {"constraint": "Sodium:maximum", "kind": "nutrient_maximum",
+                 "nutrient": "Sodium", "target": 0.0, "unit": "mg_over_plan"},
+            ]
+        }
+        solution = _solve_relaxed_meal_level(
+            c=np.array([0.0]),
+            A_ub=np.array([[-1.0], [1.0]]),
+            b_ub=np.array([-1.0, 0.0]),
+            A_eq=np.zeros((0, 1)),
+            b_eq=np.zeros(0),
+            variable_list=[("breakfast", 0)],
+            days_per_plan=1,
+            big_m=1.0,
+            diagnostics=diagnostics,
+        )
+        self.assertIsNotNone(solution)
+        self.assertTrue(diagnostics["slack_analysis"]["used"])
+        self.assertGreater(diagnostics["slack_analysis"]["nonzero_slack_count"], 0)
+        self.assertEqual(
+            [row["constraint"] for row in diagnostics["slack_analysis"]["constraints"]],
+            ["Protein:minimum", "Sodium:maximum"],
+        )
+        self.assertIsNotNone(
+            diagnostics["slack_analysis"]["constraints"][0]["slack_relative_to_target"]
+        )
+        self.assertIsNone(
+            diagnostics["slack_analysis"]["constraints"][1]["slack_relative_to_target"]
+        )
+
     def test_scope_audit_extracts_foods_from_nested_plans(self) -> None:
         plan = {
             "1": {"Lunch": [{"alimento": "beans", "quantidade": 100}]},
