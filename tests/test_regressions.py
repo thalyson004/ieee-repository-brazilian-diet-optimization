@@ -25,6 +25,7 @@ from diet_optimization.optimization.data_types import NutritionalContext
 from diet_optimization.experiments.diagnostics import environment_metadata, evaluate_plan
 from tests.validate_candidate_scope import item_names
 from tests.run_experiments import EXPERIMENTS, commands_for
+from tests.mapping_review_queue import build_queue, normalize_name
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -74,6 +75,17 @@ class CommandCatalogTests(unittest.TestCase):
         for experiment in ("ga-smoke", "full-replication"):
             commands = commands_for(experiment, workspace, 10, 20260323)
             self.assertIn("tests.validate_candidate_scope", commands[-1])
+        self.assertIn("tests.mapping_review_queue", commands_for("mapping-review-queue", workspace, 10, 20260323)[0])
+
+    def test_mapping_review_queue_never_auto_accepts_fuzzy_candidates(self) -> None:
+        queue = build_queue()
+        self.assertEqual(len(queue), 170)
+        self.assertTrue(all(row["review_status"] == "PENDING_MANUAL_REVIEW" for row in queue))
+        self.assertTrue(all(row["automatic_acceptance"] is False for row in queue))
+        self.assertTrue(all(len(row["suggestions"]) == 5 for row in queue))
+        self.assertEqual(normalize_name("Pão francês, c/ óleo"), "pao frances oleo")
+        tomato = next(row for row in queue if row["food_original"].startswith("Tomate"))
+        self.assertIn("Tomate", tomato["suggestions"][0]["candidate_name"])
 
     def test_ga_execution_seeds_are_stable_and_independent(self) -> None:
         seeds = {

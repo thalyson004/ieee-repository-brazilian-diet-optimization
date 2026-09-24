@@ -39,6 +39,12 @@ Audit of all 150 normalized base diets:
 python -m tests.run_experiments --experiments base-diet-audit
 ```
 
+Create a ranked, non-accepting TBCA review queue for the 170 non-identity links:
+
+```bash
+python -m tests.run_experiments --experiments mapping-review-queue
+```
+
 One-run GA/LP smoke replication:
 
 ```bash

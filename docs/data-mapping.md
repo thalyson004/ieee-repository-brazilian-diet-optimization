@@ -49,6 +49,14 @@ The frozen audit of the submitted input reports:
 
 Coverage does not establish validity. In particular, a complete join does not prove that the selected TBCA item is nutritionally equivalent to the generated item or that the footprint coefficient describes the same preparation, geography, production system, and system boundary.
 
+For review, `archive/audits/food-mapping-review-queue.csv` and its JSON counterpart list all 170 unresolved links, their current targets, occurrence counts, profiles, and five ranked TBCA name suggestions. Generate the queue with:
+
+```bash
+python -m tests.run_experiments --experiments mapping-review-queue
+```
+
+The ranking is a string/token heuristic only. It never edits a mapping and never marks a candidate accepted; preparation, ingredients, food identity, and environmental-system boundaries require independent evidence and an explicit human decision.
+
 The inventory contains confirmed high-priority non-equivalences, not only spelling differences. Examples include `Tomate, in natura -> Pitaia, in natura`, `Soja, tofu -> Óleo, soja, frito`, `Almeirão, cru -> Amendoim, grão, cru`, and `Avelã, crua -> Acarajé, s/ sal`. Consequently, archived nutritional totals and feasibility decisions that depend on these links cannot support revised claims without a corrected map and a sensitivity comparison.
 
 ## Required treatment in revised experiments
