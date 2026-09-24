@@ -12,6 +12,7 @@ import numpy as np
 
 from diet_optimization.analysis.diet_audit import audit
 from diet_optimization.optimization.pipeline import derive_execution_seed
+from diet_optimization.optimization.genetic_algorithm import GeneticAlgorithm
 from diet_optimization.optimization.linear_optimizer import (
     _build_meal_energy_share_constraints,
     _build_nutrient_constraints,
@@ -439,6 +440,22 @@ class CommandCatalogTests(unittest.TestCase):
 
 
 class ExecutionDiagnosticsTests(unittest.TestCase):
+    def test_ga_counts_exact_fitness_evaluations(self) -> None:
+        from unittest.mock import patch
+
+        optimizer = GeneticAlgorithm(
+            meal_pool={}, food_pool={}, nutritional_context=None,
+            hyperparameters=GeneticAlgorithmHyperparameters(),
+        )
+        with patch(
+            "diet_optimization.optimization.genetic_algorithm.evaluate_diet_fitness",
+            return_value=-1.0,
+        ):
+            self.assertEqual(optimizer.fitness_evaluation_count, 0)
+            optimizer._evaluate_chromosome_fitness([])
+            optimizer._evaluate_chromosome_fitness([])
+        self.assertEqual(optimizer.fitness_evaluation_count, 2)
+
     def test_relaxed_lp_exports_named_absolute_and_relative_slacks(self) -> None:
         diagnostics = {
             "inequality_constraints": [

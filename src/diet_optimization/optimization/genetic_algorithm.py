@@ -43,9 +43,11 @@ class GeneticAlgorithm:
         self.nutritional_context = nutritional_context
         self.hyperparameters = hyperparameters
         self.initial_seed_chromosomes = initial_seed_chromosomes or []
+        self.fitness_evaluation_count = 0
 
     def _evaluate_chromosome_fitness(self, chromosome: List[Dict]) -> float:
         """Avalia um cromossomo usando os hiperparâmetros ativos da execução."""
+        self.fitness_evaluation_count += 1
         return evaluate_diet_fitness(
             chromosome=chromosome,
             nutritional_criterion_weight=self.hyperparameters.nutritional_criterion_weight,

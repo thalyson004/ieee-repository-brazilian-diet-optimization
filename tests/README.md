@@ -203,7 +203,7 @@ The smoke and full commands create new stochastic results. They do not recreate 
 
 Each new GA run writes `data/outputs/optimization_runs/ag-*/runs/<diet>/execution-<n>.json`
 inside its result workspace. This file contains the effective configuration, seed,
-fitness trajectory, stop reason, duration, final solution, daily and mean nutrient
+fitness trajectory, exact count of fitness-function evaluations, stop reason, duration, final solution, daily and mean nutrient
 and footprint metrics, and violations of the selected protocol's bounds.
 LP produces one `data/outputs/optimization_runs/pl-*/execution-<profile>.json`
 per profile with solver status, fallback details, final solution, and diagnostics.

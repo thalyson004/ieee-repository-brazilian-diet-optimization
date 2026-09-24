@@ -305,6 +305,7 @@ def process_optimization_pipeline(
                     "objective_direction": "maximize_fitness",
                     "stop_criterion": genetic_algorithm.stop_reason,
                     "stop_generation": convergence_generation,
+                    "fitness_evaluation_count": genetic_algorithm.fitness_evaluation_count,
                     "duration_seconds": duration_seconds,
                     "final_fitness": final_fitness,
                     "final_solution": final_plan,
