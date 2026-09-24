@@ -96,6 +96,9 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 "Manga, polpa,in natura, Brasil (média diferentes variedades)", "BRC0025C"
             ),
             "Canela, em pó": ("Canela, em pó (dado importado)", "BRC0778B"),
+            "Cuscuz de milho, cozido, c/ sal": (
+                "Farinha de milho, cuscuz, cozido no vapor, c/ sal, Brasil", "BRC0409A"
+            ),
         }
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
