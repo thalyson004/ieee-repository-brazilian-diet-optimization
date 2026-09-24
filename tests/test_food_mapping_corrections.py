@@ -65,6 +65,13 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 "BRC0834A",
             ),
             "Pão, sírio, branco": ("Pão, sírio, farinha de trigo refinada (dado importado)", "BRC0575A"),
+            "Soja, tofu": ("Tofu, soja, s/ sal, Brasil", "BRC0056T"),
+            "Queijo, muçarela, light": (
+                "Queijo, muçarela (mussarela, muzarela, mozarela), light, Brasil", "BRC0074N"
+            ),
+            "Soja, extrato, bebida, natural (média de diferentes amostras)": (
+                "Soja, extrato, bebida, natural, Brasil", "BRC0043T"
+            ),
         }
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
