@@ -83,7 +83,10 @@
     "Pinhão, cozido, s/ sal",
     "Repolho, roxo, cru",
     "Chuchu, s/ casca, cozido, drenado, s/ óleo, c/ sal",
-    "Manteiga, c/ sal"
+    "Manteiga, c/ sal",
+    "Queijo, ricota",
+    "Pistache, cru, s/ sal",
+    "Melancia, polpa, in natura"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }

@@ -199,6 +199,9 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 "Chuchu, s/ casca, cozido, drenado, s/ óleo, c/ sal, Brasil", "BRC0154B"
             ),
             "Manteiga, c/ sal": ("Manteiga, c/ sal, Brasil", "BRC0007D"),
+            "Queijo, ricota": ("Queijo, ricota, Brasil", "BRC0051G"),
+            "Pistache, cru, s/ sal": ("Pistache, cru, s/ sal (dado importado)", "BRC0015U"),
+            "Melancia, polpa, in natura": ("Melancia, polpa,in natura, Brasil", "BRC0027C"),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
