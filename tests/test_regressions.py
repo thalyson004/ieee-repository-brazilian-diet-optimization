@@ -33,6 +33,7 @@ from tests.mapping_review_queue import build_queue, normalize_name
 from tests.portion_support_audit import collect_support
 from tests.profile_ingredient_audit import build_queue as build_profile_ingredient_queue, risk_hits
 from tests.nutrient_missingness_audit import required_nutrients, summarize_profile
+from tests.lp_food_diversity_sensitivity import observed_order_statistic, source_day_food_counts
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -219,6 +220,56 @@ class CommandCatalogTests(unittest.TestCase):
                 maximum_goals={"Energy": {"meta": 200.0, "tolerancia": 1.0}},
                 maximum_daily_grams_by_food={"not-in-pool": 40.0},
             )
+
+    def test_lp_food_milp_enforces_observed_diversity_floor_and_caps(self) -> None:
+        context = NutritionalContext(
+            tbca_map={"food_a": "1", "food_b": "2", "food_c": "3"},
+            tbca_database={
+                "1": {"nutrientes": {"Energy": 100.0}},
+                "2": {"nutrientes": {"Energy": 100.0}},
+                "3": {"nutrientes": {"Energy": 100.0}},
+            },
+            footprint_map={
+                "food_a": {"carbon_footprint": 1.0},
+                "food_b": {"carbon_footprint": 2.0},
+                "food_c": {"carbon_footprint": 3.0},
+            },
+        )
+        diagnostics: dict = {}
+        solution = optimize_food_level(
+            context,
+            allowed_food_names={"food_a", "food_b", "food_c"},
+            minimum_goals={"Energy": 200.0},
+            maximum_goals={"Energy": {"meta": 300.0, "tolerancia": 1.0}},
+            maximum_daily_grams_by_food={"food_a": 100.0, "food_b": 100.0, "food_c": 100.0},
+            minimum_selected_foods=2,
+            diagnostics=diagnostics,
+        )
+        self.assertIsNotNone(solution)
+        quantities = [
+            float(item["quantidade"])
+            for item in solution[0]["1"]["Refeição LP"]
+        ]
+        self.assertGreaterEqual(sum(quantity >= 1.0 for quantity in quantities), 2)
+        self.assertEqual(diagnostics["method"], "highs-milp")
+        self.assertEqual(diagnostics["minimum_selected_foods"], 2)
+        with self.assertRaisesRegex(ValueError, "finite daily quantity cap is required"):
+            optimize_food_level(
+                context,
+                allowed_food_names={"food_a", "food_b", "food_c"},
+                minimum_goals={"Energy": 100.0},
+                maximum_goals={"Energy": {"meta": 300.0, "tolerancia": 1.0}},
+                maximum_daily_grams_by_food={"food_a": 100.0},
+                minimum_selected_foods=2,
+            )
+
+    def test_diversity_floor_uses_observed_lower_order_statistic(self) -> None:
+        self.assertEqual(observed_order_statistic([20, 12, 17, 15], 0.25), 12)
+        plans = [{"1": {"Lunch": [
+            {"alimento": "rice", "quantidade": "80"},
+            {"alimento": "beans", "quantidade": "0"},
+        ]}}]
+        self.assertEqual(source_day_food_counts(plans), [1])
 
     def test_profile_ingredient_screen_flags_known_animal_terms_without_deciding(self) -> None:
         self.assertIn("meat_or_fish", risk_hits("Feijao cozido com carne de boi", "vegana"))

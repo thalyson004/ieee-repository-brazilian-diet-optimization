@@ -36,7 +36,8 @@ from collections import defaultdict
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
-from scipy.optimize import linprog
+from scipy import sparse
+from scipy.optimize import Bounds, LinearConstraint, linprog, milp
 
 from .data_types import NutritionalContext
 from .hyperparameters import (
@@ -228,6 +229,95 @@ def _record_relaxation_slacks(
     }
 
 
+def _solve_food_level_minimum_diversity(
+    *,
+    c: np.ndarray,
+    A_ub: np.ndarray,
+    b_ub: np.ndarray,
+    food_names: List[str],
+    quantity_caps: Dict[str, float],
+    minimum_selected_foods: int,
+    slack_penalty: float,
+) -> Tuple[Optional[np.ndarray], Any, bool, np.ndarray]:
+    """Solve a daily food basket MILP with an explicit minimum food count.
+
+    Binary selection variables are linked to positive quantities using the
+    empirical finite caps and the same 1 g reporting threshold as the LP.
+    If hard nutrient constraints are infeasible, retry with labeled nutrient
+    slacks while preserving both caps and the diversity floor.
+    """
+    n_foods = len(food_names)
+    n_nutrients = A_ub.shape[0]
+    caps = np.asarray([quantity_caps[name] for name in food_names], dtype=float)
+    identity = sparse.eye(n_foods, format="csr")
+    zero_nutrient_y = sparse.csr_matrix((n_nutrients, n_foods))
+    upper_link = sparse.hstack([identity, -sparse.diags(caps)], format="csr")
+    lower_link = sparse.hstack([-identity, sparse.eye(n_foods, format="csr")], format="csr")
+    diversity = sparse.csr_matrix(
+        (np.full(n_foods, -1.0), (np.zeros(n_foods), np.arange(n_foods))),
+        shape=(1, n_foods),
+    )
+    diversity_row = sparse.hstack(
+        [sparse.csr_matrix((1, n_foods)), diversity], format="csr"
+    )
+
+    def solve_with_slacks(include_slacks: bool):
+        if include_slacks:
+            nutrient_rows = sparse.hstack(
+                [sparse.csr_matrix(A_ub), zero_nutrient_y,
+                 -sparse.eye(n_nutrients, format="csr")], format="csr"
+            )
+            upper_rows = sparse.hstack(
+                [upper_link, sparse.csr_matrix((n_foods, n_nutrients))], format="csr"
+            )
+            lower_rows = sparse.hstack(
+                [lower_link, sparse.csr_matrix((n_foods, n_nutrients))], format="csr"
+            )
+            diversity_full = sparse.hstack(
+                [diversity_row, sparse.csr_matrix((1, n_nutrients))], format="csr"
+            )
+            objective = np.concatenate([c, np.zeros(n_foods),
+                                        np.full(n_nutrients, slack_penalty)])
+            lower_bounds = np.concatenate([np.zeros(n_foods), np.zeros(n_foods),
+                                           np.zeros(n_nutrients)])
+            upper_bounds = np.concatenate([caps, np.ones(n_foods),
+                                           np.full(n_nutrients, np.inf)])
+            integrality = np.concatenate([np.zeros(n_foods), np.ones(n_foods),
+                                          np.zeros(n_nutrients)])
+            rhs = np.concatenate([b_ub, np.zeros(n_foods), np.zeros(n_foods),
+                                  np.asarray([-minimum_selected_foods])])
+            matrix = sparse.vstack([nutrient_rows, upper_rows, lower_rows,
+                                    diversity_full], format="csr")
+        else:
+            nutrient_rows = sparse.hstack(
+                [sparse.csr_matrix(A_ub), zero_nutrient_y], format="csr"
+            )
+            matrix = sparse.vstack([nutrient_rows, upper_link, lower_link,
+                                    diversity_row], format="csr")
+            objective = np.concatenate([c, np.zeros(n_foods)])
+            lower_bounds = np.zeros(2 * n_foods)
+            upper_bounds = np.concatenate([caps, np.ones(n_foods)])
+            integrality = np.concatenate([np.zeros(n_foods), np.ones(n_foods)])
+            rhs = np.concatenate([b_ub, np.zeros(n_foods), np.zeros(n_foods),
+                                  np.asarray([-minimum_selected_foods])])
+        return milp(
+            c=objective,
+            integrality=integrality,
+            bounds=Bounds(lower_bounds, upper_bounds),
+            constraints=LinearConstraint(matrix, np.full(len(rhs), -np.inf), rhs),
+            options={"disp": False},
+        )
+
+    strict_result = solve_with_slacks(include_slacks=False)
+    if strict_result.success and strict_result.x is not None:
+        return strict_result.x[:n_foods], strict_result, False, np.zeros(0)
+    relaxed_result = solve_with_slacks(include_slacks=True)
+    if not relaxed_result.success or relaxed_result.x is None:
+        return None, strict_result, True, np.zeros(n_nutrients)
+    return (relaxed_result.x[:n_foods], strict_result, True,
+            relaxed_result.x[2 * n_foods:])
+
+
 def _build_meal_energy_share_constraints(
     meal_pool: Dict[str, List[Dict]],
     variable_list: List[Tuple[str, int]],
@@ -297,6 +387,7 @@ def optimize_food_level(
     maximum_goals: Optional[Dict[str, Dict[str, float]]] = None,
     slack_penalty: float = 1e4,
     maximum_daily_grams_by_food: Optional[Dict[str, float]] = None,
+    minimum_selected_foods: Optional[int] = None,
 ) -> Optional[List[Dict]]:
     """Otimiza a dieta no nível de alimentos usando Programação Linear.
 
@@ -347,6 +438,17 @@ def optimize_food_level(
             "Daily quantity caps were supplied for foods outside the eligible LP-Food pool: "
             + ", ".join(unknown_caps)
         )
+    if minimum_selected_foods is not None:
+        if isinstance(minimum_selected_foods, bool) or not isinstance(minimum_selected_foods, int):
+            raise ValueError("minimum_selected_foods must be an integer")
+        if minimum_selected_foods < 1 or minimum_selected_foods > len(food_names):
+            raise ValueError("minimum_selected_foods must be between 1 and the eligible food count")
+        uncapped = sorted(set(food_names) - set(quantity_caps))
+        if uncapped:
+            raise ValueError(
+                "A finite daily quantity cap is required for every food when enforcing diversity; "
+                f"uncapped foods: {', '.join(uncapped)}"
+            )
 
     if diagnostics is not None:
         diagnostics.update({"allowed_source_food_count": len(allowed_food_names),
@@ -381,13 +483,46 @@ def optimize_food_level(
         for name in food_names
     ]
 
-    result = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=bounds, method="highs")
+    if minimum_selected_foods is None:
+        result = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=bounds, method="highs")
+        x = None
+    else:
+        x, result, fallback_used, slack_values = _solve_food_level_minimum_diversity(
+            c=c,
+            A_ub=A_ub,
+            b_ub=b_ub,
+            food_names=food_names,
+            quantity_caps=quantity_caps,
+            minimum_selected_foods=minimum_selected_foods,
+            slack_penalty=slack_penalty,
+        )
+        if diagnostics is not None:
+            diagnostics.update({
+                "method": "highs-milp",
+                "minimum_selected_foods": minimum_selected_foods,
+                "fallback_used": fallback_used,
+                "initial_status": int(result.status),
+                "initial_message": result.message,
+                "n_variables": 2 * n_foods,
+                "n_inequalities": int(A_ub.shape[0]) + 2 * n_foods + 1,
+                "fallback_success": bool(fallback_used and x is not None),
+                "selected_food_count": int(np.count_nonzero(x >= 1.0)) if x is not None else 0,
+            })
+            if fallback_used and x is not None:
+                _record_relaxation_slacks(diagnostics, slack_values, slack_penalty)
+            else:
+                diagnostics["slack_analysis"] = {
+                    "used": False, "nonzero_slack_count": 0, "constraints": []
+                }
+        if x is None:
+            return None
     if diagnostics is not None:
-        diagnostics.update({"initial_status": int(result.status), "initial_message": result.message,
-                            "method": "highs", "options": {}, "fallback_used": False,
-                            "n_variables": n_foods, "n_inequalities": int(A_ub.shape[0])})
+        if minimum_selected_foods is None:
+            diagnostics.update({"initial_status": int(result.status), "initial_message": result.message,
+                                "method": "highs", "options": {}, "fallback_used": False,
+                                "n_variables": n_foods, "n_inequalities": int(A_ub.shape[0])})
 
-    if result.status != 0:
+    if minimum_selected_foods is None and result.status != 0:
         print(
             f"AVISO: PL nivel de alimentos nao convergiu "
             f"(status={result.status}: {result.message}). Tentando versão relaxada..."
@@ -410,7 +545,7 @@ def optimize_food_level(
         x = result_relax.x[:n_foods]
         _record_relaxation_slacks(diagnostics, result_relax.x[n_foods:], slack_penalty)
         print("INFO: Solucao obtida via PL relaxado (melhor esforco nutricional).")
-    else:
+    elif minimum_selected_foods is None:
         x = result.x
         if diagnostics is not None:
             diagnostics["slack_analysis"] = {
