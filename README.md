@@ -42,7 +42,7 @@ This dataset accompanies the research on sustainable diet optimization combining
 1. **Base Diets**: 150 normalized diets (50 per profile) preserved from the original LLM-generation stage, targeting 2,000 kcal/day (±5%). The exact Gemini model and inference settings are not recoverable from primary request logs; see [`generation/original-generation-metadata.json`](generation/original-generation-metadata.json).
 2. **External Data Sources**: The knowledge maps in this repository were built from two external databases:
    - **TBCA** (Tabela Brasileira de Composição de Alimentos): nutritional composition per 100 g for 16 nutrients. Available at <https://www.tbca.net.br/>.
-   - **Environmental footprint dataset**: carbon (gCO₂e/100 g), water (L/100 g), and ecological (points/100 g) footprints. Available at <https://osf.io/g9d5y/files/osfstorage>.
+   - **Environmental footprint dataset**: updated Brazilian POF 2017--2018 tables released as an OSF workbook. The 100-g preparation sheet reports carbon (gCO₂e), water (L), and ecological (g·m²) values; see <https://osf.io/g9d5y/>. The revision's pinned audit verifies the workbook SHA-256 and map-label/value alignment while exposing multiple source rows for some standardized preparations.
 3. **Optimization Approaches**:
    - **GA-Food**: Genetic Algorithm optimizing individual food items
    - **GA-Meal**: Genetic Algorithm optimizing complete meals
