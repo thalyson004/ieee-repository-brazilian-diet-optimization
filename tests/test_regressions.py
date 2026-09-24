@@ -13,6 +13,7 @@ import numpy as np
 from diet_optimization.analysis.diet_audit import audit
 from diet_optimization.optimization.pipeline import derive_execution_seed
 from diet_optimization.optimization.genetic_algorithm import GeneticAlgorithm
+from diet_optimization.experiments.resource_monitor import SampledProcessMemory
 from diet_optimization.optimization.linear_optimizer import (
     _build_meal_energy_share_constraints,
     _build_nutrient_constraints,
@@ -440,6 +441,18 @@ class CommandCatalogTests(unittest.TestCase):
 
 
 class ExecutionDiagnosticsTests(unittest.TestCase):
+    def test_process_memory_sampler_records_sampled_rss_metadata(self) -> None:
+        import time
+
+        sampler = SampledProcessMemory(interval_seconds=0.01)
+        sampler.start()
+        time.sleep(0.03)
+        result = sampler.stop()
+        self.assertEqual(result["measurement"], "sampled_process_rss_100ms")
+        self.assertGreaterEqual(result["sample_count"], 1)
+        if result["baseline_rss_bytes"] is not None:
+            self.assertGreaterEqual(result["peak_sampled_rss_bytes"], result["baseline_rss_bytes"])
+
     def test_ga_counts_exact_fitness_evaluations(self) -> None:
         from unittest.mock import patch
 

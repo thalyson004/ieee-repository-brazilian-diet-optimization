@@ -22,6 +22,7 @@ from .hyperparameters import (
 )
 from .utils import calculate_totals, load_json_file, save_json_file
 from diet_optimization.experiments.diagnostics import evaluate_plan
+from diet_optimization.experiments.resource_monitor import SampledProcessMemory
 
 
 def build_context(context_files: ContextFiles) -> NutritionalContext:
@@ -284,9 +285,14 @@ def process_optimization_pipeline(
                     hyperparameters=tuned_hyperparameters,
                     initial_seed_chromosomes=base_chromosomes,
                 )
-                best_chromosome, fitness_history, convergence_generation = (
-                    genetic_algorithm.run()
-                )
+                memory_sampler = SampledProcessMemory()
+                memory_sampler.start()
+                try:
+                    best_chromosome, fitness_history, convergence_generation = (
+                        genetic_algorithm.run()
+                    )
+                finally:
+                    process_memory = memory_sampler.stop()
                 final_fitness = fitness_history[-1]
                 duration_seconds = time.perf_counter() - started_at
                 final_plan = chromosome_to_optimized_diet(best_chromosome)
@@ -306,6 +312,7 @@ def process_optimization_pipeline(
                     "stop_criterion": genetic_algorithm.stop_reason,
                     "stop_generation": convergence_generation,
                     "fitness_evaluation_count": genetic_algorithm.fitness_evaluation_count,
+                    "process_memory": process_memory,
                     "duration_seconds": duration_seconds,
                     "final_fitness": final_fitness,
                     "final_solution": final_plan,
