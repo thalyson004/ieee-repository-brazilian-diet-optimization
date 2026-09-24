@@ -114,7 +114,12 @@
     "Leite, vaca, desnatado, em pó",
     "Nabo, c/ casca, cru",
     "Palmito, conversa, drenado (média de variedades - Pupunha e Juçara)",
-    "Peixe, água salgada, sardinha, filé, conserva, em óleo"
+    "Peixe, água salgada, sardinha, filé, conserva, em óleo",
+    "Bebida, café, infusão 8% - médio, s/ açúcar",
+    "Trigo para quibe, cozido, s/ sal",
+    "Carne, boi, acém moída, cozida, c/ óleo, cebola e alho, c/ sal",
+    "Carne, boi, acém, moída, refogada (c/ óleo, cebola e alho), c/ sal",
+    "Peixe, água doce, filé, grelhado/assado, s/ óleo, s/ sal (média de 7 espécies)"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }

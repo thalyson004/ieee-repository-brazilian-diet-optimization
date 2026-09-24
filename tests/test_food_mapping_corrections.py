@@ -262,6 +262,21 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Peixe, água salgada, sardinha, filé, conserva, em óleo": (
                 "Peixe, água salgada, sardinha, filé, conserva, em óleo, Brasil", "BRC0073E"
             ),
+            "Bebida, café, infusão 8% - médio, s/ açúcar": (
+                "Bebida, café, infusão 8% - médio, s/ açúcar, Brasil", "BRC0062H"
+            ),
+            "Trigo para quibe, cozido, s/ sal": (
+                "Trigo para quibe (kibe), cozido, s/ óleo, s/ sal (dado importado)", "BRC0405A"
+            ),
+            "Carne, boi, acém moída, cozida, c/ óleo, cebola e alho, c/ sal": (
+                "Carne, bovina, moída (acém), cozida, c/ óleo de soja, cebola e alho, c/ sal, Brasil", "BRC0354F"
+            ),
+            "Carne, boi, acém, moída, refogada (c/ óleo, cebola e alho), c/ sal": (
+                "Carne, bovina, moída (acém), refogada (c/ óleo de soja, cebola e alho), c/ sal, Brasil", "BRC0245F"
+            ),
+            "Peixe, água doce, filé, grelhado/assado, s/ óleo, s/ sal (média de 7 espécies)": (
+                "Peixe, água doce, filé, grelhado/assado, s/ óleo, s/ sal (média de 7 espécies), Brasil", "BRC0105E"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
