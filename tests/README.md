@@ -10,6 +10,8 @@ LP-Food daily-quantity sensitivity (2026-09-24): `lp-daily-quantity-support-sens
 
 LP-Food diversity-floor sensitivity (2026-09-24): `lp-food-diversity-sensitivity_20260924T204207602863Z_2fbe7e88` ran nine LP/MILP scenarios using each profile's per-food observed-maximum daily caps and q25/median lower order statistics of distinct foods in 250 source days (regular: 15/16; vegetarian and vegan: 16/17). The regular MILPs selected 15 and 16 foods; vegetarian selected 16 and 17; vegan selected 23 under both floors. Vegan cases required nutrient relaxation, with vitamin D and B12 shortfalls unchanged from the capped baseline. These are daily aggregate baskets, not meal plans: no meal-slot, recipe compatibility, frequency, or clinical serving constraint is established. All results remain diagnostic under unresolved data and comparability gates.
 
+Environmental-objective endpoints (2026-09-24): `environmental-objective-sensitivity_20260924T204613146732Z_fd0ea9dd` ran 18 solves: carbon, water, and ecological footprint optimized separately for both LP-Food (profile-specific observed-maximum caps) and LP-Meal across all three profiles. All returned a solution; all six vegan cases required relaxation. The vegan LP-Meal returned the same mean footprint vector under the three objectives, indicating that the common relaxed solution dominates this diagnostic endpoint grid. Other profiles show different footprint trade-offs across endpoints. The inputs' environmental food pairings are not fully adjudicated, objective units/scales differ, and method constraints differ; no composite weights, ranking, or manuscript claim are supported.
+
 Latest ten-seed rerun after adding provenance tracking: `full-replication_20260924T191513576820Z_55610f6d`, 66 outputs (60 GA + 6 LP), seed-base 20260929, 369.1 s, `status=passed`; scope validation passed with no items outside profile pools. Its manifest records clean source commit `1804a2dde338be0c6e5136fdd8ac4c1dc8c21478` and SHA-256 for the protocol, exclusions, source diets, and nutrition/environment maps. It remains diagnostic; no result is approved for the manuscript. The preceding seed-20260928 run and complete nine-command battery also passed; see `EXPERIMENT-EXECUTION-PLAN.md` for blockers.
 
 The profile-ingredient audit is a lexical screen, not a vegan/vegetarian certificate. It recognizes `couve-manteiga` as a vegetable variety, flags the ambiguous vegetarian item `Omelete, frios` for manual review, and distinguishes a coconut-milk label from explicit cow/condensed milk. Only the two exact configured vegan contradictions are excluded from derived optimizer inputs; the other 362 profile-food rows remain pending ingredient verification.
@@ -100,6 +102,15 @@ clinical servings. Outputs are diagnostic only:
 
 ```bash
 python -m tests.run_experiments --experiments lp-food-diversity-sensitivity
+```
+
+Optimize the three environmental indicators independently for profile-specific
+LP-Food (using observed-maximum daily caps) and LP-Meal. This endpoint grid
+does not combine differently scaled indicators into a weighted objective, and
+it is not a fair causal comparison of the formulations:
+
+```bash
+python -m tests.run_experiments --experiments environmental-objective-sensitivity
 ```
 
 Create a lexical review queue for vegetarian/vegan source-food names. It flags
