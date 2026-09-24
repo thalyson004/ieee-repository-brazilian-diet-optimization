@@ -20,6 +20,7 @@ from diet_optimization.optimization.linear_optimizer import (
     food_names_in_diets,
 )
 from diet_optimization.optimization.nutritional_targets import load_protocol
+from diet_optimization.optimization.hyperparameters import GeneticAlgorithmHyperparameters
 from diet_optimization.optimization.fitness_functions import criterion_penalty_for_nutritional_constraints
 from diet_optimization.experiments.profile_integrity import load_exclusions, prepare_profile_diets
 from diet_optimization.analysis.run_statistics import STATISTICAL_READINESS_STATUS, summarize_values
@@ -77,6 +78,7 @@ class CommandCatalogTests(unittest.TestCase):
         workspace = PROJECT_ROOT / "tests" / "results" / "artifacts" / "test"
         for experiment in EXPERIMENTS:
             self.assertTrue(commands_for(experiment, workspace, 10, 20260323))
+        self.assertIn("tests.ga_hyperparameter_sensitivity", commands_for("ga-hyperparameter-sensitivity", workspace, 1, 7)[0])
         for experiment in ("ga-smoke", "full-replication"):
             commands = commands_for(experiment, workspace, 10, 20260323)
             self.assertIn("tests.validate_candidate_scope", commands[-1])
@@ -85,6 +87,19 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertIn("tests.portion_support_audit", commands_for("portion-support-audit", workspace, 10, 20260323)[0])
         self.assertIn("tests.profile_ingredient_audit", commands_for("profile-ingredient-audit", workspace, 10, 20260323)[0])
         self.assertIn("tests.nutrient_missingness_audit", commands_for("nutrient-missingness-audit", workspace, 10, 20260323)[0])
+
+    def test_ga_sensitivity_variants_are_versioned_and_loadable(self) -> None:
+        from tests.ga_hyperparameter_sensitivity import VARIANTS
+
+        self.assertEqual(
+            set(VARIANTS),
+            {"baseline", "reduced-population", "higher-mutation", "shorter-stagnation"},
+        )
+        for relative_path in VARIANTS.values():
+            if relative_path is None:
+                continue
+            payload = json.loads((PROJECT_ROOT / relative_path).read_text(encoding="utf-8"))
+            self.assertTrue(payload)
 
     def test_missingness_complete_case_is_numeric_and_keeps_reported_zero(self) -> None:
         protocol = {
@@ -306,6 +321,23 @@ class BaseDietAuditTests(unittest.TestCase):
 
 
 class RevisedNutritionProtocolTests(unittest.TestCase):
+    def test_ga_sensitivity_overrides_are_narrow_and_validated(self) -> None:
+        from diet_optimization.experiments.runner import apply_ga_overrides
+
+        parameters = GeneticAlgorithmHyperparameters()
+        applied = apply_ga_overrides(
+            parameters,
+            {"population_size": 30, "default_local_mutation_rate": 0.3},
+        )
+        self.assertEqual(applied["population_size"], 30)
+        self.assertEqual(parameters.default_local_mutation_rate, 0.3)
+        with self.assertRaisesRegex(ValueError, "Unsupported GA override"):
+            apply_ga_overrides(parameters, {"nutritional_minimum_goals": {}})
+        with self.assertRaisesRegex(ValueError, "Invalid value"):
+            apply_ga_overrides(parameters, {"population_size": True})
+        with self.assertRaisesRegex(ValueError, "at most"):
+            apply_ga_overrides(parameters, {"default_local_mutation_rate": 1.1})
+
     def test_meal_energy_share_constraints_use_injected_energy_target(self) -> None:
         matrix, bounds = _build_meal_energy_share_constraints(
             meal_pool={
@@ -348,6 +380,9 @@ class RevisedNutritionProtocolTests(unittest.TestCase):
             {
                 "configs/revised-nutrition-protocol.json",
                 "configs/profile-exclusions.json",
+                "configs/ga-sensitivity/reduced-population.json",
+                "configs/ga-sensitivity/higher-mutation.json",
+                "configs/ga-sensitivity/shorter-stagnation.json",
                 "diets-base/dietas-regular.json",
                 "diets-base/dietas-vegetariana.json",
                 "diets-base/dietas-vegana.json",

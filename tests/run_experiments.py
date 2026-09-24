@@ -34,6 +34,7 @@ EXPERIMENTS = (
     "lp-profile-scope",
     "lp-slack-sensitivity",
     "ga-smoke",
+    "ga-hyperparameter-sensitivity",
     "full-replication",
 )
 
@@ -116,6 +117,20 @@ def commands_for(
             runner + ["--mode", "rerun", "--runs", "1", "--seed", str(seed), "--nutrition-protocol", nutrition_protocol, "--output-dir", str(workspace)],
             [sys.executable, "-m", "tests.validate_candidate_scope", "--workspace", str(workspace)],
         ]
+    if experiment == "ga-hyperparameter-sensitivity":
+        return [[
+            sys.executable,
+            "-m",
+            "tests.ga_hyperparameter_sensitivity",
+            "--runs",
+            str(runs),
+            "--seed",
+            str(seed),
+            "--nutrition-protocol",
+            nutrition_protocol,
+            "--output-dir",
+            str(workspace),
+        ]]
     return [
         runner + ["--mode", "rerun", "--runs", str(runs), "--seed", str(seed), "--nutrition-protocol", nutrition_protocol, "--output-dir", str(workspace)],
         [sys.executable, "-m", "tests.validate_candidate_scope", "--workspace", str(workspace)],
@@ -153,7 +168,7 @@ def execute(experiment: str, runs: int, seed: int, nutrition_protocol: str) -> P
             "platform": platform.platform(),
             "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
             "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
-            "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "full-replication"} else None,
+            "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "ga-hyperparameter-sensitivity", "full-replication"} else None,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),
             "artifact_workspace": str(workspace.relative_to(PROJECT_ROOT)),

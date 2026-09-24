@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 import platform
 import shutil
@@ -72,6 +73,11 @@ def parse_args() -> argparse.Namespace:
         choices=("historical", "revised"),
         default="revised",
         help="Explicit constraint set for a new rerun; archived reconstruction ignores it.",
+    )
+    parser.add_argument(
+        "--ga-overrides",
+        type=Path,
+        help="JSON object of approved GA hyperparameter overrides for sensitivity runs.",
     )
     return parser.parse_args()
 
@@ -333,6 +339,9 @@ def source_provenance() -> dict:
     input_paths = [
         "configs/revised-nutrition-protocol.json",
         "configs/profile-exclusions.json",
+        "configs/ga-sensitivity/reduced-population.json",
+        "configs/ga-sensitivity/higher-mutation.json",
+        "configs/ga-sensitivity/shorter-stagnation.json",
         "diets-base/dietas-regular.json",
         "diets-base/dietas-vegetariana.json",
         "diets-base/dietas-vegana.json",
@@ -379,16 +388,60 @@ def source_provenance() -> dict:
     }
 
 
+GA_OVERRIDE_LIMITS = {
+    "population_size": (int, 1, None),
+    "max_stagnation_generations": (int, 1, None),
+    "max_generations": (int, 1, None),
+    "default_global_mutation_rate": (float, 0.0, 1.0),
+    "default_local_mutation_rate": (float, 0.0, 1.0),
+    "hyper_global_mutation_rate": (float, 0.0, 1.0),
+    "hyper_local_mutation_rate": (float, 0.0, 1.0),
+}
+
+
+def apply_ga_overrides(
+    hyperparameters: GeneticAlgorithmHyperparameters, overrides: dict
+) -> dict:
+    """Validate and apply the deliberately narrow GA sensitivity surface."""
+    if not isinstance(overrides, dict):
+        raise ValueError("GA overrides must be a JSON object")
+    unknown = sorted(set(overrides) - set(GA_OVERRIDE_LIMITS))
+    if unknown:
+        raise ValueError(f"Unsupported GA override(s): {', '.join(unknown)}")
+    applied = {}
+    for name, value in overrides.items():
+        expected_type, minimum, maximum = GA_OVERRIDE_LIMITS[name]
+        if expected_type is int:
+            valid_type = isinstance(value, int) and not isinstance(value, bool)
+        else:
+            valid_type = isinstance(value, (int, float)) and not isinstance(value, bool)
+        if not valid_type or not math.isfinite(value) or value < minimum:
+            raise ValueError(f"Invalid value for GA override {name}: {value!r}")
+        if maximum is not None and value > maximum:
+            raise ValueError(f"GA override {name} must be at most {maximum}")
+        normalized = int(value) if expected_type is int else float(value)
+        setattr(hyperparameters, name, normalized)
+        applied[name] = normalized
+    return applied
+
+
 def write_manifest(
     workspace: Path, mode: str, runs: int, seed: int, command: list[str],
     nutrition_protocol_id: str, nutrition_constraints_sha256: str,
+    ga_overrides: dict | None = None,
 ) -> None:
+    normalized_overrides = ga_overrides or {}
+    overrides_hash = hashlib.sha256(
+        json.dumps(normalized_overrides, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
     manifest = {
         "schema_version": "1.0",
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "mode": mode,
         "archive_source_commit": ARCHIVE_COMMIT,
         "source_provenance": source_provenance(),
+        "ga_overrides": normalized_overrides,
+        "ga_overrides_sha256": overrides_hash,
         "original_random_seeds_recorded": False,
         "replication_base_seed": seed if mode == "rerun" else None,
         "ga_runs_per_profile_and_granularity": runs if mode == "rerun" else 10,
@@ -420,6 +473,11 @@ def main() -> None:
     workspace = args.output_dir.resolve()
     diet_files = stage_inputs(workspace, args.mode)
     hyperparameters = GeneticAlgorithmHyperparameters()
+    override_payload = {}
+    if args.ga_overrides is not None:
+        override_path = args.ga_overrides.resolve()
+        override_payload = json.loads(override_path.read_text(encoding="utf-8"))
+    applied_overrides = apply_ga_overrides(hyperparameters, override_payload)
     protocol_payload = {
         "protocol_id": hyperparameters.nutrition_protocol_id,
         "minimum_goals": hyperparameters.nutritional_minimum_goals,
@@ -451,6 +509,7 @@ def main() -> None:
     write_manifest(
         workspace, args.mode, args.runs, args.seed, sys.argv,
         hyperparameters.nutrition_protocol_id, constraints_hash,
+        ga_overrides=applied_overrides,
     )
     if args.mode == "rerun":
         (workspace / "effective-nutrition-constraints.json").write_text(

@@ -1,0 +1,4 @@
+{
+  "max_stagnation_generations": 10,
+  "max_generations": 60
+}

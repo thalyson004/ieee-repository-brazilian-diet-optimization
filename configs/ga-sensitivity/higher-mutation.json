@@ -1,0 +1,6 @@
+{
+  "default_global_mutation_rate": 0.1,
+  "default_local_mutation_rate": 0.3,
+  "hyper_global_mutation_rate": 0.25,
+  "hyper_local_mutation_rate": 0.45
+}
