@@ -277,9 +277,9 @@ class BaseDietAuditTests(unittest.TestCase):
         adjudication = json.loads(
             (PROJECT_ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(len(adjudication["source_food_names"]), 40)
-        self.assertEqual(totals["non_identity_mappings_with_recorded_target_decision"], 40)
-        self.assertEqual(totals["non_identity_mappings_without_recorded_target_decision"], 130)
+        self.assertEqual(len(adjudication["source_food_names"]), 41)
+        self.assertEqual(totals["non_identity_mappings_with_recorded_target_decision"], 41)
+        self.assertEqual(totals["non_identity_mappings_without_recorded_target_decision"], 129)
         self.assertEqual(len(mapping_lines), totals["unique_food_names"] + 1)
 
 
