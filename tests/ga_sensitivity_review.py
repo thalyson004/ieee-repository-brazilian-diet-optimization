@@ -63,6 +63,49 @@ def read_ga_metrics(variant_workspace: Path) -> dict[tuple, float]:
     return values
 
 
+def read_computational_metrics(variant_workspace: Path) -> dict[tuple, float]:
+    fields = {
+        "duration_seconds": "runtime_seconds",
+        "fitness_evaluation_count": "fitness_evaluations",
+        "stop_generation": "stopping_generation",
+    }
+    values = {}
+    for path in variant_workspace.rglob("execution-*.json"):
+        item = json.loads(path.read_text(encoding="utf-8"))
+        resolution = item.get("resolution", "")
+        if not resolution.startswith("ag-"):
+            continue
+        profile = item.get("candidate_pool_profile")
+        method = "GA-Food" if resolution == "ag-alimentos" else "GA-Meal"
+        execution_id = int(item["execution_id"])
+        for field, metric in fields.items():
+            value = float(item[field])
+            key = (profile, method, metric, execution_id)
+            if not math.isfinite(value) or key in values:
+                raise ValueError(f"Invalid or duplicate computational metric row: {key}")
+            values[key] = value
+        rss = item.get("process_memory", {}).get("peak_sampled_rss_bytes")
+        if rss is not None:
+            key = (profile, method, "sampled_peak_rss_bytes", execution_id)
+            if key in values:
+                raise ValueError(f"Duplicate sampled RSS metric row: {key}")
+            values[key] = float(rss)
+    if not values:
+        raise ValueError(f"No GA computational metrics in {variant_workspace}")
+    return values
+
+
+def describe(values: list[float]) -> dict[str, float | int | None]:
+    return {
+        "n": len(values),
+        "mean": statistics.mean(values),
+        "median": statistics.median(values),
+        "sample_sd": statistics.stdev(values) if len(values) > 1 else None,
+        "min": min(values),
+        "max": max(values),
+    }
+
+
 def analyze_workspace(source_workspace: Path, review_workspace: Path) -> dict:
     summary = json.loads((source_workspace / "sensitivity-summary.json").read_text(encoding="utf-8"))
     if summary.get("status") != "completed" or summary.get("runs_per_profile_and_granularity") != 10:
@@ -73,6 +116,7 @@ def analyze_workspace(source_workspace: Path, review_workspace: Path) -> dict:
 
     provenance = {}
     metrics = {}
+    computational_metrics = {}
     scope = {}
     for variant in VARIANTS:
         variant_workspace = source_workspace / variant
@@ -83,6 +127,9 @@ def analyze_workspace(source_workspace: Path, review_workspace: Path) -> dict:
             raise ValueError(f"Run count mismatch in variant {variant}")
         provenance[variant] = manifest["source_provenance"]
         metrics[variant] = read_ga_metrics(variant_workspace)
+        computational_metrics[variant] = read_computational_metrics(variant_workspace)
+        if sum(key[2] == "runtime_seconds" for key in computational_metrics[variant]) != 60:
+            raise ValueError(f"Expected computational metrics for 60 GA runs in {variant}")
         scope_report = audit_workspace(variant_workspace)
         scope[variant] = {
             "status": scope_report["status"],
@@ -96,7 +143,10 @@ def analyze_workspace(source_workspace: Path, review_workspace: Path) -> dict:
     if len(commits) != 1 or any(item["git_worktree_dirty"] for item in provenance.values()):
         raise ValueError("Sensitivity variants do not share one clean source revision")
     baseline = metrics["baseline"]
+    baseline_computational = computational_metrics["baseline"]
     comparison_rows = []
+    computational_comparisons = []
+    computational_summaries = []
     for variant_index, variant in enumerate(VARIANTS[1:], start=1):
         if set(metrics[variant]) != set(baseline):
             raise ValueError(f"GA metric keys do not match baseline for {variant}")
@@ -122,6 +172,41 @@ def analyze_workspace(source_workspace: Path, review_workspace: Path) -> dict:
                     **stats,
                 }
             )
+        if set(computational_metrics[variant]) != set(baseline_computational):
+            raise ValueError(f"Computational metric keys do not match baseline for {variant}")
+        grouped_resources: dict[tuple, list[tuple[int, float]]] = {}
+        for key, value in computational_metrics[variant].items():
+            profile, method, metric, execution_id = key
+            grouped_resources.setdefault((profile, method, metric), []).append(
+                (execution_id, value - baseline_computational[key])
+            )
+        for group, pairs in sorted(grouped_resources.items()):
+            pairs.sort()
+            if [execution_id for execution_id, _ in pairs] != list(range(1, 11)):
+                raise ValueError(f"Expected ten paired computational IDs for {variant}/{group}")
+            computational_comparisons.append({
+                "variant": variant,
+                "profile": group[0],
+                "method": group[1],
+                "metric": group[2],
+                **paired_summary(
+                    [difference for _, difference in pairs],
+                    seed=summary["paired_base_seed"] + 100 + variant_index,
+                ),
+            })
+
+    for variant in VARIANTS:
+        grouped_resources: dict[tuple, list[float]] = {}
+        for (profile, method, metric, _), value in computational_metrics[variant].items():
+            grouped_resources.setdefault((profile, method, metric), []).append(value)
+        for (profile, method, metric), values in sorted(grouped_resources.items()):
+            computational_summaries.append({
+                "variant": variant,
+                "profile": profile,
+                "method": method,
+                "metric": metric,
+                **describe(values),
+            })
 
     report = {
         "schema_version": "1.0",
@@ -133,6 +218,13 @@ def analyze_workspace(source_workspace: Path, review_workspace: Path) -> dict:
         "variants": list(VARIANTS),
         "profile_scope_validation": scope,
         "paired_ga_differences_vs_baseline": comparison_rows,
+        "computational_metrics_by_variant": computational_summaries,
+        "paired_computational_differences_vs_baseline": computational_comparisons,
+        "computational_metric_limitations": [
+            "Runtime depends on the recorded machine and software environment.",
+            "RSS is sampled at 100-ms intervals for the entire Python process and may miss short peaks.",
+            "Bootstrap intervals are unadjusted across the many paired metrics and strata.",
+        ],
         "interpretation": "Diagnostic paired sensitivity only. No cross-method causal inference or manuscript result is authorized while data, missingness, and method-equivalence gates remain open.",
     }
     review_workspace.mkdir(parents=True, exist_ok=False)
@@ -160,7 +252,12 @@ def main() -> None:
     status, error = "passed", None
     try:
         report = analyze_workspace(source_workspace, review_workspace)
-        append_log(log_path, f"Validated {len(report['profile_scope_validation'])} variants and {len(report['paired_ga_differences_vs_baseline'])} paired metric groups")
+        append_log(
+            log_path,
+            f"Validated {len(report['profile_scope_validation'])} variants, "
+            f"{len(report['paired_ga_differences_vs_baseline'])} paired outcome groups, and "
+            f"{len(report['paired_computational_differences_vs_baseline'])} paired computational groups",
+        )
     except Exception as exc:
         status, error = "failed", f"{type(exc).__name__}: {exc}"
         append_log(log_path, error)

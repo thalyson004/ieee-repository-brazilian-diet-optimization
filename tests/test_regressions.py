@@ -228,6 +228,29 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertEqual(result["mean_difference"], 2.0)
         self.assertEqual(result, paired_summary([1.0, 2.0, 3.0], seed=17))
 
+    def test_sensitivity_review_reads_execution_cost_metrics(self) -> None:
+        from tests.ga_sensitivity_review import read_computational_metrics
+
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            workspace = Path(temporary_directory)
+            record = {
+                "resolution": "ag-alimentos",
+                "candidate_pool_profile": "regular",
+                "execution_id": 1,
+                "duration_seconds": 2.5,
+                "fitness_evaluation_count": 400,
+                "stop_generation": 30,
+                "process_memory": {"peak_sampled_rss_bytes": 1024},
+            }
+            (workspace / "execution-001.json").write_text(
+                json.dumps(record), encoding="utf-8"
+            )
+            metrics = read_computational_metrics(workspace)
+        self.assertEqual(metrics[("regular", "GA-Food", "runtime_seconds", 1)], 2.5)
+        self.assertEqual(metrics[("regular", "GA-Food", "fitness_evaluations", 1)], 400.0)
+        self.assertEqual(metrics[("regular", "GA-Food", "stopping_generation", 1)], 30.0)
+        self.assertEqual(metrics[("regular", "GA-Food", "sampled_peak_rss_bytes", 1)], 1024.0)
+
     def test_missingness_complete_case_is_numeric_and_keeps_reported_zero(self) -> None:
         protocol = {
             "core_targets": [{"nutrient": "A", "tbca_field": "A"}],
