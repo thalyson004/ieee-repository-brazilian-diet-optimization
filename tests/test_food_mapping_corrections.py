@@ -177,6 +177,12 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 "Pizza, queijo muçarela, artesanal, assada, Brasil", "BRC0225A"
             ),
             "Cereal matinal, milho": ("Cereal matinal, milho, Brasil", "BRC0100A"),
+            "Amendoim, torrado, c/ sal": ("Amendoim, torrado, c/ sal, Brasil", "BRC0021T"),
+            "Amendoim, grão, cru": ("Amendoim, grão, cru, Brasil", "BRC0020T"),
+            "Amêndoa, torrada, c/ sal": ("Amêndoa, torrada, c/ sal, Brasil", "BRC0001U"),
+            "Beterraba, s/ casca, crua": ("Beterraba, s/ casca, crua, Brasil", "BRC0015B"),
+            "Acelga, crua": ("Acelga, crua, Brasil", "BRC0007B"),
+            "Abacaxi, polpa, in natura": ("Abacaxi, polpa,in natura, Brasil", "BRC0002C"),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
