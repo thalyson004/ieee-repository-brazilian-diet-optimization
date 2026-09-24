@@ -215,6 +215,25 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal": (
                 "Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal, Brasil", "BRC0013D"
             ),
+            "Pão, de queijo, industrializado, assado": (
+                "Pão, de queijo, industrializado, assado, Brasil", "BRC0123B"
+            ),
+            "Queijo, ricota, light": ("Queijo, ricota, light, Brasil", "BRC0075N"),
+            "Biscoito, salgado, cream cracker": (
+                "Biscoito, salgado, cream cracker, Brasil", "BRC0201A"
+            ),
+            "Uva, passa, preta": ("Uva, passa, preta, Brasil", "BRC0169C"),
+            "Abóbora, moranga, s/ casca, s/ semente, assada, s/ óleo, c/ sal": (
+                "Abóbora, moranga, s/ casca, s/ semente, assada, s/ óleo, c/ sal, Brasil", "BRC0355B"
+            ),
+            "Cebolinha, verde, crua": ("Cebolinha, verde, crua, Brasil", "BRC0019B"),
+            "Soja, extrato, solúvel, em pó": ("Soja, extrato, solúvel, em pó, Brasil", "BRC0048T"),
+            "Biscoito, doce, simples (média de diferentes tipos)": (
+                "Biscoito, doce, simples (média de diferentes tipos), Brasil", "BRC0027A"
+            ),
+            "Milho, verde, grão, cozido, drenado, c/ sal": (
+                "Milho, verde, grão, cozido, drenado, c/ sal, Brasil", "BRC0177A"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")

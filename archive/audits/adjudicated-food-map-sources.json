@@ -93,7 +93,16 @@
     "Rúcula, crua",
     "Soja, extrato, bebida (média de diferentes sabores)",
     "Geleia, s/ açúcar (média de diferentes sabores)",
-    "Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal"
+    "Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal",
+    "Pão, de queijo, industrializado, assado",
+    "Queijo, ricota, light",
+    "Biscoito, salgado, cream cracker",
+    "Uva, passa, preta",
+    "Abóbora, moranga, s/ casca, s/ semente, assada, s/ óleo, c/ sal",
+    "Cebolinha, verde, crua",
+    "Soja, extrato, solúvel, em pó",
+    "Biscoito, doce, simples (média de diferentes tipos)",
+    "Milho, verde, grão, cozido, drenado, c/ sal"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }

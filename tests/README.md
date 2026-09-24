@@ -4,7 +4,7 @@ Every experiment is launched by a named command. Each invocation writes an immut
 
 Earlier mapping-review checkpoint (2026-09-24): 49 nutrition-target decisions were indexed and the active-map queue had 121 unresolved links. This historical snapshot does not adjudicate ingredient formulation, preparation, or environmental equivalence.
 
-Latest audit refresh (2026-09-24): 91 target decisions are indexed and the active queue has 79 unresolved links; see the experiment plan for run IDs and exact status. A duplicated natural-skim-yogurt TBCA label and generic raw walnut/pecan label are intentionally unresolved pending source specificity.
+Latest audit refresh (2026-09-24): 100 target decisions are indexed and the active queue has 70 unresolved links. The latest audit is `base-diet-audit_20260924T180209026571Z_68f01a41`; the queue refresh is `mapping-review-queue-current_20260924T180209427610Z_f4648261`. A duplicated natural-skim-yogurt TBCA label and generic raw walnut/pecan label are intentionally unresolved pending source specificity.
 
 The profile-ingredient audit is a lexical screen, not a vegan/vegetarian certificate. It recognizes `couve-manteiga` as a vegetable variety, flags the ambiguous vegetarian item `Omelete, frios` for manual review, and distinguishes a coconut-milk label from explicit cow/condensed milk. Only the two exact configured vegan contradictions are excluded from derived optimizer inputs; the other 362 profile-food rows remain pending ingredient verification.
 
