@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "status": "adjudicated_to_plant_only_tbca_preparation_with_source_scope",
+  "decision_date": "2026-09-24",
+  "source_food_name": "Feijoada vegetariana",
+  "source_occurrences": {
+    "profile": "vegan",
+    "count": 32
+  },
+  "source_provenance": {
+    "project_food_whitelist": "source/data/list/lista-descricoes-tbca.txt",
+    "exact_label_present": true,
+    "historical_pof_map": "source/data/maps/base/mapa-pof-completo.json",
+    "historical_pof_key": "8581905#99",
+    "historical_tbca_code": "C0172T",
+    "historical_pof_name": "FEIJOADA VEGETARIANA"
+  },
+  "tbca_target": {
+    "code": "BRC0172T",
+    "name": "Feijoada vegetariana, c/ sal, Brasil",
+    "standardized_preparation_description": "black beans, vegetable broth, eggplant, bell pepper, potato, carrot, chayote, green beans, zucchini, soybean oil, onion, garlic, and salt",
+    "animal_protein_g_per_100g": 0.0,
+    "official_source": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=H13CeaZvrTzgRYiNsfY4%2BQ%3D%3D"
+  },
+  "environmental_source": {
+    "pof_key": "8581905#99",
+    "carbon_gco2eq_per_100g_unrounded": 166.4866,
+    "water_l_per_100g_unrounded": 119.2656,
+    "ecological_points_per_100g_unrounded": 0.4411,
+    "current_distributed_map_values_are_rounded": true
+  },
+  "profile_eligibility": {
+    "vegetarian": "compatible_with_the_standardized_tbca_preparation",
+    "vegan": "compatible_with_the_standardized_tbca_preparation",
+    "basis": "the official TBCA ingredient description lists only plant-derived ingredients and reports 0 g animal protein per 100 g"
+  },
+  "profile_recipe_evidence": [
+    {
+      "profile": "vegana",
+      "source_food_name": "Feijoada vegetariana",
+      "decision": "The standardized BRC0172T preparation is compatible with the vegan profile; this does not verify the actual generated recipe or API prompt provenance.",
+      "source_url": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=H13CeaZvrTzgRYiNsfY4%2BQ%3D%3D"
+    }
+  ],
+  "limitations": [
+    "This decision applies to TBCA code BRC0172T and its listed standardized recipe, not every dish named vegetarian feijoada.",
+    "Original API request logs and raw model responses were not preserved, so the exact prompt attachment used for each generated plan cannot be independently verified.",
+    "No professional evaluation of generated diets was performed or is claimed."
+  ]
+}

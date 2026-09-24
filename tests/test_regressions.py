@@ -56,9 +56,10 @@ class ArtifactPopulationTests(unittest.TestCase):
         config_path = PROJECT_ROOT / "configs" / "pending-food-mapping-exclusions.json"
         exclusions = load_pending_mapping_exclusions(config_path)
         self.assertEqual(set(exclusions), {"regular", "vegetariana", "vegana"})
-        self.assertEqual(len(set.union(*exclusions.values())), 19)
-        self.assertEqual(tuple(len(exclusions[profile]) for profile in ("regular", "vegetariana", "vegana")), (5, 13, 13))
+        self.assertEqual(len(set.union(*exclusions.values())), 18)
+        self.assertEqual(tuple(len(exclusions[profile]) for profile in ("regular", "vegetariana", "vegana")), (5, 13, 12))
         self.assertIn("Leite, vaca, c/ chocolate", exclusions["vegana"])
+        self.assertNotIn("Feijoada vegetariana", exclusions["vegana"])
         self.assertNotIn("Feijoada vegetariana", exclusions["vegetariana"])
 
     def test_mapping_exclusion_sensitivity_removes_exact_source_occurrences(self) -> None:
@@ -68,7 +69,7 @@ class ArtifactPopulationTests(unittest.TestCase):
             PROJECT_ROOT / "configs" / "pending-food-mapping-exclusions.json"
         )
         known = load_exclusions(PROJECT_ROOT / "configs" / "profile-exclusions.json")
-        expected_incremental = {"regular": 40, "vegetariana": 197, "vegana": 198}
+        expected_incremental = {"regular": 40, "vegetariana": 197, "vegana": 166}
         files = {"regular": "regular", "vegetariana": "vegetariana", "vegana": "vegana"}
         for profile, suffix in files.items():
             diets = json.loads(
@@ -344,7 +345,7 @@ class CommandCatalogTests(unittest.TestCase):
 
     def test_mapping_review_queue_never_auto_accepts_fuzzy_candidates(self) -> None:
         queue = build_queue()
-        self.assertEqual(len(queue), 170)
+        self.assertEqual(len(queue), 169)
         self.assertTrue(all(row["review_status"] == "PENDING_MANUAL_REVIEW" for row in queue))
         self.assertTrue(all(row["automatic_acceptance"] is False for row in queue))
         self.assertTrue(all(row["decision"] == "" for row in queue))
@@ -531,6 +532,9 @@ class CommandCatalogTests(unittest.TestCase):
         kale = next(row for row in rows if row["food_name"].startswith("Couve, manteiga") and row["profile"] == "vegana")
         self.assertEqual(kale["lexical_risk_hits"], {})
         self.assertEqual(kale["review_status"], "PENDING_INGREDIENT_VERIFICATION")
+        feijoada = next(row for row in rows if row["food_name"] == "Feijoada vegetariana" and row["profile"] == "vegana")
+        self.assertEqual(feijoada["review_status"], "SOURCE_RECIPE_EVIDENCE_VERIFIED_FOR_TARGET_ONLY")
+        self.assertIn("tbca.net.br", feijoada["ingredient_evidence"])
 
     def test_ga_execution_seeds_are_stable_and_independent(self) -> None:
         seeds = {
@@ -696,11 +700,11 @@ class BaseDietAuditTests(unittest.TestCase):
         adjudication = json.loads(
             (PROJECT_ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(len(adjudication["source_food_names"]), 151)
-        self.assertEqual(totals["non_identity_mappings_with_recorded_target_decision"], 151)
-        self.assertEqual(totals["non_identity_mappings_without_recorded_target_decision"], 19)
+        self.assertEqual(len(adjudication["source_food_names"]), 152)
+        self.assertEqual(totals["non_identity_mappings_with_recorded_target_decision"], 152)
+        self.assertEqual(totals["non_identity_mappings_without_recorded_target_decision"], 18)
         self.assertEqual(len(mapping_lines), totals["unique_food_names"] + 1)
-        self.assertEqual(len(current_queue), 19)
+        self.assertEqual(len(current_queue), 18)
         self.assertTrue(all(row["automatic_acceptance"] is False for row in current_queue))
 
 

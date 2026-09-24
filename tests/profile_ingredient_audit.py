@@ -12,6 +12,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 EXCLUSIONS_PATH = PROJECT_ROOT / "configs" / "profile-exclusions.json"
+ADJUDICATION_PATH = PROJECT_ROOT / "archive" / "audits" / "feijoada-vegetariana-adjudication-2026-09-24.json"
 ANIMAL_TERMS = {
     "meat_or_fish": (
         "carne", "boi", "bovina", "suina", "porco", "frango", "galinha", "peru",
@@ -89,6 +90,11 @@ def collect_profile(profile: str) -> list[dict]:
         item["food_name"]: item["reason"]
         for item in exclusion_config["profiles"].get(profile, [])
     }
+    adjudications = json.loads(ADJUDICATION_PATH.read_text(encoding="utf-8"))
+    source_recipe_evidence = {
+        (entry["profile"], entry["source_food_name"]): entry
+        for entry in adjudications.get("profile_recipe_evidence", [])
+    }
     counts: dict[str, dict] = defaultdict(lambda: {"occurrences": 0, "diet_ids": set()})
     for diet_id, plan in enumerate(plans, start=1):
         for meals in plan.values():
@@ -104,27 +110,31 @@ def collect_profile(profile: str) -> list[dict]:
                     if name:
                         counts[name]["occurrences"] += 1
                         counts[name]["diet_ids"].add(diet_id)
-    return [
-        {
+    rows = []
+    for name, values in sorted(counts.items()):
+        evidence = source_recipe_evidence.get((profile, name))
+        if name in exclusions:
+            review_status = "EXCLUDED_FROM_DERIVED_PROFILE_POOL"
+        elif evidence:
+            review_status = "SOURCE_RECIPE_EVIDENCE_VERIFIED_FOR_TARGET_ONLY"
+        else:
+            review_status = "PENDING_INGREDIENT_VERIFICATION"
+        rows.append({
             "profile": profile,
             "food_name": name,
             "occurrence_count": values["occurrences"],
             "source_diet_count": len(values["diet_ids"]),
             "lexical_risk_hits": risk_hits(name, profile),
-            "review_status": (
-                "EXCLUDED_FROM_DERIVED_PROFILE_POOL"
-                if name in exclusions else "PENDING_INGREDIENT_VERIFICATION"
-            ),
-            "decision": exclusions.get(name, ""),
+            "review_status": review_status,
+            "decision": exclusions.get(name, "") or (evidence or {}).get("decision", ""),
             "ingredient_evidence": (
                 "configs/profile-exclusions.json; exact source name is removed only from derived optimizer input"
-                if name in exclusions else ""
+                if name in exclusions else (evidence or {}).get("source_url", "")
             ),
             "reviewer": "",
             "review_date": "",
-        }
-        for name, values in sorted(counts.items())
-    ]
+        })
+    return rows
 
 
 def build_queue() -> list[dict]:

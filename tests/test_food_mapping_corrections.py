@@ -371,6 +371,9 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Catchup, tomate, molho": (
                 "Catchup, tomate, molho (dado importado)", "BRC0030L"
             ),
+            "Feijoada vegetariana": (
+                "Feijoada vegetariana, c/ sal, Brasil", "BRC0172T"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
@@ -391,6 +394,20 @@ class FoodMappingCorrectionTests(unittest.TestCase):
         )
         self.assertEqual(name_map["Cacau, in natura"], "Pitaia,in natura")
         self.assertEqual(code_map["Cacau, in natura"], "BRC0225C")
+
+    def test_vegetarian_feijoada_adjudication_is_limited_to_official_recipe(self) -> None:
+        adjudication = json.loads(
+            (ROOT / "archive/audits/feijoada-vegetariana-adjudication-2026-09-24.json")
+            .read_text(encoding="utf-8")
+        )
+        self.assertEqual(adjudication["source_occurrences"], {"profile": "vegan", "count": 32})
+        self.assertEqual(adjudication["tbca_target"]["code"], "BRC0172T")
+        self.assertEqual(adjudication["tbca_target"]["animal_protein_g_per_100g"], 0.0)
+        self.assertEqual(
+            adjudication["profile_eligibility"]["vegan"],
+            "compatible_with_the_standardized_tbca_preparation",
+        )
+        self.assertIn("not every dish named vegetarian feijoada", adjudication["limitations"][0])
 
 
 if __name__ == "__main__":

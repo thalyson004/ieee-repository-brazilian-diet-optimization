@@ -3,7 +3,7 @@
   "status": "diagnostic_exclusion_sensitivity_only_not_an_adjudication",
   "source_queue": "archive/audits/pending-food-mapping-adjudication-2026-09-24.md",
   "queue_run_id": "mapping-review-queue-current_20260924T201700618482Z_77923935",
-  "unresolved_source_foods": 19,
+  "unresolved_source_foods": 18,
   "profiles": {
     "regular": [
       "Noz, crua",
@@ -32,7 +32,6 @@
       "Noz, crua",
       "Salada, folhas e vegetais, c/ óleo de soja e c/ sal",
       "Soja, grão, cozido, drenado, c/ sal",
-      "Feijoada vegetariana",
       "Tomate, molho, industrializado",
       "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",
       "Pão, trigo, integral, caseiro",
