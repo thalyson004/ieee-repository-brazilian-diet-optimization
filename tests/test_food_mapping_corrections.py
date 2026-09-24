@@ -307,6 +307,9 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Pão, trigo, ciabatta": (
                 "Pão, farinha de trigo refinada, ciabatta (dado importado)", "BRC0874A"
             ),
+            "Bebida, infusão, hortelã rasteira, planta, folha, s/ açúcar": (
+                "Bebida, chá, infusão, s/ açúcar (média de várias ervas), Brasil", "BRC0015H"
+            ),
             "Tahini (pasta de gergelim)": (
                 "Tahini (pasta de gergelim) (dado importado)", "BRC0023U"
             ),
