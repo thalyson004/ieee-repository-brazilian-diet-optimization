@@ -25,6 +25,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 EXPERIMENTS = (
     "archived-reconstruction",
     "base-diet-audit",
+    "lp-profile-scope",
     "ga-smoke",
     "full-replication",
 )
@@ -82,6 +83,8 @@ def commands_for(experiment: str, workspace: Path, runs: int, seed: int) -> list
                 str(workspace / "audit"),
             ]
         ]
+    if experiment == "lp-profile-scope":
+        return [[sys.executable, "-m", "tests.validate_lp_profile_scope", "--output-dir", str(workspace / "audit")]]
     if experiment == "ga-smoke":
         return [runner + ["--mode", "rerun", "--runs", "1", "--seed", str(seed), "--output-dir", str(workspace)]]
     return [runner + ["--mode", "rerun", "--runs", str(runs), "--seed", str(seed), "--output-dir", str(workspace)]]
@@ -116,8 +119,8 @@ def execute(experiment: str, runs: int, seed: int) -> Path:
             "duration_seconds": elapsed,
             "python": platform.python_version(),
             "platform": platform.platform(),
-            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit"} else runs,
-            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit"} else seed,
+            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "lp-profile-scope"} else runs,
+            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "lp-profile-scope"} else seed,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),
             "artifact_workspace": str(workspace.relative_to(PROJECT_ROOT)),

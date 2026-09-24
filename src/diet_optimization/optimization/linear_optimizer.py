@@ -3,8 +3,8 @@
 Oferece duas variantes:
 
 1. **Nível de alimentos** (`optimize_food_level`): seleciona quantidades em gramas
-   de qualquer alimento disponível nas bases TBCA e de pegadas, minimizando a
-   pegada ambiental escolhida sujeito a metas nutricionais.
+   apenas dos alimentos observados nas dietas-base do perfil em análise,
+   minimizando a pegada escolhida sujeito a metas nutricionais.
 
 2. **Nível de refeições** (`optimize_meal_level`): seleciona, entre as refeições
    existentes na dieta base, quantas vezes cada refeição deve aparecer no plano,
@@ -62,6 +62,7 @@ def _compute_food_vectors(
     tbca_map: Dict[str, str],
     tbca_database: Dict[str, Any],
     footprint_map: Dict[str, Any],
+    allowed_food_names: set[str],
 ) -> Tuple[List[str], Dict[str, np.ndarray], Dict[str, np.ndarray]]:
     """Constrói vetores de pegada e nutrientes por grama para cada alimento disponível.
 
@@ -87,6 +88,8 @@ def _compute_food_vectors(
     all_nutrient_keys = set(MINIMUM_GOALS.keys()) | set(MAXIMUM_GOALS.keys())
 
     for food_name, tbca_code in tbca_map.items():
+        if food_name not in allowed_food_names:
+            continue
         if food_name not in footprint_map:
             continue
         if tbca_code not in tbca_database:
@@ -112,6 +115,22 @@ def _compute_food_vectors(
         k: np.array(v) for k, v in nutrient_lists.items()
     }
     return food_names, footprint_arrays, nutrient_arrays
+
+
+def food_names_in_diets(base_diets: List[Dict]) -> set[str]:
+    """Return the exact source-food names present in one profile's base plans."""
+    names: set[str] = set()
+    for plan in base_diets:
+        for meals in plan.values():
+            if not isinstance(meals, dict):
+                continue
+            for items in meals.values():
+                if not isinstance(items, list):
+                    continue
+                for item in items:
+                    if isinstance(item, dict) and isinstance(item.get("alimento"), str):
+                        names.add(item["alimento"])
+    return names
 
 
 def _build_nutrient_constraints(
@@ -209,6 +228,7 @@ def _build_meal_energy_share_constraints(
 
 def optimize_food_level(
     nutritional_context: NutritionalContext,
+    allowed_food_names: set[str],
     footprint_key: str = "carbon_footprint",
     days_per_plan: int = DAYS_PER_PLAN,
     diagnostics: Optional[Dict] = None,
@@ -216,7 +236,7 @@ def optimize_food_level(
     """Otimiza a dieta no nível de alimentos usando Programação Linear.
 
     Cada variável representa a quantidade diária em gramas de um alimento
-    disponível nas bases de dados. O objetivo é minimizar a pegada ambiental
+    observado nas dietas-base do perfil e disponível nas bases. O objetivo é minimizar a pegada ambiental
     escolhida satisfazendo as restrições de adequação nutricional.
 
     Formulação:
@@ -238,7 +258,13 @@ def optimize_food_level(
         nutritional_context.tbca_map,
         nutritional_context.tbca_database,
         nutritional_context.footprint_map,
+        allowed_food_names,
     )
+
+    if diagnostics is not None:
+        diagnostics.update({"allowed_source_food_count": len(allowed_food_names),
+                            "eligible_mapped_food_count": len(food_names),
+                            "candidate_food_names": food_names})
 
     if not food_names:
         print("ERRO: Nenhum alimento disponivel para otimizacao PL nivel de alimentos.")

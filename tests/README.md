@@ -26,6 +26,19 @@ One-run GA/LP smoke replication:
 python -m tests.run_experiments --experiments ga-smoke --seed 20260323
 ```
 
+Audit the corrected LP-Food candidate set for all three profiles without GA:
+
+```bash
+python -m tests.run_experiments --experiments lp-profile-scope
+```
+
+This command verifies that each selected food occurs in one of the 50 prepared
+base diets of its own profile. Preparation removes only two exact, documented
+vegan contradictions (five item occurrences), preserving the original files
+and recording every removal. It uses historical numerical targets and is not
+the revised article's final experiment. The remaining source foods still need
+complete ingredient-level review before claiming vegan compliance.
+
 New full replication:
 
 ```bash

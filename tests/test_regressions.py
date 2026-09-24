@@ -10,6 +10,8 @@ from pathlib import Path
 
 from diet_optimization.analysis.diet_audit import audit
 from diet_optimization.optimization.pipeline import derive_execution_seed
+from diet_optimization.optimization.linear_optimizer import food_names_in_diets, _compute_food_vectors
+from diet_optimization.experiments.profile_integrity import load_exclusions, prepare_profile_diets
 from diet_optimization.optimization.data_types import NutritionalContext
 from diet_optimization.experiments.diagnostics import environment_metadata, evaluate_plan
 from tests.run_experiments import EXPERIMENTS, commands_for
@@ -75,6 +77,27 @@ class CommandCatalogTests(unittest.TestCase):
 
 
 class ExecutionDiagnosticsTests(unittest.TestCase):
+    def test_known_vegan_contradictions_are_removed_only_from_derived_copy(self) -> None:
+        source = json.loads((PROJECT_ROOT / "diets-base" / "dietas-vegana.json").read_text(encoding="utf-8"))
+        excluded = load_exclusions(PROJECT_ROOT / "configs" / "profile-exclusions.json")["vegana"]
+        prepared, removals = prepare_profile_diets(source, "vegana", excluded)
+        self.assertEqual(len(removals), 5)
+        self.assertEqual(len(source), len(prepared))
+        self.assertTrue(excluded <= food_names_in_diets(source))
+        self.assertFalse(excluded & food_names_in_diets(prepared))
+
+    def test_lp_food_candidates_are_restricted_to_source_profile(self) -> None:
+        diets = [{"1": {"Lunch": [{"alimento": "tofu", "quantidade": 100}]}}]
+        allowed = food_names_in_diets(diets)
+        self.assertEqual(allowed, {"tofu"})
+        names, _, _ = _compute_food_vectors(
+            {"tofu": "1", "beef": "2"},
+            {"1": {"nutrientes": {"Energia": 100}}, "2": {"nutrientes": {"Energia": 200}}},
+            {"tofu": {"carbon_footprint": 10}, "beef": {"carbon_footprint": 20}},
+            allowed,
+        )
+        self.assertEqual(names, ["tofu"])
+
     def test_violations_include_daily_and_plan_mean(self) -> None:
         context = NutritionalContext(
             tbca_map={"test-food": "1"},

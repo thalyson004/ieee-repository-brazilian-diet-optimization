@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "status": "explicitly_confirmed_name_contradictions_only; complete ingredient review pending",
+  "profiles": {
+    "regular": [],
+    "vegetariana": [],
+    "vegana": [
+      {
+        "food_name": "Leite, vaca, c/ chocolate",
+        "reason": "cow milk is incompatible with the vegan profile"
+      },
+      {
+        "food_name": "Feijão, preto, cozido (50% grão e 50% caldo), c/ carne de boi, músculo, s/ gordura, c/ óleo, cebola e alho, c/ sal",
+        "reason": "the dish explicitly contains beef"
+      }
+    ]
+  }
+}

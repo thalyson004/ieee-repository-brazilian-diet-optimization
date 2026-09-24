@@ -24,10 +24,15 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 ARCHIVE_ROOT = PROJECT_ROOT / "archive"
 
 from diet_optimization.optimization.hyperparameters import GeneticAlgorithmHyperparameters
-from diet_optimization.optimization.linear_optimizer import optimize_food_level, optimize_meal_level
+from diet_optimization.optimization.linear_optimizer import (
+    food_names_in_diets,
+    optimize_food_level,
+    optimize_meal_level,
+)
 from diet_optimization.optimization.pipeline import build_context, process_optimization_pipeline
 from diet_optimization.optimization.utils import load_json_file, save_json_file
 from diet_optimization.experiments.diagnostics import environment_metadata, evaluate_plan
+from diet_optimization.experiments.profile_integrity import load_exclusions, prepare_profile_diets
 
 
 PROFILES = ("regular", "vegetariana", "vegana")
@@ -68,7 +73,7 @@ def copy_file(source: Path, destination: Path) -> None:
     shutil.copy2(source, destination)
 
 
-def stage_inputs(workspace: Path) -> dict[str, Path]:
+def stage_inputs(workspace: Path, mode: str) -> dict[str, Path]:
     if workspace.exists() and any(workspace.iterdir()):
         raise FileExistsError(
             f"Output directory is not empty: {workspace}. Choose a fresh path."
@@ -76,11 +81,21 @@ def stage_inputs(workspace: Path) -> dict[str, Path]:
     workspace.mkdir(parents=True, exist_ok=True)
 
     diet_files: dict[str, Path] = {}
+    exclusions = load_exclusions(PROJECT_ROOT / "configs" / "profile-exclusions.json")
+    preparation_report = {"mode": mode, "status": "only_exact_known_contradictions_excluded; complete_review_pending",
+                          "removed_items": []}
     for profile in PROFILES:
         source = PROJECT_ROOT / "diets-base" / f"dietas-{profile}.json"
         destination = workspace / "data" / "diets" / "base" / source.name
         copy_file(source, destination)
+        if mode == "rerun":
+            copy_file(source, workspace / "data" / "diets" / "source" / source.name)
+            prepared, removals = prepare_profile_diets(load_json_file(destination), profile, exclusions[profile])
+            save_json_file(destination, prepared)
+            preparation_report["removed_items"].extend(removals)
         diet_files[profile] = destination
+    if mode == "rerun":
+        save_json_file(workspace / "input-preparation.json", preparation_report)
 
     input_map = {
         PROJECT_ROOT / "maps" / "base" / "mapa-nome-tbca.json": (
@@ -162,10 +177,15 @@ def run_optimizers(
         context = build_context(context_files(workspace))
         footprint_key = "carbon_footprint"
         for profile in PROFILES:
+            profile_diets = load_json_file(diet_files[profile])
+            allowed_food_names = food_names_in_diets(profile_diets)
             food_diagnostics: dict = {}
             started = time.perf_counter()
             food_result = optimize_food_level(
-                context, footprint_key=footprint_key, diagnostics=food_diagnostics
+                context,
+                allowed_food_names=allowed_food_names,
+                footprint_key=footprint_key,
+                diagnostics=food_diagnostics,
             )
             food_duration = time.perf_counter() - started
             save_json_file(
@@ -190,7 +210,7 @@ def run_optimizers(
             meal_diagnostics: dict = {}
             started = time.perf_counter()
             meal_result = optimize_meal_level(
-                load_json_file(diet_files[profile]),
+                profile_diets,
                 context,
                 footprint_key=footprint_key,
                 diagnostics=meal_diagnostics,
@@ -232,6 +252,7 @@ def write_manifest(
         "python": sys.version,
         "platform": platform.platform(),
         "execution_environment": environment_metadata(),
+        "input_preparation_report": "input-preparation.json" if mode == "rerun" else None,
         "command": command,
         "notes": [
             "Archived mode rebuilds main tables from the fb34919 selected-solution snapshot and diversity from the e5f760c ten-run solution files, matching the published artifact history.",
@@ -247,7 +268,7 @@ def write_manifest(
 def main() -> None:
     args = parse_args()
     workspace = args.output_dir.resolve()
-    diet_files = stage_inputs(workspace)
+    diet_files = stage_inputs(workspace, args.mode)
     write_manifest(workspace, args.mode, args.runs, args.seed, sys.argv)
     if args.mode == "archived":
         stage_archived_results(workspace)

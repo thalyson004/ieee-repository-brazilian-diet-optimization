@@ -20,6 +20,17 @@ New bounded and full replications use the same command interface:
 .venv/Scripts/python -m tests.run_experiments --experiments full-replication --runs 10 --seed 20260323
 ```
 
+New reruns restrict LP-Food candidates to food names occurring in the 50 base
+diets of the same profile. The original 150 diets remain unchanged. A derived
+workspace copy excludes two exact, demonstrably non-vegan food names (five
+occurrences) from the vegan input and records every removal in
+`input-preparation.json`; this is **not** a complete ingredient-level review.
+Verify candidate scope with:
+
+```bash
+.venv/Scripts/python -m tests.run_experiments --experiments lp-profile-scope
+```
+
 See [`tests/README.md`](tests/README.md) for the artifact contract and [`archive/README.md`](archive/README.md) for the limits of the recovered experiment. The complete food-linkage protocol and row-level audit are documented in [`docs/data-mapping.md`](docs/data-mapping.md). The preserved sustainable-name map contains identity and non-identity links; the latter cannot be classified as lexical normalizations or semantic substitutions without item-level review.
 
 ## Overview
