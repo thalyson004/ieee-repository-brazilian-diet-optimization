@@ -151,7 +151,9 @@
     "Biscoito, salgado, cream cracker , integral",
     "Sanduíche, queijo quente, pão francês, c/ queijo muçarela e manteiga",
     "Achocolatado, pó (média diferentes amostras)",
-    "Pão, trigo, branco, hamburguer/hot dog/leite, de padaria (média de diferentes tipos)"
+    "Pão, trigo, branco, hamburguer/hot dog/leite, de padaria (média de diferentes tipos)",
+    "Barra de cereal, diet",
+    "Catchup, tomate, molho"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }

@@ -365,6 +365,12 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Pão, trigo, branco, hamburguer/hot dog/leite, de padaria (média de diferentes tipos)": (
                 "Pão, c/ farinha de trigo refinada, de padaria, hamburguer/hot dog/leite, Brasil (média de diferentes tipos)", "BRC0004A"
             ),
+            "Barra de cereal, diet": (
+                "Barra de cereal, dietética (dado importado)", "BRC0064N"
+            ),
+            "Catchup, tomate, molho": (
+                "Catchup, tomate, molho (dado importado)", "BRC0030L"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
