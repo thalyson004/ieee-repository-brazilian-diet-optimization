@@ -52,6 +52,13 @@ sensitivity design (not clinical serving guidance):
 python -m tests.run_experiments --experiments portion-support-audit
 ```
 
+Create a lexical review queue for vegetarian/vegan source-food names. It flags
+possible animal-derived terms but does not validate or filter foods:
+
+```bash
+python -m tests.run_experiments --experiments profile-ingredient-audit
+```
+
 One-run GA/LP smoke replication:
 
 ```bash

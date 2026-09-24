@@ -27,6 +27,7 @@ EXPERIMENTS = (
     "base-diet-audit",
     "mapping-review-queue",
     "portion-support-audit",
+    "profile-ingredient-audit",
     "lp-profile-scope",
     "ga-smoke",
     "full-replication",
@@ -93,6 +94,8 @@ def commands_for(
         return [[sys.executable, "-m", "tests.mapping_review_queue", "--output-dir", str(workspace / "audit")]]
     if experiment == "portion-support-audit":
         return [[sys.executable, "-m", "tests.portion_support_audit", "--output-dir", str(workspace / "audit")]]
+    if experiment == "profile-ingredient-audit":
+        return [[sys.executable, "-m", "tests.profile_ingredient_audit", "--output-dir", str(workspace / "audit")]]
     if experiment == "lp-profile-scope":
         return [[sys.executable, "-m", "tests.validate_lp_profile_scope", "--output-dir", str(workspace / "audit")]]
     if experiment == "ga-smoke":
@@ -135,8 +138,8 @@ def execute(experiment: str, runs: int, seed: int, nutrition_protocol: str) -> P
             "duration_seconds": elapsed,
             "python": platform.python_version(),
             "platform": platform.platform(),
-            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "mapping-review-queue", "portion-support-audit", "lp-profile-scope"} else runs,
-            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "mapping-review-queue", "portion-support-audit", "lp-profile-scope"} else seed,
+            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "mapping-review-queue", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope"} else runs,
+            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "mapping-review-queue", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope"} else seed,
             "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "full-replication"} else None,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),
