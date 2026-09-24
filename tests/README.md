@@ -235,5 +235,9 @@ clinical or policy preferences:
 
 ```bash
 python -m tests.run_experiments --experiments ga-objective-weight-sensitivity --runs 10 --seed 20260935 --nutrition-protocol revised
-python -m tests.run_experiments --experiments ga-objective-weight-review --source-run-id <sensitivity-run-id>
+python -m tests.run_experiments --experiments ga-objective-weight-review --source-run-id <printed-sensitivity-run-id>
 ```
+
+The review accepts the printed run ID with or without the
+`ga-objective-weight-sensitivity_` prefix and resolves the matrix summary in
+the run's `audit/` workspace.

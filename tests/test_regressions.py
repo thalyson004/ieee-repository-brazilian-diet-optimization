@@ -42,12 +42,27 @@ from tests.environmental_source_range_sensitivity import METHODS as SOURCE_RANGE
 from tests.environmental_source_range_sensitivity import PROFILES as SOURCE_RANGE_PROFILES
 from tests.environmental_source_range_sensitivity import source_range_maps, summarize_results
 from tests.lp_meal_frequency_sensitivity import source_max_repetitions_by_plan
+from tests.ga_objective_weight_review import resolve_source_workspace
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class ArtifactPopulationTests(unittest.TestCase):
+    def test_objective_weight_review_resolves_artifact_workspace(self) -> None:
+        run_suffix = "20260924T214525756789Z_c954a88c"
+        expected = (
+            PROJECT_ROOT / "tests" / "results" / "artifacts"
+            / f"ga-objective-weight-sensitivity_{run_suffix}" / "audit"
+        )
+        self.assertEqual(resolve_source_workspace(run_suffix), expected)
+        self.assertEqual(
+            resolve_source_workspace(f"ga-objective-weight-sensitivity_{run_suffix}"),
+            expected,
+        )
+        with self.assertRaises(ValueError):
+            resolve_source_workspace("../outside")
+
     def test_base_diet_population(self) -> None:
         for path in (PROJECT_ROOT / "diets-base").glob("dietas-*.json"):
             self.assertEqual(len(json.loads(path.read_text(encoding="utf-8"))), 50, path)

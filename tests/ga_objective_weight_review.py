@@ -16,6 +16,14 @@ from tests.validate_candidate_scope import audit_workspace
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 VARIANTS = ("baseline", "environmental-weight-0.5", "environmental-weight-2.0")
+SOURCE_PREFIX = "ga-objective-weight-sensitivity_"
+
+
+def resolve_source_workspace(source_run_id: str) -> Path:
+    normalized_id = source_run_id.removeprefix(SOURCE_PREFIX)
+    if not normalized_id or "/" in normalized_id or "\\" in normalized_id:
+        raise ValueError("Expected a GA objective-weight sensitivity run ID")
+    return PROJECT_ROOT / "tests" / "results" / "artifacts" / f"{SOURCE_PREFIX}{normalized_id}" / "audit"
 
 
 def analyze(source_workspace: Path, review_workspace: Path) -> dict[str, Any]:
@@ -77,7 +85,7 @@ def analyze(source_workspace: Path, review_workspace: Path) -> dict[str, Any]:
     report = {
         "schema_version": "1.0",
         "status": "diagnostic_paired_objective_weight_sensitivity_not_primary_result",
-        "source_sensitivity_run_id": source_workspace.name.removeprefix("ga-objective-weight-sensitivity_"),
+        "source_sensitivity_run_id": source_workspace.parent.name.removeprefix(SOURCE_PREFIX),
         "paired_base_seed": summary["paired_base_seed"],
         "runs_per_profile_and_granularity": 10,
         "effective_weight_scenarios": {
@@ -106,7 +114,7 @@ def main() -> None:
     parser.add_argument("--source-run-id", required=True)
     args = parser.parse_args()
     run_id = build_run_id()
-    source = PROJECT_ROOT / "tests" / "results" / "artifacts" / f"ga-objective-weight-sensitivity_{args.source_run_id}"
+    source = resolve_source_workspace(args.source_run_id)
     output = RESULTS_DIR / "artifacts" / f"ga-objective-weight-review_{run_id}"
     log_path = LOGS_DIR / f"ga-objective-weight-review_{run_id}.log"
     append_log(log_path, f"Source run: {source}")
