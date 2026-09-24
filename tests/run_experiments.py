@@ -29,6 +29,7 @@ EXPERIMENTS = (
     "portion-support-audit",
     "profile-ingredient-audit",
     "lp-profile-scope",
+    "lp-slack-sensitivity",
     "ga-smoke",
     "full-replication",
 )
@@ -98,6 +99,8 @@ def commands_for(
         return [[sys.executable, "-m", "tests.profile_ingredient_audit", "--output-dir", str(workspace / "audit")]]
     if experiment == "lp-profile-scope":
         return [[sys.executable, "-m", "tests.validate_lp_profile_scope", "--output-dir", str(workspace / "audit")]]
+    if experiment == "lp-slack-sensitivity":
+        return [[sys.executable, "-m", "tests.lp_slack_sensitivity", "--output-dir", str(workspace)]]
     if experiment == "ga-smoke":
         return [
             runner + ["--mode", "rerun", "--runs", "1", "--seed", str(seed), "--nutrition-protocol", nutrition_protocol, "--output-dir", str(workspace)],
@@ -138,8 +141,8 @@ def execute(experiment: str, runs: int, seed: int, nutrition_protocol: str) -> P
             "duration_seconds": elapsed,
             "python": platform.python_version(),
             "platform": platform.platform(),
-            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "mapping-review-queue", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope"} else runs,
-            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "mapping-review-queue", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope"} else seed,
+            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "mapping-review-queue", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
+            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "mapping-review-queue", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
             "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "full-replication"} else None,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),

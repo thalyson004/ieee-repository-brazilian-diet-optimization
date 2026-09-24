@@ -188,14 +188,14 @@ def _nutrient_constraint_labels(
         rows.append({
             "constraint": f"{nutrient}:minimum", "kind": "nutrient_minimum",
             "nutrient": nutrient, "target": float(target) * days_multiplier,
-            "unit": "nutrient_unit_over_plan",
+            "unit": "native_nutrient_unit_over_plan",
         })
     for nutrient, rules in maximum_goals.items():
         target = float(rules["meta"]) * float(rules.get("tolerancia", 1.0))
         rows.append({
             "constraint": f"{nutrient}:maximum", "kind": "nutrient_maximum",
             "nutrient": nutrient, "target": target * days_multiplier,
-            "unit": "nutrient_unit_over_plan",
+            "unit": "native_nutrient_unit_over_plan",
         })
     return rows
 
@@ -224,7 +224,6 @@ def _record_relaxation_slacks(
     diagnostics["slack_analysis"] = {
         "used": True,
         "nonzero_slack_count": sum(row["slack_absolute"] > 1e-7 for row in rows),
-        "sum_absolute_slack": sum(row["slack_absolute"] for row in rows),
         "constraints": rows,
     }
 
@@ -292,6 +291,7 @@ def optimize_food_level(
     diagnostics: Optional[Dict] = None,
     minimum_goals: Optional[Dict[str, float]] = None,
     maximum_goals: Optional[Dict[str, Dict[str, float]]] = None,
+    slack_penalty: float = 1e4,
 ) -> Optional[List[Dict]]:
     """Otimiza a dieta no nível de alimentos usando Programação Linear.
 
@@ -314,6 +314,8 @@ def optimize_food_level(
         Lista com um plano de dieta em formato JSON compatível com o pipeline,
         ou None se o problema for infeasível ou os dados forem insuficientes.
     """
+    if not np.isfinite(slack_penalty) or slack_penalty <= 0:
+        raise ValueError("slack_penalty must be a finite positive value")
     food_names, footprint_arrays, nutrient_arrays = _compute_food_vectors(
         nutritional_context.tbca_map,
         nutritional_context.tbca_database,
@@ -355,7 +357,7 @@ def optimize_food_level(
             f"(status={result.status}: {result.message}). Tentando versão relaxada..."
         )
         n_ineq = A_ub.shape[0]
-        c_relax = np.concatenate([c, 1e4 * np.ones(n_ineq)])
+        c_relax = np.concatenate([c, slack_penalty * np.ones(n_ineq)])
         # Coeficiente -1: A @ x - s <= b  <=>  A @ x <= b + s (relaxa corretamente)
         A_ub_relax = np.hstack([A_ub, -np.eye(n_ineq)])
         bounds_relax = [(0.0, None)] * n_foods + [(0.0, None)] * n_ineq
@@ -364,12 +366,13 @@ def optimize_food_level(
         )
         if diagnostics is not None:
             diagnostics.update({"fallback_used": True, "fallback_status": int(result_relax.status),
-                                "fallback_message": result_relax.message, "slack_penalty": 1e4})
+                                "fallback_message": result_relax.message,
+                                "slack_penalty": slack_penalty})
         if result_relax.status != 0:
             print("AVISO: Versao relaxada tambem inviavel.")
             return None
         x = result_relax.x[:n_foods]
-        _record_relaxation_slacks(diagnostics, result_relax.x[n_foods:], 1e4)
+        _record_relaxation_slacks(diagnostics, result_relax.x[n_foods:], slack_penalty)
         print("INFO: Solucao obtida via PL relaxado (melhor esforco nutricional).")
     else:
         x = result.x
@@ -577,6 +580,7 @@ def optimize_meal_level(
     diagnostics: Optional[Dict] = None,
     minimum_goals: Optional[Dict[str, float]] = None,
     maximum_goals: Optional[Dict[str, Dict[str, float]]] = None,
+    slack_penalty: float = 1e4,
 ) -> Optional[List[Dict]]:
     """Otimiza a dieta selecionando refeições existentes via Programação Linear.
 
@@ -603,6 +607,8 @@ def optimize_meal_level(
         Lista com um plano de dieta em formato JSON compatível com o pipeline,
         ou None se o problema for infeasível ou os dados forem insuficientes.
     """
+    if not np.isfinite(slack_penalty) or slack_penalty <= 0:
+        raise ValueError("slack_penalty must be a finite positive value")
     meal_pool = _extract_meal_pool(base_diets, nutritional_context)
 
     variable_list: List[Tuple[str, int]] = []
@@ -707,7 +713,7 @@ def optimize_meal_level(
         )
         x_relaxed = _solve_relaxed_meal_level(
             c, A_ub, b_ub, A_eq, b_eq, variable_list, days_per_plan,
-            diagnostics=diagnostics,
+            big_m=slack_penalty, diagnostics=diagnostics,
         )
         if x_relaxed is None:
             print(
