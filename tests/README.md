@@ -6,6 +6,8 @@ Earlier mapping-review checkpoint (2026-09-24): 49 nutrition-target decisions we
 
 Latest audit refresh (2026-09-24): 117 target decisions are indexed and the active queue has 53 unresolved links. The latest audit is `base-diet-audit_20260924T181426319753Z_7d1a005b`; the queue refresh is `mapping-review-queue-current_20260924T181426724377Z_65751356`. The five further corrections were followed by `ga-smoke`, LP scope/slack, nutrient-missingness, ingredient-screen, and portion-support diagnostics (IDs in `docs/data-mapping.md`). Unspecified oil type in ground beef remains provisional; ambiguous natural yogurt, generic walnut/pecan, formulation, ingredients, and environmental pairings are not treated as resolved.
 
+Latest ten-seed rerun after those map corrections: `full-replication_20260924T181905580801Z_a2a49d97`, 66 outputs (60 GA + 6 LP), seed-base 20260925, 553.9 s, `status=passed`; scope validation passed. It remains diagnostic and has no result approved for the manuscript; see `EXPERIMENT-EXECUTION-PLAN.md` for the blockers.
+
 The profile-ingredient audit is a lexical screen, not a vegan/vegetarian certificate. It recognizes `couve-manteiga` as a vegetable variety, flags the ambiguous vegetarian item `Omelete, frios` for manual review, and distinguishes a coconut-milk label from explicit cow/condensed milk. Only the two exact configured vegan contradictions are excluded from derived optimizer inputs; the other 362 profile-food rows remain pending ingredient verification.
 
 New reruns also write `article_outputs/run_statistics/run-metrics-long.csv` and
