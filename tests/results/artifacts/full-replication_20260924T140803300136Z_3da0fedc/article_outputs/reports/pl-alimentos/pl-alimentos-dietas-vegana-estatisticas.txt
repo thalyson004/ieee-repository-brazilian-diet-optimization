@@ -1,0 +1,91 @@
+--- Relatorio Analitico: Dieta Vegana ---
+========================================
+ESTATISTICAS DO MODELO (COMPORTAMENTO)
+Total de dias simulados: 5
+Dietas (dias) efetivamente unicas geradas: 1
+Taxa de originalidade (variedade): 20.0%
+Taxa de presenca de Arroz e Feijao no Almoco: 0.0%
+========================================
+
+
+>> MEDIA DIARIA (RESUMO)
+   [GERAL]
+    Energia..................  2100.17 +/- 0.00   kcal
+    Pegada de Carbono........   918.44 +/- 0.00   
+    Pegada Hídrica...........  1248.78 +/- 0.00   
+    Pegada Ecológica.........     4.30 +/- 0.00   
+    Carboidrato total........   302.52 +/- 0.00   g
+    Proteína.................   110.00 +/- 0.00   g
+    Lipídios.................    65.00 +/- 0.00   g
+    Fibra alimentar..........    65.29 +/- 0.00   g
+    Sódio....................  2300.11 +/- 0.00   mg
+    Alfa-tocoferol (Vitamina E)    15.00 +/- 0.00   g
+    Açúcar de adição.........    30.85 +/- 0.00   g
+    Carboidrato disponível...   237.30 +/- 0.00   g
+    Cinzas...................    26.40 +/- 0.00   g
+    Cobre....................     2.64 +/- 0.00   g
+    Cálcio...................  1084.41 +/- 0.00   g
+    Equivalente de folato....  1991.04 +/- 0.00   g
+    Ferro....................    30.22 +/- 0.00   g
+    Fósforo..................  1333.05 +/- 0.00   g
+    Magnésio.................   827.36 +/- 0.00   g
+    Manganês.................     9.72 +/- 0.00   g
+    Niacina..................    31.29 +/- 0.00   g
+    Potássio.................  5609.01 +/- 0.00   g
+    Proteína vegetal.........    39.11 +/- 0.00   g
+    Riboflavina..............     5.08 +/- 0.00   g
+    Sal de adição............     1.90 +/- 0.00   g
+    Selênio..................   151.51 +/- 0.00   g
+    Tiamina..................     3.36 +/- 0.00   g
+    Umidade..................  1234.78 +/- 0.00   g
+    Vitamina A (RAE).........   797.31 +/- 0.00   g
+    Vitamina A (RE)..........  1599.58 +/- 0.00   g
+    Vitamina B12.............     6.43 +/- 0.00   g
+    Vitamina B6..............     6.06 +/- 0.00   g
+    Vitamina C...............    90.02 +/- 0.00   g
+    Vitamina D...............    15.00 +/- 0.00   g
+    Zinco....................    24.86 +/- 0.00   g
+    Ácidos graxos monoinsaturados    17.74 +/- 0.00   g
+    Ácidos graxos poliinsaturados    31.05 +/- 0.00   g
+    Ácidos graxos saturados..    10.87 +/- 0.00   g
+
+>> MEDIA POR REFEICAO
+   [REFEIÇÃO LP]
+    Energia..................  2100.17 +/- 0.00   kcal
+    Pegada de Carbono........   918.44 +/- 0.00   
+    Pegada Hídrica...........  1248.78 +/- 0.00   
+    Pegada Ecológica.........     4.30 +/- 0.00   
+    Carboidrato total........   302.52 +/- 0.00   g
+    Proteína.................   110.00 +/- 0.00   g
+    Lipídios.................    65.00 +/- 0.00   g
+    Fibra alimentar..........    65.29 +/- 0.00   g
+    Sódio....................  2300.11 +/- 0.00   mg
+    Alfa-tocoferol (Vitamina E)    15.00 +/- 0.00   g
+    Açúcar de adição.........    30.85 +/- 0.00   g
+    Carboidrato disponível...   237.30 +/- 0.00   g
+    Cinzas...................    26.40 +/- 0.00   g
+    Cobre....................     2.64 +/- 0.00   g
+    Cálcio...................  1084.41 +/- 0.00   g
+    Equivalente de folato....  1991.04 +/- 0.00   g
+    Ferro....................    30.22 +/- 0.00   g
+    Fósforo..................  1333.05 +/- 0.00   g
+    Magnésio.................   827.36 +/- 0.00   g
+    Manganês.................     9.72 +/- 0.00   g
+    Niacina..................    31.29 +/- 0.00   g
+    Potássio.................  5609.01 +/- 0.00   g
+    Proteína vegetal.........    39.11 +/- 0.00   g
+    Riboflavina..............     5.08 +/- 0.00   g
+    Sal de adição............     1.90 +/- 0.00   g
+    Selênio..................   151.51 +/- 0.00   g
+    Tiamina..................     3.36 +/- 0.00   g
+    Umidade..................  1234.78 +/- 0.00   g
+    Vitamina A (RAE).........   797.31 +/- 0.00   g
+    Vitamina A (RE)..........  1599.58 +/- 0.00   g
+    Vitamina B12.............     6.43 +/- 0.00   g
+    Vitamina B6..............     6.06 +/- 0.00   g
+    Vitamina C...............    90.02 +/- 0.00   g
+    Vitamina D...............    15.00 +/- 0.00   g
+    Zinco....................    24.86 +/- 0.00   g
+    Ácidos graxos monoinsaturados    17.74 +/- 0.00   g
+    Ácidos graxos poliinsaturados    31.05 +/- 0.00   g
+    Ácidos graxos saturados..    10.87 +/- 0.00   g

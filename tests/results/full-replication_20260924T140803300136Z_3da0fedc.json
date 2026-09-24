@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "experiment": "full-replication",
+  "run_id": "20260924T140803300136Z_3da0fedc",
+  "status": "passed",
+  "started_at_utc": "2026-09-24T14:08:03.300206+00:00",
+  "duration_seconds": 376.59126720007043,
+  "python": "3.14.4",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "runs": 10,
+  "seed": 20260323,
+  "commands": [
+    [
+      "C:\\Python314\\python.exe",
+      "-m",
+      "diet_optimization.experiments.runner",
+      "--mode",
+      "rerun",
+      "--runs",
+      "10",
+      "--seed",
+      "20260323",
+      "--output-dir",
+      "C:\\Projetos\\Doctorate\\doc-brazilian-diet-optimization\\articles\\works\\ieee2026-1\\disponibilization\\tests\\results\\artifacts\\full-replication_20260924T140803300136Z_3da0fedc"
+    ],
+    [
+      "C:\\Python314\\python.exe",
+      "-m",
+      "tests.validate_candidate_scope",
+      "--workspace",
+      "C:\\Projetos\\Doctorate\\doc-brazilian-diet-optimization\\articles\\works\\ieee2026-1\\disponibilization\\tests\\results\\artifacts\\full-replication_20260924T140803300136Z_3da0fedc"
+    ]
+  ],
+  "log": "tests\\logs\\full-replication_20260924T140803300136Z_3da0fedc.log",
+  "artifact_workspace": "tests\\results\\artifacts\\full-replication_20260924T140803300136Z_3da0fedc",
+  "error": null
+}

@@ -1,0 +1,418 @@
+[
+    {
+        "1": {
+            "Café da Manhã": [
+                {
+                    "alimento": "Mingau, farinha de cereais, c/ leite integral",
+                    "quantidade": "250"
+                },
+                {
+                    "alimento": "Goiaba, inteira, in natura",
+                    "quantidade": "100"
+                }
+            ],
+            "Lanche da Manhã": [
+                {
+                    "alimento": "Iogurte, natural, desnatado",
+                    "quantidade": "170"
+                },
+                {
+                    "alimento": "Aveia, crua (média de diferentes tipos)",
+                    "quantidade": "30"
+                },
+                {
+                    "alimento": "Mamão, Papaia, polpa, in natura",
+                    "quantidade": "150"
+                }
+            ],
+            "Almoço": [
+                {
+                    "alimento": "Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Alface, crua",
+                    "quantidade": "50"
+                }
+            ],
+            "Lanche da Tarde": [
+                {
+                    "alimento": "Pão, trigo, integral, forma (média de diferentes marcas)",
+                    "quantidade": "50"
+                },
+                {
+                    "alimento": "Queijo, muçarela, light",
+                    "quantidade": "30"
+                },
+                {
+                    "alimento": "Pera, in natura",
+                    "quantidade": "120"
+                }
+            ],
+            "Jantar": [
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Cenoura, s/ casca, crua",
+                    "quantidade": "80"
+                },
+                {
+                    "alimento": "Tomate, in natura",
+                    "quantidade": "80"
+                }
+            ],
+            "Ceia": [
+                {
+                    "alimento": "Queijo, minas, frescal, light",
+                    "quantidade": "60"
+                },
+                {
+                    "alimento": "Torrada, trigo, integral",
+                    "quantidade": "30"
+                }
+            ]
+        },
+        "2": {
+            "Café da Manhã": [
+                {
+                    "alimento": "Mingau, farinha de cereais, c/ leite integral",
+                    "quantidade": "250"
+                },
+                {
+                    "alimento": "Goiaba, inteira, in natura",
+                    "quantidade": "100"
+                }
+            ],
+            "Lanche da Manhã": [
+                {
+                    "alimento": "Iogurte, natural, desnatado",
+                    "quantidade": "170"
+                },
+                {
+                    "alimento": "Morango, in natura",
+                    "quantidade": "200"
+                }
+            ],
+            "Almoço": [
+                {
+                    "alimento": "Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Alface, crua",
+                    "quantidade": "50"
+                }
+            ],
+            "Lanche da Tarde": [
+                {
+                    "alimento": "Leite, vaca, desnatado, fluído (média de diferentes amostras)",
+                    "quantidade": "200"
+                },
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "30"
+                }
+            ],
+            "Jantar": [
+                {
+                    "alimento": "Quinoa, grão, cozida, s/ óleo, s/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Lentilha, cozida, drenada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "100"
+                }
+            ],
+            "Ceia": [
+                {
+                    "alimento": "Queijo, minas, frescal, light",
+                    "quantidade": "60"
+                },
+                {
+                    "alimento": "Torrada, trigo, integral",
+                    "quantidade": "30"
+                }
+            ]
+        },
+        "3": {
+            "Café da Manhã": [
+                {
+                    "alimento": "Mingau, farinha de cereais, c/ leite integral",
+                    "quantidade": "250"
+                },
+                {
+                    "alimento": "Goiaba, inteira, in natura",
+                    "quantidade": "100"
+                }
+            ],
+            "Lanche da Manhã": [
+                {
+                    "alimento": "Abacate, polpa, in natura",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "30"
+                }
+            ],
+            "Almoço": [
+                {
+                    "alimento": "Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Alface, crua",
+                    "quantidade": "50"
+                }
+            ],
+            "Lanche da Tarde": [
+                {
+                    "alimento": "Pão, trigo, integral, forma (média de diferentes marcas)",
+                    "quantidade": "50"
+                },
+                {
+                    "alimento": "Queijo, muçarela, light",
+                    "quantidade": "30"
+                },
+                {
+                    "alimento": "Suco natural, abacaxi, s/ açúcar",
+                    "quantidade": "200"
+                }
+            ],
+            "Jantar": [
+                {
+                    "alimento": "Quinoa, grão, cozida, s/ óleo, s/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Lentilha, cozida, drenada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "100"
+                }
+            ],
+            "Ceia": [
+                {
+                    "alimento": "Queijo, minas, frescal, light",
+                    "quantidade": "60"
+                },
+                {
+                    "alimento": "Torrada, trigo, integral",
+                    "quantidade": "30"
+                }
+            ]
+        },
+        "4": {
+            "Café da Manhã": [
+                {
+                    "alimento": "Mingau, farinha de cereais, c/ leite integral",
+                    "quantidade": "250"
+                },
+                {
+                    "alimento": "Goiaba, inteira, in natura",
+                    "quantidade": "100"
+                }
+            ],
+            "Lanche da Manhã": [
+                {
+                    "alimento": "Abacate, polpa, in natura",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "30"
+                }
+            ],
+            "Almoço": [
+                {
+                    "alimento": "Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Ovo, galinha, inteiro, frito (c/ óleo de soja), c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "100"
+                }
+            ],
+            "Lanche da Tarde": [
+                {
+                    "alimento": "Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",
+                    "quantidade": "50"
+                },
+                {
+                    "alimento": "Queijo, prato",
+                    "quantidade": "30"
+                },
+                {
+                    "alimento": "Suco, laranja, s/ açúcar",
+                    "quantidade": "200"
+                }
+            ],
+            "Jantar": [
+                {
+                    "alimento": "Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Salada de legumes, cozidos no vapor",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Almeirão, cru",
+                    "quantidade": "50"
+                }
+            ],
+            "Ceia": [
+                {
+                    "alimento": "Queijo, minas, frescal, light",
+                    "quantidade": "60"
+                },
+                {
+                    "alimento": "Noz, crua",
+                    "quantidade": "15"
+                }
+            ]
+        },
+        "5": {
+            "Café da Manhã": [
+                {
+                    "alimento": "Mingau, farinha de cereais, c/ leite integral",
+                    "quantidade": "250"
+                },
+                {
+                    "alimento": "Goiaba, inteira, in natura",
+                    "quantidade": "100"
+                }
+            ],
+            "Lanche da Manhã": [
+                {
+                    "alimento": "Abacate, polpa, in natura",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "30"
+                }
+            ],
+            "Almoço": [
+                {
+                    "alimento": "Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Ovo, galinha, inteiro, frito (c/ óleo de soja), c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "100"
+                }
+            ],
+            "Lanche da Tarde": [
+                {
+                    "alimento": "Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",
+                    "quantidade": "50"
+                },
+                {
+                    "alimento": "Queijo, prato",
+                    "quantidade": "30"
+                },
+                {
+                    "alimento": "Suco, laranja, s/ açúcar",
+                    "quantidade": "200"
+                }
+            ],
+            "Jantar": [
+                {
+                    "alimento": "Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Salada de legumes, cozidos no vapor",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Almeirão, cru",
+                    "quantidade": "50"
+                }
+            ],
+            "Ceia": [
+                {
+                    "alimento": "Queijo, minas, frescal, light",
+                    "quantidade": "60"
+                },
+                {
+                    "alimento": "Noz, crua",
+                    "quantidade": "15"
+                }
+            ]
+        }
+    }
+]

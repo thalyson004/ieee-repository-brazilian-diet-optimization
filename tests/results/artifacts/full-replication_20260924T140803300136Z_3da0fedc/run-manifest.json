@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-24T14:08:03.876919+00:00",
+  "mode": "rerun",
+  "archive_source_commit": "e5f760c",
+  "original_random_seeds_recorded": false,
+  "replication_base_seed": 20260323,
+  "ga_runs_per_profile_and_granularity": 10,
+  "python": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "execution_environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "cpu_model": "AMD64 Family 25 Model 120 Stepping 0, AuthenticAMD",
+    "logical_cpu_count": 12,
+    "physical_ram_bytes": 66162397184,
+    "python": "3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]",
+    "dependencies": {
+      "brazilian-sustainable-diet-optimization": "0.2.0",
+      "Jinja2": "3.1.6",
+      "matplotlib": "3.11.2",
+      "numpy": "2.5.3",
+      "pandas": "2.3.3",
+      "scipy": "1.18.1",
+      "seaborn": "0.13.2"
+    },
+    "lp_solver": {
+      "interface": "scipy.optimize.linprog",
+      "method": "highs",
+      "highs_version": "1.12.0",
+      "scipy_version": "1.18.1",
+      "options": {},
+      "bounds": "nonnegative",
+      "fallback": "inequality slacks with penalty 10000"
+    }
+  },
+  "input_preparation_report": "input-preparation.json",
+  "command": [
+    "C:\\Projetos\\Doctorate\\doc-brazilian-diet-optimization\\articles\\works\\ieee2026-1\\disponibilization\\src\\diet_optimization\\experiments\\runner.py",
+    "--mode",
+    "rerun",
+    "--runs",
+    "10",
+    "--seed",
+    "20260323",
+    "--output-dir",
+    "C:\\Projetos\\Doctorate\\doc-brazilian-diet-optimization\\articles\\works\\ieee2026-1\\disponibilization\\tests\\results\\artifacts\\full-replication_20260924T140803300136Z_3da0fedc"
+  ],
+  "notes": [
+    "Archived mode rebuilds main tables from the fb34919 selected-solution snapshot and diversity from the e5f760c ten-run solution files, matching the published artifact history.",
+    "Rerun mode is deterministic from the supplied base seed but cannot recreate the unrecorded random streams of March 2026.",
+    "The 150 LLM-generated base diets are inputs; original API-call logs and inference settings were not preserved in this repository."
+  ]
+}

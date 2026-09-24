@@ -1,0 +1,16 @@
+Profile,Approach,N,Total,Mean/week
+Regular,Base,50,187,61.94
+Regular,GA-Food,10,151,57.6
+Regular,GA-Meal,10,146,55.6
+Regular,LP-Food,1,7,7.0
+Regular,LP-Meal,1,27,27.0
+Vegetarian,Base,50,207,72.46
+Vegetarian,GA-Food,10,166,62.5
+Vegetarian,GA-Meal,10,155,60.5
+Vegetarian,LP-Food,1,7,7.0
+Vegetarian,LP-Meal,1,32,32.0
+Vegan,Base,50,155,68.58
+Vegan,GA-Food,10,134,58.2
+Vegan,GA-Meal,10,133,58.5
+Vegan,LP-Food,1,7,7.0
+Vegan,LP-Meal,1,23,23.0

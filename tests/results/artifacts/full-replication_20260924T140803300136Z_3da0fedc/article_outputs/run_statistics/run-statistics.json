@@ -1,0 +1,660 @@
+{
+  "schema_version": "1.0",
+  "status": "diagnostic_only_until_mapping_and_revised_nutrition_are_frozen",
+  "units": {
+    "GA": "independent seeded execution conditional on fixed input pool",
+    "LP": "one deterministic configuration, no sampling CI"
+  },
+  "interval_method": "2000 fixed-seed percentile bootstrap resamples of independent GA runs; absent for n=1",
+  "statistical_tests": "none: archived formulations are not equivalent; no pseudo-replication",
+  "summary": [
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 10,
+      "mean": 4754.6728,
+      "median": 4882.32,
+      "sample_sd": 705.6927441846377,
+      "q1": 4264.1575,
+      "q3": 5287.263999999999,
+      "mean_bootstrap_percentile_95_ci": [
+        4370.334255,
+        5169.25897
+      ]
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "metric": "daily_nutrient_violation_count",
+      "n": 10,
+      "mean": 36.7,
+      "median": 36.0,
+      "sample_sd": 3.3349995835415367,
+      "q1": 35.0,
+      "q3": 38.0,
+      "mean_bootstrap_percentile_95_ci": [
+        34.9,
+        38.7
+      ]
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "metric": "energy_kcal_per_day",
+      "n": 10,
+      "mean": 2049.2709999999997,
+      "median": 2040.4,
+      "sample_sd": 48.90330560288205,
+      "q1": 2018.605,
+      "q3": 2080.7999999999997,
+      "mean_bootstrap_percentile_95_ci": [
+        2021.5974999999999,
+        2077.923925
+      ]
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "metric": "unique_foods_per_plan",
+      "n": 10,
+      "mean": 57.6,
+      "median": 57.5,
+      "sample_sd": 2.9514591494904874,
+      "q1": 55.25,
+      "q3": 59.75,
+      "mean_bootstrap_percentile_95_ci": [
+        56.0,
+        59.5
+      ]
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 10,
+      "mean": 5031.9214,
+      "median": 5045.65,
+      "sample_sd": 885.4485042618797,
+      "q1": 4599.844999999999,
+      "q3": 5674.3324999999995,
+      "mean_bootstrap_percentile_95_ci": [
+        4498.494375,
+        5527.532099999999
+      ]
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "metric": "daily_nutrient_violation_count",
+      "n": 10,
+      "mean": 37.2,
+      "median": 37.5,
+      "sample_sd": 4.516635916254486,
+      "q1": 34.75,
+      "q3": 38.75,
+      "mean_bootstrap_percentile_95_ci": [
+        34.6,
+        39.9
+      ]
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "metric": "energy_kcal_per_day",
+      "n": 10,
+      "mean": 2067.839,
+      "median": 2053.965,
+      "sample_sd": 74.36767120941134,
+      "q1": 2044.475,
+      "q3": 2125.2799999999997,
+      "mean_bootstrap_percentile_95_ci": [
+        2024.7534249999999,
+        2112.0926
+      ]
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "metric": "unique_foods_per_plan",
+      "n": 10,
+      "mean": 55.6,
+      "median": 55.5,
+      "sample_sd": 4.835057163858332,
+      "q1": 53.25,
+      "q3": 57.5,
+      "mean_bootstrap_percentile_95_ci": [
+        52.7,
+        58.7
+      ]
+    },
+    {
+      "profile": "regular",
+      "method": "LP-Food",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 1,
+      "mean": 1354.232,
+      "median": 1354.232,
+      "sample_sd": null,
+      "q1": 1354.232,
+      "q3": 1354.232,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "regular",
+      "method": "LP-Food",
+      "metric": "daily_nutrient_violation_count",
+      "n": 1,
+      "mean": 10.0,
+      "median": 10.0,
+      "sample_sd": null,
+      "q1": 10.0,
+      "q3": 10.0,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "regular",
+      "method": "LP-Food",
+      "metric": "energy_kcal_per_day",
+      "n": 1,
+      "mean": 2099.952,
+      "median": 2099.952,
+      "sample_sd": null,
+      "q1": 2099.952,
+      "q3": 2099.952,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "regular",
+      "method": "LP-Food",
+      "metric": "unique_foods_per_plan",
+      "n": 1,
+      "mean": 7.0,
+      "median": 7.0,
+      "sample_sd": null,
+      "q1": 7.0,
+      "q3": 7.0,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "regular",
+      "method": "LP-Meal",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 1,
+      "mean": 2499.8,
+      "median": 2499.8,
+      "sample_sd": null,
+      "q1": 2499.8,
+      "q3": 2499.8,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "regular",
+      "method": "LP-Meal",
+      "metric": "daily_nutrient_violation_count",
+      "n": 1,
+      "mean": 31.0,
+      "median": 31.0,
+      "sample_sd": null,
+      "q1": 31.0,
+      "q3": 31.0,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "regular",
+      "method": "LP-Meal",
+      "metric": "energy_kcal_per_day",
+      "n": 1,
+      "mean": 2150.7799999999997,
+      "median": 2150.7799999999997,
+      "sample_sd": null,
+      "q1": 2150.7799999999997,
+      "q3": 2150.7799999999997,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "regular",
+      "method": "LP-Meal",
+      "metric": "unique_foods_per_plan",
+      "n": 1,
+      "mean": 27.0,
+      "median": 27.0,
+      "sample_sd": null,
+      "q1": 27.0,
+      "q3": 27.0,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 10,
+      "mean": 1601.891,
+      "median": 1572.8200000000002,
+      "sample_sd": 229.3026015964251,
+      "q1": 1461.7624999999998,
+      "q3": 1698.3525,
+      "mean_bootstrap_percentile_95_ci": [
+        1474.328175,
+        1743.247275
+      ]
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "metric": "daily_nutrient_violation_count",
+      "n": 10,
+      "mean": 33.9,
+      "median": 35.0,
+      "sample_sd": 3.634709219609061,
+      "q1": 31.0,
+      "q3": 36.75,
+      "mean_bootstrap_percentile_95_ci": [
+        31.7,
+        36.0
+      ]
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "metric": "energy_kcal_per_day",
+      "n": 10,
+      "mean": 2070.686,
+      "median": 2047.695,
+      "sample_sd": 65.68018730518698,
+      "q1": 2028.18,
+      "q3": 2129.675,
+      "mean_bootstrap_percentile_95_ci": [
+        2032.209525,
+        2109.74295
+      ]
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "metric": "unique_foods_per_plan",
+      "n": 10,
+      "mean": 58.2,
+      "median": 58.5,
+      "sample_sd": 5.094659513211413,
+      "q1": 56.25,
+      "q3": 59.75,
+      "mean_bootstrap_percentile_95_ci": [
+        55.3,
+        61.2
+      ]
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 10,
+      "mean": 1435.449,
+      "median": 1460.25,
+      "sample_sd": 141.42012008747398,
+      "q1": 1315.085,
+      "q3": 1470.9575,
+      "mean_bootstrap_percentile_95_ci": [
+        1359.169475,
+        1520.7516
+      ]
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "metric": "daily_nutrient_violation_count",
+      "n": 10,
+      "mean": 35.8,
+      "median": 36.0,
+      "sample_sd": 1.8737959096740262,
+      "q1": 36.0,
+      "q3": 37.0,
+      "mean_bootstrap_percentile_95_ci": [
+        34.6,
+        36.8
+      ]
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "metric": "energy_kcal_per_day",
+      "n": 10,
+      "mean": 2114.529,
+      "median": 2077.3999999999996,
+      "sample_sd": 104.77292625801131,
+      "q1": 2042.7625000000003,
+      "q3": 2170.16,
+      "mean_bootstrap_percentile_95_ci": [
+        2056.8532000000005,
+        2179.79855
+      ]
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "metric": "unique_foods_per_plan",
+      "n": 10,
+      "mean": 58.5,
+      "median": 57.5,
+      "sample_sd": 3.064129385141706,
+      "q1": 57.0,
+      "q3": 60.75,
+      "mean_bootstrap_percentile_95_ci": [
+        56.7,
+        60.3
+      ]
+    },
+    {
+      "profile": "vegana",
+      "method": "LP-Food",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 1,
+      "mean": 918.4380000000001,
+      "median": 918.4380000000001,
+      "sample_sd": null,
+      "q1": 918.4380000000001,
+      "q3": 918.4380000000001,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegana",
+      "method": "LP-Food",
+      "metric": "daily_nutrient_violation_count",
+      "n": 1,
+      "mean": 10.0,
+      "median": 10.0,
+      "sample_sd": null,
+      "q1": 10.0,
+      "q3": 10.0,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegana",
+      "method": "LP-Food",
+      "metric": "energy_kcal_per_day",
+      "n": 1,
+      "mean": 2100.1730000000002,
+      "median": 2100.1730000000002,
+      "sample_sd": null,
+      "q1": 2100.1730000000002,
+      "q3": 2100.1730000000002,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegana",
+      "method": "LP-Food",
+      "metric": "unique_foods_per_plan",
+      "n": 1,
+      "mean": 7.0,
+      "median": 7.0,
+      "sample_sd": null,
+      "q1": 7.0,
+      "q3": 7.0,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegana",
+      "method": "LP-Meal",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 1,
+      "mean": 1556.7900000000002,
+      "median": 1556.7900000000002,
+      "sample_sd": null,
+      "q1": 1556.7900000000002,
+      "q3": 1556.7900000000002,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegana",
+      "method": "LP-Meal",
+      "metric": "daily_nutrient_violation_count",
+      "n": 1,
+      "mean": 36.0,
+      "median": 36.0,
+      "sample_sd": null,
+      "q1": 36.0,
+      "q3": 36.0,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegana",
+      "method": "LP-Meal",
+      "metric": "energy_kcal_per_day",
+      "n": 1,
+      "mean": 2146.6400000000003,
+      "median": 2146.6400000000003,
+      "sample_sd": null,
+      "q1": 2146.6400000000003,
+      "q3": 2146.6400000000003,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegana",
+      "method": "LP-Meal",
+      "metric": "unique_foods_per_plan",
+      "n": 1,
+      "mean": 23.0,
+      "median": 23.0,
+      "sample_sd": null,
+      "q1": 23.0,
+      "q3": 23.0,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 10,
+      "mean": 2414.2404,
+      "median": 2378.78,
+      "sample_sd": 113.25845237155585,
+      "q1": 2357.391,
+      "q3": 2426.738,
+      "mean_bootstrap_percentile_95_ci": [
+        2354.3200250000004,
+        2486.52167
+      ]
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "metric": "daily_nutrient_violation_count",
+      "n": 10,
+      "mean": 33.6,
+      "median": 33.5,
+      "sample_sd": 4.376706016578627,
+      "q1": 30.75,
+      "q3": 36.5,
+      "mean_bootstrap_percentile_95_ci": [
+        31.0,
+        36.1
+      ]
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "metric": "energy_kcal_per_day",
+      "n": 10,
+      "mean": 2051.3484,
+      "median": 2010.644,
+      "sample_sd": 107.31299859880298,
+      "q1": 1994.5114999999996,
+      "q3": 2075.1675,
+      "mean_bootstrap_percentile_95_ci": [
+        1998.1909199999998,
+        2122.035
+      ]
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "metric": "unique_foods_per_plan",
+      "n": 10,
+      "mean": 62.5,
+      "median": 62.0,
+      "sample_sd": 2.6770630673681683,
+      "q1": 60.25,
+      "q3": 64.75,
+      "mean_bootstrap_percentile_95_ci": [
+        61.1,
+        64.1
+      ]
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 10,
+      "mean": 2407.9696,
+      "median": 2412.9809999999998,
+      "sample_sd": 121.5031142346199,
+      "q1": 2342.2349999999997,
+      "q3": 2474.306,
+      "mean_bootstrap_percentile_95_ci": [
+        2338.47582,
+        2479.6622899999998
+      ]
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "metric": "daily_nutrient_violation_count",
+      "n": 10,
+      "mean": 31.7,
+      "median": 32.5,
+      "sample_sd": 4.270050741306634,
+      "q1": 28.75,
+      "q3": 34.75,
+      "mean_bootstrap_percentile_95_ci": [
+        29.2,
+        34.0
+      ]
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "metric": "energy_kcal_per_day",
+      "n": 10,
+      "mean": 2056.7544,
+      "median": 2063.785,
+      "sample_sd": 54.47799295373005,
+      "q1": 2004.1174999999998,
+      "q3": 2100.14,
+      "mean_bootstrap_percentile_95_ci": [
+        2026.55455,
+        2088.330215
+      ]
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "metric": "unique_foods_per_plan",
+      "n": 10,
+      "mean": 60.5,
+      "median": 61.0,
+      "sample_sd": 2.223610677354389,
+      "q1": 59.25,
+      "q3": 61.0,
+      "mean_bootstrap_percentile_95_ci": [
+        59.2,
+        61.8
+      ]
+    },
+    {
+      "profile": "vegetariana",
+      "method": "LP-Food",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 1,
+      "mean": 716.5419999999999,
+      "median": 716.5419999999999,
+      "sample_sd": null,
+      "q1": 716.5419999999999,
+      "q3": 716.5419999999999,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegetariana",
+      "method": "LP-Food",
+      "metric": "daily_nutrient_violation_count",
+      "n": 1,
+      "mean": 20.0,
+      "median": 20.0,
+      "sample_sd": null,
+      "q1": 20.0,
+      "q3": 20.0,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegetariana",
+      "method": "LP-Food",
+      "metric": "energy_kcal_per_day",
+      "n": 1,
+      "mean": 2099.99,
+      "median": 2099.99,
+      "sample_sd": null,
+      "q1": 2099.99,
+      "q3": 2099.99,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegetariana",
+      "method": "LP-Food",
+      "metric": "unique_foods_per_plan",
+      "n": 1,
+      "mean": 7.0,
+      "median": 7.0,
+      "sample_sd": null,
+      "q1": 7.0,
+      "q3": 7.0,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegetariana",
+      "method": "LP-Meal",
+      "metric": "carbon_gco2eq_per_day",
+      "n": 1,
+      "mean": 2408.5799999999995,
+      "median": 2408.5799999999995,
+      "sample_sd": null,
+      "q1": 2408.5799999999995,
+      "q3": 2408.5799999999995,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegetariana",
+      "method": "LP-Meal",
+      "metric": "daily_nutrient_violation_count",
+      "n": 1,
+      "mean": 28.0,
+      "median": 28.0,
+      "sample_sd": null,
+      "q1": 28.0,
+      "q3": 28.0,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegetariana",
+      "method": "LP-Meal",
+      "metric": "energy_kcal_per_day",
+      "n": 1,
+      "mean": 2103.5,
+      "median": 2103.5,
+      "sample_sd": null,
+      "q1": 2103.5,
+      "q3": 2103.5,
+      "mean_bootstrap_percentile_95_ci": null
+    },
+    {
+      "profile": "vegetariana",
+      "method": "LP-Meal",
+      "metric": "unique_foods_per_plan",
+      "n": 1,
+      "mean": 32.0,
+      "median": 32.0,
+      "sample_sd": null,
+      "q1": 32.0,
+      "q3": 32.0,
+      "mean_bootstrap_percentile_95_ci": null
+    }
+  ]
+}

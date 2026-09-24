@@ -1,0 +1,46 @@
+{
+    "mode": "rerun",
+    "status": "only_exact_known_contradictions_excluded; complete_review_pending",
+    "removed_items": [
+        {
+            "profile": "vegana",
+            "plan_index": 4,
+            "day": "4",
+            "meal": "Almoço",
+            "food_name": "Feijão, preto, cozido (50% grão e 50% caldo), c/ carne de boi, músculo, s/ gordura, c/ óleo, cebola e alho, c/ sal",
+            "quantity": "120"
+        },
+        {
+            "profile": "vegana",
+            "plan_index": 19,
+            "day": "4",
+            "meal": "Café da Manhã",
+            "food_name": "Leite, vaca, c/ chocolate",
+            "quantity": "50"
+        },
+        {
+            "profile": "vegana",
+            "plan_index": 24,
+            "day": "4",
+            "meal": "Café da Manhã",
+            "food_name": "Leite, vaca, c/ chocolate",
+            "quantity": "60"
+        },
+        {
+            "profile": "vegana",
+            "plan_index": 34,
+            "day": "4",
+            "meal": "Café da Manhã",
+            "food_name": "Leite, vaca, c/ chocolate",
+            "quantity": "60"
+        },
+        {
+            "profile": "vegana",
+            "plan_index": 39,
+            "day": "4",
+            "meal": "Café da Manhã",
+            "food_name": "Leite, vaca, c/ chocolate",
+            "quantity": "50"
+        }
+    ]
+}

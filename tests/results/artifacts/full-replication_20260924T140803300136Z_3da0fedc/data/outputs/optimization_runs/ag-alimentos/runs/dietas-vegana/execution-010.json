@@ -1,0 +1,1515 @@
+{
+    "schema_version": "1.0",
+    "resolution": "ag-alimentos",
+    "source_diet_file": "dietas-vegana.json",
+    "candidate_pool_profile": "vegana",
+    "candidate_food_count": 155,
+    "candidate_food_names": [
+        "Abacate, polpa, in natura",
+        "Abacaxi, polpa, in natura",
+        "Abobrinha, italiana, c/ casca, refogada (c/ óleo, cebola e alho), c/ sal",
+        "Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal",
+        "Abóbora, moranga, s/ casca, s/ semente, assada, s/ óleo, c/ sal",
+        "Acelga, crua",
+        "Alface, crua",
+        "Alho, refogado c/ óleo de soja, s/ sal",
+        "Almeirão, cru",
+        "Amendoim, grão, cru",
+        "Amendoim, torrado, c/ sal",
+        "Amêndoa, torrada, c/ sal",
+        "Arroz, creme, cozido, s/ tempero",
+        "Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",
+        "Arroz, polido, cozido, c/ óleo, cebola e alho, c/ sal",
+        "Aveia, crua (média de diferentes tipos)",
+        "Avelã , crua, s/ sal",
+        "Azeite, oliva",
+        "Banana, da terra, assada, s/ adição de ingredientes",
+        "Banana, in natura",
+        "Barra de cereal, diet",
+        "Batata baroa (mandioquinha, batata salsa), cozida, drenada, s/ óleo, c/ sal",
+        "Batata, doce, s/ casca, cozida, drenada, s/ óleo, c/ sal",
+        "Batata, inglesa, s/ casca, cozida, drenada, s/ óleo, c/ sal",
+        "Bebida, café, infusão 10%, s/ açúcar",
+        "Bebida, chá, infusão, s/ açúcar (média de várias ervas)",
+        "Bebida, chá, mate, infusão 5%, s/ açúcar",
+        "Bebida, chá, preto, infusão 5%, s/ açúcar",
+        "Bebida, infusão, erva-mate, chimarrão, (70g de matéria seca - 30% de ramos e 70% de folhas - em 1 L de água)",
+        "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",
+        "Berinjela, refogada (c/ óleo, cebola e alho), c/ sal",
+        "Beterraba, cozida, drenada, s/ óleo, c/ sal",
+        "Beterraba, refogada (c/ óleo, cebola e alho), c/ sal",
+        "Beterraba, s/ casca, crua",
+        "Biscoito, arroz",
+        "Biscoito, doce, simples (média de diferentes tipos)",
+        "Brócolis, flor, refogado (c/ óleo, cebola e alho), c/ sal",
+        "Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",
+        "Cacau, in natura",
+        "Canela, em pó",
+        "Canjica, milho, branca, cozida, drenada",
+        "Caqui, in natura",
+        "Castanha de caju, crua, s/ sal",
+        "Castanha do Brasil, crua",
+        "Catchup, tomate, molho",
+        "Cebolinha, verde, crua",
+        "Cenoura, s/ casca, cozida, drenada, s/ óleo, c/ sal",
+        "Cenoura, s/ casca, crua",
+        "Cereais, barra (média de diferentes sabores)",
+        "Cereais, granola, caseira",
+        "Cereal matinal, milho",
+        "Chia, semente, seca",
+        "Chicória, crua",
+        "Chicória, refogada (c/ óleo, cebola e alho), c/ sal",
+        "Chuchu, s/ casca, refogado (c/ óleo, cebola e alho), c/ sal",
+        "Coco, leite",
+        "Coco, polpa, in natura",
+        "Coco, água",
+        "Cogumelo, Paris, cozido, drenado, s/ óleo, c/ sal",
+        "Couve, crua",
+        "Couve, manteiga, refogada (c/ óleo, cebola e alho), c/ sal",
+        "Couve-flor, cozida, drenada, s/ óleo, c/ sal",
+        "Cuscuz de milho, cozido, c/ sal",
+        "Ervilha, grão, seca, partida, cozida, drenada, s/ óleo, c/ sal",
+        "Espinafre, folha, cru",
+        "Espinafre, folha, refogada (c/ óleo, cebola e alho), c/ sal",
+        "Fava, grão, seco, cozida, drenada, s/ óleo, c/ sal",
+        "Feijoada vegetariana",
+        "Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",
+        "Feijão, fradinho, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",
+        "Feijão, guandu, grão, seco, cozido (50% grão e 50% caldo), s/ óleo, cebola e alho, c/ sal",
+        "Geleia, s/ açúcar (média de diferentes sabores)",
+        "Goiaba, inteira, in natura",
+        "Grão de bico, cozido, dreando, s/ óleo, c/ sal",
+        "Inhame, s/ casca, cozido, drenado, s/ óleo, c/ sal",
+        "Inhame, s/ casca, refogado (c/ óleo, cebola e alho), c/ sal",
+        "Kiwi, in natura",
+        "Laranja, in natura",
+        "Lentilha, cozida, drenada, c/ óleo, cebola e alho, c/ sal",
+        "Linhaça, semente",
+        "Macarrão, trigo, c/ vegetais, c/ sal",
+        "Macarrão, trigo, cozido, drenado, s/ óleo, c/ sal",
+        "Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",
+        "Mamão, Papaia, polpa, in natura",
+        "Mamão, polpa, in natura",
+        "Mandioca (aipim, macaxeira), s/ casca, cozida, drenada, s/ óleo, c/ sal",
+        "Mandioca, farofa, temperada, c/ sal",
+        "Mandioca, s/ casca, cozida, assada, s/ óleo, c/ sal",
+        "Manga, polpa, in natura",
+        "Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal",
+        "Maçã, c/ casca, in natura",
+        "Melado, cana",
+        "Melancia, polpa, in natura",
+        "Melão, polpa, in natura",
+        "Milho, polenta/fubá, cozido, c/ sal",
+        "Milho, verde, grão, cozido, drenado, c/ sal",
+        "Morango, in natura",
+        "Noz, crua",
+        "Pepino, c/ casca, cru",
+        "Pera, in natura",
+        "Pimentão, refogado, c/ sal",
+        "Pinhão, cozido, s/ sal",
+        "Pistache, cru, s/ sal",
+        "Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",
+        "Pão, sírio, branco",
+        "Pão, trigo, integral, caseiro",
+        "Pão, trigo, integral, forma (média de diferentes marcas)",
+        "Quiabo, c/ casca, refogado (c/ óleo, cebola e alho), c/ sal",
+        "Quinoa, grão, cozida, s/ óleo, s/ sal",
+        "Repolho, branco, refogado (c/ óleo, cebola e alho), c/ sal",
+        "Repolho, cru",
+        "Repolho, roxo, cru",
+        "Risoto de cogumelos, c/ arroz polido, c/ sal",
+        "Risoto de legumes, c/ arroz polido, c/ sal",
+        "Rúcula, crua",
+        "Salada de frutas, c/ açúcar",
+        "Salada de legumes, cozidos no vapor",
+        "Salada, alface crespa, c/ óleo de soja, c/ sal",
+        "Salada, beterraba cozida, c/ óleo de soja, c/ sal",
+        "Salada, folhas e vegetais, c/ óleo de soja e c/ sal",
+        "Salada, legumes cozidos, c/ óleo de soja, c/ sal",
+        "Salada, repolho, branco, cru, c/ molho vinagrete (tomate, cebola, salsinha, vinagre e óleo), c/ sal",
+        "Salada, vegetais crus, s/ óleo, s/ sal",
+        "Semente de abóbora, inteira, torrada, s/ óleo, s/ sal",
+        "Semente de girassol, torrada, s/ óleo, s/ sal",
+        "Soja, extrato, bebida (média de diferentes sabores)",
+        "Soja, extrato, bebida, natural (média de diferentes amostras)",
+        "Soja, extrato, solúvel, em pó",
+        "Soja, grão, cozido, drenado, c/ sal",
+        "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+        "Soja, tofu",
+        "Sopa, feijão, preto, c/ sal",
+        "Strogonoff de soja",
+        "Suco natural, abacaxi, s/ açúcar",
+        "Suco natural, goiaba, vermelha, s/ açúcar",
+        "Suco natural, manga, s/ açúcar",
+        "Suco natural, melancia, c/ açúcar",
+        "Suco natural, melão, s/ açúcar",
+        "Suco natural, morango, s/ açúcar",
+        "Suco, clorofila",
+        "Suco, laranja, s/ açúcar",
+        "Suco, limonada), s/ açúcar",
+        "Tahini (pasta de gergelim)",
+        "Tangerina, Ponkã, in natura",
+        "Tapioca, sem manteiga, sem recheio",
+        "Tomate, in natura",
+        "Tomate, molho, industrializado",
+        "Tomate, refogado (c/ óleo de soja, cebola e alho), c/ sal",
+        "Torrada, trigo, integral",
+        "Trigo para quibe, cozido, s/ sal",
+        "Uva, in natura",
+        "Uva, passa, preta",
+        "Vagem, cozida, drenada, s/ óleo, c/ sal (média de diferentes amostras)",
+        "Vagem, refogada (c/ óleo, cebola e alho), c/ sal",
+        "Óleo, soja"
+    ],
+    "execution_id": 10,
+    "effective_configuration": {
+        "population_size": 45,
+        "plateau_tolerance": 1e-06,
+        "max_stagnation_generations": 18,
+        "max_generations": 90,
+        "hypermutation_trigger": 15,
+        "elitism_rate": 0.05,
+        "shortage_weight_base": 50.0,
+        "nutritional_criterion_weight": 1.0,
+        "environmental_criterion_weight": 1.0,
+        "active_footprints": [
+            "carbon_footprint"
+        ],
+        "footprint_weights": {
+            "carbon_footprint": 1.0,
+            "water_footprint": 1.0,
+            "ecological_footprint": 1.0
+        },
+        "footprint_normalization_references": {
+            "carbon_footprint": 2000.0,
+            "water_footprint": 1500.0,
+            "ecological_footprint": 10.0
+        },
+        "footprint_normalization_functions": {
+            "carbon_footprint": "ratio",
+            "water_footprint": "ratio",
+            "ecological_footprint": "ratio"
+        },
+        "big_m_penalty": 10000.0,
+        "meal_energy_share_penalty_weight": 200.0,
+        "default_global_mutation_rate": 0.05,
+        "default_local_mutation_rate": 0.15,
+        "hyper_global_mutation_rate": 0.15,
+        "hyper_local_mutation_rate": 0.3,
+        "crossover_strategy": "by_meal",
+        "enable_crossover_repair": true,
+        "repair_max_attempts_per_day": 12,
+        "meal_energy_share_limits": {
+            "Café da Manhã": {
+                "min": 0.15,
+                "max": 0.25
+            },
+            "Lanche da Manhã": {
+                "min": 0.0,
+                "max": 0.1
+            },
+            "Almoço": {
+                "min": 0.25,
+                "max": 0.35
+            },
+            "Lanche da Tarde": {
+                "min": 0.0,
+                "max": 0.15
+            },
+            "Jantar": {
+                "min": 0.2,
+                "max": 0.3
+            },
+            "Ceia": {
+                "min": 0.0,
+                "max": 0.1
+            }
+        },
+        "constructive_expansion_top_w": 0,
+        "constructive_expansion_sample_k": 0,
+        "enable_global_mutation": false,
+        "enable_local_mutation": true,
+        "local_mutation_operations": [
+            "replace",
+            "add",
+            "remove"
+        ],
+        "seed_with_base_chromosomes": false,
+        "resolution_label": "ag-alimentos"
+    },
+    "seed": 13470348308508588699,
+    "objective_by_generation": [
+        -26299.962941901562,
+        -26299.962941901562,
+        -26299.962941901562,
+        -24451.05934026084,
+        -24451.05934026084,
+        -22444.22155912028,
+        -20820.49491754533,
+        -20820.49491754533,
+        -20820.49491754533,
+        -20820.49491754533,
+        -18913.280788356995,
+        -18913.280788356995,
+        -18913.280788356995,
+        -17713.54740918536,
+        -17713.54740918536,
+        -17371.38144410283,
+        -17371.38144410283,
+        -16372.782821580973,
+        -16372.782821580973,
+        -15965.641469597076,
+        -15965.641469597076,
+        -15965.641469597076,
+        -15965.641469597076,
+        -15483.402910011517,
+        -14608.206250016254,
+        -14608.206250016254,
+        -14608.206250016254,
+        -14608.206250016254,
+        -14270.971438364673,
+        -14270.971438364673,
+        -14270.971438364673,
+        -14270.971438364673,
+        -14270.971438364673,
+        -14270.971438364673,
+        -14270.971438364673,
+        -14270.971438364673,
+        -14270.971438364673,
+        -14270.971438364673,
+        -14270.971438364673,
+        -14270.971438364673,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -14066.771287382982,
+        -13951.343850890064,
+        -13907.92793116719,
+        -13907.92793116719,
+        -13907.92793116719,
+        -13907.92793116719,
+        -13907.92793116719,
+        -13907.92793116719,
+        -13907.92793116719,
+        -13907.92793116719,
+        -13661.621522455982,
+        -13661.621522455982,
+        -13661.621522455982,
+        -13661.621522455982,
+        -13661.621522455982,
+        -12498.463688769114,
+        -12498.463688769114,
+        -12498.463688769114,
+        -12498.463688769114,
+        -12498.463688769114,
+        -12498.463688769114,
+        -12498.463688769114,
+        -12498.463688769114,
+        -12498.463688769114,
+        -12498.463688769114,
+        -12498.463688769114,
+        -12345.443610924005,
+        -12345.443610924005,
+        -12345.443610924005,
+        -12345.443610924005,
+        -12345.443610924005,
+        -12345.443610924005,
+        -12345.443610924005,
+        -12345.443610924005,
+        -12345.443610924005,
+        -12345.443610924005
+    ],
+    "objective_direction": "maximize_fitness",
+    "stop_criterion": "generation_limit",
+    "stop_generation": 90,
+    "duration_seconds": 5.974743400001898,
+    "final_fitness": -12345.443610924005,
+    "final_solution": {
+        "1": {
+            "Café da Manhã": [
+                {
+                    "alimento": "Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",
+                    "quantidade": "50"
+                },
+                {
+                    "alimento": "Pão, sírio, branco",
+                    "quantidade": "60"
+                },
+                {
+                    "alimento": "Chia, semente, seca",
+                    "quantidade": "15"
+                }
+            ],
+            "Lanche da Manhã": [
+                {
+                    "alimento": "Mamão, Papaia, polpa, in natura",
+                    "quantidade": "250"
+                }
+            ],
+            "Almoço": [
+                {
+                    "alimento": "Macarrão, trigo, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Soja, grão, cozido, drenado, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Tomate, molho, industrializado",
+                    "quantidade": "60"
+                },
+                {
+                    "alimento": "Espinafre, folha, refogada (c/ óleo, cebola e alho), c/ sal",
+                    "quantidade": "80"
+                },
+                {
+                    "alimento": "Cenoura, s/ casca, crua",
+                    "quantidade": "70"
+                },
+                {
+                    "alimento": "Batata, doce, s/ casca, cozida, drenada, s/ óleo, c/ sal",
+                    "quantidade": "120"
+                }
+            ],
+            "Lanche da Tarde": [
+                {
+                    "alimento": "Salada de frutas, c/ açúcar",
+                    "quantidade": "200"
+                },
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "40"
+                }
+            ],
+            "Jantar": [
+                {
+                    "alimento": "Arroz, polido, cozido, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Abóbora, moranga, s/ casca, s/ semente, assada, s/ óleo, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Abobrinha, italiana, c/ casca, refogada (c/ óleo, cebola e alho), c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "120"
+                }
+            ],
+            "Ceia": [
+                {
+                    "alimento": "Maçã, c/ casca, in natura",
+                    "quantidade": "150"
+                }
+            ]
+        },
+        "2": {
+            "Café da Manhã": [
+                {
+                    "alimento": "Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Melão, polpa, in natura",
+                    "quantidade": "200"
+                },
+                {
+                    "alimento": "Amêndoa, torrada, c/ sal",
+                    "quantidade": "20"
+                },
+                {
+                    "alimento": "Chia, semente, seca",
+                    "quantidade": "10"
+                }
+            ],
+            "Lanche da Manhã": [
+                {
+                    "alimento": "Amêndoa, torrada, c/ sal",
+                    "quantidade": "25"
+                },
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "40"
+                }
+            ],
+            "Almoço": [
+                {
+                    "alimento": "Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Soja, grão, cozido, drenado, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Berinjela, refogada (c/ óleo, cebola e alho), c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Alface, crua",
+                    "quantidade": "50"
+                },
+                {
+                    "alimento": "Salada, repolho, branco, cru, c/ molho vinagrete (tomate, cebola, salsinha, vinagre e óleo), c/ sal",
+                    "quantidade": "100"
+                }
+            ],
+            "Lanche da Tarde": [
+                {
+                    "alimento": "Semente de abóbora, inteira, torrada, s/ óleo, s/ sal",
+                    "quantidade": "20"
+                }
+            ],
+            "Jantar": [
+                {
+                    "alimento": "Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Ervilha, grão, seca, partida, cozida, drenada, s/ óleo, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "100"
+                }
+            ],
+            "Ceia": [
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "40"
+                },
+                {
+                    "alimento": "Coco, polpa, in natura",
+                    "quantidade": "30"
+                },
+                {
+                    "alimento": "Pistache, cru, s/ sal",
+                    "quantidade": "25"
+                }
+            ]
+        },
+        "3": {
+            "Café da Manhã": [
+                {
+                    "alimento": "Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal",
+                    "quantidade": "20"
+                },
+                {
+                    "alimento": "Coco, leite",
+                    "quantidade": "50"
+                }
+            ],
+            "Lanche da Manhã": [
+                {
+                    "alimento": "Amêndoa, torrada, c/ sal",
+                    "quantidade": "20"
+                },
+                {
+                    "alimento": "Amêndoa, torrada, c/ sal",
+                    "quantidade": "20"
+                },
+                {
+                    "alimento": "Amendoim, grão, cru",
+                    "quantidade": "30"
+                }
+            ],
+            "Almoço": [
+                {
+                    "alimento": "Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Batata baroa (mandioquinha, batata salsa), cozida, drenada, s/ óleo, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Alface, crua",
+                    "quantidade": "50"
+                },
+                {
+                    "alimento": "Tomate, in natura",
+                    "quantidade": "80"
+                }
+            ],
+            "Lanche da Tarde": [],
+            "Jantar": [
+                {
+                    "alimento": "Feijão, fradinho, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Soja, grão, cozido, drenado, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Abóbora, moranga, s/ casca, s/ semente, assada, s/ óleo, c/ sal",
+                    "quantidade": "100"
+                }
+            ],
+            "Ceia": [
+                {
+                    "alimento": "Castanha de caju, crua, s/ sal",
+                    "quantidade": "15"
+                },
+                {
+                    "alimento": "Semente de girassol, torrada, s/ óleo, s/ sal",
+                    "quantidade": "20"
+                },
+                {
+                    "alimento": "Morango, in natura",
+                    "quantidade": "200"
+                }
+            ]
+        },
+        "4": {
+            "Café da Manhã": [
+                {
+                    "alimento": "Coco, leite",
+                    "quantidade": "30"
+                },
+                {
+                    "alimento": "Geleia, s/ açúcar (média de diferentes sabores)",
+                    "quantidade": "20"
+                },
+                {
+                    "alimento": "Castanha de caju, crua, s/ sal",
+                    "quantidade": "20"
+                },
+                {
+                    "alimento": "Noz, crua",
+                    "quantidade": "15"
+                }
+            ],
+            "Lanche da Manhã": [
+                {
+                    "alimento": "Aveia, crua (média de diferentes tipos)",
+                    "quantidade": "30"
+                },
+                {
+                    "alimento": "Amendoim, grão, cru",
+                    "quantidade": "25"
+                }
+            ],
+            "Almoço": [
+                {
+                    "alimento": "Trigo para quibe, cozido, s/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Alface, crua",
+                    "quantidade": "50"
+                },
+                {
+                    "alimento": "Soja, grão, cozido, drenado, c/ sal",
+                    "quantidade": "150"
+                }
+            ],
+            "Lanche da Tarde": [
+                {
+                    "alimento": "Cereais, granola, caseira",
+                    "quantidade": "45"
+                },
+                {
+                    "alimento": "Chia, semente, seca",
+                    "quantidade": "15"
+                },
+                {
+                    "alimento": "Castanha de caju, crua, s/ sal",
+                    "quantidade": "20"
+                },
+                {
+                    "alimento": "Salada de frutas, c/ açúcar",
+                    "quantidade": "200"
+                }
+            ],
+            "Jantar": [
+                {
+                    "alimento": "Batata, doce, s/ casca, cozida, drenada, s/ óleo, c/ sal",
+                    "quantidade": "200"
+                },
+                {
+                    "alimento": "Ervilha, grão, seca, partida, cozida, drenada, s/ óleo, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Chicória, refogada (c/ óleo, cebola e alho), c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Arroz, polido, cozido, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Acelga, crua",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Abóbora, moranga, s/ casca, s/ semente, assada, s/ óleo, c/ sal",
+                    "quantidade": "100"
+                }
+            ],
+            "Ceia": [
+                {
+                    "alimento": "Amendoim, grão, cru",
+                    "quantidade": "25"
+                },
+                {
+                    "alimento": "Avelã , crua, s/ sal",
+                    "quantidade": "25"
+                }
+            ]
+        },
+        "5": {
+            "Café da Manhã": [
+                {
+                    "alimento": "Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal",
+                    "quantidade": "20"
+                },
+                {
+                    "alimento": "Bebida, chá, preto, infusão 5%, s/ açúcar",
+                    "quantidade": "200"
+                }
+            ],
+            "Lanche da Manhã": [
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "40"
+                },
+                {
+                    "alimento": "Amendoim, grão, cru",
+                    "quantidade": "20"
+                }
+            ],
+            "Almoço": [
+                {
+                    "alimento": "Cenoura, s/ casca, crua",
+                    "quantidade": "50"
+                },
+                {
+                    "alimento": "Couve, manteiga, refogada (c/ óleo, cebola e alho), c/ sal",
+                    "quantidade": "80"
+                },
+                {
+                    "alimento": "Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal",
+                    "quantidade": "150"
+                },
+                {
+                    "alimento": "Mandioca (aipim, macaxeira), s/ casca, cozida, drenada, s/ óleo, c/ sal",
+                    "quantidade": "120"
+                }
+            ],
+            "Lanche da Tarde": [
+                {
+                    "alimento": "Melancia, polpa, in natura",
+                    "quantidade": "400"
+                }
+            ],
+            "Jantar": [
+                {
+                    "alimento": "Inhame, s/ casca, cozido, drenado, s/ óleo, c/ sal",
+                    "quantidade": "200"
+                },
+                {
+                    "alimento": "Grão de bico, cozido, dreando, s/ óleo, c/ sal",
+                    "quantidade": "120"
+                },
+                {
+                    "alimento": "Berinjela, refogada (c/ óleo, cebola e alho), c/ sal",
+                    "quantidade": "100"
+                },
+                {
+                    "alimento": "Repolho, cru",
+                    "quantidade": "80"
+                },
+                {
+                    "alimento": "Pepino, c/ casca, cru",
+                    "quantidade": "80"
+                }
+            ],
+            "Ceia": [
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "40"
+                }
+            ]
+        }
+    },
+    "metrics_and_violations": {
+        "constraint_set": "historical_implemented_v1; not revised protocol or clinical validation",
+        "daily": [
+            {
+                "day": "1",
+                "nutrients": {
+                    "Energia": 1841.25,
+                    "Umidade": 1390.0620000000001,
+                    "Carboidrato total": 322.208,
+                    "Carboidrato disponível": 264.609,
+                    "Proteína": 72.63300000000001,
+                    "Lipídios": 41.769999999999996,
+                    "Álcool": 0.0,
+                    "Cinzas": 18.394000000000002,
+                    "Colesterol": 45.45,
+                    "Ácidos graxos saturados": 12.703500000000004,
+                    "Ácidos graxos monoinsaturados": 8.6565,
+                    "Ácidos graxos poliinsaturados": 15.486999999999998,
+                    "Ácidos graxos trans": 0.5630000000000001,
+                    "Cálcio": 980.157,
+                    "Ferro": 15.411000000000003,
+                    "Sódio": 2529.3550000000005,
+                    "Magnésio": 489.91800000000006,
+                    "Fósforo": 1157.6099999999997,
+                    "Potássio": 3298.17,
+                    "Manganês": 5.526,
+                    "Zinco": 12.281,
+                    "Cobre": 1.9130000000000003,
+                    "Selênio": 69.188,
+                    "Vitamina A (RE)": 3873.26,
+                    "Vitamina A (RAE)": 1964.4500000000003,
+                    "Vitamina D": 2.825,
+                    "Alfa-tocoferol (Vitamina E)": 10.269,
+                    "Riboflavina": 1.3545000000000003,
+                    "Vitamina B12": 2.46,
+                    "Vitamina C": 350.81100000000004,
+                    "Equivalente de folato": 458.126,
+                    "Açúcar de adição": 16.0,
+                    "Proteína vegetal": 10.934000000000001,
+                    "Proteína animal": 12.1,
+                    "Fibra alimentar": 56.344,
+                    "Tiamina": 1.3850000000000002,
+                    "Vitamina B6": 1.986,
+                    "Niacina": 19.6775,
+                    "Sal de adição": 3.781,
+                    "Gordura de adição": 0.0
+                },
+                "footprints": {
+                    "carbon_footprint": 1290.15,
+                    "water_footprint": 1394.65,
+                    "ecological_footprint": 8.180000000000001
+                },
+                "violations": [
+                    {
+                        "nutrient": "Energia",
+                        "bound": "minimum",
+                        "target": 2000.0,
+                        "observed": 1841.25,
+                        "amount": 158.75
+                    },
+                    {
+                        "nutrient": "Proteína",
+                        "bound": "minimum",
+                        "target": 110.0,
+                        "observed": 72.63300000000001,
+                        "amount": 37.36699999999999
+                    },
+                    {
+                        "nutrient": "Lipídios",
+                        "bound": "minimum",
+                        "target": 61.11,
+                        "observed": 41.769999999999996,
+                        "amount": 19.340000000000003
+                    },
+                    {
+                        "nutrient": "Vitamina D",
+                        "bound": "minimum",
+                        "target": 15.0,
+                        "observed": 2.825,
+                        "amount": 12.175
+                    },
+                    {
+                        "nutrient": "Alfa-tocoferol (Vitamina E)",
+                        "bound": "minimum",
+                        "target": 15.0,
+                        "observed": 10.269,
+                        "amount": 4.731
+                    },
+                    {
+                        "nutrient": "Cálcio",
+                        "bound": "minimum",
+                        "target": 1000.0,
+                        "observed": 980.157,
+                        "amount": 19.84299999999996
+                    },
+                    {
+                        "nutrient": "Sódio",
+                        "bound": "maximum",
+                        "target": 2300.0,
+                        "observed": 2529.3550000000005,
+                        "amount": 229.35500000000047
+                    }
+                ],
+                "meal_share_violations": [
+                    {
+                        "meal": "Lanche da Tarde",
+                        "bound": "max",
+                        "target_share": 0.15,
+                        "observed_share": 0.17900882552613714,
+                        "amount": 0.02900882552613715
+                    },
+                    {
+                        "meal": "Jantar",
+                        "bound": "min",
+                        "target_share": 0.2,
+                        "observed_share": 0.18509164969450098,
+                        "amount": 0.01490835030549903
+                    }
+                ]
+            },
+            {
+                "day": "2",
+                "nutrients": {
+                    "Energia": 2103.5,
+                    "Umidade": 949.0720000000001,
+                    "Carboidrato total": 247.405,
+                    "Carboidrato disponível": 189.207,
+                    "Proteína": 103.213,
+                    "Lipídios": 90.97500000000001,
+                    "Álcool": 0.0,
+                    "Cinzas": 19.251999999999995,
+                    "Colesterol": 90.9,
+                    "Ácidos graxos saturados": 24.584999999999994,
+                    "Ácidos graxos monoinsaturados": 33.638000000000005,
+                    "Ácidos graxos poliinsaturados": 25.582,
+                    "Ácidos graxos trans": 1.0585,
+                    "Cálcio": 1399.3300000000006,
+                    "Ferro": 18.24,
+                    "Sódio": 2533.0299999999997,
+                    "Magnésio": 491.56,
+                    "Fósforo": 1628.682,
+                    "Potássio": 3122.31,
+                    "Manganês": 4.6899999999999995,
+                    "Zinco": 19.311,
+                    "Cobre": 2.3815,
+                    "Selênio": 83.35600000000001,
+                    "Vitamina A (RE)": 840.4765000000001,
+                    "Vitamina A (RAE)": 478.81600000000003,
+                    "Vitamina D": 5.65,
+                    "Alfa-tocoferol (Vitamina E)": 15.861,
+                    "Riboflavina": 1.935,
+                    "Vitamina B12": 4.92,
+                    "Vitamina C": 113.70000000000002,
+                    "Equivalente de folato": 662.825,
+                    "Açúcar de adição": 0.0,
+                    "Proteína vegetal": 23.743000000000002,
+                    "Proteína animal": 24.2,
+                    "Fibra alimentar": 58.323,
+                    "Vitamina B6": 2.8400000000000003,
+                    "Sal de adição": 3.3649999999999998,
+                    "Gordura de adição": 0.0,
+                    "Tiamina": 2.064,
+                    "Niacina": 18.031
+                },
+                "footprints": {
+                    "carbon_footprint": 1875.9499999999998,
+                    "water_footprint": 2852.1,
+                    "ecological_footprint": 10.195
+                },
+                "violations": [
+                    {
+                        "nutrient": "Carboidrato total",
+                        "bound": "minimum",
+                        "target": 302.5,
+                        "observed": 247.405,
+                        "amount": 55.095
+                    },
+                    {
+                        "nutrient": "Proteína",
+                        "bound": "minimum",
+                        "target": 110.0,
+                        "observed": 103.213,
+                        "amount": 6.787000000000006
+                    },
+                    {
+                        "nutrient": "Vitamina A (RE)",
+                        "bound": "minimum",
+                        "target": 900.0,
+                        "observed": 840.4765000000001,
+                        "amount": 59.5234999999999
+                    },
+                    {
+                        "nutrient": "Vitamina D",
+                        "bound": "minimum",
+                        "target": 15.0,
+                        "observed": 5.65,
+                        "amount": 9.35
+                    },
+                    {
+                        "nutrient": "Energia",
+                        "bound": "maximum",
+                        "target": 2100.0,
+                        "observed": 2103.5,
+                        "amount": 3.5
+                    },
+                    {
+                        "nutrient": "Sódio",
+                        "bound": "maximum",
+                        "target": 2300.0,
+                        "observed": 2533.0299999999997,
+                        "amount": 233.02999999999975
+                    }
+                ],
+                "meal_share_violations": [
+                    {
+                        "meal": "Café da Manhã",
+                        "bound": "max",
+                        "target_share": 0.25,
+                        "observed_share": 0.2669360589493701,
+                        "amount": 0.016936058949370114
+                    },
+                    {
+                        "meal": "Lanche da Manhã",
+                        "bound": "max",
+                        "target_share": 0.1,
+                        "observed_share": 0.14242928452579037,
+                        "amount": 0.04242928452579037
+                    },
+                    {
+                        "meal": "Almoço",
+                        "bound": "min",
+                        "target_share": 0.25,
+                        "observed_share": 0.24601854052769195,
+                        "amount": 0.0039814594723080465
+                    },
+                    {
+                        "meal": "Jantar",
+                        "bound": "min",
+                        "target_share": 0.2,
+                        "observed_share": 0.15521749465177087,
+                        "amount": 0.04478250534822914
+                    },
+                    {
+                        "meal": "Ceia",
+                        "bound": "max",
+                        "target_share": 0.1,
+                        "observed_share": 0.14879961968148325,
+                        "amount": 0.04879961968148325
+                    }
+                ]
+            },
+            {
+                "day": "3",
+                "nutrients": {
+                    "Energia": 2076.0,
+                    "Umidade": 895.357,
+                    "Carboidrato total": 173.90299999999996,
+                    "Carboidrato disponível": 128.89499999999998,
+                    "Proteína": 110.6,
+                    "Lipídios": 114.28899999999996,
+                    "Álcool": 0.0,
+                    "Cinzas": 21.049,
+                    "Colesterol": 92.44500000000001,
+                    "Ácidos graxos saturados": 30.682000000000002,
+                    "Ácidos graxos monoinsaturados": 37.379,
+                    "Ácidos graxos poliinsaturados": 36.292500000000004,
+                    "Ácidos graxos trans": 1.028,
+                    "Cálcio": 1235.0169999999998,
+                    "Ferro": 23.326999999999995,
+                    "Sódio": 2281.4649999999997,
+                    "Magnésio": 478.83200000000005,
+                    "Fósforo": 2058.562,
+                    "Potássio": 2623.3459999999995,
+                    "Manganês": 5.6775,
+                    "Zinco": 15.831000000000001,
+                    "Cobre": 2.9985,
+                    "Selênio": 59.96799999999999,
+                    "Vitamina A (RE)": 870.578,
+                    "Vitamina A (RAE)": 518.4179999999999,
+                    "Vitamina D": 0.08,
+                    "Alfa-tocoferol (Vitamina E)": 20.988000000000003,
+                    "Riboflavina": 0.8840000000000001,
+                    "Vitamina B12": 2.56,
+                    "Vitamina C": 84.31900000000002,
+                    "Equivalente de folato": 519.249,
+                    "Açúcar de adição": 0.0,
+                    "Proteína vegetal": 56.10999999999999,
+                    "Proteína animal": 24.2,
+                    "Fibra alimentar": 45.05799999999999,
+                    "Vitamina B6": 0.894,
+                    "Sal de adição": 2.489,
+                    "Gordura de adição": 14.86,
+                    "Tiamina": 0.9750000000000001,
+                    "Niacina": 9.687
+                },
+                "footprints": {
+                    "carbon_footprint": 1121.75,
+                    "water_footprint": 2905.75,
+                    "ecological_footprint": 6.515000000000002
+                },
+                "violations": [
+                    {
+                        "nutrient": "Carboidrato total",
+                        "bound": "minimum",
+                        "target": 302.5,
+                        "observed": 173.90299999999996,
+                        "amount": 128.59700000000004
+                    },
+                    {
+                        "nutrient": "Vitamina A (RE)",
+                        "bound": "minimum",
+                        "target": 900.0,
+                        "observed": 870.578,
+                        "amount": 29.422000000000025
+                    },
+                    {
+                        "nutrient": "Vitamina C",
+                        "bound": "minimum",
+                        "target": 90.0,
+                        "observed": 84.31900000000002,
+                        "amount": 5.680999999999983
+                    },
+                    {
+                        "nutrient": "Vitamina D",
+                        "bound": "minimum",
+                        "target": 15.0,
+                        "observed": 0.08,
+                        "amount": 14.92
+                    },
+                    {
+                        "nutrient": "Tiamina",
+                        "bound": "minimum",
+                        "target": 1.2,
+                        "observed": 0.9750000000000001,
+                        "amount": 0.22499999999999987
+                    },
+                    {
+                        "nutrient": "Riboflavina",
+                        "bound": "minimum",
+                        "target": 1.3,
+                        "observed": 0.8840000000000001,
+                        "amount": 0.4159999999999999
+                    },
+                    {
+                        "nutrient": "Niacina",
+                        "bound": "minimum",
+                        "target": 16.0,
+                        "observed": 9.687,
+                        "amount": 6.313000000000001
+                    },
+                    {
+                        "nutrient": "Vitamina B6",
+                        "bound": "minimum",
+                        "target": 1.3,
+                        "observed": 0.894,
+                        "amount": 0.406
+                    }
+                ],
+                "meal_share_violations": [
+                    {
+                        "meal": "Café da Manhã",
+                        "bound": "max",
+                        "target_share": 0.25,
+                        "observed_share": 0.2539980732177264,
+                        "amount": 0.003998073217726383
+                    },
+                    {
+                        "meal": "Lanche da Manhã",
+                        "bound": "max",
+                        "target_share": 0.1,
+                        "observed_share": 0.2038053949903661,
+                        "amount": 0.10380539499036609
+                    },
+                    {
+                        "meal": "Jantar",
+                        "bound": "min",
+                        "target_share": 0.2,
+                        "observed_share": 0.14470134874759152,
+                        "amount": 0.05529865125240849
+                    },
+                    {
+                        "meal": "Ceia",
+                        "bound": "max",
+                        "target_share": 0.1,
+                        "observed_share": 0.1382947976878613,
+                        "amount": 0.03829479768786129
+                    }
+                ]
+            },
+            {
+                "day": "4",
+                "nutrients": {
+                    "Energia": 2187.15,
+                    "Umidade": 1059.2575000000002,
+                    "Carboidrato total": 282.08,
+                    "Carboidrato disponível": 219.47799999999995,
+                    "Proteína": 86.34450000000001,
+                    "Lipídios": 93.16699999999999,
+                    "Fibra alimentar": 62.75799999999998,
+                    "Álcool": 0.0,
+                    "Cinzas": 19.224999999999998,
+                    "Colesterol": 7.302,
+                    "Ácidos graxos saturados": 16.746499999999997,
+                    "Ácidos graxos monoinsaturados": 32.9455,
+                    "Ácidos graxos poliinsaturados": 36.105999999999995,
+                    "Ácidos graxos trans": 0.027500000000000004,
+                    "Cálcio": 609.8050000000001,
+                    "Ferro": 22.52,
+                    "Sódio": 1727.2645,
+                    "Magnésio": 694.63,
+                    "Fósforo": 1521.7099999999998,
+                    "Potássio": 4840.99,
+                    "Manganês": 7.79,
+                    "Zinco": 14.6105,
+                    "Cobre": 3.8425000000000002,
+                    "Selênio": 110.787,
+                    "Vitamina A (RE)": 4269.804,
+                    "Vitamina A (RAE)": 2148.8689999999997,
+                    "Vitamina D": 0.08450000000000002,
+                    "Alfa-tocoferol (Vitamina E)": 14.035499999999999,
+                    "Tiamina": 1.8445,
+                    "Riboflavina": 1.115,
+                    "Niacina": 22.613500000000002,
+                    "Vitamina B6": 1.6804999999999999,
+                    "Vitamina B12": 0.024,
+                    "Vitamina C": 195.707,
+                    "Equivalente de folato": 611.038,
+                    "Sal de adição": 3.4299999999999993,
+                    "Açúcar de adição": 16.0,
+                    "Gordura de adição": 0.0,
+                    "Proteína vegetal": 32.955000000000005,
+                    "Proteína animal": 0.0
+                },
+                "footprints": {
+                    "carbon_footprint": 1154.05,
+                    "water_footprint": 4616.35,
+                    "ecological_footprint": 9.544999999999998
+                },
+                "violations": [
+                    {
+                        "nutrient": "Carboidrato total",
+                        "bound": "minimum",
+                        "target": 302.5,
+                        "observed": 282.08,
+                        "amount": 20.420000000000016
+                    },
+                    {
+                        "nutrient": "Proteína",
+                        "bound": "minimum",
+                        "target": 110.0,
+                        "observed": 86.34450000000001,
+                        "amount": 23.65549999999999
+                    },
+                    {
+                        "nutrient": "Vitamina D",
+                        "bound": "minimum",
+                        "target": 15.0,
+                        "observed": 0.08450000000000002,
+                        "amount": 14.9155
+                    },
+                    {
+                        "nutrient": "Alfa-tocoferol (Vitamina E)",
+                        "bound": "minimum",
+                        "target": 15.0,
+                        "observed": 14.035499999999999,
+                        "amount": 0.964500000000001
+                    },
+                    {
+                        "nutrient": "Riboflavina",
+                        "bound": "minimum",
+                        "target": 1.3,
+                        "observed": 1.115,
+                        "amount": 0.18500000000000005
+                    },
+                    {
+                        "nutrient": "Vitamina B12",
+                        "bound": "minimum",
+                        "target": 2.4,
+                        "observed": 0.024,
+                        "amount": 2.376
+                    },
+                    {
+                        "nutrient": "Cálcio",
+                        "bound": "minimum",
+                        "target": 1000.0,
+                        "observed": 609.8050000000001,
+                        "amount": 390.19499999999994
+                    },
+                    {
+                        "nutrient": "Energia",
+                        "bound": "maximum",
+                        "target": 2100.0,
+                        "observed": 2187.15,
+                        "amount": 87.15000000000009
+                    }
+                ],
+                "meal_share_violations": [
+                    {
+                        "meal": "Café da Manhã",
+                        "bound": "min",
+                        "target_share": 0.15,
+                        "observed_share": 0.12493427519831744,
+                        "amount": 0.02506572480168255
+                    },
+                    {
+                        "meal": "Lanche da Manhã",
+                        "bound": "max",
+                        "target_share": 0.1,
+                        "observed_share": 0.11972201266488353,
+                        "amount": 0.01972201266488352
+                    },
+                    {
+                        "meal": "Almoço",
+                        "bound": "min",
+                        "target_share": 0.25,
+                        "observed_share": 0.16939853233660243,
+                        "amount": 0.08060146766339757
+                    },
+                    {
+                        "meal": "Lanche da Tarde",
+                        "bound": "max",
+                        "target_share": 0.15,
+                        "observed_share": 0.25229179525866996,
+                        "amount": 0.10229179525866997
+                    }
+                ]
+            },
+            {
+                "day": "5",
+                "nutrients": {
+                    "Energia": 1932.0999999999997,
+                    "Umidade": 1655.828,
+                    "Carboidrato total": 287.639,
+                    "Carboidrato disponível": 233.92399999999998,
+                    "Proteína": 71.77700000000002,
+                    "Lipídios": 67.127,
+                    "Álcool": 0.0,
+                    "Cinzas": 18.304000000000002,
+                    "Colesterol": 90.9,
+                    "Ácidos graxos saturados": 25.129,
+                    "Ácidos graxos monoinsaturados": 16.996000000000002,
+                    "Ácidos graxos poliinsaturados": 18.053000000000008,
+                    "Ácidos graxos trans": 0.974,
+                    "Cálcio": 1339.0880000000002,
+                    "Ferro": 12.915999999999999,
+                    "Sódio": 2289.046,
+                    "Magnésio": 422.012,
+                    "Fósforo": 1365.7319999999997,
+                    "Potássio": 3553.7059999999997,
+                    "Manganês": 4.414000000000001,
+                    "Zinco": 16.782,
+                    "Cobre": 2.5010000000000003,
+                    "Selênio": 31.499,
+                    "Vitamina A (RE)": 1369.0939999999998,
+                    "Vitamina A (RAE)": 742.7460000000001,
+                    "Vitamina D": 5.65,
+                    "Alfa-tocoferol (Vitamina E)": 14.827000000000002,
+                    "Riboflavina": 2.076,
+                    "Vitamina B12": 4.92,
+                    "Vitamina C": 152.12699999999995,
+                    "Equivalente de folato": 869.623,
+                    "Açúcar de adição": 12.0,
+                    "Proteína vegetal": 29.744,
+                    "Proteína animal": 24.2,
+                    "Fibra alimentar": 53.44100000000001,
+                    "Vitamina B6": 3.0359999999999996,
+                    "Sal de adição": 2.644,
+                    "Gordura de adição": 17.02,
+                    "Tiamina": 7.066999999999999,
+                    "Niacina": 10.84
+                },
+                "footprints": {
+                    "carbon_footprint": 1419.6000000000004,
+                    "water_footprint": 1946.1,
+                    "ecological_footprint": 10.930000000000001
+                },
+                "violations": [
+                    {
+                        "nutrient": "Energia",
+                        "bound": "minimum",
+                        "target": 2000.0,
+                        "observed": 1932.0999999999997,
+                        "amount": 67.90000000000032
+                    },
+                    {
+                        "nutrient": "Carboidrato total",
+                        "bound": "minimum",
+                        "target": 302.5,
+                        "observed": 287.639,
+                        "amount": 14.86099999999999
+                    },
+                    {
+                        "nutrient": "Proteína",
+                        "bound": "minimum",
+                        "target": 110.0,
+                        "observed": 71.77700000000002,
+                        "amount": 38.222999999999985
+                    },
+                    {
+                        "nutrient": "Vitamina D",
+                        "bound": "minimum",
+                        "target": 15.0,
+                        "observed": 5.65,
+                        "amount": 9.35
+                    },
+                    {
+                        "nutrient": "Alfa-tocoferol (Vitamina E)",
+                        "bound": "minimum",
+                        "target": 15.0,
+                        "observed": 14.827000000000002,
+                        "amount": 0.17299999999999827
+                    },
+                    {
+                        "nutrient": "Niacina",
+                        "bound": "minimum",
+                        "target": 16.0,
+                        "observed": 10.84,
+                        "amount": 5.16
+                    }
+                ],
+                "meal_share_violations": [
+                    {
+                        "meal": "Café da Manhã",
+                        "bound": "max",
+                        "target_share": 0.25,
+                        "observed_share": 0.2685161223539155,
+                        "amount": 0.018516122353915476
+                    },
+                    {
+                        "meal": "Lanche da Manhã",
+                        "bound": "max",
+                        "target_share": 0.1,
+                        "observed_share": 0.13632834739402724,
+                        "amount": 0.03632834739402724
+                    },
+                    {
+                        "meal": "Jantar",
+                        "bound": "min",
+                        "target_share": 0.2,
+                        "observed_share": 0.19377878991770614,
+                        "amount": 0.006221210082293871
+                    }
+                ]
+            }
+        ],
+        "mean_daily_nutrients": {
+            "Alfa-tocoferol (Vitamina E)": 15.196100000000001,
+            "Açúcar de adição": 8.8,
+            "Carboidrato disponível": 207.22259999999997,
+            "Carboidrato total": 262.647,
+            "Cinzas": 19.244799999999998,
+            "Cobre": 2.7273000000000005,
+            "Colesterol": 65.3994,
+            "Cálcio": 1112.6794000000002,
+            "Energia": 2028.0,
+            "Equivalente de folato": 624.1722,
+            "Ferro": 18.482799999999997,
+            "Fibra alimentar": 55.184799999999996,
+            "Fósforo": 1546.4591999999998,
+            "Gordura de adição": 6.3759999999999994,
+            "Lipídios": 81.4656,
+            "Magnésio": 515.3904,
+            "Manganês": 5.6195,
+            "Niacina": 16.169800000000002,
+            "Potássio": 3487.7043999999996,
+            "Proteína": 88.9135,
+            "Proteína animal": 16.94,
+            "Proteína vegetal": 30.6972,
+            "Riboflavina": 1.4729,
+            "Sal de adição": 3.1418,
+            "Selênio": 70.9596,
+            "Sódio": 2272.0321,
+            "Tiamina": 2.6671,
+            "Umidade": 1189.9153000000001,
+            "Vitamina A (RAE)": 1170.6598,
+            "Vitamina A (RE)": 2244.6425,
+            "Vitamina B12": 2.9768,
+            "Vitamina B6": 2.0873,
+            "Vitamina C": 179.3328,
+            "Vitamina D": 2.8579,
+            "Zinco": 15.7631,
+            "Ácidos graxos monoinsaturados": 25.923000000000002,
+            "Ácidos graxos poliinsaturados": 26.3041,
+            "Ácidos graxos saturados": 21.9692,
+            "Ácidos graxos trans": 0.7302000000000001,
+            "Álcool": 0.0
+        },
+        "mean_daily_footprints": {
+            "carbon_footprint": 1372.3,
+            "ecological_footprint": 9.073,
+            "water_footprint": 2742.9900000000002
+        },
+        "violation_count": 35,
+        "mean_daily_violations": [
+            {
+                "nutrient": "Carboidrato total",
+                "bound": "minimum",
+                "target": 302.5,
+                "observed": 262.647,
+                "amount": 39.85300000000001
+            },
+            {
+                "nutrient": "Proteína",
+                "bound": "minimum",
+                "target": 110.0,
+                "observed": 88.9135,
+                "amount": 21.0865
+            },
+            {
+                "nutrient": "Vitamina D",
+                "bound": "minimum",
+                "target": 15.0,
+                "observed": 2.8579,
+                "amount": 12.1421
+            }
+        ],
+        "lp_meal_energy_violations_after_rounding": [
+            {
+                "meal": "Lanche da Manhã",
+                "bound": "max",
+                "target_energy": 1000.0,
+                "observed_energy": 1355.4500000000003,
+                "amount": 355.4500000000003
+            },
+            {
+                "meal": "Jantar",
+                "bound": "min",
+                "target_energy": 2000.0,
+                "observed_energy": 1857.1,
+                "amount": 142.9000000000001
+            },
+            {
+                "meal": "Ceia",
+                "bound": "max",
+                "target_energy": 1000.0,
+                "observed_energy": 1048.95,
+                "amount": 48.950000000000045
+            }
+        ],
+        "ga_daily_meal_share_violation_count": 18
+    }
+}

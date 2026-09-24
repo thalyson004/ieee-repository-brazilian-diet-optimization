@@ -1,0 +1,615 @@
+{
+  "schema_version": "1.0",
+  "status": "passed",
+  "scope_rule": "all four methods may select foods only from the matching profile's staged base diets",
+  "profiles": [
+    "regular",
+    "vegetariana",
+    "vegana"
+  ],
+  "methods": [
+    "GA-Food",
+    "GA-Meal",
+    "LP-Food",
+    "LP-Meal"
+  ],
+  "checked_outputs": 66,
+  "ga_pool_provenance_complete": true,
+  "violations": [],
+  "records": [
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "execution_id": 1,
+      "source_food_count": 187,
+      "selected_unique_food_count": 63,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-regular/execution-001.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "execution_id": 2,
+      "source_food_count": 187,
+      "selected_unique_food_count": 55,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-regular/execution-002.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "execution_id": 3,
+      "source_food_count": 187,
+      "selected_unique_food_count": 54,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-regular/execution-003.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "execution_id": 4,
+      "source_food_count": 187,
+      "selected_unique_food_count": 58,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-regular/execution-004.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "execution_id": 5,
+      "source_food_count": 187,
+      "selected_unique_food_count": 56,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-regular/execution-005.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "execution_id": 6,
+      "source_food_count": 187,
+      "selected_unique_food_count": 54,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-regular/execution-006.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "execution_id": 7,
+      "source_food_count": 187,
+      "selected_unique_food_count": 57,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-regular/execution-007.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "execution_id": 8,
+      "source_food_count": 187,
+      "selected_unique_food_count": 60,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-regular/execution-008.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "execution_id": 9,
+      "source_food_count": 187,
+      "selected_unique_food_count": 59,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-regular/execution-009.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Food",
+      "execution_id": 10,
+      "source_food_count": 187,
+      "selected_unique_food_count": 60,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-regular/execution-010.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "execution_id": 1,
+      "source_food_count": 187,
+      "selected_unique_food_count": 65,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-regular/execution-001.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "execution_id": 2,
+      "source_food_count": 187,
+      "selected_unique_food_count": 56,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-regular/execution-002.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "execution_id": 3,
+      "source_food_count": 187,
+      "selected_unique_food_count": 53,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-regular/execution-003.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "execution_id": 4,
+      "source_food_count": 187,
+      "selected_unique_food_count": 56,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-regular/execution-004.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "execution_id": 5,
+      "source_food_count": 187,
+      "selected_unique_food_count": 58,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-regular/execution-005.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "execution_id": 6,
+      "source_food_count": 187,
+      "selected_unique_food_count": 54,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-regular/execution-006.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "execution_id": 7,
+      "source_food_count": 187,
+      "selected_unique_food_count": 52,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-regular/execution-007.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "execution_id": 8,
+      "source_food_count": 187,
+      "selected_unique_food_count": 55,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-regular/execution-008.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "execution_id": 9,
+      "source_food_count": 187,
+      "selected_unique_food_count": 47,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-regular/execution-009.json"
+    },
+    {
+      "profile": "regular",
+      "method": "GA-Meal",
+      "execution_id": 10,
+      "source_food_count": 187,
+      "selected_unique_food_count": 60,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-regular/execution-010.json"
+    },
+    {
+      "profile": "regular",
+      "method": "LP-Food",
+      "execution_id": 1,
+      "source_food_count": 187,
+      "selected_unique_food_count": 7,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/pl-alimentos/execution-regular.json"
+    },
+    {
+      "profile": "regular",
+      "method": "LP-Meal",
+      "execution_id": 1,
+      "source_food_count": 187,
+      "selected_unique_food_count": 27,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/pl-refeicoes/execution-regular.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "execution_id": 1,
+      "source_food_count": 207,
+      "selected_unique_food_count": 61,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegetariana/execution-001.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "execution_id": 2,
+      "source_food_count": 207,
+      "selected_unique_food_count": 60,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegetariana/execution-002.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "execution_id": 3,
+      "source_food_count": 207,
+      "selected_unique_food_count": 59,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegetariana/execution-003.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "execution_id": 4,
+      "source_food_count": 207,
+      "selected_unique_food_count": 61,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegetariana/execution-004.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "execution_id": 5,
+      "source_food_count": 207,
+      "selected_unique_food_count": 67,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegetariana/execution-005.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "execution_id": 6,
+      "source_food_count": 207,
+      "selected_unique_food_count": 65,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegetariana/execution-006.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "execution_id": 7,
+      "source_food_count": 207,
+      "selected_unique_food_count": 60,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegetariana/execution-007.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "execution_id": 8,
+      "source_food_count": 207,
+      "selected_unique_food_count": 64,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegetariana/execution-008.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "execution_id": 9,
+      "source_food_count": 207,
+      "selected_unique_food_count": 63,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegetariana/execution-009.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Food",
+      "execution_id": 10,
+      "source_food_count": 207,
+      "selected_unique_food_count": 65,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegetariana/execution-010.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "execution_id": 1,
+      "source_food_count": 207,
+      "selected_unique_food_count": 61,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegetariana/execution-001.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "execution_id": 2,
+      "source_food_count": 207,
+      "selected_unique_food_count": 57,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegetariana/execution-002.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "execution_id": 3,
+      "source_food_count": 207,
+      "selected_unique_food_count": 61,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegetariana/execution-003.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "execution_id": 4,
+      "source_food_count": 207,
+      "selected_unique_food_count": 62,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegetariana/execution-004.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "execution_id": 5,
+      "source_food_count": 207,
+      "selected_unique_food_count": 65,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegetariana/execution-005.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "execution_id": 6,
+      "source_food_count": 207,
+      "selected_unique_food_count": 61,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegetariana/execution-006.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "execution_id": 7,
+      "source_food_count": 207,
+      "selected_unique_food_count": 58,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegetariana/execution-007.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "execution_id": 8,
+      "source_food_count": 207,
+      "selected_unique_food_count": 59,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegetariana/execution-008.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "execution_id": 9,
+      "source_food_count": 207,
+      "selected_unique_food_count": 60,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegetariana/execution-009.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "GA-Meal",
+      "execution_id": 10,
+      "source_food_count": 207,
+      "selected_unique_food_count": 61,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegetariana/execution-010.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "LP-Food",
+      "execution_id": 1,
+      "source_food_count": 207,
+      "selected_unique_food_count": 7,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/pl-alimentos/execution-vegetariana.json"
+    },
+    {
+      "profile": "vegetariana",
+      "method": "LP-Meal",
+      "execution_id": 1,
+      "source_food_count": 207,
+      "selected_unique_food_count": 32,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/pl-refeicoes/execution-vegetariana.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "execution_id": 1,
+      "source_food_count": 155,
+      "selected_unique_food_count": 59,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegana/execution-001.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "execution_id": 2,
+      "source_food_count": 155,
+      "selected_unique_food_count": 67,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegana/execution-002.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "execution_id": 3,
+      "source_food_count": 155,
+      "selected_unique_food_count": 60,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegana/execution-003.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "execution_id": 4,
+      "source_food_count": 155,
+      "selected_unique_food_count": 53,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegana/execution-004.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "execution_id": 5,
+      "source_food_count": 155,
+      "selected_unique_food_count": 64,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegana/execution-005.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "execution_id": 6,
+      "source_food_count": 155,
+      "selected_unique_food_count": 49,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegana/execution-006.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "execution_id": 7,
+      "source_food_count": 155,
+      "selected_unique_food_count": 59,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegana/execution-007.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "execution_id": 8,
+      "source_food_count": 155,
+      "selected_unique_food_count": 58,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegana/execution-008.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "execution_id": 9,
+      "source_food_count": 155,
+      "selected_unique_food_count": 57,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegana/execution-009.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Food",
+      "execution_id": 10,
+      "source_food_count": 155,
+      "selected_unique_food_count": 56,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-alimentos/runs/dietas-vegana/execution-010.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "execution_id": 1,
+      "source_food_count": 155,
+      "selected_unique_food_count": 60,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegana/execution-001.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "execution_id": 2,
+      "source_food_count": 155,
+      "selected_unique_food_count": 61,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegana/execution-002.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "execution_id": 3,
+      "source_food_count": 155,
+      "selected_unique_food_count": 57,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegana/execution-003.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "execution_id": 4,
+      "source_food_count": 155,
+      "selected_unique_food_count": 57,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegana/execution-004.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "execution_id": 5,
+      "source_food_count": 155,
+      "selected_unique_food_count": 64,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegana/execution-005.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "execution_id": 6,
+      "source_food_count": 155,
+      "selected_unique_food_count": 53,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegana/execution-006.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "execution_id": 7,
+      "source_food_count": 155,
+      "selected_unique_food_count": 57,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegana/execution-007.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "execution_id": 8,
+      "source_food_count": 155,
+      "selected_unique_food_count": 57,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegana/execution-008.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "execution_id": 9,
+      "source_food_count": 155,
+      "selected_unique_food_count": 61,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegana/execution-009.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "GA-Meal",
+      "execution_id": 10,
+      "source_food_count": 155,
+      "selected_unique_food_count": 58,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/ag-refeicoes/runs/dietas-vegana/execution-010.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "LP-Food",
+      "execution_id": 1,
+      "source_food_count": 155,
+      "selected_unique_food_count": 7,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/pl-alimentos/execution-vegana.json"
+    },
+    {
+      "profile": "vegana",
+      "method": "LP-Meal",
+      "execution_id": 1,
+      "source_food_count": 155,
+      "selected_unique_food_count": 23,
+      "outside_profile_pool": [],
+      "artifact": "data/outputs/optimization_runs/pl-refeicoes/execution-vegana.json"
+    }
+  ]
+}

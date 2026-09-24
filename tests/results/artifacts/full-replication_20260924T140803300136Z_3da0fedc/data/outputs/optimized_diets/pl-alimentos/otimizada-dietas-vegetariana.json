@@ -1,0 +1,164 @@
+[
+    {
+        "1": {
+            "Refeição LP": [
+                {
+                    "alimento": "Soja, grão, cozido, drenado, c/ sal",
+                    "quantidade": "309.3"
+                },
+                {
+                    "alimento": "Beterraba, s/ casca, crua",
+                    "quantidade": "346.7"
+                },
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "23.6"
+                },
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "80.0"
+                },
+                {
+                    "alimento": "Espinafre, folha, cru",
+                    "quantidade": "710.9"
+                },
+                {
+                    "alimento": "Goiaba, inteira, in natura",
+                    "quantidade": "9.0"
+                },
+                {
+                    "alimento": "Leite, vaca, c/ chocolate",
+                    "quantidade": "317.8"
+                }
+            ]
+        },
+        "2": {
+            "Refeição LP": [
+                {
+                    "alimento": "Soja, grão, cozido, drenado, c/ sal",
+                    "quantidade": "309.3"
+                },
+                {
+                    "alimento": "Beterraba, s/ casca, crua",
+                    "quantidade": "346.7"
+                },
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "23.6"
+                },
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "80.0"
+                },
+                {
+                    "alimento": "Espinafre, folha, cru",
+                    "quantidade": "710.9"
+                },
+                {
+                    "alimento": "Goiaba, inteira, in natura",
+                    "quantidade": "9.0"
+                },
+                {
+                    "alimento": "Leite, vaca, c/ chocolate",
+                    "quantidade": "317.8"
+                }
+            ]
+        },
+        "3": {
+            "Refeição LP": [
+                {
+                    "alimento": "Soja, grão, cozido, drenado, c/ sal",
+                    "quantidade": "309.3"
+                },
+                {
+                    "alimento": "Beterraba, s/ casca, crua",
+                    "quantidade": "346.7"
+                },
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "23.6"
+                },
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "80.0"
+                },
+                {
+                    "alimento": "Espinafre, folha, cru",
+                    "quantidade": "710.9"
+                },
+                {
+                    "alimento": "Goiaba, inteira, in natura",
+                    "quantidade": "9.0"
+                },
+                {
+                    "alimento": "Leite, vaca, c/ chocolate",
+                    "quantidade": "317.8"
+                }
+            ]
+        },
+        "4": {
+            "Refeição LP": [
+                {
+                    "alimento": "Soja, grão, cozido, drenado, c/ sal",
+                    "quantidade": "309.3"
+                },
+                {
+                    "alimento": "Beterraba, s/ casca, crua",
+                    "quantidade": "346.7"
+                },
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "23.6"
+                },
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "80.0"
+                },
+                {
+                    "alimento": "Espinafre, folha, cru",
+                    "quantidade": "710.9"
+                },
+                {
+                    "alimento": "Goiaba, inteira, in natura",
+                    "quantidade": "9.0"
+                },
+                {
+                    "alimento": "Leite, vaca, c/ chocolate",
+                    "quantidade": "317.8"
+                }
+            ]
+        },
+        "5": {
+            "Refeição LP": [
+                {
+                    "alimento": "Soja, grão, cozido, drenado, c/ sal",
+                    "quantidade": "309.3"
+                },
+                {
+                    "alimento": "Beterraba, s/ casca, crua",
+                    "quantidade": "346.7"
+                },
+                {
+                    "alimento": "Cereal matinal, milho",
+                    "quantidade": "23.6"
+                },
+                {
+                    "alimento": "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+                    "quantidade": "80.0"
+                },
+                {
+                    "alimento": "Espinafre, folha, cru",
+                    "quantidade": "710.9"
+                },
+                {
+                    "alimento": "Goiaba, inteira, in natura",
+                    "quantidade": "9.0"
+                },
+                {
+                    "alimento": "Leite, vaca, c/ chocolate",
+                    "quantidade": "317.8"
+                }
+            ]
+        }
+    }
+]
