@@ -18,6 +18,7 @@ from diet_optimization.optimization.linear_optimizer import (
     _compute_food_vectors,
     _solve_relaxed_meal_level,
     food_names_in_diets,
+    optimize_food_level,
 )
 from diet_optimization.optimization.nutritional_targets import load_protocol
 from diet_optimization.optimization.hyperparameters import GeneticAlgorithmHyperparameters
@@ -163,6 +164,61 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertEqual(rows[0]["minimum_positive_g"], 100.0)
         self.assertIsNone(rows[0]["p05_positive_g"])
         self.assertFalse(rows[0]["is_serving_recommendation"])
+
+    def test_daily_quantity_support_uses_positive_daily_totals_and_labeled_fallback(self) -> None:
+        from tests.lp_daily_quantity_support_sensitivity import cap_map, daily_quantity_support
+
+        plans = [
+            {"1": {"Lunch": [
+                {"alimento": "rice", "quantidade": "40"},
+                {"alimento": "rice", "quantidade": "10"},
+            ]}},
+            {"1": {"Dinner": [{"alimento": "rice", "quantidade": "80"}]}},
+        ]
+        rows = daily_quantity_support(plans)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["positive_days"], 2)
+        self.assertEqual(rows[0]["minimum_positive_daily_g"], 50.0)
+        self.assertEqual(rows[0]["observed_max_daily_g"], 80.0)
+        self.assertIsNone(rows[0]["p95_positive_daily_g"])
+        self.assertEqual(rows[0]["p95_cap_basis"], "observed_max_fallback_below_20_positive_days")
+        self.assertEqual(cap_map(rows, "p95_positive_or_max_fallback"), {"rice": 80.0})
+
+    def test_lp_food_enforces_optional_daily_quantity_caps(self) -> None:
+        context = NutritionalContext(
+            tbca_map={"preferred": "1", "alternative": "2"},
+            tbca_database={
+                "1": {"nutrientes": {"Energy": 100.0}},
+                "2": {"nutrientes": {"Energy": 100.0}},
+            },
+            footprint_map={
+                "preferred": {"carbon_footprint": 1.0},
+                "alternative": {"carbon_footprint": 2.0},
+            },
+        )
+        diagnostics: dict = {}
+        solution = optimize_food_level(
+            context,
+            allowed_food_names={"preferred", "alternative"},
+            minimum_goals={"Energy": 100.0},
+            maximum_goals={"Energy": {"meta": 200.0, "tolerancia": 1.0}},
+            maximum_daily_grams_by_food={"preferred": 40.0, "alternative": 100.0},
+            diagnostics=diagnostics,
+        )
+        self.assertIsNotNone(solution)
+        day_items = solution[0]["1"]["Refeição LP"]
+        quantities = {item["alimento"]: float(item["quantidade"]) for item in day_items}
+        self.assertLessEqual(quantities.get("preferred", 0.0), 40.0)
+        self.assertEqual(diagnostics["daily_quantity_capped_food_count"], 2)
+        self.assertEqual(diagnostics["daily_quantity_caps_g"]["preferred"], 40.0)
+        with self.assertRaisesRegex(ValueError, "outside the eligible LP-Food pool"):
+            optimize_food_level(
+                context,
+                allowed_food_names={"preferred", "alternative"},
+                minimum_goals={"Energy": 100.0},
+                maximum_goals={"Energy": {"meta": 200.0, "tolerancia": 1.0}},
+                maximum_daily_grams_by_food={"not-in-pool": 40.0},
+            )
 
     def test_profile_ingredient_screen_flags_known_animal_terms_without_deciding(self) -> None:
         self.assertIn("meat_or_fish", risk_hits("Feijao cozido com carne de boi", "vegana"))

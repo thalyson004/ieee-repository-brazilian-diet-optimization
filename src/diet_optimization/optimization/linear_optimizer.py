@@ -296,6 +296,7 @@ def optimize_food_level(
     minimum_goals: Optional[Dict[str, float]] = None,
     maximum_goals: Optional[Dict[str, Dict[str, float]]] = None,
     slack_penalty: float = 1e4,
+    maximum_daily_grams_by_food: Optional[Dict[str, float]] = None,
 ) -> Optional[List[Dict]]:
     """Otimiza a dieta no nível de alimentos usando Programação Linear.
 
@@ -320,6 +321,18 @@ def optimize_food_level(
     """
     if not np.isfinite(slack_penalty) or slack_penalty <= 0:
         raise ValueError("slack_penalty must be a finite positive value")
+    raw_quantity_caps = maximum_daily_grams_by_food or {}
+    quantity_caps: Dict[str, float] = {}
+    for name, raw_cap in raw_quantity_caps.items():
+        if isinstance(raw_cap, bool):
+            raise ValueError(f"Daily quantity cap for {name!r} must be numeric")
+        try:
+            cap = float(raw_cap)
+        except (TypeError, ValueError) as error:
+            raise ValueError(f"Daily quantity cap for {name!r} must be numeric") from error
+        if not np.isfinite(cap) or cap < 0:
+            raise ValueError(f"Daily quantity cap for {name!r} must be finite and non-negative")
+        quantity_caps[name] = cap
     food_names, footprint_arrays, nutrient_arrays = _compute_food_vectors(
         nutritional_context.tbca_map,
         nutritional_context.tbca_database,
@@ -328,10 +341,26 @@ def optimize_food_level(
         minimum_goals,
         maximum_goals,
     )
+    unknown_caps = sorted(set(quantity_caps) - set(food_names))
+    if unknown_caps:
+        raise ValueError(
+            "Daily quantity caps were supplied for foods outside the eligible LP-Food pool: "
+            + ", ".join(unknown_caps)
+        )
 
     if diagnostics is not None:
         diagnostics.update({"allowed_source_food_count": len(allowed_food_names),
                             "eligible_mapped_food_count": len(food_names),
+                            "daily_quantity_caps_g": {
+                                name: float(quantity_caps[name])
+                                for name in food_names if name in quantity_caps
+                            },
+                            "daily_quantity_capped_food_count": sum(
+                                name in quantity_caps for name in food_names
+                            ),
+                            "candidate_foods_without_daily_quantity_cap": [
+                                name for name in food_names if name not in quantity_caps
+                            ],
                             "candidate_food_names": food_names,
                             "inequality_constraints": _nutrient_constraint_labels(
                                 minimum_goals, maximum_goals
@@ -347,7 +376,10 @@ def optimize_food_level(
     A_ub, b_ub = _build_nutrient_constraints(
         nutrient_arrays, n_foods, minimum_goals=minimum_goals, maximum_goals=maximum_goals
     )
-    bounds = [(0.0, None)] * n_foods
+    bounds = [
+        (0.0, float(quantity_caps[name]) if name in quantity_caps else None)
+        for name in food_names
+    ]
 
     result = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=bounds, method="highs")
     if diagnostics is not None:
@@ -364,7 +396,7 @@ def optimize_food_level(
         c_relax = np.concatenate([c, slack_penalty * np.ones(n_ineq)])
         # Coeficiente -1: A @ x - s <= b  <=>  A @ x <= b + s (relaxa corretamente)
         A_ub_relax = np.hstack([A_ub, -np.eye(n_ineq)])
-        bounds_relax = [(0.0, None)] * n_foods + [(0.0, None)] * n_ineq
+        bounds_relax = bounds + [(0.0, None)] * n_ineq
         result_relax = linprog(
             c_relax, A_ub=A_ub_relax, b_ub=b_ub, bounds=bounds_relax, method="highs"
         )
