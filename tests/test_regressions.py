@@ -101,6 +101,14 @@ class CommandCatalogTests(unittest.TestCase):
             payload = json.loads((PROJECT_ROOT / relative_path).read_text(encoding="utf-8"))
             self.assertTrue(payload)
 
+    def test_paired_sensitivity_summary_is_deterministic(self) -> None:
+        from tests.ga_sensitivity_review import paired_summary
+
+        result = paired_summary([1.0, 2.0, 3.0], seed=17)
+        self.assertEqual(result["n_pairs"], 3)
+        self.assertEqual(result["mean_difference"], 2.0)
+        self.assertEqual(result, paired_summary([1.0, 2.0, 3.0], seed=17))
+
     def test_missingness_complete_case_is_numeric_and_keeps_reported_zero(self) -> None:
         protocol = {
             "core_targets": [{"nutrient": "A", "tbca_field": "A"}],
