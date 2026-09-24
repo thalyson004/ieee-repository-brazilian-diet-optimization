@@ -110,7 +110,11 @@
     "Mandioca, farinha, crua",
     "Carne, boi, seca, cozida, s/ óleo",
     "Peixe, água salgada, atum, sólido, conserva, light",
-    "Queijo, pasteurizado (média de diferentes amostras)"
+    "Queijo, pasteurizado (média de diferentes amostras)",
+    "Leite, vaca, desnatado, em pó",
+    "Nabo, c/ casca, cru",
+    "Palmito, conversa, drenado (média de variedades - Pupunha e Juçara)",
+    "Peixe, água salgada, sardinha, filé, conserva, em óleo"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }

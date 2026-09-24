@@ -252,6 +252,16 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Queijo, pasteurizado (média de diferentes amostras)": (
                 "Queijo, pasteurizado (média de diferentes amostras), Brasil", "BRC0062G"
             ),
+            "Leite, vaca, desnatado, em pó": (
+                "Leite, vaca, desnatado, em pó, Brasil", "BRC0038G"
+            ),
+            "Nabo, c/ casca, cru": ("Nabo, c/ casca, cru, Brasil", "BRC0077B"),
+            "Palmito, conversa, drenado (média de variedades - Pupunha e Juçara)": (
+                "Palmito, conversa, drenado (média de variedades - Pupunha e Juçara), Brasil", "BRC0078B"
+            ),
+            "Peixe, água salgada, sardinha, filé, conserva, em óleo": (
+                "Peixe, água salgada, sardinha, filé, conserva, em óleo, Brasil", "BRC0073E"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
