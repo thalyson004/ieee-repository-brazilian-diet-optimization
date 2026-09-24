@@ -26,6 +26,7 @@ from diet_optimization.experiments.diagnostics import environment_metadata, eval
 from tests.validate_candidate_scope import item_names
 from tests.run_experiments import EXPERIMENTS, commands_for
 from tests.mapping_review_queue import build_queue, normalize_name
+from tests.portion_support_audit import collect_support
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -76,6 +77,7 @@ class CommandCatalogTests(unittest.TestCase):
             commands = commands_for(experiment, workspace, 10, 20260323)
             self.assertIn("tests.validate_candidate_scope", commands[-1])
         self.assertIn("tests.mapping_review_queue", commands_for("mapping-review-queue", workspace, 10, 20260323)[0])
+        self.assertIn("tests.portion_support_audit", commands_for("portion-support-audit", workspace, 10, 20260323)[0])
 
     def test_mapping_review_queue_never_auto_accepts_fuzzy_candidates(self) -> None:
         queue = build_queue()
@@ -86,6 +88,14 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertEqual(normalize_name("Pão francês, c/ óleo"), "pao frances oleo")
         tomato = next(row for row in queue if row["food_original"].startswith("Tomate"))
         self.assertIn("Tomate", tomato["suggestions"][0]["candidate_name"])
+
+    def test_portion_support_keeps_profile_meal_observations_separate(self) -> None:
+        plans = [{"1": {"Lunch": [{"alimento": "beans", "quantidade": 100}]}}]
+        rows = collect_support("regular", plans)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["minimum_positive_g"], 100.0)
+        self.assertIsNone(rows[0]["p05_positive_g"])
+        self.assertFalse(rows[0]["is_serving_recommendation"])
 
     def test_ga_execution_seeds_are_stable_and_independent(self) -> None:
         seeds = {

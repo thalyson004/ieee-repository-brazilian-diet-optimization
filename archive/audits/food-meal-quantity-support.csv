@@ -1,0 +1,1034 @@
+﻿profile,food_name,meal_name,positive_occurrences,distinct_source_diets,minimum_positive_g,maximum_positive_g,p05_positive_g,p95_positive_g,robust_percentile_sensitivity_available,support_strength,is_serving_recommendation
+regular,"Abacate, polpa, in natura",Ceia,17,17,100.0,120.0,,,False,observed_support,False
+regular,"Abacate, polpa, in natura",Lanche da Manhã,6,6,80.0,100.0,,,False,observed_support,False
+regular,"Abacaxi, polpa, in natura",Café da Manhã,7,7,100.0,100.0,,,False,observed_support,False
+regular,"Abobrinha, italiana, c/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,3,3,80.0,80.0,,,False,weak_lt_5_occurrences,False
+regular,"Abobrinha, italiana, c/ casca, crua",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Abobrinha, italiana, c/ casca, crua",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Abobrinha, italiana, c/ casca, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,21,20,60.0,100.0,80.0,100.0,True,observed_support,False
+regular,"Abobrinha, italiana, c/ casca, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,27,24,80.0,120.0,86.0,100.0,True,observed_support,False
+regular,"Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal",Almoço,10,10,100.0,100.0,,,False,observed_support,False
+regular,"Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal",Jantar,6,6,100.0,120.0,,,False,observed_support,False
+regular,"Acelga, crua",Jantar,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Alface, crua",Almoço,62,50,50.0,100.0,50.0,50.0,True,observed_support,False
+regular,"Alface, crua",Jantar,20,16,30.0,100.0,49.0,52.5,True,observed_support,False
+regular,"Amendoim, grão, cru",Lanche da Manhã,4,4,15.0,20.0,,,False,weak_lt_5_occurrences,False
+regular,"Amendoim, grão, cru",Lanche da Tarde,7,7,20.0,20.0,,,False,observed_support,False
+regular,"Amendoim, torrado, c/ sal",Lanche da Manhã,11,11,15.0,30.0,,,False,observed_support,False
+regular,"Amendoim, torrado, c/ sal",Lanche da Tarde,7,7,20.0,20.0,,,False,observed_support,False
+regular,"Amêndoa, torrada, c/ sal",Ceia,3,3,10.0,15.0,,,False,weak_lt_5_occurrences,False
+regular,"Amêndoa, torrada, c/ sal",Lanche da Manhã,2,2,15.0,15.0,,,False,weak_lt_5_occurrences,False
+regular,"Arroz com brócolis, c/ arroz polido, c/ sal",Almoço,7,7,180.0,180.0,,,False,observed_support,False
+regular,"Arroz com brócolis, c/ arroz polido, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",Almoço,80,48,120.0,200.0,120.0,180.0,True,observed_support,False
+regular,"Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",Jantar,21,20,100.0,150.0,100.0,150.0,True,observed_support,False
+regular,"Arroz, polido, cozido, c/ óleo, cebola e alho, c/ sal",Almoço,53,35,100.0,200.0,112.0,188.0,True,observed_support,False
+regular,"Arroz, polido, cozido, c/ óleo, cebola e alho, c/ sal",Jantar,30,27,100.0,200.0,100.0,166.5,True,observed_support,False
+regular,"Aveia, crua (média de diferentes tipos)",Café da Manhã,3,3,50.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Aveia, crua (média de diferentes tipos)",Ceia,2,2,20.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Aveia, crua (média de diferentes tipos)",Lanche da Manhã,61,48,15.0,30.0,20.0,30.0,True,observed_support,False
+regular,"Aveia, crua (média de diferentes tipos)",Lanche da Tarde,28,23,20.0,40.0,20.0,30.0,True,observed_support,False
+regular,"Azeite, oliva",Almoço,52,14,5.0,15.0,6.65,15.0,True,observed_support,False
+regular,"Azeite, oliva",Jantar,10,6,5.0,10.0,,,False,observed_support,False
+regular,Baba de moça,Almoço,1,1,250.0,250.0,,,False,weak_lt_5_occurrences,False
+regular,Baba de moça,Jantar,2,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Banana, da terra, assada, s/ adição de ingredientes",Ceia,9,9,100.0,120.0,,,False,observed_support,False
+regular,"Banana, da terra, assada, s/ adição de ingredientes",Lanche da Manhã,8,8,100.0,120.0,,,False,observed_support,False
+regular,"Banana, in natura",Café da Manhã,6,6,100.0,100.0,,,False,observed_support,False
+regular,"Banana, in natura",Ceia,2,2,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Banana, in natura",Lanche da Manhã,35,28,100.0,120.0,100.0,106.0,True,observed_support,False
+regular,"Banana, in natura",Lanche da Tarde,40,29,50.0,150.0,50.0,150.0,True,observed_support,False
+regular,"Batata baroa (mandioquinha, batata salsa), cozida, drenada, s/ óleo, c/ sal",Almoço,3,3,120.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Batata baroa (mandioquinha, batata salsa), cozida, drenada, s/ óleo, c/ sal",Jantar,14,14,130.0,200.0,,,False,observed_support,False
+regular,"Batata, doce, s/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,23,23,150.0,250.0,150.0,250.0,True,observed_support,False
+regular,"Batata, doce, s/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,29,28,120.0,200.0,150.0,200.0,True,observed_support,False
+regular,"Batata, inglesa, s/ casca, assada, s/ óleo, c/ sal",Jantar,3,3,180.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Batata, inglesa, s/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,11,11,150.0,250.0,,,False,observed_support,False
+regular,"Batata, inglesa, s/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,6,6,150.0,250.0,,,False,observed_support,False
+regular,"Batata, inglesa, sauté (c/ margarina e salsa), c/ sal",Jantar,2,2,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Bebida, café - infusão 8% - média, c/ leite (meio a meio), ""média"", s/ açúcar",Café da Manhã,12,12,200.0,200.0,,,False,observed_support,False
+regular,"Bebida, café, infusão 10%, s/ açúcar",Café da Manhã,77,43,150.0,200.0,150.0,200.0,True,observed_support,False
+regular,"Bebida, café, infusão 10%, s/ açúcar",Lanche da Tarde,14,14,100.0,200.0,,,False,observed_support,False
+regular,"Bebida, chá, infusão, s/ açúcar (média de várias ervas)",Ceia,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Bebida, chá, infusão, s/ açúcar (média de várias ervas)",Lanche da Tarde,2,2,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Bebida, chá, mate, infusão 5%, s/ açúcar",Lanche da Tarde,7,7,200.0,200.0,,,False,observed_support,False
+regular,"Bebida, chá, preto, infusão 5%, s/ açúcar",Café da Manhã,3,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Bebida, chá, preto, infusão 5%, s/ açúcar",Ceia,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Berinjela, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,15,15,100.0,120.0,,,False,observed_support,False
+regular,"Beterraba, cozida, drenada, s/ óleo, c/ sal",Almoço,20,20,60.0,100.0,60.0,100.0,True,observed_support,False
+regular,"Beterraba, cozida, drenada, s/ óleo, c/ sal",Jantar,6,6,80.0,100.0,,,False,observed_support,False
+regular,"Beterraba, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,1,1,80.0,80.0,,,False,weak_lt_5_occurrences,False
+regular,"Beterraba, s/ casca, crua",Almoço,6,6,50.0,50.0,,,False,observed_support,False
+regular,"Beterraba, s/ casca, crua",Jantar,3,3,50.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Biscoito, arroz",Café da Manhã,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Biscoito, arroz",Ceia,5,5,20.0,30.0,,,False,observed_support,False
+regular,"Biscoito, arroz",Lanche da Tarde,27,26,20.0,40.0,20.0,40.0,True,observed_support,False
+regular,"Biscoito, doce, maisena",Ceia,5,5,20.0,20.0,,,False,observed_support,False
+regular,"Biscoito, doce, maisena",Lanche da Tarde,11,11,20.0,30.0,,,False,observed_support,False
+regular,"Biscoito, doce, simples (média de diferentes tipos)",Lanche da Tarde,1,1,20.0,20.0,,,False,weak_lt_5_occurrences,False
+regular,"Biscoito, salgado, cream cracker",Ceia,2,2,20.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Biscoito, salgado, cream cracker",Lanche da Tarde,6,6,30.0,40.0,,,False,observed_support,False
+regular,"Brócolis, flor, refogado (c/ óleo, cebola e alho), c/ sal",Almoço,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",Almoço,22,17,80.0,200.0,80.0,200.0,True,observed_support,False
+regular,"Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",Jantar,39,36,80.0,100.0,80.0,100.0,True,observed_support,False
+regular,"Canelone, c/ ricota, s/ molho, caseiro, c/ sal",Jantar,4,4,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Carne, boi, acém moída, cozida, c/ óleo, cebola e alho, c/ sal",Almoço,8,8,120.0,150.0,,,False,observed_support,False
+regular,"Carne, boi, acém moída, cozida, c/ óleo, cebola e alho, c/ sal",Jantar,3,3,100.0,120.0,,,False,weak_lt_5_occurrences,False
+regular,"Carne, boi, acém, moída, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,9,9,120.0,150.0,,,False,observed_support,False
+regular,"Carne, boi, alcatra, frita (c/ óleo de soja), c/ sal",Almoço,2,2,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Carne, boi, contrafilé, s/ gordura, grelhada/assada, s/ óleo, c/ sal",Almoço,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Carne, boi, contrafilé, s/ gordura, grelhada/assada, s/ óleo, c/ sal",Jantar,9,9,100.0,150.0,,,False,observed_support,False
+regular,"Carne, boi, filé mignon, s/ gordura, grelhada/assada, s/ óleo, c/ sal",Almoço,18,18,100.0,150.0,,,False,observed_support,False
+regular,"Carne, boi, filé mignon, s/ gordura, grelhada/assada, s/ óleo, c/ sal",Jantar,3,3,100.0,120.0,,,False,weak_lt_5_occurrences,False
+regular,"Carne, boi, lagarto, cozida, s/ óleo, c/ sal",Almoço,12,12,100.0,150.0,,,False,observed_support,False
+regular,"Carne, boi, lagarto, cozida, s/ óleo, c/ sal",Jantar,4,4,120.0,120.0,,,False,weak_lt_5_occurrences,False
+regular,"Carne, boi, maminha, grelhada/assada, s/ óleo, c/ sal",Almoço,8,8,100.0,150.0,,,False,observed_support,False
+regular,"Carne, boi, maminha, grelhada/assada, s/ óleo, c/ sal",Jantar,10,10,100.0,120.0,,,False,observed_support,False
+regular,"Carne, boi, miolo de alcatra, grelhada/assada, s/ óleo, c/ sal",Almoço,15,12,100.0,150.0,,,False,observed_support,False
+regular,"Carne, boi, miolo de alcatra, grelhada/assada, s/ óleo, c/ sal",Jantar,1,1,120.0,120.0,,,False,weak_lt_5_occurrences,False
+regular,"Carne, boi, músculo, s/ gordura, cozida, s/ óleo, c/ sal",Almoço,2,2,120.0,120.0,,,False,weak_lt_5_occurrences,False
+regular,"Carne, boi, músculo, s/ gordura, cozida, s/ óleo, c/ sal",Jantar,11,11,100.0,120.0,,,False,observed_support,False
+regular,"Carne, boi, patinho, s/ gordura, grelhada/assada, s/ óleo, c/ sal",Almoço,57,49,100.0,150.0,100.0,150.0,True,observed_support,False
+regular,"Carne, boi, patinho, s/ gordura, grelhada/assada, s/ óleo, c/ sal",Jantar,11,9,100.0,150.0,,,False,observed_support,False
+regular,"Carne, boi, seca, cozida, s/ óleo",Almoço,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Carne, boi, seca, cozida, s/ óleo",Jantar,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Carne, frango, coxa, c/ pele, assada, s/ óleo, c/ sal",Almoço,9,9,100.0,180.0,,,False,observed_support,False
+regular,"Carne, frango, coxa, s/ pele, cozida, s/ óleo, c/ sal",Almoço,6,6,120.0,120.0,,,False,observed_support,False
+regular,"Carne, frango, peito, s/ pele, cozida, drenada, s/ óleo, c/ sal",Jantar,6,6,120.0,120.0,,,False,observed_support,False
+regular,"Carne, frango, peito, s/ pele, grelhada, s/ gordura, s/ óleo, c/ sal",Almoço,16,13,120.0,180.0,,,False,observed_support,False
+regular,"Carne, frango, peito, s/ pele, grelhada, s/ gordura, s/ óleo, c/ sal",Jantar,66,49,100.0,150.0,100.0,150.0,True,observed_support,False
+regular,"Carne, frango, peito, s/ pele, refogado (c/ óleo, cebola e alho), c/ sal",Almoço,2,2,120.0,120.0,,,False,weak_lt_5_occurrences,False
+regular,"Carne, frango, peito, s/ pele, refogado (c/ óleo, cebola e alho), c/ sal",Jantar,10,10,100.0,120.0,,,False,observed_support,False
+regular,"Carne, peru, peito, s/ pele, grelhada/assada, s/ óleo, c/ sal",Jantar,7,7,120.0,120.0,,,False,observed_support,False
+regular,"Carne, porco, lombo, grelhada/assada, s/ óleo, c/ sal",Almoço,32,32,100.0,180.0,100.0,163.5,True,observed_support,False
+regular,"Carne, porco, lombo, grelhada/assada, s/ óleo, c/ sal",Jantar,13,13,100.0,150.0,,,False,observed_support,False
+regular,"Castanha de caju, crua, s/ sal",Lanche da Manhã,24,24,15.0,20.0,15.0,20.0,True,observed_support,False
+regular,"Castanha de caju, crua, s/ sal",Lanche da Tarde,3,3,20.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Castanha do Brasil, crua",Ceia,18,14,5.0,30.0,,,False,observed_support,False
+regular,"Castanha do Brasil, crua",Lanche da Manhã,27,24,10.0,30.0,10.0,30.0,True,observed_support,False
+regular,"Castanha do Brasil, crua",Lanche da Tarde,25,20,10.0,20.0,10.0,20.0,True,observed_support,False
+regular,"Cebola, branca, assada, s/ óleo, c/ sal",Jantar,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Cenoura, s/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,21,18,80.0,100.0,80.0,100.0,True,observed_support,False
+regular,"Cenoura, s/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,44,31,80.0,100.0,80.0,100.0,True,observed_support,False
+regular,"Cenoura, s/ casca, crua",Almoço,10,9,50.0,60.0,,,False,observed_support,False
+regular,"Cenoura, s/ casca, crua",Jantar,3,3,50.0,60.0,,,False,weak_lt_5_occurrences,False
+regular,"Cereais, barra (média de diferentes sabores)",Lanche da Tarde,4,4,20.0,20.0,,,False,weak_lt_5_occurrences,False
+regular,"Cereais, granola, caseira",Ceia,1,1,20.0,20.0,,,False,weak_lt_5_occurrences,False
+regular,"Cereais, granola, caseira",Lanche da Manhã,10,10,20.0,30.0,,,False,observed_support,False
+regular,"Cereais, granola, caseira",Lanche da Tarde,10,10,30.0,30.0,,,False,observed_support,False
+regular,"Cereal matinal, milho",Lanche da Tarde,8,8,30.0,40.0,,,False,observed_support,False
+regular,"Chia, semente, seca",Lanche da Manhã,7,7,10.0,10.0,,,False,observed_support,False
+regular,"Chia, semente, seca",Lanche da Tarde,1,1,10.0,10.0,,,False,weak_lt_5_occurrences,False
+regular,"Chicória, crua",Almoço,9,9,50.0,50.0,,,False,observed_support,False
+regular,"Chuchu, s/ casca, cozido, drenado, s/ óleo, c/ sal",Jantar,7,7,100.0,120.0,,,False,observed_support,False
+regular,"Chuchu, s/ casca, refogado (c/ óleo, cebola e alho), c/ sal",Jantar,10,10,100.0,100.0,,,False,observed_support,False
+regular,"Coco, água",Café da Manhã,2,2,200.0,250.0,,,False,weak_lt_5_occurrences,False
+regular,"Couve, crua",Almoço,7,7,40.0,50.0,,,False,observed_support,False
+regular,"Couve, crua",Jantar,5,5,50.0,50.0,,,False,observed_support,False
+regular,"Couve, manteiga, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,32,32,60.0,100.0,71.0,100.0,True,observed_support,False
+regular,"Couve, manteiga, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,4,4,50.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Couve-flor, cozida, drenada, s/ óleo, c/ sal",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Couve-flor, cozida, drenada, s/ óleo, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,Cream cheese (média de diferentes sabores),Lanche da Tarde,4,4,30.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Cuscuz de milho, cozido, c/ sal",Almoço,3,3,120.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Cuscuz de milho, cozido, c/ sal",Café da Manhã,46,45,100.0,150.0,100.0,142.5,True,observed_support,False
+regular,"Ervilha, grão, seca, partida, cozida, drenada, s/ óleo, c/ sal",Almoço,5,5,100.0,100.0,,,False,observed_support,False
+regular,"Ervilha, grão, seca, partida, cozida, drenada, s/ óleo, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Espinafre, folha, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,17,17,80.0,100.0,,,False,observed_support,False
+regular,"Espinafre, folha, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,11,11,80.0,100.0,,,False,observed_support,False
+regular,"Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Almoço,116,50,80.0,150.0,95.0,120.0,True,observed_support,False
+regular,"Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Jantar,11,11,80.0,120.0,,,False,observed_support,False
+regular,"Feijão, fradinho, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Almoço,14,14,100.0,120.0,,,False,observed_support,False
+regular,"Feijão, fradinho, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Jantar,8,8,100.0,100.0,,,False,observed_support,False
+regular,"Feijão, guandu, grão, seco, cozido (50% grão e 50% caldo), s/ óleo, cebola e alho, c/ sal",Almoço,9,9,100.0,120.0,,,False,observed_support,False
+regular,"Feijão, guandu, grão, seco, cozido (50% grão e 50% caldo), s/ óleo, cebola e alho, c/ sal",Jantar,5,5,100.0,100.0,,,False,observed_support,False
+regular,"Feijão, preto, cozido (50% grão e 50% caldo), c/ carne de boi, músculo, s/ gordura, c/ óleo, cebola e alho, c/ sal",Almoço,17,17,100.0,200.0,,,False,observed_support,False
+regular,"Goiaba, inteira, in natura",Café da Manhã,9,9,100.0,120.0,,,False,observed_support,False
+regular,"Goiaba, inteira, in natura",Ceia,5,5,100.0,200.0,,,False,observed_support,False
+regular,"Goiaba, inteira, in natura",Lanche da Manhã,3,3,120.0,120.0,,,False,weak_lt_5_occurrences,False
+regular,"Goiaba, inteira, in natura",Lanche da Tarde,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Grão de bico, cozido, dreando, s/ óleo, c/ sal",Almoço,17,17,100.0,120.0,,,False,observed_support,False
+regular,"Grão de bico, cozido, dreando, s/ óleo, c/ sal",Jantar,1,1,120.0,120.0,,,False,weak_lt_5_occurrences,False
+regular,"Inhame, s/ casca, cozido, drenado, s/ óleo, c/ sal",Almoço,3,3,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Iogurte, frutas, diet",Lanche da Manhã,8,8,170.0,170.0,,,False,observed_support,False
+regular,"Iogurte, frutas, diet",Lanche da Tarde,7,7,150.0,150.0,,,False,observed_support,False
+regular,"Iogurte, integral (média de diferentes sabores)",Ceia,3,3,170.0,170.0,,,False,weak_lt_5_occurrences,False
+regular,"Iogurte, integral (média de diferentes sabores)",Lanche da Manhã,10,10,170.0,170.0,,,False,observed_support,False
+regular,"Iogurte, integral (média de diferentes sabores)",Lanche da Tarde,11,11,170.0,170.0,,,False,observed_support,False
+regular,"Iogurte, natural",Ceia,14,13,170.0,170.0,,,False,observed_support,False
+regular,"Iogurte, natural",Lanche da Manhã,7,7,170.0,170.0,,,False,observed_support,False
+regular,"Iogurte, natural",Lanche da Tarde,20,16,170.0,250.0,170.0,174.0,True,observed_support,False
+regular,"Iogurte, natural, desnatado",Café da Manhã,3,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Iogurte, natural, desnatado",Ceia,25,22,170.0,250.0,170.0,234.0,True,observed_support,False
+regular,"Iogurte, natural, desnatado",Lanche da Manhã,40,31,170.0,200.0,170.0,170.0,True,observed_support,False
+regular,"Iogurte, natural, desnatado",Lanche da Tarde,63,40,170.0,170.0,170.0,170.0,True,observed_support,False
+regular,"Kiwi, in natura",Café da Manhã,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Kiwi, in natura",Lanche da Tarde,6,6,100.0,100.0,,,False,observed_support,False
+regular,"Laranja, in natura",Almoço,3,3,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Laranja, in natura",Lanche da Manhã,2,2,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Leite, vaca, desnatado, em pó",Ceia,1,1,20.0,20.0,,,False,weak_lt_5_occurrences,False
+regular,"Leite, vaca, desnatado, fluído (média de diferentes amostras)",Café da Manhã,5,5,150.0,200.0,,,False,observed_support,False
+regular,"Leite, vaca, desnatado, fluído (média de diferentes amostras)",Ceia,94,50,150.0,300.0,150.0,200.0,True,observed_support,False
+regular,"Leite, vaca, desnatado, fluído (média de diferentes amostras)",Lanche da Tarde,4,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Leite, vaca, integral, em pó",Ceia,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Leite, vaca, integral, fluído",Café da Manhã,19,17,150.0,200.0,,,False,observed_support,False
+regular,"Leite, vaca, integral, fluído",Ceia,30,28,150.0,200.0,200.0,200.0,True,observed_support,False
+regular,"Leite, vaca, integral, fluído",Lanche da Tarde,2,2,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Leite, vaca, semidesnatado, UHT",Café da Manhã,4,4,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Leite, vaca, semidesnatado, UHT",Ceia,8,7,200.0,200.0,,,False,observed_support,False
+regular,"Leite, vaca, semidesnatado, UHT",Lanche da Tarde,6,6,200.0,200.0,,,False,observed_support,False
+regular,"Lentilha, cozida, drenada, c/ óleo, cebola e alho, c/ sal",Almoço,38,37,80.0,150.0,97.0,150.0,True,observed_support,False
+regular,"Lentilha, cozida, drenada, c/ óleo, cebola e alho, c/ sal",Jantar,8,8,80.0,120.0,,,False,observed_support,False
+regular,"Linhaça, semente",Lanche da Manhã,20,20,10.0,15.0,10.0,15.0,True,observed_support,False
+regular,"Linhaça, semente",Lanche da Tarde,1,1,10.0,10.0,,,False,weak_lt_5_occurrences,False
+regular,"Macarrão, trigo, c/ ovos, c/ alho e óleo, c/ sal",Jantar,7,7,100.0,120.0,,,False,observed_support,False
+regular,"Macarrão, trigo, c/ vegetais, c/ sal",Almoço,4,4,180.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Macarrão, trigo, c/ vegetais, c/ sal",Jantar,3,3,180.0,250.0,,,False,weak_lt_5_occurrences,False
+regular,"Macarrão, trigo, cozido, drenado, s/ óleo, c/ sal",Almoço,10,10,120.0,200.0,,,False,observed_support,False
+regular,"Macarrão, trigo, cozido, drenado, s/ óleo, c/ sal",Jantar,51,30,100.0,200.0,120.0,200.0,True,observed_support,False
+regular,"Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",Almoço,9,9,120.0,200.0,,,False,observed_support,False
+regular,"Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",Jantar,26,19,100.0,150.0,100.0,150.0,True,observed_support,False
+regular,"Mamão, Papaia, polpa, in natura",Café da Manhã,16,13,150.0,250.0,,,False,observed_support,False
+regular,"Mamão, Papaia, polpa, in natura",Ceia,5,5,100.0,150.0,,,False,observed_support,False
+regular,"Mamão, Papaia, polpa, in natura",Lanche da Manhã,45,38,120.0,200.0,150.0,200.0,True,observed_support,False
+regular,"Mamão, Papaia, polpa, in natura",Lanche da Tarde,2,2,120.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Mandioca (aipim, macaxeira), s/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,32,32,120.0,180.0,120.0,163.5,True,observed_support,False
+regular,"Mandioca (aipim, macaxeira), s/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,4,4,120.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Mandioca, farinha, crua",Almoço,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Mandioca, farinha, crua",Jantar,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Manteiga, c/ sal",Café da Manhã,13,13,10.0,15.0,,,False,observed_support,False
+regular,"Manteiga, c/ sal",Lanche da Tarde,1,1,10.0,10.0,,,False,weak_lt_5_occurrences,False
+regular,"Maçã, c/ casca, in natura",Ceia,14,12,100.0,130.0,,,False,observed_support,False
+regular,"Maçã, c/ casca, in natura",Lanche da Manhã,31,23,130.0,200.0,130.0,200.0,True,observed_support,False
+regular,"Maçã, c/ casca, in natura",Lanche da Tarde,38,32,130.0,150.0,130.0,130.0,True,observed_support,False
+regular,"Melancia, polpa, in natura",Lanche da Manhã,17,17,200.0,300.0,,,False,observed_support,False
+regular,"Melão, polpa, in natura",Café da Manhã,5,5,200.0,250.0,,,False,observed_support,False
+regular,"Melão, polpa, in natura",Ceia,2,2,150.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Melão, polpa, in natura",Lanche da Manhã,23,23,150.0,250.0,200.0,200.0,True,observed_support,False
+regular,"Mingau, de amido de milho (maisena)",Café da Manhã,5,5,200.0,200.0,,,False,observed_support,False
+regular,"Morango, in natura",Lanche da Tarde,10,10,150.0,150.0,,,False,observed_support,False
+regular,"Nabo, c/ casca, cru",Jantar,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Noz, crua",Ceia,9,9,15.0,20.0,,,False,observed_support,False
+regular,"Noz, crua",Lanche da Manhã,8,8,15.0,15.0,,,False,observed_support,False
+regular,"Omelete, c/ ovo de galinha, c/ queijo muçarela, c/ sal",Jantar,3,3,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Omelete, frios, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Omelete, vegetais, c/ sal",Almoço,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Omelete, vegetais, c/ sal",Jantar,24,24,120.0,250.0,124.5,200.0,True,observed_support,False
+regular,"Ovo, galinha, inteiro, cozido, c/ sal",Café da Manhã,49,43,50.0,100.0,50.0,100.0,True,observed_support,False
+regular,"Ovo, galinha, inteiro, cozido, c/ sal",Jantar,10,10,50.0,150.0,,,False,observed_support,False
+regular,"Ovo, galinha, inteiro, frito (c/ óleo de soja), c/ sal",Café da Manhã,3,3,50.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Ovo, galinha, inteiro, frito (c/ óleo de soja), c/ sal",Jantar,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Ovo, galinha, mexido, c/ margarina, c/ sal",Café da Manhã,54,44,50.0,120.0,50.0,100.0,True,observed_support,False
+regular,"Ovo, galinha, mexido, c/ margarina, c/ sal",Jantar,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Peixe, água doce, filé, ensopado (c/ cebola, tomate e pimentão), c/ óleo, c/ sal (média de 7 espécies)",Almoço,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Peixe, água doce, filé, grelhado/assado, s/ óleo, c/ sal (média de 7 espécies)",Almoço,7,7,120.0,200.0,,,False,observed_support,False
+regular,"Peixe, água doce, filé, grelhado/assado, s/ óleo, c/ sal (média de 7 espécies)",Jantar,10,10,120.0,150.0,,,False,observed_support,False
+regular,"Peixe, água doce, filé, grelhado/assado, s/ óleo, s/ sal (média de 7 espécies)",Almoço,6,6,120.0,150.0,,,False,observed_support,False
+regular,"Peixe, água doce, filé, grelhado/assado, s/ óleo, s/ sal (média de 7 espécies)",Jantar,3,3,100.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Peixe, água doce, filé, refogado (c/ óleo, cebola e alho), c/ sal (média de 7 espécies)",Jantar,1,1,130.0,130.0,,,False,weak_lt_5_occurrences,False
+regular,"Peixe, água salgada, atum, assado/grelhado, s/ óleo, c/ sal",Almoço,4,4,120.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Peixe, água salgada, atum, assado/grelhado, s/ óleo, c/ sal",Jantar,12,12,120.0,180.0,,,False,observed_support,False
+regular,"Peixe, água salgada, atum, sólido, conserva, light",Jantar,1,1,60.0,60.0,,,False,weak_lt_5_occurrences,False
+regular,"Peixe, água salgada, atum, sólido, conserva, light",Lanche da Tarde,1,1,60.0,60.0,,,False,weak_lt_5_occurrences,False
+regular,"Peixe, água salgada, filé/ posta, assado/grelhado, s/ óleo, c/ sal (média de várias espécies)",Almoço,18,18,120.0,150.0,,,False,observed_support,False
+regular,"Peixe, água salgada, filé/ posta, assado/grelhado, s/ óleo, c/ sal (média de várias espécies)",Jantar,6,6,120.0,150.0,,,False,observed_support,False
+regular,"Peixe, água salgada, sardinha, filé, conserva, em óleo",Almoço,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Peixe, água salgada, sardinha, filé, conserva, em óleo",Jantar,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Pepino, c/ casca, cru",Almoço,4,4,50.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Pepino, c/ casca, cru",Jantar,8,8,50.0,50.0,,,False,observed_support,False
+regular,"Pera, in natura",Ceia,11,11,100.0,150.0,,,False,observed_support,False
+regular,"Pera, in natura",Lanche da Manhã,23,23,130.0,200.0,130.0,200.0,True,observed_support,False
+regular,"Pera, in natura",Lanche da Tarde,15,15,120.0,150.0,,,False,observed_support,False
+regular,"Pimentão, cru",Jantar,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Pizza, muçarela, caseira",Jantar,8,8,150.0,200.0,,,False,observed_support,False
+regular,"Presunto, porco, cozido, s/ capa de gordura",Lanche da Tarde,8,8,30.0,40.0,,,False,observed_support,False
+regular,"Pão de alho, assado",Café da Manhã,2,2,80.0,80.0,,,False,weak_lt_5_occurrences,False
+regular,"Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",Café da Manhã,72,50,50.0,100.0,50.0,64.5,True,observed_support,False
+regular,"Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",Jantar,9,9,50.0,50.0,,,False,observed_support,False
+regular,"Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",Lanche da Tarde,17,17,50.0,50.0,,,False,observed_support,False
+regular,"Pão, de queijo, industrializado, assado",Lanche da Tarde,13,9,40.0,60.0,,,False,observed_support,False
+regular,"Pão, milho, forma",Café da Manhã,8,8,60.0,60.0,,,False,observed_support,False
+regular,"Pão, sírio, branco",Café da Manhã,22,22,50.0,80.0,50.0,79.0,True,observed_support,False
+regular,"Pão, sírio, branco",Lanche da Tarde,8,8,50.0,50.0,,,False,observed_support,False
+regular,"Pão, trigo, branco, hamburguer/hot dog/leite, de padaria (média de diferentes tipos)",Café da Manhã,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Pão, trigo, integral, caseiro",Café da Manhã,4,4,50.0,60.0,,,False,weak_lt_5_occurrences,False
+regular,"Pão, trigo, integral, caseiro",Lanche da Tarde,2,2,50.0,60.0,,,False,weak_lt_5_occurrences,False
+regular,"Pão, trigo, integral, forma (média de diferentes marcas)",Café da Manhã,34,32,50.0,100.0,50.0,77.25,True,observed_support,False
+regular,"Pão, trigo, integral, forma (média de diferentes marcas)",Lanche da Tarde,25,23,50.0,50.0,50.0,50.0,True,observed_support,False
+regular,"Queijo, coalho",Café da Manhã,30,30,40.0,50.0,40.0,50.0,True,observed_support,False
+regular,"Queijo, coalho",Lanche da Tarde,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Queijo, minas, frescal, light",Café da Manhã,51,42,30.0,100.0,30.0,80.0,True,observed_support,False
+regular,"Queijo, minas, frescal, light",Ceia,1,1,60.0,60.0,,,False,weak_lt_5_occurrences,False
+regular,"Queijo, minas, frescal, light",Lanche da Tarde,21,20,30.0,50.0,30.0,50.0,True,observed_support,False
+regular,"Queijo, minas, padrão (média de diferentes amostras)",Café da Manhã,10,10,30.0,40.0,,,False,observed_support,False
+regular,"Queijo, minas, padrão (média de diferentes amostras)",Lanche da Tarde,3,3,30.0,40.0,,,False,weak_lt_5_occurrences,False
+regular,"Queijo, muçarela (média de diferentes amostras)",Café da Manhã,5,5,30.0,40.0,,,False,observed_support,False
+regular,"Queijo, muçarela (média de diferentes amostras)",Lanche da Tarde,2,2,30.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Queijo, muçarela, light",Café da Manhã,25,24,30.0,40.0,30.0,40.0,True,observed_support,False
+regular,"Queijo, muçarela, light",Lanche da Tarde,10,10,30.0,40.0,,,False,observed_support,False
+regular,"Queijo, prato",Café da Manhã,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Queijo, prato",Lanche da Tarde,3,3,30.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Queijo, requeijão (média de diferentes amostras)",Café da Manhã,7,7,30.0,30.0,,,False,observed_support,False
+regular,"Queijo, requeijão (média de diferentes amostras)",Lanche da Tarde,8,7,20.0,30.0,,,False,observed_support,False
+regular,"Queijo, ricota",Café da Manhã,1,1,40.0,40.0,,,False,weak_lt_5_occurrences,False
+regular,"Queijo, ricota",Ceia,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Queijo, ricota",Lanche da Tarde,3,3,50.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Queijo, ricota, light",Café da Manhã,1,1,60.0,60.0,,,False,weak_lt_5_occurrences,False
+regular,"Queijo, ricota, light",Ceia,1,1,40.0,40.0,,,False,weak_lt_5_occurrences,False
+regular,"Queijo, ricota, light",Lanche da Tarde,6,6,50.0,50.0,,,False,observed_support,False
+regular,"Repolho, cru",Almoço,6,6,50.0,50.0,,,False,observed_support,False
+regular,"Repolho, cru",Jantar,5,5,50.0,50.0,,,False,observed_support,False
+regular,"Repolho, roxo, cru",Jantar,8,8,50.0,100.0,,,False,observed_support,False
+regular,"Risoto de legumes, c/ arroz polido, c/ sal",Almoço,10,10,200.0,250.0,,,False,observed_support,False
+regular,"Risoto de legumes, c/ arroz polido, c/ sal",Jantar,9,9,200.0,250.0,,,False,observed_support,False
+regular,"Rúcula, crua",Almoço,2,2,40.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Salada de frutas, c/ açúcar",Lanche da Manhã,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Salada de frutas, c/ açúcar",Lanche da Tarde,4,4,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Salada de legumes, cozidos no vapor",Almoço,3,3,100.0,120.0,,,False,weak_lt_5_occurrences,False
+regular,"Salada de legumes, cozidos no vapor",Jantar,10,10,100.0,100.0,,,False,observed_support,False
+regular,"Salada, alface crespa, c/ óleo de soja, c/ sal",Almoço,14,14,50.0,100.0,,,False,observed_support,False
+regular,"Salada, alface crespa, c/ óleo de soja, c/ sal",Jantar,6,6,50.0,100.0,,,False,observed_support,False
+regular,"Salada, beterraba cozida, c/ óleo de soja, c/ sal",Almoço,8,8,80.0,80.0,,,False,observed_support,False
+regular,"Salada, couve-flor, cozida, c/ óleo de soja, c/ sal",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Salada, folhas e vegetais, c/ óleo de soja e c/ sal",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Salada, folhas e vegetais, c/ óleo de soja e c/ sal",Jantar,6,6,100.0,100.0,,,False,observed_support,False
+regular,"Salada, palmito, c/ óleo de soja, c/ sal",Almoço,4,4,50.0,60.0,,,False,weak_lt_5_occurrences,False
+regular,"Salada, pepino, c/ óleo de soja, c/ sal",Almoço,2,2,50.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Salada, repolho, branco, cru, c/ molho vinagrete (tomate, cebola, salsinha, vinagre e óleo), c/ sal",Almoço,10,10,80.0,100.0,,,False,observed_support,False
+regular,"Salada, tomate, c/ óleo de soja, c/ sal",Jantar,3,3,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Sanduíche, pão francês, c/ manteiga",Jantar,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+regular,"Sanduíche, queijo quente, pão francês, c/ queijo muçarela e manteiga",Lanche da Tarde,2,2,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Semente de girassol, torrada, s/ óleo, s/ sal",Lanche da Manhã,16,16,15.0,15.0,,,False,observed_support,False
+regular,"Soja, tofu",Jantar,5,5,100.0,100.0,,,False,observed_support,False
+regular,"Sopa, abóbora, cabotian (japonesa), c/ sal",Jantar,3,3,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Sopa, carne bovina, c/ macarrão, c/ vegetais, c/ sal",Jantar,1,1,400.0,400.0,,,False,weak_lt_5_occurrences,False
+regular,"Sopa, feijão, preto, c/ macarrão, c/ sal",Jantar,8,8,300.0,350.0,,,False,observed_support,False
+regular,"Sopa, legumes, c/ sal",Jantar,10,10,300.0,400.0,,,False,observed_support,False
+regular,"Sopa, peito de frango, c/ vegetais, c/ sal",Jantar,1,1,350.0,350.0,,,False,weak_lt_5_occurrences,False
+regular,"Suco natural, abacaxi, s/ açúcar",Café da Manhã,6,6,200.0,200.0,,,False,observed_support,False
+regular,"Suco natural, abacaxi, s/ açúcar",Lanche da Tarde,20,19,200.0,200.0,200.0,200.0,True,observed_support,False
+regular,"Suco natural, acerola, s/ açúcar",Café da Manhã,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Suco natural, acerola, s/ açúcar",Lanche da Tarde,2,2,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Suco natural, laranja, mamão, pera e maçã, s/ açúcar",Café da Manhã,2,2,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Suco natural, melão, s/ açúcar",Café da Manhã,4,4,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Suco, laranja, s/ açúcar",Almoço,7,7,200.0,200.0,,,False,observed_support,False
+regular,"Suco, laranja, s/ açúcar",Café da Manhã,67,41,100.0,250.0,200.0,235.0,True,observed_support,False
+regular,"Suco, laranja, s/ açúcar",Ceia,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+regular,"Suco, laranja, s/ açúcar",Lanche da Manhã,3,3,250.0,250.0,,,False,weak_lt_5_occurrences,False
+regular,"Suco, laranja, s/ açúcar",Lanche da Tarde,17,16,200.0,200.0,,,False,observed_support,False
+regular,"Tangerina, Ponkã, in natura",Ceia,2,2,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Tangerina, Ponkã, in natura",Lanche da Manhã,12,12,150.0,150.0,,,False,observed_support,False
+regular,"Tapioca, sem manteiga, sem recheio",Café da Manhã,50,46,60.0,100.0,60.0,91.0,True,observed_support,False
+regular,"Tapioca, sem manteiga, sem recheio",Lanche da Tarde,3,3,60.0,60.0,,,False,weak_lt_5_occurrences,False
+regular,"Tomate, in natura",Almoço,73,49,50.0,100.0,50.0,100.0,True,observed_support,False
+regular,"Tomate, in natura",Jantar,24,23,30.0,100.0,50.0,100.0,True,observed_support,False
+regular,"Tomate, molho, industrializado",Almoço,2,2,60.0,80.0,,,False,weak_lt_5_occurrences,False
+regular,"Tomate, molho, industrializado",Jantar,2,2,10.0,60.0,,,False,weak_lt_5_occurrences,False
+regular,"Tomate, molho, industrializado",Lanche da Tarde,1,1,10.0,10.0,,,False,weak_lt_5_occurrences,False
+regular,"Torrada, trigo, integral",Jantar,9,9,30.0,30.0,,,False,observed_support,False
+regular,"Torrada, trigo, integral",Lanche da Tarde,6,4,150.0,200.0,,,False,observed_support,False
+regular,"Torrada, trigo, tradicional",Jantar,2,2,30.0,30.0,,,False,weak_lt_5_occurrences,False
+regular,"Uva, in natura",Café da Manhã,8,8,100.0,120.0,,,False,observed_support,False
+regular,"Uva, in natura",Lanche da Manhã,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+regular,"Vagem, cozida, drenada, s/ óleo, c/ sal (média de diferentes amostras)",Almoço,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Vagem, cozida, drenada, s/ óleo, c/ sal (média de diferentes amostras)",Jantar,5,5,100.0,100.0,,,False,observed_support,False
+regular,"Vagem, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+regular,"Vitamina, leite de vaca integral c/ banana, c/ açúcar",Café da Manhã,7,7,200.0,200.0,,,False,observed_support,False
+regular,"Vitamina, leite de vaca integral c/ banana, c/ açúcar",Lanche da Tarde,15,15,200.0,250.0,,,False,observed_support,False
+vegetariana,"Abacate, polpa, in natura",Café da Manhã,1,1,80.0,80.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Abacate, polpa, in natura",Ceia,7,7,100.0,100.0,,,False,observed_support,False
+vegetariana,"Abacate, polpa, in natura",Lanche da Manhã,11,11,100.0,120.0,,,False,observed_support,False
+vegetariana,"Abacate, polpa, in natura",Lanche da Tarde,3,3,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Abacaxi, polpa, in natura",Café da Manhã,9,9,100.0,100.0,,,False,observed_support,False
+vegetariana,"Abacaxi, polpa, in natura",Lanche da Manhã,13,13,100.0,150.0,,,False,observed_support,False
+vegetariana,"Abobrinha, italiana, c/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,18,18,80.0,100.0,,,False,observed_support,False
+vegetariana,"Abobrinha, italiana, c/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,3,3,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Abobrinha, italiana, c/ casca, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,14,14,80.0,100.0,,,False,observed_support,False
+vegetariana,"Abobrinha, italiana, c/ casca, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,20,20,80.0,100.0,80.0,100.0,True,observed_support,False
+vegetariana,"Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal",Almoço,23,23,100.0,100.0,100.0,100.0,True,observed_support,False
+vegetariana,"Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal",Jantar,2,2,100.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Abóbora, moranga, s/ casca, s/ semente, assada, s/ óleo, c/ sal",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Abóbora, moranga, s/ casca, s/ semente, cozida, drenada, s/ óleo, c/ sal",Almoço,12,12,100.0,150.0,,,False,observed_support,False
+vegetariana,"Abóbora, moranga, s/ casca, s/ semente, cozida, drenada, s/ óleo, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Abóbora, pescoço, s/ casca, s/ semente, cozida, drenada, s/ óleo, c/ sal",Almoço,10,10,100.0,120.0,,,False,observed_support,False
+vegetariana,"Acelga, crua",Almoço,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Acelga, crua",Jantar,8,8,50.0,100.0,,,False,observed_support,False
+vegetariana,"Achocolatado, pó (média diferentes amostras)",Café da Manhã,1,1,20.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Alface, crua",Almoço,50,43,50.0,100.0,50.0,50.0,True,observed_support,False
+vegetariana,"Alface, crua",Jantar,13,10,50.0,100.0,,,False,observed_support,False
+vegetariana,"Almeirão, cru",Jantar,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Amendoim, grão, cru",Ceia,3,3,15.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Amendoim, grão, cru",Lanche da Manhã,8,8,15.0,20.0,,,False,observed_support,False
+vegetariana,"Amendoim, grão, cru",Lanche da Tarde,7,7,15.0,20.0,,,False,observed_support,False
+vegetariana,"Amendoim, torrado, c/ sal",Ceia,13,13,15.0,30.0,,,False,observed_support,False
+vegetariana,"Amendoim, torrado, c/ sal",Lanche da Manhã,2,2,20.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Amendoim, torrado, c/ sal",Lanche da Tarde,6,6,15.0,20.0,,,False,observed_support,False
+vegetariana,"Amêndoa, torrada, c/ sal",Ceia,13,13,15.0,20.0,,,False,observed_support,False
+vegetariana,"Amêndoa, torrada, c/ sal",Lanche da Manhã,7,7,15.0,15.0,,,False,observed_support,False
+vegetariana,"Amêndoa, torrada, c/ sal",Lanche da Tarde,6,6,15.0,15.0,,,False,observed_support,False
+vegetariana,"Arroz com brócolis, c/ arroz polido, c/ sal",Almoço,9,8,150.0,180.0,,,False,observed_support,False
+vegetariana,"Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",Almoço,112,50,100.0,200.0,100.0,150.0,True,observed_support,False
+vegetariana,"Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",Jantar,27,25,100.0,120.0,100.0,114.0,True,observed_support,False
+vegetariana,"Arroz, polido, cozido, c/ óleo, cebola e alho, c/ sal",Almoço,31,23,100.0,120.0,100.0,120.0,True,observed_support,False
+vegetariana,"Arroz, polido, cozido, c/ óleo, cebola e alho, c/ sal",Jantar,9,9,100.0,150.0,,,False,observed_support,False
+vegetariana,"Aveia, crua (média de diferentes tipos)",Lanche da Manhã,58,49,20.0,40.0,20.0,30.0,True,observed_support,False
+vegetariana,"Aveia, crua (média de diferentes tipos)",Lanche da Tarde,8,8,20.0,30.0,,,False,observed_support,False
+vegetariana,"Azeite, oliva",Almoço,7,6,10.0,10.0,,,False,observed_support,False
+vegetariana,"Azeitona, verde, conserva, drenada",Jantar,1,1,20.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Banana, da terra, assada, s/ adição de ingredientes",Ceia,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Banana, da terra, assada, s/ adição de ingredientes",Lanche da Manhã,2,2,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Banana, in natura",Café da Manhã,9,9,100.0,100.0,,,False,observed_support,False
+vegetariana,"Banana, in natura",Lanche da Manhã,31,31,40.0,100.0,100.0,100.0,True,observed_support,False
+vegetariana,"Banana, in natura",Lanche da Tarde,18,16,100.0,100.0,,,False,observed_support,False
+vegetariana,"Batata baroa (mandioquinha, batata salsa), cozida, drenada, s/ óleo, c/ sal",Jantar,2,2,150.0,180.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Batata, doce, s/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,30,30,100.0,150.0,100.0,150.0,True,observed_support,False
+vegetariana,"Batata, doce, s/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,17,16,120.0,200.0,,,False,observed_support,False
+vegetariana,"Batata, inglesa, s/ casca, assada, s/ óleo, c/ sal",Almoço,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Batata, inglesa, sauté (c/ margarina e salsa), c/ sal",Almoço,6,6,100.0,100.0,,,False,observed_support,False
+vegetariana,"Bebida, café - infusão 8% - média, c/ leite (meio a meio), ""média"", s/ açúcar",Café da Manhã,10,10,200.0,200.0,,,False,observed_support,False
+vegetariana,"Bebida, café, infusão 10%, s/ açúcar",Café da Manhã,78,47,150.0,200.0,150.0,150.0,True,observed_support,False
+vegetariana,"Bebida, café, infusão 10%, s/ açúcar",Lanche da Tarde,2,2,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Bebida, café, infusão 8% - médio, s/ açúcar",Café da Manhã,9,8,150.0,200.0,,,False,observed_support,False
+vegetariana,"Bebida, capuccino tradicional (leite desnatado, café - infusão 10% e canela em pó), s/ açúcar",Lanche da Tarde,2,2,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Bebida, chá, infusão, s/ açúcar (média de várias ervas)",Ceia,9,9,200.0,200.0,,,False,observed_support,False
+vegetariana,"Bebida, chá, infusão, s/ açúcar (média de várias ervas)",Lanche da Tarde,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Bebida, chá, mate, infusão 5%, s/ açúcar",Café da Manhã,2,2,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Bebida, chá, preto, infusão 5%, s/ açúcar",Café da Manhã,3,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Bebida, chá, preto, infusão 5%, s/ açúcar",Ceia,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Bebida, infusão, hortelã rasteira, planta, folha, s/ açúcar",Café da Manhã,8,8,200.0,200.0,,,False,observed_support,False
+vegetariana,"Bebida, refresco, em pó, preparado, c/ água",Ceia,3,3,150.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Beringela, c/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Berinjela recheada, c/ muçarela, c/ vegetais, c/ sal",Almoço,5,5,150.0,150.0,,,False,observed_support,False
+vegetariana,"Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",Almoço,18,18,80.0,150.0,,,False,observed_support,False
+vegetariana,"Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",Jantar,3,3,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Berinjela, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Beterraba, cozida, drenada, s/ óleo, c/ sal",Almoço,7,7,50.0,100.0,,,False,observed_support,False
+vegetariana,"Beterraba, cozida, drenada, s/ óleo, c/ sal",Jantar,11,11,80.0,100.0,,,False,observed_support,False
+vegetariana,"Beterraba, s/ casca, crua",Almoço,20,20,50.0,60.0,50.0,60.0,True,observed_support,False
+vegetariana,"Beterraba, s/ casca, crua",Jantar,6,6,50.0,50.0,,,False,observed_support,False
+vegetariana,"Biscoito, arroz",Café da Manhã,3,3,30.0,60.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Biscoito, arroz",Ceia,3,3,20.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Biscoito, arroz",Lanche da Manhã,7,7,20.0,20.0,,,False,observed_support,False
+vegetariana,"Biscoito, arroz",Lanche da Tarde,34,34,20.0,40.0,20.0,30.0,True,observed_support,False
+vegetariana,"Biscoito, doce, maisena",Ceia,20,20,20.0,30.0,20.0,30.0,True,observed_support,False
+vegetariana,"Biscoito, doce, maisena",Lanche da Tarde,3,3,20.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Biscoito, doce, simples (média de diferentes tipos)",Ceia,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Biscoito, doce, simples (média de diferentes tipos)",Lanche da Tarde,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Biscoito, salgado, cream cracker",Lanche da Tarde,8,8,30.0,30.0,,,False,observed_support,False
+vegetariana,"Biscoito, salgado, cream cracker , integral",Café da Manhã,8,8,30.0,30.0,,,False,observed_support,False
+vegetariana,"Brócolis, flor, refogado (c/ óleo, cebola e alho), c/ sal",Jantar,8,8,100.0,100.0,,,False,observed_support,False
+vegetariana,"Brócolis, flor, à milanesa (farinha de trigo, ovo e farinha de rosca), frita em imersão, c/ sal",Jantar,1,1,80.0,80.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",Almoço,32,28,80.0,100.0,80.0,100.0,True,observed_support,False
+vegetariana,"Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",Jantar,41,40,100.0,100.0,100.0,100.0,True,observed_support,False
+vegetariana,"Canelone, c/ muçarela, s/ molho, caseiro",Jantar,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Canelone, c/ ricota, s/ molho, caseiro, c/ sal",Jantar,11,11,150.0,200.0,,,False,observed_support,False
+vegetariana,"Castanha de caju, crua, s/ sal",Ceia,18,18,10.0,20.0,,,False,observed_support,False
+vegetariana,"Castanha de caju, crua, s/ sal",Lanche da Manhã,5,5,20.0,20.0,,,False,observed_support,False
+vegetariana,"Castanha de caju, crua, s/ sal",Lanche da Tarde,2,2,15.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Castanha do Brasil, crua",Ceia,13,13,10.0,15.0,,,False,observed_support,False
+vegetariana,"Castanha do Brasil, crua",Lanche da Manhã,8,8,10.0,20.0,,,False,observed_support,False
+vegetariana,"Castanha do Brasil, crua",Lanche da Tarde,19,19,10.0,20.0,,,False,observed_support,False
+vegetariana,"Cenoura, s/ casca, cozida, drenada, c/ óleo de soja, c/ sal",Jantar,7,7,80.0,80.0,,,False,observed_support,False
+vegetariana,"Cenoura, s/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,13,13,60.0,100.0,,,False,observed_support,False
+vegetariana,"Cenoura, s/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,13,13,80.0,100.0,,,False,observed_support,False
+vegetariana,"Cenoura, s/ casca, crua",Almoço,28,28,50.0,100.0,50.0,80.0,True,observed_support,False
+vegetariana,"Cenoura, s/ casca, crua",Jantar,21,20,50.0,80.0,50.0,80.0,True,observed_support,False
+vegetariana,"Cenoura, s/ casca, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Cereais, barra (média de diferentes sabores)",Lanche da Tarde,1,1,20.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Cereais, granola, caseira",Lanche da Manhã,15,15,20.0,40.0,,,False,observed_support,False
+vegetariana,"Cereais, granola, caseira",Lanche da Tarde,16,16,30.0,50.0,,,False,observed_support,False
+vegetariana,"Cereal matinal, milho",Café da Manhã,1,1,40.0,40.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Cereal matinal, milho",Lanche da Manhã,2,2,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Cereal matinal, milho",Lanche da Tarde,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Chia, semente, seca",Café da Manhã,1,1,10.0,10.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Chia, semente, seca",Ceia,3,3,10.0,15.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Chia, semente, seca",Lanche da Manhã,31,31,10.0,15.0,10.0,15.0,True,observed_support,False
+vegetariana,"Chicória, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,2,2,60.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Chicória, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,3,3,60.0,60.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Chuchu, s/ casca, cozido, drenado, s/ óleo, c/ sal",Almoço,4,4,80.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Chuchu, s/ casca, cozido, drenado, s/ óleo, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Chuchu, s/ casca, refogado (c/ óleo, cebola e alho), c/ sal",Almoço,8,8,100.0,100.0,,,False,observed_support,False
+vegetariana,"Chuchu, s/ casca, refogado (c/ óleo, cebola e alho), c/ sal",Jantar,9,9,29.0,120.0,,,False,observed_support,False
+vegetariana,"Coco, água",Café da Manhã,2,2,250.0,250.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Coco, água",Ceia,8,8,200.0,250.0,,,False,observed_support,False
+vegetariana,"Coco, água",Lanche da Manhã,6,6,250.0,250.0,,,False,observed_support,False
+vegetariana,"Couve, crua",Almoço,7,7,50.0,50.0,,,False,observed_support,False
+vegetariana,"Couve, crua",Jantar,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Couve, manteiga, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,28,28,50.0,100.0,80.0,100.0,True,observed_support,False
+vegetariana,"Couve, manteiga, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,11,11,50.0,100.0,,,False,observed_support,False
+vegetariana,"Couve-flor, cozida, drenada, s/ óleo, c/ sal",Almoço,10,10,80.0,100.0,,,False,observed_support,False
+vegetariana,"Couve-flor, cozida, drenada, s/ óleo, c/ sal",Jantar,9,9,80.0,100.0,,,False,observed_support,False
+vegetariana,Cream cheese (média de diferentes sabores),Café da Manhã,7,7,30.0,40.0,,,False,observed_support,False
+vegetariana,Cream cheese (média de diferentes sabores),Lanche da Tarde,28,28,20.0,40.0,23.5,30.0,True,observed_support,False
+vegetariana,"Cuscuz de milho, cozido, c/ sal",Almoço,14,14,100.0,200.0,,,False,observed_support,False
+vegetariana,"Cuscuz de milho, cozido, c/ sal",Café da Manhã,44,44,100.0,100.0,100.0,100.0,True,observed_support,False
+vegetariana,"Ervilha, em vagem, fresca, cozida, drenada, s/ óleo, c/ sal",Jantar,9,9,50.0,100.0,,,False,observed_support,False
+vegetariana,"Ervilha, enlatada, drenada",Almoço,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Ervilha, grão, seca, partida, cozida, drenada, s/ óleo, c/ sal",Almoço,25,25,100.0,150.0,100.0,150.0,True,observed_support,False
+vegetariana,"Ervilha, grão, seca, partida, cozida, drenada, s/ óleo, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Espinafre, folha, cozida, drenado, s/ óleo, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Espinafre, folha, cru",Almoço,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Espinafre, folha, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,23,23,80.0,100.0,80.0,100.0,True,observed_support,False
+vegetariana,"Espinafre, folha, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,10,10,50.0,100.0,,,False,observed_support,False
+vegetariana,"Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Almoço,60,50,100.0,150.0,100.0,100.0,True,observed_support,False
+vegetariana,"Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Jantar,3,3,100.0,120.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Feijão, fradinho, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Almoço,39,39,100.0,150.0,100.0,150.0,True,observed_support,False
+vegetariana,"Feijão, fradinho, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Jantar,5,5,80.0,120.0,,,False,observed_support,False
+vegetariana,"Feijão, guandu, grão, seco, cozido (50% grão e 50% caldo), s/ óleo, cebola e alho, c/ sal",Almoço,26,26,100.0,150.0,100.0,150.0,True,observed_support,False
+vegetariana,"Feijão, guandu, grão, seco, cozido (50% grão e 50% caldo), s/ óleo, cebola e alho, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Geleia, s/ açúcar (média de diferentes sabores)",Lanche da Tarde,1,1,20.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Goiaba, inteira, in natura",Café da Manhã,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Goiaba, inteira, in natura",Lanche da Tarde,13,13,100.0,100.0,,,False,observed_support,False
+vegetariana,"Grão de bico, cozido, dreando, s/ óleo, c/ sal",Almoço,35,35,100.0,180.0,114.0,150.0,True,observed_support,False
+vegetariana,"Grão de bico, cozido, dreando, s/ óleo, c/ sal",Jantar,12,12,120.0,120.0,,,False,observed_support,False
+vegetariana,"Iogurte, frutas, diet",Café da Manhã,1,1,170.0,170.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Iogurte, frutas, diet",Ceia,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Iogurte, frutas, diet",Lanche da Manhã,8,8,150.0,150.0,,,False,observed_support,False
+vegetariana,"Iogurte, frutas, diet",Lanche da Tarde,5,5,150.0,150.0,,,False,observed_support,False
+vegetariana,"Iogurte, integral (média de diferentes sabores)",Ceia,3,3,170.0,170.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Iogurte, integral (média de diferentes sabores)",Lanche da Tarde,12,12,170.0,170.0,,,False,observed_support,False
+vegetariana,"Iogurte, natural",Ceia,3,3,150.0,170.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Iogurte, natural",Lanche da Manhã,26,17,170.0,170.0,170.0,170.0,True,observed_support,False
+vegetariana,"Iogurte, natural",Lanche da Tarde,27,26,170.0,170.0,170.0,170.0,True,observed_support,False
+vegetariana,"Iogurte, natural, desnatado",Ceia,19,17,170.0,170.0,,,False,observed_support,False
+vegetariana,"Iogurte, natural, desnatado",Lanche da Manhã,62,39,170.0,170.0,170.0,170.0,True,observed_support,False
+vegetariana,"Iogurte, natural, desnatado",Lanche da Tarde,37,27,170.0,170.0,170.0,170.0,True,observed_support,False
+vegetariana,"Kiwi, in natura",Café da Manhã,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Kiwi, in natura",Lanche da Tarde,2,2,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Lasanha, queijos, c/ molho branco, c/ sal, caseira",Jantar,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Lasanha, vegetais, caseira",Jantar,17,17,200.0,250.0,,,False,observed_support,False
+vegetariana,"Leite, vaca, c/ chocolate",Café da Manhã,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Leite, vaca, c/ chocolate",Lanche da Tarde,2,2,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Leite, vaca, desnatado, fluído (média de diferentes amostras)",Café da Manhã,7,7,200.0,200.0,,,False,observed_support,False
+vegetariana,"Leite, vaca, desnatado, fluído (média de diferentes amostras)",Ceia,98,50,200.0,250.0,200.0,200.0,True,observed_support,False
+vegetariana,"Leite, vaca, desnatado, fluído (média de diferentes amostras)",Lanche da Tarde,7,7,200.0,200.0,,,False,observed_support,False
+vegetariana,"Leite, vaca, integral, em pó",Ceia,3,3,26.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Leite, vaca, integral, fluído",Café da Manhã,11,11,200.0,200.0,,,False,observed_support,False
+vegetariana,"Leite, vaca, integral, fluído",Ceia,28,22,200.0,200.0,200.0,200.0,True,observed_support,False
+vegetariana,"Leite, vaca, integral, fluído",Lanche da Tarde,3,3,200.0,250.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Leite, vaca, semidesnatado, UHT",Café da Manhã,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Leite, vaca, semidesnatado, UHT",Ceia,12,12,200.0,200.0,,,False,observed_support,False
+vegetariana,"Lentilha, cozida, drenada, c/ óleo, cebola e alho, c/ sal",Almoço,53,49,100.0,200.0,112.0,180.0,True,observed_support,False
+vegetariana,"Lentilha, cozida, drenada, c/ óleo, cebola e alho, c/ sal",Jantar,10,10,100.0,150.0,,,False,observed_support,False
+vegetariana,"Linhaça, semente",Ceia,4,4,10.0,15.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Linhaça, semente",Lanche da Manhã,19,19,10.0,15.0,,,False,observed_support,False
+vegetariana,"Linhaça, semente",Lanche da Tarde,3,3,10.0,15.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Macarrão, trigo, c/ ovos, c/ alho e óleo, c/ sal",Almoço,6,6,150.0,150.0,,,False,observed_support,False
+vegetariana,"Macarrão, trigo, c/ ovos, c/ alho e óleo, c/ sal",Jantar,5,5,150.0,150.0,,,False,observed_support,False
+vegetariana,"Macarrão, trigo, c/ ovos, c/ molho branco (leite, manteiga e farinha de trigo), c/ sal",Almoço,9,9,150.0,150.0,,,False,observed_support,False
+vegetariana,"Macarrão, trigo, c/ vegetais, c/ sal",Almoço,5,5,200.0,250.0,,,False,observed_support,False
+vegetariana,"Macarrão, trigo, c/ vegetais, c/ sal",Jantar,6,6,200.0,200.0,,,False,observed_support,False
+vegetariana,"Macarrão, trigo, cozido, drenado, s/ óleo, c/ sal",Almoço,4,4,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Macarrão, trigo, cozido, drenado, s/ óleo, c/ sal",Jantar,3,3,100.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",Almoço,5,5,120.0,150.0,,,False,observed_support,False
+vegetariana,"Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",Jantar,51,46,100.0,150.0,100.0,150.0,True,observed_support,False
+vegetariana,"Mamão, Papaia, polpa, in natura",Café da Manhã,10,10,150.0,150.0,,,False,observed_support,False
+vegetariana,"Mamão, Papaia, polpa, in natura",Lanche da Manhã,37,37,120.0,200.0,150.0,160.0,True,observed_support,False
+vegetariana,"Mamão, Papaia, polpa, in natura",Lanche da Tarde,6,6,150.0,150.0,,,False,observed_support,False
+vegetariana,"Mamão, polpa, in natura",Café da Manhã,2,2,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Mamão, polpa, in natura",Lanche da Manhã,9,9,100.0,150.0,,,False,observed_support,False
+vegetariana,"Mandioca (aipim, macaxeira), s/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,5,5,120.0,150.0,,,False,observed_support,False
+vegetariana,"Mandioca (aipim, macaxeira), s/ casca, cozida, drenada, s/ óleo, c/ sal",Café da Manhã,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Mandioca (aipim, macaxeira), s/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,9,9,120.0,120.0,,,False,observed_support,False
+vegetariana,"Manga, polpa, in natura",Lanche da Manhã,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Manteiga, c/ sal",Café da Manhã,12,12,10.0,10.0,,,False,observed_support,False
+vegetariana,"Manteiga, c/ sal",Lanche da Tarde,2,2,10.0,10.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Maçã, c/ casca, in natura",Ceia,7,7,130.0,130.0,,,False,observed_support,False
+vegetariana,"Maçã, c/ casca, in natura",Lanche da Manhã,8,8,120.0,150.0,,,False,observed_support,False
+vegetariana,"Maçã, c/ casca, in natura",Lanche da Tarde,41,40,120.0,150.0,130.0,130.0,True,observed_support,False
+vegetariana,"Melancia, polpa, in natura",Lanche da Manhã,1,1,300.0,300.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Melão, polpa, in natura",Café da Manhã,7,7,150.0,200.0,,,False,observed_support,False
+vegetariana,"Melão, polpa, in natura",Ceia,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Melão, polpa, in natura",Lanche da Manhã,33,32,200.0,250.0,200.0,200.0,True,observed_support,False
+vegetariana,"Melão, polpa, in natura",Lanche da Tarde,8,8,150.0,200.0,,,False,observed_support,False
+vegetariana,"Milho, polenta/fubá, cozido, c/ sal",Almoço,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Mingau, de amido de milho (maisena)",Café da Manhã,9,9,200.0,250.0,,,False,observed_support,False
+vegetariana,"Mingau, farinha de cereais, c/ leite integral",Café da Manhã,1,1,250.0,250.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Morango, in natura",Café da Manhã,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Morango, in natura",Ceia,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Morango, in natura",Lanche da Manhã,3,3,100.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Morango, in natura",Lanche da Tarde,8,8,100.0,100.0,,,False,observed_support,False
+vegetariana,"Mostarda, folha, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Nhoque (batata, ovo, farinha de trigo), cozido, s/ molho, c/ sal",Almoço,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Nhoque (batata, ovo, farinha de trigo), cozido, s/ molho, c/ sal",Jantar,20,20,150.0,200.0,178.5,200.0,True,observed_support,False
+vegetariana,"Noz, crua",Ceia,22,22,15.0,20.0,15.0,20.0,True,observed_support,False
+vegetariana,"Noz, crua",Lanche da Manhã,7,7,15.0,20.0,,,False,observed_support,False
+vegetariana,"Noz, crua",Lanche da Tarde,1,1,15.0,15.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Omelete, c/ ovo de galinha, c/ queijo muçarela, c/ sal",Almoço,8,8,120.0,120.0,,,False,observed_support,False
+vegetariana,"Omelete, c/ ovo de galinha, c/ queijo muçarela, c/ sal",Café da Manhã,3,3,100.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Omelete, c/ ovo de galinha, c/ queijo muçarela, c/ sal",Jantar,7,7,120.0,130.0,,,False,observed_support,False
+vegetariana,"Omelete, frios, c/ sal",Almoço,8,8,100.0,150.0,,,False,observed_support,False
+vegetariana,"Omelete, frios, c/ sal",Jantar,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Omelete, frios, c/ sal",Lanche da Tarde,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Omelete, vegetais, c/ sal",Almoço,39,29,120.0,169.0,120.0,150.0,True,observed_support,False
+vegetariana,"Omelete, vegetais, c/ sal",Jantar,22,22,120.0,150.0,121.5,150.0,True,observed_support,False
+vegetariana,"Ovo, galinha, inteiro, cozido, c/ sal",Almoço,28,27,100.0,100.0,100.0,100.0,True,observed_support,False
+vegetariana,"Ovo, galinha, inteiro, cozido, c/ sal",Café da Manhã,37,30,50.0,100.0,50.0,100.0,True,observed_support,False
+vegetariana,"Ovo, galinha, inteiro, cozido, c/ sal",Jantar,30,22,50.0,100.0,50.0,100.0,True,observed_support,False
+vegetariana,"Ovo, galinha, inteiro, frito (c/ óleo de soja), c/ sal",Almoço,13,13,50.0,100.0,,,False,observed_support,False
+vegetariana,"Ovo, galinha, inteiro, frito (c/ óleo de soja), c/ sal",Café da Manhã,9,9,50.0,100.0,,,False,observed_support,False
+vegetariana,"Ovo, galinha, inteiro, frito (c/ óleo de soja), c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Ovo, galinha, mexido, c/ margarina, c/ sal",Café da Manhã,56,48,50.0,100.0,50.0,100.0,True,observed_support,False
+vegetariana,"Ovo, galinha, mexido, c/ margarina, c/ sal",Jantar,9,9,100.0,100.0,,,False,observed_support,False
+vegetariana,"Palmito, conversa, drenado (média de variedades - Pupunha e Juçara)",Jantar,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Pepino, c/ casca, cru",Almoço,27,27,50.0,100.0,50.0,100.0,True,observed_support,False
+vegetariana,"Pepino, c/ casca, cru",Jantar,13,13,50.0,100.0,,,False,observed_support,False
+vegetariana,"Pequi, polpa, maduro, cru",Lanche da Manhã,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Pera, in natura",Café da Manhã,5,5,130.0,130.0,,,False,observed_support,False
+vegetariana,"Pera, in natura",Ceia,4,4,130.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Pera, in natura",Lanche da Manhã,20,19,130.0,150.0,130.0,150.0,True,observed_support,False
+vegetariana,"Pera, in natura",Lanche da Tarde,21,21,100.0,130.0,120.0,130.0,True,observed_support,False
+vegetariana,"Pinhão, cozido, s/ sal",Ceia,3,3,30.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Pinhão, cozido, s/ sal",Lanche da Manhã,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Pistache, cru, s/ sal",Ceia,9,9,15.0,20.0,,,False,observed_support,False
+vegetariana,"Pizza, Marguerita, caseira",Jantar,1,1,180.0,180.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Pizza, muçarela, caseira",Jantar,18,18,150.0,200.0,,,False,observed_support,False
+vegetariana,"Pizza, vegetariana, caseira",Jantar,4,4,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,Pudim de leite,Lanche da Tarde,1,1,120.0,120.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",Café da Manhã,68,50,50.0,80.0,50.0,50.0,True,observed_support,False
+vegetariana,"Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",Lanche da Tarde,14,14,50.0,50.0,,,False,observed_support,False
+vegetariana,"Pão, de queijo, industrializado, assado",Café da Manhã,3,3,60.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Pão, de queijo, industrializado, assado",Lanche da Tarde,13,13,60.0,80.0,,,False,observed_support,False
+vegetariana,"Pão, milho, forma",Café da Manhã,7,7,60.0,60.0,,,False,observed_support,False
+vegetariana,"Pão, sírio, branco",Café da Manhã,13,13,50.0,60.0,,,False,observed_support,False
+vegetariana,"Pão, sírio, branco",Lanche da Tarde,14,14,40.0,50.0,,,False,observed_support,False
+vegetariana,"Pão, trigo, ciabatta",Café da Manhã,1,1,80.0,80.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Pão, trigo, integral, forma (média de diferentes marcas)",Café da Manhã,49,45,50.0,80.0,50.0,50.0,True,observed_support,False
+vegetariana,"Pão, trigo, integral, forma (média de diferentes marcas)",Lanche da Tarde,25,24,50.0,50.0,50.0,50.0,True,observed_support,False
+vegetariana,"Pão, trigo, leite, industrializado (média de diferentes marcas)",Café da Manhã,4,4,60.0,60.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Pão, trigo, leite, industrializado (média de diferentes marcas)",Lanche da Tarde,13,13,50.0,50.0,,,False,observed_support,False
+vegetariana,"Pêssego, in natura",Ceia,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, coalho",Almoço,9,9,50.0,60.0,,,False,observed_support,False
+vegetariana,"Queijo, coalho",Café da Manhã,22,22,30.0,50.0,30.5,50.0,True,observed_support,False
+vegetariana,"Queijo, minas, frescal, light",Café da Manhã,48,47,30.0,60.0,30.0,60.0,True,observed_support,False
+vegetariana,"Queijo, minas, frescal, light",Ceia,7,7,60.0,60.0,,,False,observed_support,False
+vegetariana,"Queijo, minas, frescal, light",Jantar,1,1,40.0,40.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, minas, frescal, light",Lanche da Manhã,8,8,40.0,40.0,,,False,observed_support,False
+vegetariana,"Queijo, minas, frescal, light",Lanche da Tarde,2,2,40.0,60.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, minas, padrão (média de diferentes amostras)",Almoço,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, minas, padrão (média de diferentes amostras)",Café da Manhã,6,6,30.0,50.0,,,False,observed_support,False
+vegetariana,"Queijo, minas, padrão (média de diferentes amostras)",Lanche da Tarde,11,11,30.0,40.0,,,False,observed_support,False
+vegetariana,"Queijo, muçarela (média de diferentes amostras)",Café da Manhã,2,2,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, muçarela, light",Café da Manhã,27,27,30.0,40.0,30.0,40.0,True,observed_support,False
+vegetariana,"Queijo, muçarela, light",Ceia,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, muçarela, light",Lanche da Tarde,17,17,30.0,40.0,,,False,observed_support,False
+vegetariana,"Queijo, parmesão, ralado",Jantar,30,29,10.0,20.0,10.0,20.0,True,observed_support,False
+vegetariana,"Queijo, pasteurizado",Lanche da Tarde,1,1,40.0,40.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, pasteurizado (média de diferentes amostras)",Café da Manhã,7,7,40.0,40.0,,,False,observed_support,False
+vegetariana,"Queijo, pasteurizado (média de diferentes amostras)",Lanche da Tarde,2,2,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, prato",Lanche da Tarde,8,8,30.0,30.0,,,False,observed_support,False
+vegetariana,"Queijo, requeijão (média de diferentes amostras)",Café da Manhã,9,9,30.0,30.0,,,False,observed_support,False
+vegetariana,"Queijo, requeijão (média de diferentes amostras)",Lanche da Tarde,13,13,30.0,40.0,,,False,observed_support,False
+vegetariana,"Queijo, requeijão, zero % gordura",Lanche da Tarde,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, ricota",Almoço,8,8,50.0,80.0,,,False,observed_support,False
+vegetariana,"Queijo, ricota",Café da Manhã,4,4,60.0,60.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, ricota",Ceia,8,8,30.0,60.0,,,False,observed_support,False
+vegetariana,"Queijo, ricota",Jantar,2,2,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, ricota",Lanche da Manhã,2,2,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, ricota",Lanche da Tarde,5,5,30.0,60.0,,,False,observed_support,False
+vegetariana,"Queijo, ricota, light",Café da Manhã,3,3,60.0,60.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, ricota, light",Ceia,1,1,60.0,60.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Queijo, ricota, light",Lanche da Manhã,7,7,50.0,60.0,,,False,observed_support,False
+vegetariana,"Queijo, ricota, light",Lanche da Tarde,2,2,50.0,60.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Quinoa, grão, cozida, s/ óleo, s/ sal",Almoço,27,27,100.0,200.0,100.0,150.0,True,observed_support,False
+vegetariana,"Quinoa, grão, cozida, s/ óleo, s/ sal",Jantar,2,2,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Rabanete, c/ casca, cru",Almoço,2,2,30.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Repolho, branco, refogado (c/ óleo, cebola e alho), c/ sal",Almoço,11,11,80.0,120.0,,,False,observed_support,False
+vegetariana,"Repolho, cru",Almoço,8,8,50.0,100.0,,,False,observed_support,False
+vegetariana,"Repolho, cru",Jantar,6,6,50.0,100.0,,,False,observed_support,False
+vegetariana,"Repolho, roxo, cru",Almoço,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Risoto de cogumelos, c/ arroz polido, c/ sal",Almoço,7,7,250.0,250.0,,,False,observed_support,False
+vegetariana,"Risoto de legumes, c/ arroz polido, c/ sal",Jantar,15,15,200.0,250.0,,,False,observed_support,False
+vegetariana,"Rúcula, crua",Jantar,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Salada de frutas, c/ açúcar",Lanche da Manhã,26,26,150.0,200.0,150.0,200.0,True,observed_support,False
+vegetariana,"Salada de frutas, c/ açúcar",Lanche da Tarde,9,9,150.0,200.0,,,False,observed_support,False
+vegetariana,"Salada de legumes, cozidos no vapor",Almoço,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Salada de legumes, cozidos no vapor",Jantar,8,8,100.0,150.0,,,False,observed_support,False
+vegetariana,"Salada, alface crespa, c/ óleo de soja, c/ sal",Almoço,2,2,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Salada, alface crespa, c/ óleo de soja, c/ sal",Jantar,8,8,50.0,100.0,,,False,observed_support,False
+vegetariana,"Salada, beterraba cozida, c/ óleo de soja, c/ sal",Almoço,6,6,50.0,80.0,,,False,observed_support,False
+vegetariana,"Salada, brócolis, cozido, c/ óleo de soja, c/ sal",Almoço,3,3,80.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Salada, brócolis, cozido, c/ óleo de soja, c/ sal",Jantar,3,3,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Salada, couve-flor, cozida, c/ óleo de soja, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Salada, folhas e vegetais, c/ óleo de soja e c/ sal",Jantar,18,18,100.0,100.0,,,False,observed_support,False
+vegetariana,"Salada, folhas, c/ óleo de soja, c/ sal",Almoço,2,2,80.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Salada, folhas, c/ óleo de soja, c/ sal",Jantar,3,3,50.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Salada, legumes cozidos, c/ óleo de soja, c/ sal",Almoço,8,8,100.0,100.0,,,False,observed_support,False
+vegetariana,"Salada, palmito, c/ óleo de soja, c/ sal",Jantar,5,5,50.0,50.0,,,False,observed_support,False
+vegetariana,"Salada, pepino, c/ óleo de soja, c/ sal",Almoço,8,8,50.0,100.0,,,False,observed_support,False
+vegetariana,"Salada, repolho, branco, cru, c/ molho vinagrete (tomate, cebola, salsinha, vinagre e óleo), c/ sal",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Salada, repolho, branco, cru, c/ molho vinagrete (tomate, cebola, salsinha, vinagre e óleo), c/ sal",Jantar,10,10,100.0,100.0,,,False,observed_support,False
+vegetariana,"Salada, tomate, c/ óleo de soja, c/ sal",Almoço,9,9,50.0,100.0,,,False,observed_support,False
+vegetariana,"Salada, tomate, c/ óleo de soja, c/ sal",Jantar,9,9,100.0,100.0,,,False,observed_support,False
+vegetariana,"Salada, vegetais crus, s/ óleo, s/ sal",Jantar,2,2,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Semente de abóbora, inteira, torrada, s/ óleo, s/ sal",Ceia,9,9,10.0,20.0,,,False,observed_support,False
+vegetariana,"Semente de abóbora, inteira, torrada, s/ óleo, s/ sal",Lanche da Manhã,4,4,15.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Semente de abóbora, inteira, torrada, s/ óleo, s/ sal",Lanche da Tarde,2,2,15.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Semente de girassol, torrada, s/ óleo, s/ sal",Ceia,1,1,20.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Semente de girassol, torrada, s/ óleo, s/ sal",Lanche da Manhã,25,25,10.0,20.0,15.0,20.0,True,observed_support,False
+vegetariana,"Semente de girassol, torrada, s/ óleo, s/ sal",Lanche da Tarde,5,5,15.0,20.0,,,False,observed_support,False
+vegetariana,"Soja, grão, cozido, drenado, c/ sal",Almoço,2,2,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Soja, grão, cozido, drenado, c/ sal",Jantar,8,8,100.0,100.0,,,False,observed_support,False
+vegetariana,"Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",Almoço,19,18,100.0,150.0,,,False,observed_support,False
+vegetariana,"Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",Jantar,45,39,80.0,150.0,100.0,150.0,True,observed_support,False
+vegetariana,"Soja, tofu",Almoço,23,23,80.0,150.0,100.0,120.0,True,observed_support,False
+vegetariana,"Soja, tofu",Jantar,14,14,100.0,100.0,,,False,observed_support,False
+vegetariana,"Sopa, abóbora, cabotian (japonesa), c/ sal",Jantar,4,4,300.0,300.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Sopa, feijão, preto, c/ macarrão, c/ sal",Jantar,17,17,300.0,300.0,,,False,observed_support,False
+vegetariana,"Sopa, legumes, c/ sal",Jantar,9,9,300.0,400.0,,,False,observed_support,False
+vegetariana,"Suco natural, abacaxi, s/ açúcar",Café da Manhã,4,4,200.0,300.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Suco natural, abacaxi, s/ açúcar",Lanche da Tarde,4,4,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Suco natural, goiaba, vermelha, s/ açúcar",Café da Manhã,3,3,200.0,300.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Suco natural, goiaba, vermelha, s/ açúcar",Lanche da Tarde,3,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Suco natural, laranja, mamão, pera e maçã, s/ açúcar",Café da Manhã,5,5,200.0,200.0,,,False,observed_support,False
+vegetariana,"Suco natural, melancia, c/ açúcar",Lanche da Tarde,7,7,200.0,200.0,,,False,observed_support,False
+vegetariana,"Suco, laranja, s/ açúcar",Café da Manhã,50,45,200.0,300.0,200.0,200.0,True,observed_support,False
+vegetariana,"Suco, laranja, s/ açúcar",Lanche da Tarde,28,27,200.0,200.0,200.0,200.0,True,observed_support,False
+vegetariana,"Suco, laranjada, c/ açúcar",Ceia,3,3,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Suflê, cenoura, c/ molho branco, c/ sal",Almoço,5,5,150.0,150.0,,,False,observed_support,False
+vegetariana,"Suflê, cenoura, c/ molho branco, c/ sal",Jantar,4,4,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Taioba, folha, cozida, drenada, s/ óleo, c/ sal",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Tangerina, Ponkã, in natura",Lanche da Manhã,9,9,150.0,150.0,,,False,observed_support,False
+vegetariana,"Tangerina, Ponkã, in natura",Lanche da Tarde,9,9,150.0,150.0,,,False,observed_support,False
+vegetariana,"Tapioca, c/ leite condensado e coco",Lanche da Tarde,2,2,80.0,80.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Tapioca, sem manteiga, sem recheio",Café da Manhã,46,46,60.0,100.0,60.0,80.0,True,observed_support,False
+vegetariana,"Tapioca, sem manteiga, sem recheio",Jantar,1,1,80.0,80.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Tapioca, sem manteiga, sem recheio",Lanche da Tarde,13,13,60.0,60.0,,,False,observed_support,False
+vegetariana,"Tomate, in natura",Almoço,39,30,50.0,100.0,50.0,82.0,True,observed_support,False
+vegetariana,"Tomate, in natura",Jantar,27,25,50.0,100.0,50.0,80.0,True,observed_support,False
+vegetariana,"Tomate, molho, industrializado",Jantar,16,15,60.0,100.0,,,False,observed_support,False
+vegetariana,"Tomate, refogado (c/ óleo de soja, cebola e alho), c/ sal",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Tomate, refogado (c/ óleo de soja, cebola e alho), c/ sal",Jantar,7,7,100.0,100.0,,,False,observed_support,False
+vegetariana,"Torrada, trigo, integral",Ceia,2,2,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Torrada, trigo, integral",Jantar,10,10,30.0,40.0,,,False,observed_support,False
+vegetariana,"Torrada, trigo, integral",Lanche da Tarde,1,1,20.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Torrada, trigo, tradicional",Ceia,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Torrada, trigo, tradicional",Jantar,8,8,30.0,30.0,,,False,observed_support,False
+vegetariana,"Uva, in natura",Lanche da Manhã,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Uva, in natura",Lanche da Tarde,2,2,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Uva, passa, preta",Lanche da Tarde,1,1,20.0,20.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Vagem, cozida, drenada, s/ óleo, c/ sal (média de diferentes amostras)",Almoço,2,2,60.0,60.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Vagem, cozida, drenada, s/ óleo, c/ sal (média de diferentes amostras)",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Vagem, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Vitamina, leite de vaca integral c/ abacate, c/ açúcar",Lanche da Tarde,7,7,200.0,250.0,,,False,observed_support,False
+vegetariana,"Vitamina, leite de vaca integral c/ banana, c/ açúcar",Café da Manhã,3,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Vitamina, leite de vaca integral c/ banana, c/ açúcar",Ceia,1,1,250.0,250.0,,,False,weak_lt_5_occurrences,False
+vegetariana,"Vitamina, leite de vaca integral c/ banana, c/ açúcar",Lanche da Tarde,28,28,200.0,250.0,217.5,250.0,True,observed_support,False
+vegetariana,"Vitamina, leite de vaca integral c/ morango, c/ açúcar",Lanche da Tarde,6,6,200.0,200.0,,,False,observed_support,False
+vegana,"Abacate, polpa, in natura",Café da Manhã,29,25,50.0,120.0,54.0,112.0,True,observed_support,False
+vegana,"Abacate, polpa, in natura",Ceia,11,11,80.0,120.0,,,False,observed_support,False
+vegana,"Abacate, polpa, in natura",Lanche da Tarde,12,12,80.0,150.0,,,False,observed_support,False
+vegana,"Abacaxi, polpa, in natura",Café da Manhã,10,10,150.0,150.0,,,False,observed_support,False
+vegana,"Abobrinha, italiana, c/ casca, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,7,7,100.0,100.0,,,False,observed_support,False
+vegana,"Abobrinha, italiana, c/ casca, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,33,33,80.0,120.0,100.0,120.0,True,observed_support,False
+vegana,"Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal",Almoço,22,22,80.0,150.0,100.0,150.0,True,observed_support,False
+vegana,"Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal",Jantar,14,14,100.0,100.0,,,False,observed_support,False
+vegana,"Abóbora, moranga, s/ casca, s/ semente, assada, s/ óleo, c/ sal",Jantar,10,10,100.0,150.0,,,False,observed_support,False
+vegana,"Acelga, crua",Almoço,26,18,50.0,50.0,50.0,50.0,True,observed_support,False
+vegana,"Acelga, crua",Jantar,10,9,50.0,100.0,,,False,observed_support,False
+vegana,"Alface, crua",Almoço,57,44,50.0,50.0,50.0,50.0,True,observed_support,False
+vegana,"Alface, crua",Jantar,20,13,50.0,50.0,50.0,50.0,True,observed_support,False
+vegana,"Alho, refogado c/ óleo de soja, s/ sal",Jantar,2,2,5.0,5.0,,,False,weak_lt_5_occurrences,False
+vegana,"Almeirão, cru",Jantar,10,10,50.0,50.0,,,False,observed_support,False
+vegana,"Amendoim, grão, cru",Café da Manhã,9,8,20.0,30.0,,,False,observed_support,False
+vegana,"Amendoim, grão, cru",Ceia,10,9,20.0,30.0,,,False,observed_support,False
+vegana,"Amendoim, grão, cru",Lanche da Manhã,8,8,20.0,30.0,,,False,observed_support,False
+vegana,"Amendoim, grão, cru",Lanche da Tarde,13,8,20.0,40.0,,,False,observed_support,False
+vegana,"Amendoim, torrado, c/ sal",Café da Manhã,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegana,"Amendoim, torrado, c/ sal",Ceia,3,3,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegana,"Amendoim, torrado, c/ sal",Lanche da Manhã,2,2,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegana,"Amendoim, torrado, c/ sal",Lanche da Tarde,30,27,20.0,40.0,20.0,40.0,True,observed_support,False
+vegana,"Amêndoa, torrada, c/ sal",Café da Manhã,4,4,20.0,25.0,,,False,weak_lt_5_occurrences,False
+vegana,"Amêndoa, torrada, c/ sal",Ceia,22,20,20.0,25.0,20.0,20.0,True,observed_support,False
+vegana,"Amêndoa, torrada, c/ sal",Lanche da Manhã,8,8,15.0,25.0,,,False,observed_support,False
+vegana,"Amêndoa, torrada, c/ sal",Lanche da Tarde,3,3,20.0,30.0,,,False,weak_lt_5_occurrences,False
+vegana,"Arroz, creme, cozido, s/ tempero",Café da Manhã,8,8,200.0,200.0,,,False,observed_support,False
+vegana,"Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",Almoço,116,50,100.0,180.0,100.0,150.0,True,observed_support,False
+vegana,"Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal",Jantar,35,29,100.0,150.0,100.0,150.0,True,observed_support,False
+vegana,"Arroz, polido, cozido, c/ óleo, cebola e alho, c/ sal",Almoço,14,11,150.0,150.0,,,False,observed_support,False
+vegana,"Arroz, polido, cozido, c/ óleo, cebola e alho, c/ sal",Jantar,25,24,100.0,150.0,100.0,150.0,True,observed_support,False
+vegana,"Aveia, crua (média de diferentes tipos)",Café da Manhã,3,2,20.0,60.0,,,False,weak_lt_5_occurrences,False
+vegana,"Aveia, crua (média de diferentes tipos)",Lanche da Manhã,50,41,30.0,40.0,30.0,40.0,True,observed_support,False
+vegana,"Aveia, crua (média de diferentes tipos)",Lanche da Tarde,13,13,20.0,40.0,,,False,observed_support,False
+vegana,"Avelã , crua, s/ sal",Café da Manhã,4,4,15.0,15.0,,,False,weak_lt_5_occurrences,False
+vegana,"Avelã , crua, s/ sal",Ceia,18,18,15.0,25.0,,,False,observed_support,False
+vegana,"Avelã , crua, s/ sal",Lanche da Manhã,1,1,15.0,15.0,,,False,weak_lt_5_occurrences,False
+vegana,"Avelã , crua, s/ sal",Lanche da Tarde,4,4,15.0,15.0,,,False,weak_lt_5_occurrences,False
+vegana,"Azeite, oliva",Almoço,74,19,10.0,15.0,10.0,15.0,True,observed_support,False
+vegana,"Azeite, oliva",Jantar,35,17,5.0,15.0,5.0,15.0,True,observed_support,False
+vegana,"Azeite, oliva",Lanche da Tarde,3,3,10.0,15.0,,,False,weak_lt_5_occurrences,False
+vegana,"Banana, da terra, assada, s/ adição de ingredientes",Café da Manhã,7,7,100.0,120.0,,,False,observed_support,False
+vegana,"Banana, da terra, assada, s/ adição de ingredientes",Ceia,1,1,120.0,120.0,,,False,weak_lt_5_occurrences,False
+vegana,"Banana, da terra, assada, s/ adição de ingredientes",Lanche da Tarde,28,28,100.0,150.0,120.0,150.0,True,observed_support,False
+vegana,"Banana, in natura",Almoço,1,1,5.0,5.0,,,False,weak_lt_5_occurrences,False
+vegana,"Banana, in natura",Café da Manhã,28,22,50.0,100.0,100.0,100.0,True,observed_support,False
+vegana,"Banana, in natura",Lanche da Manhã,11,11,100.0,120.0,,,False,observed_support,False
+vegana,"Banana, in natura",Lanche da Tarde,34,31,100.0,120.0,100.0,120.0,True,observed_support,False
+vegana,"Barra de cereal, diet",Lanche da Tarde,11,11,25.0,30.0,,,False,observed_support,False
+vegana,"Batata baroa (mandioquinha, batata salsa), cozida, drenada, s/ óleo, c/ sal",Almoço,11,11,100.0,200.0,,,False,observed_support,False
+vegana,"Batata baroa (mandioquinha, batata salsa), cozida, drenada, s/ óleo, c/ sal",Jantar,8,8,150.0,180.0,,,False,observed_support,False
+vegana,"Batata, doce, s/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,44,44,100.0,200.0,120.0,200.0,True,observed_support,False
+vegana,"Batata, doce, s/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,7,7,150.0,200.0,,,False,observed_support,False
+vegana,"Batata, inglesa, s/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,9,9,120.0,150.0,,,False,observed_support,False
+vegana,"Batata, inglesa, s/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,10,10,150.0,200.0,,,False,observed_support,False
+vegana,"Bebida, café, infusão 10%, s/ açúcar",Café da Manhã,66,40,150.0,200.0,150.0,200.0,True,observed_support,False
+vegana,"Bebida, chá, infusão, s/ açúcar (média de várias ervas)",Café da Manhã,2,2,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Bebida, chá, infusão, s/ açúcar (média de várias ervas)",Ceia,12,12,200.0,200.0,,,False,observed_support,False
+vegana,"Bebida, chá, mate, infusão 5%, s/ açúcar",Café da Manhã,8,7,200.0,200.0,,,False,observed_support,False
+vegana,"Bebida, chá, mate, infusão 5%, s/ açúcar",Lanche da Tarde,3,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Bebida, chá, preto, infusão 5%, s/ açúcar",Café da Manhã,12,12,200.0,200.0,,,False,observed_support,False
+vegana,"Bebida, chá, preto, infusão 5%, s/ açúcar",Ceia,5,5,200.0,200.0,,,False,observed_support,False
+vegana,"Bebida, chá, preto, infusão 5%, s/ açúcar",Lanche da Tarde,9,9,200.0,200.0,,,False,observed_support,False
+vegana,"Bebida, infusão, erva-mate, chimarrão, (70g de matéria seca - 30% de ramos e 70% de folhas - em 1 L de água)",Café da Manhã,3,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Berinjela, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,14,14,100.0,150.0,,,False,observed_support,False
+vegana,"Berinjela, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,5,5,100.0,150.0,,,False,observed_support,False
+vegana,"Beterraba, cozida, drenada, s/ óleo, c/ sal",Almoço,4,4,80.0,80.0,,,False,weak_lt_5_occurrences,False
+vegana,"Beterraba, cozida, drenada, s/ óleo, c/ sal",Jantar,6,6,80.0,80.0,,,False,observed_support,False
+vegana,"Beterraba, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,9,9,80.0,100.0,,,False,observed_support,False
+vegana,"Beterraba, s/ casca, crua",Almoço,32,32,50.0,80.0,50.0,80.0,True,observed_support,False
+vegana,"Beterraba, s/ casca, crua",Jantar,1,1,60.0,60.0,,,False,weak_lt_5_occurrences,False
+vegana,"Biscoito, arroz",Café da Manhã,7,7,40.0,50.0,,,False,observed_support,False
+vegana,"Biscoito, arroz",Ceia,6,6,30.0,30.0,,,False,observed_support,False
+vegana,"Biscoito, arroz",Lanche da Tarde,34,34,30.0,50.0,36.5,50.0,True,observed_support,False
+vegana,"Biscoito, doce, simples (média de diferentes tipos)",Lanche da Tarde,4,4,40.0,40.0,,,False,weak_lt_5_occurrences,False
+vegana,"Brócolis, flor, refogado (c/ óleo, cebola e alho), c/ sal",Jantar,10,10,80.0,120.0,,,False,observed_support,False
+vegana,"Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",Almoço,8,8,80.0,100.0,,,False,observed_support,False
+vegana,"Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",Jantar,49,42,100.0,100.0,100.0,100.0,True,observed_support,False
+vegana,"Cacau, in natura",Ceia,3,3,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegana,"Canela, em pó",Lanche da Tarde,4,4,2.0,2.0,,,False,weak_lt_5_occurrences,False
+vegana,"Canjica, milho, branca, cozida, drenada",Café da Manhã,2,1,180.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Canjica, milho, branca, cozida, drenada",Jantar,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegana,"Canjica, milho, branca, cozida, drenada",Lanche da Tarde,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Caqui, in natura",Lanche da Manhã,9,9,150.0,150.0,,,False,observed_support,False
+vegana,"Castanha de caju, crua, s/ sal",Café da Manhã,6,6,20.0,25.0,,,False,observed_support,False
+vegana,"Castanha de caju, crua, s/ sal",Ceia,21,20,15.0,30.0,15.0,25.0,True,observed_support,False
+vegana,"Castanha de caju, crua, s/ sal",Lanche da Manhã,22,22,15.0,35.0,20.0,30.0,True,observed_support,False
+vegana,"Castanha de caju, crua, s/ sal",Lanche da Tarde,2,2,20.0,20.0,,,False,weak_lt_5_occurrences,False
+vegana,"Castanha do Brasil, crua",Ceia,26,26,15.0,25.0,15.0,20.0,True,observed_support,False
+vegana,"Castanha do Brasil, crua",Lanche da Manhã,16,15,10.0,25.0,,,False,observed_support,False
+vegana,"Castanha do Brasil, crua",Lanche da Tarde,33,33,10.0,25.0,18.0,25.0,True,observed_support,False
+vegana,"Catchup, tomate, molho",Almoço,2,2,30.0,40.0,,,False,weak_lt_5_occurrences,False
+vegana,"Cebolinha, verde, crua",Almoço,8,8,10.0,10.0,,,False,observed_support,False
+vegana,"Cenoura, s/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,8,8,80.0,100.0,,,False,observed_support,False
+vegana,"Cenoura, s/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,10,9,80.0,100.0,,,False,observed_support,False
+vegana,"Cenoura, s/ casca, crua",Almoço,15,15,50.0,80.0,,,False,observed_support,False
+vegana,"Cenoura, s/ casca, crua",Jantar,15,15,80.0,80.0,,,False,observed_support,False
+vegana,"Cereais, barra (média de diferentes sabores)",Lanche da Tarde,3,3,20.0,25.0,,,False,weak_lt_5_occurrences,False
+vegana,"Cereais, granola, caseira",Lanche da Tarde,16,16,40.0,50.0,,,False,observed_support,False
+vegana,"Cereal matinal, milho",Ceia,1,1,40.0,40.0,,,False,weak_lt_5_occurrences,False
+vegana,"Cereal matinal, milho",Lanche da Manhã,9,9,40.0,40.0,,,False,observed_support,False
+vegana,"Cereal matinal, milho",Lanche da Tarde,3,3,40.0,40.0,,,False,weak_lt_5_occurrences,False
+vegana,"Chia, semente, seca",Café da Manhã,5,5,10.0,15.0,,,False,observed_support,False
+vegana,"Chia, semente, seca",Ceia,15,15,10.0,10.0,,,False,observed_support,False
+vegana,"Chia, semente, seca",Lanche da Manhã,20,13,5.0,15.0,9.75,15.0,True,observed_support,False
+vegana,"Chia, semente, seca",Lanche da Tarde,15,15,10.0,20.0,,,False,observed_support,False
+vegana,"Chicória, crua",Jantar,7,7,50.0,50.0,,,False,observed_support,False
+vegana,"Chicória, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,4,4,80.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Chuchu, s/ casca, refogado (c/ óleo, cebola e alho), c/ sal",Jantar,9,9,100.0,100.0,,,False,observed_support,False
+vegana,"Coco, leite",Café da Manhã,14,14,30.0,250.0,,,False,observed_support,False
+vegana,"Coco, polpa, in natura",Café da Manhã,25,23,30.0,60.0,30.0,58.0,True,observed_support,False
+vegana,"Coco, polpa, in natura",Ceia,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegana,"Coco, polpa, in natura",Lanche da Manhã,4,4,40.0,50.0,,,False,weak_lt_5_occurrences,False
+vegana,"Coco, polpa, in natura",Lanche da Tarde,10,10,30.0,40.0,,,False,observed_support,False
+vegana,"Coco, água",Café da Manhã,10,10,200.0,250.0,,,False,observed_support,False
+vegana,"Coco, água",Ceia,15,15,200.0,300.0,,,False,observed_support,False
+vegana,"Coco, água",Lanche da Manhã,5,5,250.0,250.0,,,False,observed_support,False
+vegana,"Coco, água",Lanche da Tarde,15,15,200.0,300.0,,,False,observed_support,False
+vegana,"Cogumelo, Paris, cozido, drenado, s/ óleo, c/ sal",Almoço,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Couve, crua",Almoço,11,9,50.0,100.0,,,False,observed_support,False
+vegana,"Couve, crua",Jantar,1,1,50.0,50.0,,,False,weak_lt_5_occurrences,False
+vegana,"Couve, manteiga, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,34,33,60.0,100.0,60.0,100.0,True,observed_support,False
+vegana,"Couve, manteiga, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,14,14,80.0,100.0,,,False,observed_support,False
+vegana,"Couve-flor, cozida, drenada, s/ óleo, c/ sal",Almoço,25,25,100.0,150.0,100.0,150.0,True,observed_support,False
+vegana,"Couve-flor, cozida, drenada, s/ óleo, c/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Cuscuz de milho, cozido, c/ sal",Café da Manhã,48,46,100.0,150.0,100.0,150.0,True,observed_support,False
+vegana,"Cuscuz de milho, cozido, c/ sal",Jantar,15,15,150.0,150.0,,,False,observed_support,False
+vegana,"Ervilha, grão, seca, partida, cozida, drenada, s/ óleo, c/ sal",Almoço,12,12,100.0,150.0,,,False,observed_support,False
+vegana,"Ervilha, grão, seca, partida, cozida, drenada, s/ óleo, c/ sal",Jantar,42,36,100.0,180.0,100.0,150.0,True,observed_support,False
+vegana,"Espinafre, folha, cru",Almoço,10,10,50.0,50.0,,,False,observed_support,False
+vegana,"Espinafre, folha, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,14,14,80.0,100.0,,,False,observed_support,False
+vegana,"Espinafre, folha, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,16,16,60.0,80.0,,,False,observed_support,False
+vegana,"Fava, grão, seco, cozida, drenada, s/ óleo, c/ sal",Almoço,6,6,100.0,150.0,,,False,observed_support,False
+vegana,"Fava, grão, seco, cozida, drenada, s/ óleo, c/ sal",Jantar,9,9,120.0,150.0,,,False,observed_support,False
+vegana,Feijoada vegetariana,Almoço,15,14,150.0,300.0,,,False,observed_support,False
+vegana,Feijoada vegetariana,Jantar,17,17,200.0,350.0,,,False,observed_support,False
+vegana,"Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Almoço,66,50,100.0,150.0,100.0,150.0,True,observed_support,False
+vegana,"Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Jantar,20,20,80.0,150.0,118.0,150.0,True,observed_support,False
+vegana,"Feijão, fradinho, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Almoço,43,42,100.0,180.0,100.0,150.0,True,observed_support,False
+vegana,"Feijão, fradinho, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal",Jantar,10,10,100.0,150.0,,,False,observed_support,False
+vegana,"Feijão, guandu, grão, seco, cozido (50% grão e 50% caldo), s/ óleo, cebola e alho, c/ sal",Almoço,21,16,120.0,180.0,120.0,150.0,True,observed_support,False
+vegana,"Feijão, guandu, grão, seco, cozido (50% grão e 50% caldo), s/ óleo, cebola e alho, c/ sal",Jantar,15,15,120.0,150.0,,,False,observed_support,False
+vegana,"Feijão, preto, cozido (50% grão e 50% caldo), c/ carne de boi, músculo, s/ gordura, c/ óleo, cebola e alho, c/ sal",Almoço,1,1,120.0,120.0,,,False,weak_lt_5_occurrences,False
+vegana,"Geleia, s/ açúcar (média de diferentes sabores)",Café da Manhã,17,17,20.0,40.0,,,False,observed_support,False
+vegana,"Geleia, s/ açúcar (média de diferentes sabores)",Lanche da Tarde,6,6,30.0,40.0,,,False,observed_support,False
+vegana,"Goiaba, inteira, in natura",Café da Manhã,6,6,100.0,100.0,,,False,observed_support,False
+vegana,"Goiaba, inteira, in natura",Ceia,10,10,100.0,120.0,,,False,observed_support,False
+vegana,"Goiaba, inteira, in natura",Lanche da Manhã,10,10,150.0,150.0,,,False,observed_support,False
+vegana,"Goiaba, inteira, in natura",Lanche da Tarde,5,5,100.0,100.0,,,False,observed_support,False
+vegana,"Grão de bico, cozido, dreando, s/ óleo, c/ sal",Almoço,36,30,100.0,150.0,120.0,150.0,True,observed_support,False
+vegana,"Grão de bico, cozido, dreando, s/ óleo, c/ sal",Jantar,32,26,100.0,150.0,100.0,150.0,True,observed_support,False
+vegana,"Inhame, s/ casca, cozido, drenado, s/ óleo, c/ sal",Jantar,20,20,100.0,200.0,100.0,200.0,True,observed_support,False
+vegana,"Inhame, s/ casca, refogado (c/ óleo, cebola e alho), c/ sal",Almoço,10,10,120.0,120.0,,,False,observed_support,False
+vegana,"Inhame, s/ casca, refogado (c/ óleo, cebola e alho), c/ sal",Jantar,10,10,150.0,200.0,,,False,observed_support,False
+vegana,"Kiwi, in natura",Ceia,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Kiwi, in natura",Lanche da Manhã,10,10,100.0,150.0,,,False,observed_support,False
+vegana,"Kiwi, in natura",Lanche da Tarde,6,6,100.0,100.0,,,False,observed_support,False
+vegana,"Laranja, in natura",Almoço,9,9,100.0,100.0,,,False,observed_support,False
+vegana,"Laranja, in natura",Jantar,8,8,100.0,100.0,,,False,observed_support,False
+vegana,"Laranja, in natura",Lanche da Manhã,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegana,"Leite, vaca, c/ chocolate",Café da Manhã,4,4,50.0,60.0,,,False,weak_lt_5_occurrences,False
+vegana,"Lentilha, cozida, drenada, c/ óleo, cebola e alho, c/ sal",Almoço,39,39,100.0,180.0,120.0,150.0,True,observed_support,False
+vegana,"Lentilha, cozida, drenada, c/ óleo, cebola e alho, c/ sal",Jantar,48,40,100.0,150.0,100.0,150.0,True,observed_support,False
+vegana,"Linhaça, semente",Café da Manhã,9,8,15.0,20.0,,,False,observed_support,False
+vegana,"Linhaça, semente",Ceia,6,5,15.0,20.0,,,False,observed_support,False
+vegana,"Linhaça, semente",Lanche da Manhã,29,28,10.0,20.0,10.0,20.0,True,observed_support,False
+vegana,"Linhaça, semente",Lanche da Tarde,10,10,10.0,20.0,,,False,observed_support,False
+vegana,"Macarrão, trigo, c/ vegetais, c/ sal",Almoço,6,6,250.0,250.0,,,False,observed_support,False
+vegana,"Macarrão, trigo, c/ vegetais, c/ sal",Jantar,1,1,250.0,250.0,,,False,weak_lt_5_occurrences,False
+vegana,"Macarrão, trigo, cozido, drenado, s/ óleo, c/ sal",Almoço,14,14,150.0,150.0,,,False,observed_support,False
+vegana,"Macarrão, trigo, cozido, drenado, s/ óleo, c/ sal",Jantar,21,19,120.0,180.0,120.0,150.0,True,observed_support,False
+vegana,"Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",Almoço,8,8,150.0,150.0,,,False,observed_support,False
+vegana,"Macarrão, trigo, integral, cozido, drenado, s/ óleo, c/ sal",Jantar,52,37,120.0,200.0,150.0,150.0,True,observed_support,False
+vegana,"Mamão, Papaia, polpa, in natura",Ceia,7,7,100.0,150.0,,,False,observed_support,False
+vegana,"Mamão, Papaia, polpa, in natura",Lanche da Manhã,45,43,150.0,250.0,150.0,200.0,True,observed_support,False
+vegana,"Mamão, Papaia, polpa, in natura",Lanche da Tarde,3,3,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegana,"Mamão, polpa, in natura",Lanche da Manhã,5,5,150.0,200.0,,,False,observed_support,False
+vegana,"Mandioca (aipim, macaxeira), s/ casca, cozida, drenada, s/ óleo, c/ sal",Almoço,33,32,100.0,180.0,100.0,180.0,True,observed_support,False
+vegana,"Mandioca (aipim, macaxeira), s/ casca, cozida, drenada, s/ óleo, c/ sal",Jantar,11,11,150.0,150.0,,,False,observed_support,False
+vegana,"Mandioca, farofa, temperada, c/ sal",Almoço,9,9,30.0,40.0,,,False,observed_support,False
+vegana,"Mandioca, s/ casca, cozida, assada, s/ óleo, c/ sal",Almoço,10,10,100.0,120.0,,,False,observed_support,False
+vegana,"Manga, polpa, in natura",Café da Manhã,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Manga, polpa, in natura",Lanche da Manhã,2,2,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegana,"Manga, polpa, in natura",Lanche da Tarde,2,2,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegana,"Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal",Café da Manhã,19,9,15.0,20.0,,,False,observed_support,False
+vegana,"Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal",Lanche da Tarde,1,1,15.0,15.0,,,False,weak_lt_5_occurrences,False
+vegana,"Maçã, c/ casca, in natura",Café da Manhã,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Maçã, c/ casca, in natura",Ceia,14,14,100.0,150.0,,,False,observed_support,False
+vegana,"Maçã, c/ casca, in natura",Lanche da Manhã,37,37,130.0,200.0,130.0,150.0,True,observed_support,False
+vegana,"Maçã, c/ casca, in natura",Lanche da Tarde,3,1,130.0,130.0,,,False,weak_lt_5_occurrences,False
+vegana,"Melado, cana",Café da Manhã,3,3,20.0,30.0,,,False,weak_lt_5_occurrences,False
+vegana,"Melancia, polpa, in natura",Ceia,4,4,150.0,300.0,,,False,weak_lt_5_occurrences,False
+vegana,"Melancia, polpa, in natura",Lanche da Tarde,6,6,300.0,400.0,,,False,observed_support,False
+vegana,"Melão, polpa, in natura",Café da Manhã,5,5,200.0,200.0,,,False,observed_support,False
+vegana,"Melão, polpa, in natura",Ceia,15,15,150.0,200.0,,,False,observed_support,False
+vegana,"Melão, polpa, in natura",Lanche da Manhã,21,21,150.0,300.0,200.0,250.0,True,observed_support,False
+vegana,"Melão, polpa, in natura",Lanche da Tarde,5,5,300.0,300.0,,,False,observed_support,False
+vegana,"Milho, polenta/fubá, cozido, c/ sal",Almoço,3,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Milho, polenta/fubá, cozido, c/ sal",Jantar,6,6,200.0,200.0,,,False,observed_support,False
+vegana,"Milho, verde, grão, cozido, drenado, c/ sal",Café da Manhã,7,7,100.0,120.0,,,False,observed_support,False
+vegana,"Morango, in natura",Café da Manhã,9,9,150.0,150.0,,,False,observed_support,False
+vegana,"Morango, in natura",Ceia,6,6,200.0,200.0,,,False,observed_support,False
+vegana,"Morango, in natura",Lanche da Manhã,9,9,150.0,200.0,,,False,observed_support,False
+vegana,"Noz, crua",Café da Manhã,1,1,15.0,15.0,,,False,weak_lt_5_occurrences,False
+vegana,"Noz, crua",Ceia,28,27,15.0,25.0,15.0,20.0,True,observed_support,False
+vegana,"Noz, crua",Lanche da Manhã,21,19,15.0,30.0,15.0,30.0,True,observed_support,False
+vegana,"Noz, crua",Lanche da Tarde,4,4,20.0,20.0,,,False,weak_lt_5_occurrences,False
+vegana,"Pepino, c/ casca, cru",Almoço,12,12,50.0,80.0,,,False,observed_support,False
+vegana,"Pepino, c/ casca, cru",Jantar,20,20,50.0,100.0,50.0,100.0,True,observed_support,False
+vegana,"Pera, in natura",Ceia,3,3,130.0,150.0,,,False,weak_lt_5_occurrences,False
+vegana,"Pera, in natura",Lanche da Manhã,45,45,130.0,180.0,130.0,150.0,True,observed_support,False
+vegana,"Pimentão, refogado, c/ sal",Almoço,6,6,80.0,80.0,,,False,observed_support,False
+vegana,"Pimentão, refogado, c/ sal",Jantar,4,4,80.0,80.0,,,False,weak_lt_5_occurrences,False
+vegana,"Pinhão, cozido, s/ sal",Ceia,10,10,60.0,80.0,,,False,observed_support,False
+vegana,"Pinhão, cozido, s/ sal",Lanche da Manhã,8,8,50.0,60.0,,,False,observed_support,False
+vegana,"Pistache, cru, s/ sal",Ceia,18,18,15.0,30.0,,,False,observed_support,False
+vegana,"Pistache, cru, s/ sal",Lanche da Manhã,1,1,10.0,10.0,,,False,weak_lt_5_occurrences,False
+vegana,"Pistache, cru, s/ sal",Lanche da Tarde,1,1,15.0,15.0,,,False,weak_lt_5_occurrences,False
+vegana,"Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",Café da Manhã,51,42,50.0,100.0,50.0,100.0,True,observed_support,False
+vegana,"Pão francês, trigo, branco, de padaria (médias de diferentes amostras)",Lanche da Tarde,7,7,50.0,50.0,,,False,observed_support,False
+vegana,"Pão, sírio, branco",Café da Manhã,28,28,60.0,100.0,60.0,100.0,True,observed_support,False
+vegana,"Pão, sírio, branco",Lanche da Tarde,14,14,60.0,80.0,,,False,observed_support,False
+vegana,"Pão, trigo, integral, caseiro",Café da Manhã,4,4,80.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Pão, trigo, integral, caseiro",Lanche da Tarde,5,5,60.0,80.0,,,False,observed_support,False
+vegana,"Pão, trigo, integral, forma (média de diferentes marcas)",Café da Manhã,44,38,75.0,100.0,80.0,100.0,True,observed_support,False
+vegana,"Pão, trigo, integral, forma (média de diferentes marcas)",Lanche da Tarde,7,7,50.0,100.0,,,False,observed_support,False
+vegana,"Quiabo, c/ casca, refogado (c/ óleo, cebola e alho), c/ sal",Jantar,10,10,100.0,100.0,,,False,observed_support,False
+vegana,"Quinoa, grão, cozida, s/ óleo, s/ sal",Almoço,37,37,100.0,180.0,100.0,150.0,True,observed_support,False
+vegana,"Quinoa, grão, cozida, s/ óleo, s/ sal",Jantar,11,11,100.0,150.0,,,False,observed_support,False
+vegana,"Repolho, branco, refogado (c/ óleo, cebola e alho), c/ sal",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Repolho, cru",Almoço,8,8,50.0,60.0,,,False,observed_support,False
+vegana,"Repolho, cru",Jantar,13,13,50.0,80.0,,,False,observed_support,False
+vegana,"Repolho, roxo, cru",Almoço,2,2,60.0,60.0,,,False,weak_lt_5_occurrences,False
+vegana,"Repolho, roxo, cru",Jantar,6,6,50.0,80.0,,,False,observed_support,False
+vegana,"Risoto de cogumelos, c/ arroz polido, c/ sal",Jantar,9,9,250.0,250.0,,,False,observed_support,False
+vegana,"Risoto de legumes, c/ arroz polido, c/ sal",Jantar,7,7,250.0,300.0,,,False,observed_support,False
+vegana,"Rúcula, crua",Almoço,7,7,40.0,50.0,,,False,observed_support,False
+vegana,"Salada de frutas, c/ açúcar",Café da Manhã,3,3,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegana,"Salada de frutas, c/ açúcar",Lanche da Manhã,4,4,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Salada de frutas, c/ açúcar",Lanche da Tarde,9,9,200.0,200.0,,,False,observed_support,False
+vegana,"Salada de legumes, cozidos no vapor",Almoço,9,9,150.0,200.0,,,False,observed_support,False
+vegana,"Salada, alface crespa, c/ óleo de soja, c/ sal",Almoço,7,7,80.0,100.0,,,False,observed_support,False
+vegana,"Salada, beterraba cozida, c/ óleo de soja, c/ sal",Jantar,8,8,100.0,100.0,,,False,observed_support,False
+vegana,"Salada, folhas e vegetais, c/ óleo de soja e c/ sal",Almoço,4,4,100.0,120.0,,,False,weak_lt_5_occurrences,False
+vegana,"Salada, folhas e vegetais, c/ óleo de soja e c/ sal",Jantar,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Salada, legumes cozidos, c/ óleo de soja, c/ sal",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Salada, legumes cozidos, c/ óleo de soja, c/ sal",Jantar,7,7,100.0,100.0,,,False,observed_support,False
+vegana,"Salada, repolho, branco, cru, c/ molho vinagrete (tomate, cebola, salsinha, vinagre e óleo), c/ sal",Almoço,6,6,100.0,120.0,,,False,observed_support,False
+vegana,"Salada, repolho, branco, cru, c/ molho vinagrete (tomate, cebola, salsinha, vinagre e óleo), c/ sal",Jantar,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Salada, vegetais crus, s/ óleo, s/ sal",Jantar,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Semente de abóbora, inteira, torrada, s/ óleo, s/ sal",Ceia,2,2,15.0,25.0,,,False,weak_lt_5_occurrences,False
+vegana,"Semente de abóbora, inteira, torrada, s/ óleo, s/ sal",Lanche da Manhã,27,27,10.0,30.0,15.0,30.0,True,observed_support,False
+vegana,"Semente de abóbora, inteira, torrada, s/ óleo, s/ sal",Lanche da Tarde,15,15,20.0,30.0,,,False,observed_support,False
+vegana,"Semente de girassol, torrada, s/ óleo, s/ sal",Café da Manhã,4,4,20.0,25.0,,,False,weak_lt_5_occurrences,False
+vegana,"Semente de girassol, torrada, s/ óleo, s/ sal",Ceia,5,5,20.0,20.0,,,False,observed_support,False
+vegana,"Semente de girassol, torrada, s/ óleo, s/ sal",Lanche da Manhã,22,22,15.0,25.0,15.0,25.0,True,observed_support,False
+vegana,"Semente de girassol, torrada, s/ óleo, s/ sal",Lanche da Tarde,11,11,20.0,30.0,,,False,observed_support,False
+vegana,"Soja, extrato, bebida (média de diferentes sabores)",Lanche da Manhã,8,8,200.0,250.0,,,False,observed_support,False
+vegana,"Soja, extrato, bebida (média de diferentes sabores)",Lanche da Tarde,9,9,200.0,250.0,,,False,observed_support,False
+vegana,"Soja, extrato, bebida, natural (média de diferentes amostras)",Café da Manhã,18,13,200.0,200.0,,,False,observed_support,False
+vegana,"Soja, extrato, bebida, natural (média de diferentes amostras)",Ceia,47,29,200.0,250.0,200.0,250.0,True,observed_support,False
+vegana,"Soja, extrato, bebida, natural (média de diferentes amostras)",Lanche da Tarde,11,10,200.0,250.0,,,False,observed_support,False
+vegana,"Soja, extrato, solúvel, em pó",Café da Manhã,1,1,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegana,"Soja, extrato, solúvel, em pó",Ceia,7,7,30.0,30.0,,,False,observed_support,False
+vegana,"Soja, grão, cozido, drenado, c/ sal",Almoço,15,11,120.0,150.0,,,False,observed_support,False
+vegana,"Soja, grão, cozido, drenado, c/ sal",Jantar,8,8,100.0,120.0,,,False,observed_support,False
+vegana,"Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",Almoço,36,32,80.0,150.0,100.0,150.0,True,observed_support,False
+vegana,"Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",Jantar,12,12,80.0,150.0,,,False,observed_support,False
+vegana,"Soja, tofu",Almoço,10,10,100.0,150.0,,,False,observed_support,False
+vegana,"Soja, tofu",Café da Manhã,19,13,80.0,120.0,,,False,observed_support,False
+vegana,"Soja, tofu",Jantar,21,11,80.0,150.0,100.0,150.0,True,observed_support,False
+vegana,"Sopa, feijão, preto, c/ sal",Jantar,7,7,350.0,350.0,,,False,observed_support,False
+vegana,Strogonoff de soja,Almoço,24,22,120.0,180.0,150.0,150.0,True,observed_support,False
+vegana,Strogonoff de soja,Jantar,9,9,200.0,250.0,,,False,observed_support,False
+vegana,"Suco natural, abacaxi, s/ açúcar",Café da Manhã,21,21,200.0,250.0,200.0,200.0,True,observed_support,False
+vegana,"Suco natural, abacaxi, s/ açúcar",Lanche da Tarde,15,15,200.0,250.0,,,False,observed_support,False
+vegana,"Suco natural, goiaba, vermelha, s/ açúcar",Café da Manhã,2,2,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Suco natural, goiaba, vermelha, s/ açúcar",Lanche da Tarde,5,5,200.0,200.0,,,False,observed_support,False
+vegana,"Suco natural, manga, s/ açúcar",Lanche da Tarde,10,10,200.0,200.0,,,False,observed_support,False
+vegana,"Suco natural, melancia, c/ açúcar",Café da Manhã,6,6,200.0,200.0,,,False,observed_support,False
+vegana,"Suco natural, melancia, c/ açúcar",Lanche da Tarde,5,5,200.0,200.0,,,False,observed_support,False
+vegana,"Suco natural, melão, s/ açúcar",Café da Manhã,3,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Suco natural, melão, s/ açúcar",Lanche da Tarde,7,7,200.0,200.0,,,False,observed_support,False
+vegana,"Suco natural, morango, s/ açúcar",Lanche da Tarde,10,10,200.0,200.0,,,False,observed_support,False
+vegana,"Suco, clorofila",Café da Manhã,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Suco, clorofila",Lanche da Tarde,3,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Suco, laranja, s/ açúcar",Café da Manhã,49,36,200.0,250.0,200.0,230.0,True,observed_support,False
+vegana,"Suco, laranja, s/ açúcar",Ceia,2,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Suco, laranja, s/ açúcar",Lanche da Manhã,3,3,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,"Suco, laranja, s/ açúcar",Lanche da Tarde,28,28,200.0,250.0,200.0,250.0,True,observed_support,False
+vegana,"Suco, limonada), s/ açúcar",Lanche da Tarde,1,1,200.0,200.0,,,False,weak_lt_5_occurrences,False
+vegana,Tahini (pasta de gergelim),Café da Manhã,52,30,15.0,30.0,20.0,30.0,True,observed_support,False
+vegana,Tahini (pasta de gergelim),Lanche da Tarde,19,15,20.0,25.0,,,False,observed_support,False
+vegana,"Tangerina, Ponkã, in natura",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Tangerina, Ponkã, in natura",Lanche da Manhã,15,15,150.0,200.0,,,False,observed_support,False
+vegana,"Tapioca, sem manteiga, sem recheio",Café da Manhã,53,43,60.0,120.0,80.0,100.0,True,observed_support,False
+vegana,"Tapioca, sem manteiga, sem recheio",Lanche da Tarde,16,10,80.0,80.0,,,False,observed_support,False
+vegana,"Tomate, in natura",Almoço,72,50,50.0,100.0,50.0,100.0,True,observed_support,False
+vegana,"Tomate, in natura",Jantar,27,25,50.0,100.0,53.0,100.0,True,observed_support,False
+vegana,"Tomate, molho, industrializado",Almoço,11,11,50.0,60.0,,,False,observed_support,False
+vegana,"Tomate, refogado (c/ óleo de soja, cebola e alho), c/ sal",Jantar,8,8,80.0,100.0,,,False,observed_support,False
+vegana,"Torrada, trigo, integral",Café da Manhã,2,2,60.0,60.0,,,False,weak_lt_5_occurrences,False
+vegana,"Trigo para quibe, cozido, s/ sal",Almoço,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegana,"Trigo para quibe, cozido, s/ sal",Café da Manhã,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Trigo para quibe, cozido, s/ sal",Jantar,1,1,150.0,150.0,,,False,weak_lt_5_occurrences,False
+vegana,"Uva, in natura",Café da Manhã,3,3,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Uva, in natura",Ceia,4,4,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Uva, in natura",Lanche da Manhã,7,7,150.0,150.0,,,False,observed_support,False
+vegana,"Uva, in natura",Lanche da Tarde,2,2,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Uva, passa, preta",Lanche da Manhã,2,2,30.0,30.0,,,False,weak_lt_5_occurrences,False
+vegana,"Uva, passa, preta",Lanche da Tarde,10,10,30.0,30.0,,,False,observed_support,False
+vegana,"Vagem, cozida, drenada, s/ óleo, c/ sal (média de diferentes amostras)",Jantar,10,10,100.0,100.0,,,False,observed_support,False
+vegana,"Vagem, refogada (c/ óleo, cebola e alho), c/ sal",Almoço,3,3,100.0,100.0,,,False,weak_lt_5_occurrences,False
+vegana,"Vagem, refogada (c/ óleo, cebola e alho), c/ sal",Jantar,6,6,100.0,100.0,,,False,observed_support,False
+vegana,"Óleo, soja",Almoço,1,1,100.0,100.0,,,False,weak_lt_5_occurrences,False

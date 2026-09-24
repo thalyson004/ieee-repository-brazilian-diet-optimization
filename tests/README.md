@@ -45,6 +45,13 @@ Create a ranked, non-accepting TBCA review queue for the 170 non-identity links:
 python -m tests.run_experiments --experiments mapping-review-queue
 ```
 
+Summarize positive food quantities by profile and meal for a bounded-quantity
+sensitivity design (not clinical serving guidance):
+
+```bash
+python -m tests.run_experiments --experiments portion-support-audit
+```
+
 One-run GA/LP smoke replication:
 
 ```bash
