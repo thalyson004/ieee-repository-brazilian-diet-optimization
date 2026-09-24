@@ -277,6 +277,51 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Peixe, água doce, filé, grelhado/assado, s/ óleo, s/ sal (média de 7 espécies)": (
                 "Peixe, água doce, filé, grelhado/assado, s/ óleo, s/ sal (média de 7 espécies), Brasil", "BRC0105E"
             ),
+            "Iogurte, natural, desnatado": (
+                "Iogurte, natural, desnatado, Brasil", "BRC0022G"
+            ),
+            "Iogurte, natural": (
+                "Iogurte, natural (média de diferentes amostras), Brasil", "BRC0020G"
+            ),
+            "Queijo, minas, frescal, light": (
+                "Queijo, minas, frescal, light, Brasil", "BRC0036N"
+            ),
+            "Leite, vaca, integral, em pó": (
+                "Leite, vaca, integral, em pó (média de várias amostras), Brasil", "BRC0039G"
+            ),
+            "Queijo, pasteurizado": (
+                "Queijo, pasteurizado (média de diferentes amostras), Brasil", "BRC0062G"
+            ),
+            "Batata, inglesa, sauté (c/ margarina e salsa), c/ sal": (
+                "Batata inglesa, sauté (c/ margarina e salsa), c/ sal, Brasil", "BRC0170B"
+            ),
+            "Suco natural, laranja, mamão, pera e maçã, s/ açúcar": (
+                "Suco natural, laranja var. Pera, mamão, pera e maçã, s/ açúcar (sem diluição em água), Brasil", "BRC0129C"
+            ),
+            "Pimentão, refogado, c/ sal": (
+                "Pimentão, refogado (c/ óleo, cebola e alho), c/ sal", "BRC0482B"
+            ),
+            "Ervilha, enlatada, drenada": (
+                "Ervilha, enlatada, drenada, Brasil", "BRC0022T"
+            ),
+            "Pão, trigo, ciabatta": (
+                "Pão, farinha de trigo refinada, ciabatta (dado importado)", "BRC0874A"
+            ),
+            "Tahini (pasta de gergelim)": (
+                "Tahini (pasta de gergelim) (dado importado)", "BRC0023U"
+            ),
+            "Leite, vaca, semidesnatado, UHT": (
+                "Leite, vaca, semidesnatado, UHT, Brasil", "BRC0046G"
+            ),
+            "Queijo, minas, padrão (média de diferentes amostras)": (
+                "Queijo, minas, padrão (média de diferentes amostras), Brasil", "BRC0056G"
+            ),
+            "Cereais, barra (média de diferentes sabores)": (
+                "Cereais, barra (média de diferentes sabores), Brasil", "BRC0082A"
+            ),
+            "Presunto, porco, cozido, s/ capa de gordura": (
+                "Presunto, porco, cozido, s/ capa de gordura, Brasil", "BRC0248F"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")

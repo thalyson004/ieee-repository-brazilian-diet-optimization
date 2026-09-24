@@ -119,7 +119,22 @@
     "Trigo para quibe, cozido, s/ sal",
     "Carne, boi, acém moída, cozida, c/ óleo, cebola e alho, c/ sal",
     "Carne, boi, acém, moída, refogada (c/ óleo, cebola e alho), c/ sal",
-    "Peixe, água doce, filé, grelhado/assado, s/ óleo, s/ sal (média de 7 espécies)"
+    "Peixe, água doce, filé, grelhado/assado, s/ óleo, s/ sal (média de 7 espécies)",
+    "Iogurte, natural, desnatado",
+    "Iogurte, natural",
+    "Queijo, minas, frescal, light",
+    "Leite, vaca, integral, em pó",
+    "Queijo, pasteurizado",
+    "Batata, inglesa, sauté (c/ margarina e salsa), c/ sal",
+    "Suco natural, laranja, mamão, pera e maçã, s/ açúcar",
+    "Pimentão, refogado, c/ sal",
+    "Ervilha, enlatada, drenada",
+    "Pão, trigo, ciabatta",
+    "Tahini (pasta de gergelim)",
+    "Leite, vaca, semidesnatado, UHT",
+    "Queijo, minas, padrão (média de diferentes amostras)",
+    "Cereais, barra (média de diferentes sabores)",
+    "Presunto, porco, cozido, s/ capa de gordura"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }
