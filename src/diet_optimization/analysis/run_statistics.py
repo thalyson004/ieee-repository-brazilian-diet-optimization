@@ -1,8 +1,9 @@
 """Describe per-run outcomes without treating pooled source diets as replicates.
 
 Usage: python -m diet_optimization.analysis.run_statistics --workspace PATH
-The output is diagnostic until the reviewed food map and revised nutrition
-protocol are active. No cross-method significance test is performed here.
+The output is diagnostic until mappings, profile eligibility, nutrient-data
+missingness, and method equivalence are resolved. No cross-method significance
+test is performed here.
 """
 
 from __future__ import annotations
@@ -20,6 +21,9 @@ from pathlib import Path
 PROFILES = ("regular", "vegetariana", "vegana")
 METHODS = {"ag-alimentos": "GA-Food", "ag-refeicoes": "GA-Meal",
            "pl-alimentos": "LP-Food", "pl-refeicoes": "LP-Meal"}
+STATISTICAL_READINESS_STATUS = (
+    "diagnostic_until_mapping_ingredient_missingness_and_method_equivalence_are_resolved"
+)
 METRICS = ("carbon_gco2eq_per_day", "energy_kcal_per_day", "unique_foods_per_plan",
            "daily_nutrient_violation_count")
 
@@ -109,7 +113,13 @@ def write_reports(workspace: Path, output_dir: Path) -> dict:
                         **summarize_values(values, seed)})
     report = {
         "schema_version": "1.0",
-        "status": "diagnostic_only_until_mapping_and_revised_nutrition_are_frozen",
+        "status": STATISTICAL_READINESS_STATUS,
+        "readiness_reasons": [
+            "non_identity_food_mappings_not_adjudicated",
+            "ingredient_level_profile_eligibility_not_fully_verified",
+            "missing_nutrient_values_are_scored_as_zero_and_need_sensitivity_analysis",
+            "optimizer_formulations_are_not_equivalent_for_cross_method_inference",
+        ],
         "units": {"GA": "independent seeded execution conditional on fixed input pool",
                   "LP": "one deterministic configuration, no sampling CI"},
         "interval_method": "2000 fixed-seed percentile bootstrap resamples of independent GA runs; absent for n=1",

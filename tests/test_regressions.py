@@ -20,7 +20,7 @@ from diet_optimization.optimization.linear_optimizer import (
 from diet_optimization.optimization.nutritional_targets import load_protocol
 from diet_optimization.optimization.fitness_functions import criterion_penalty_for_nutritional_constraints
 from diet_optimization.experiments.profile_integrity import load_exclusions, prepare_profile_diets
-from diet_optimization.analysis.run_statistics import summarize_values
+from diet_optimization.analysis.run_statistics import STATISTICAL_READINESS_STATUS, summarize_values
 from diet_optimization.optimization.data_types import NutritionalContext
 from diet_optimization.experiments.diagnostics import environment_metadata, evaluate_plan
 from tests.validate_candidate_scope import item_names
@@ -133,6 +133,8 @@ class ExecutionDiagnosticsTests(unittest.TestCase):
         self.assertEqual(item_names(plan), {"beans", "rice"})
 
     def test_run_statistics_refuses_to_invent_single_run_interval(self) -> None:
+        self.assertIn("missingness", STATISTICAL_READINESS_STATUS)
+        self.assertIn("method_equivalence", STATISTICAL_READINESS_STATUS)
         one = summarize_values([10.0], 123)
         self.assertIsNone(one["sample_sd"])
         self.assertIsNone(one["mean_bootstrap_percentile_95_ci"])
