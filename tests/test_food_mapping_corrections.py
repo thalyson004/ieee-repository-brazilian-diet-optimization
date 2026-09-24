@@ -34,6 +34,18 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             ),
             "Almeirão, cru": ("Almeirão (chicória amarga), cru, Brasil", "BRC0011B"),
             "Caqui, in natura": ("Caqui,  c/ casca,in natura, Brasil", "BRC0012C"),
+            "Banana, in natura": ("Banana,in natura(média diferentes variedades), Brasil", "BRC0006C"),
+            "Pão, trigo, integral, forma (média de diferentes marcas)": (
+                "Pão, integral, c/ farinha de trigo refinada, forma (média de diferentes marcas), Brasil",
+                "BRC0155A",
+            ),
+            "Suco, laranja, s/ açúcar": (
+                "Suco, laranja, s/ açúcar (média diferentes variedades)", "BRC0038C"
+            ),
+            "Bebida, café, infusão 10%, s/ açúcar": (
+                "Bebida, café, infusão 10%, s/ açúcar, Brasil", "BRC0007H"
+            ),
+            "Azeite, oliva": ("Azeite, oliva, Brasil", "BRC0002D"),
         }
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
