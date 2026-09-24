@@ -72,6 +72,12 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Soja, extrato, bebida, natural (média de diferentes amostras)": (
                 "Soja, extrato, bebida, natural, Brasil", "BRC0043T"
             ),
+            "Leite, vaca, integral, fluído": (
+                "Leite, vaca, integral, fluído, pasteurizado, Brasil (média de diferentes amostras)",
+                "BRC0043G",
+            ),
+            "Iogurte, frutas, diet": ("Iogurte, frutas, dietético (dado importado)", "BRC0073N"),
+            "Coco, água": ("Coco, água, industrializada, Brasil", "BRC0174C"),
         }
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
