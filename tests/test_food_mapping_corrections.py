@@ -78,6 +78,20 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             ),
             "Iogurte, frutas, diet": ("Iogurte, frutas, dietético (dado importado)", "BRC0073N"),
             "Coco, água": ("Coco, água, industrializada, Brasil", "BRC0174C"),
+            "Couve, crua": ("Couve, manteiga, crua, Brasil", "BRC0023B"),
+            "Coco, leite": ("Coco, leite, industrializado, Brasil", "BRC0175C"),
+            "Queijo, prato": ("Queijo, prato, Brasil (média de diferentes amostras)", "BRC0064G"),
+            "Queijo, muçarela (média de diferentes amostras)": (
+                "Queijo, leite de vaca, muçarela (mussarela, muzarela, mozarela), Brasil (média de diferentes amostras)",
+                "BRC0059G",
+            ),
+            "Biscoito, doce, maisena": (
+                "Biscoito, doce, maisena (amido de milho), Brasil", "BRC0200A"
+            ),
+            "Risoto de legumes, c/ arroz polido, c/ sal": (
+                "Risoto de legumes, c/ arroz polido, c/ sal, Brasil", "BRC0623A"
+            ),
+            "Avelã , crua, s/ sal": ("Avelã , crua, s/ sal (dado importado)", "BRC0013U"),
         }
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
