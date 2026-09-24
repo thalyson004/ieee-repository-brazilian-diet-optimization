@@ -629,6 +629,31 @@ def _extract_meal_pool(
     return meal_pool
 
 
+def _unique_meal_signature(items: List[Dict]) -> Tuple[Tuple[str, float], ...]:
+    """Canonicalize an exact item/quantity recipe, independent of item order."""
+    grams_by_food: Dict[str, float] = defaultdict(float)
+    for item in items:
+        if not isinstance(item, dict) or not isinstance(item.get("alimento"), str):
+            continue
+        grams_by_food[item["alimento"]] += parse_quantity_in_grams(item.get("quantidade", 0))
+    return tuple(sorted((name, round(grams, 6)) for name, grams in grams_by_food.items()))
+
+
+def _deduplicate_meal_pool(meal_pool: Dict[str, List[Dict]]) -> Dict[str, List[Dict]]:
+    """Keep one candidate for each exact food-and-quantity meal within its slot."""
+    unique_pool: Dict[str, List[Dict]] = {}
+    for meal_type, candidates in meal_pool.items():
+        seen: set[Tuple[Tuple[str, float], ...]] = set()
+        unique_pool[meal_type] = []
+        for candidate in candidates:
+            signature = _unique_meal_signature(candidate.get("itens", []))
+            if signature in seen:
+                continue
+            seen.add(signature)
+            unique_pool[meal_type].append(candidate)
+    return unique_pool
+
+
 def _round_lp_solution_to_integers(
     x_raw: np.ndarray,
     variable_list: List[Tuple[str, int]],
@@ -685,6 +710,7 @@ def _solve_relaxed_meal_level(
     days_per_plan: int,
     big_m: float = 1e4,
     diagnostics: Optional[Dict] = None,
+    bounds: Optional[List[Tuple[float, Optional[float]]]] = None,
 ) -> Optional[np.ndarray]:
     """Resolve o PL de refeições com todas as restrições de desigualdade relaxadas.
 
@@ -720,7 +746,7 @@ def _solve_relaxed_meal_level(
     c_relax = np.concatenate([c, big_m * np.ones(n_ineq)])
     A_ub_relax = np.hstack([A_ub, -np.eye(n_ineq)])
     A_eq_relax = np.hstack([A_eq, np.zeros((A_eq.shape[0], n_ineq))])
-    bounds_relax = [(0.0, None)] * n_orig + [(0.0, None)] * n_ineq
+    bounds_relax = (bounds or [(0.0, None)] * n_orig) + [(0.0, None)] * n_ineq
 
     result = linprog(
         c_relax,
@@ -752,6 +778,7 @@ def optimize_meal_level(
     minimum_goals: Optional[Dict[str, float]] = None,
     maximum_goals: Optional[Dict[str, Dict[str, float]]] = None,
     slack_penalty: float = 1e4,
+    maximum_repetitions_per_unique_meal: Optional[int] = None,
 ) -> Optional[List[Dict]]:
     """Otimiza a dieta selecionando refeições existentes via Programação Linear.
 
@@ -780,7 +807,18 @@ def optimize_meal_level(
     """
     if not np.isfinite(slack_penalty) or slack_penalty <= 0:
         raise ValueError("slack_penalty must be a finite positive value")
+    if maximum_repetitions_per_unique_meal is not None:
+        if (isinstance(maximum_repetitions_per_unique_meal, bool)
+                or not isinstance(maximum_repetitions_per_unique_meal, int)):
+            raise ValueError("maximum_repetitions_per_unique_meal must be an integer")
+        if not 1 <= maximum_repetitions_per_unique_meal <= days_per_plan:
+            raise ValueError(
+                "maximum_repetitions_per_unique_meal must be between 1 and days_per_plan"
+            )
     meal_pool = _extract_meal_pool(base_diets, nutritional_context)
+    raw_pool_counts = {meal_type: len(candidates) for meal_type, candidates in meal_pool.items()}
+    if maximum_repetitions_per_unique_meal is not None:
+        meal_pool = _deduplicate_meal_pool(meal_pool)
 
     variable_list: List[Tuple[str, int]] = []
     for meal_type in MEAL_ORDER:
@@ -857,6 +895,11 @@ def optimize_meal_level(
             ))
     if diagnostics is not None:
         diagnostics["inequality_constraints"] = constraint_labels
+        diagnostics["meal_candidate_counts_before_deduplication"] = raw_pool_counts
+        diagnostics["meal_candidate_counts"] = {
+            meal_type: len(candidates) for meal_type, candidates in meal_pool.items()
+        }
+        diagnostics["maximum_repetitions_per_unique_meal"] = maximum_repetitions_per_unique_meal
 
     # Restrições de igualdade: completude por tipo de refeição
     meal_type_to_vars: Dict[str, List[int]] = defaultdict(list)
@@ -871,7 +914,10 @@ def optimize_meal_level(
         for var_idx in meal_type_to_vars[mtype]:
             A_eq[eq_idx, var_idx] = 1.0
 
-    bounds = [(0.0, None)] * n_vars
+    bounds = [
+        (0.0, float(maximum_repetitions_per_unique_meal)
+         if maximum_repetitions_per_unique_meal is not None else None)
+    ] * n_vars
 
     result = linprog(
         c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs"
@@ -889,7 +935,7 @@ def optimize_meal_level(
         )
         x_relaxed = _solve_relaxed_meal_level(
             c, A_ub, b_ub, A_eq, b_eq, variable_list, days_per_plan,
-            big_m=slack_penalty, diagnostics=diagnostics,
+            big_m=slack_penalty, diagnostics=diagnostics, bounds=bounds,
         )
         if x_relaxed is None:
             print(

@@ -36,6 +36,7 @@ from tests.nutrient_missingness_audit import required_nutrients, summarize_profi
 from tests.lp_food_diversity_sensitivity import observed_order_statistic, source_day_food_counts
 from tests.environmental_objective_sensitivity import OBJECTIVES as ENVIRONMENTAL_OBJECTIVES
 from tests.environmental_source_audit import compare_rounded_values
+from tests.lp_meal_frequency_sensitivity import source_max_repetitions_by_plan
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -101,6 +102,10 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertIn(
             "tests.environmental_source_audit",
             commands_for("environmental-source-audit", workspace, 1, 7)[0],
+        )
+        self.assertIn(
+            "tests.lp_meal_frequency_sensitivity",
+            commands_for("lp-meal-frequency-sensitivity", workspace, 1, 7)[0],
         )
 
     def test_environmental_source_audit_checks_rounding_and_ambiguous_rows(self) -> None:
@@ -289,6 +294,43 @@ class CommandCatalogTests(unittest.TestCase):
                 maximum_daily_grams_by_food={"food_a": 100.0},
                 minimum_selected_foods=2,
             )
+
+    def test_lp_meal_repetition_cap_deduplicates_recipes_and_survives_fallback(self) -> None:
+        from diet_optimization.optimization.linear_optimizer import optimize_meal_level
+
+        context = NutritionalContext(
+            tbca_map={"rice": "1"},
+            tbca_database={"1": {"nutrientes": {"Energy": 100.0}}},
+            footprint_map={"rice": {"carbon_footprint": 1.0}},
+        )
+        repeated_source_plan = {
+            "1": {"Café da Manhã": [{"alimento": "rice", "quantidade": "100"}]},
+            "2": {"Café da Manhã": [{"alimento": "rice", "quantidade": "100"}]},
+        }
+        diagnostics: dict = {}
+        solution = optimize_meal_level(
+            [repeated_source_plan],
+            context,
+            days_per_plan=2,
+            meal_energy_share_limits={},
+            diagnostics=diagnostics,
+            minimum_goals={"Energy": 0.0},
+            maximum_goals={"Energy": {"meta": 1000.0, "tolerancia": 1.0}},
+            maximum_repetitions_per_unique_meal=1,
+        )
+        self.assertIsNone(solution)
+        self.assertEqual(diagnostics["meal_candidate_counts_before_deduplication"]["Café da Manhã"], 2)
+        self.assertEqual(diagnostics["meal_candidate_counts"]["Café da Manhã"], 1)
+        self.assertTrue(diagnostics["fallback_used"])
+        self.assertEqual(diagnostics["fallback_status"], 2)
+
+    def test_source_meal_repetition_support_counts_exact_slot_recipe_repeats(self) -> None:
+        plans = [{
+            "1": {"Lunch": [{"alimento": "rice", "quantidade": "80"}]},
+            "2": {"Lunch": [{"alimento": "rice", "quantidade": "80"}]},
+            "3": {"Lunch": [{"alimento": "rice", "quantidade": "60"}]},
+        }]
+        self.assertEqual(source_max_repetitions_by_plan(plans), [2])
 
     def test_diversity_floor_uses_observed_lower_order_statistic(self) -> None:
         self.assertEqual(observed_order_statistic([20, 12, 17, 15], 0.25), 12)
