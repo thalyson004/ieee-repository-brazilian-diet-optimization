@@ -43,12 +43,44 @@ from tests.environmental_source_range_sensitivity import PROFILES as SOURCE_RANG
 from tests.environmental_source_range_sensitivity import source_range_maps, summarize_results
 from tests.lp_meal_frequency_sensitivity import source_max_repetitions_by_plan
 from tests.ga_objective_weight_review import resolve_source_workspace
+from tests.food_mapping_exclusion_review import resolve_source_workspace as resolve_mapping_exclusion_workspace
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class ArtifactPopulationTests(unittest.TestCase):
+    def test_pending_mapping_exclusion_config_is_exact_and_scenario_only(self) -> None:
+        from diet_optimization.experiments.profile_integrity import load_pending_mapping_exclusions
+
+        config_path = PROJECT_ROOT / "configs" / "pending-food-mapping-exclusions.json"
+        exclusions = load_pending_mapping_exclusions(config_path)
+        self.assertEqual(set(exclusions), {"regular", "vegetariana", "vegana"})
+        self.assertEqual(len(set.union(*exclusions.values())), 19)
+        self.assertEqual(tuple(len(exclusions[profile]) for profile in ("regular", "vegetariana", "vegana")), (5, 13, 13))
+        self.assertIn("Leite, vaca, c/ chocolate", exclusions["vegana"])
+        self.assertNotIn("Feijoada vegetariana", exclusions["vegetariana"])
+
+    def test_mapping_exclusion_sensitivity_removes_exact_source_occurrences(self) -> None:
+        from diet_optimization.experiments.profile_integrity import load_pending_mapping_exclusions
+
+        pending = load_pending_mapping_exclusions(
+            PROJECT_ROOT / "configs" / "pending-food-mapping-exclusions.json"
+        )
+        known = load_exclusions(PROJECT_ROOT / "configs" / "profile-exclusions.json")
+        expected_incremental = {"regular": 40, "vegetariana": 197, "vegana": 198}
+        files = {"regular": "regular", "vegetariana": "vegetariana", "vegana": "vegana"}
+        for profile, suffix in files.items():
+            diets = json.loads(
+                (PROJECT_ROOT / "diets-base" / f"dietas-{suffix}.json").read_text(encoding="utf-8")
+            )
+            _, removals = prepare_profile_diets(diets, profile, known[profile] | pending[profile])
+            incremental = sum(
+                row["food_name"] in pending[profile] and row["food_name"] not in known[profile]
+                for row in removals
+            )
+            self.assertEqual(incremental, expected_incremental[profile])
+
     def test_objective_weight_review_resolves_artifact_workspace(self) -> None:
         run_suffix = "20260924T214525756789Z_c954a88c"
         expected = (
@@ -62,6 +94,20 @@ class ArtifactPopulationTests(unittest.TestCase):
         )
         with self.assertRaises(ValueError):
             resolve_source_workspace("../outside")
+
+    def test_mapping_exclusion_review_resolves_sensitivity_workspace(self) -> None:
+        run_suffix = "20260924T230320788866Z_177f8754"
+        expected = (
+            PROJECT_ROOT / "tests" / "results" / "artifacts"
+            / f"food-mapping-exclusion-sensitivity_{run_suffix}" / "audit"
+        )
+        self.assertEqual(resolve_mapping_exclusion_workspace(run_suffix), expected)
+        self.assertEqual(
+            resolve_mapping_exclusion_workspace(f"food-mapping-exclusion-sensitivity_{run_suffix}"),
+            expected,
+        )
+        with self.assertRaises(ValueError):
+            resolve_mapping_exclusion_workspace("../outside")
 
     def test_base_diet_population(self) -> None:
         for path in (PROJECT_ROOT / "diets-base").glob("dietas-*.json"):
@@ -102,7 +148,10 @@ class CommandCatalogTests(unittest.TestCase):
     def test_every_registered_experiment_has_a_command(self) -> None:
         workspace = PROJECT_ROOT / "tests" / "results" / "artifacts" / "test"
         for experiment in EXPERIMENTS:
-            if experiment in {"replication-resource-audit", "ga-objective-weight-review"}:
+            if experiment in {
+                "replication-resource-audit", "ga-objective-weight-review",
+                "food-mapping-exclusion-review",
+            }:
                 self.assertTrue(commands_for(experiment, workspace, 10, 20260323, source_run_id="20260924T000000000000Z_abcdef12"))
             else:
                 self.assertTrue(commands_for(experiment, workspace, 10, 20260323))
@@ -137,6 +186,14 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertIn(
             "tests.ga_objective_weight_review",
             commands_for("ga-objective-weight-review", workspace, 1, 7, source_run_id="20260924T000000000000Z_abcdef12")[0],
+        )
+        self.assertIn(
+            "tests.food_mapping_exclusion_sensitivity",
+            commands_for("food-mapping-exclusion-sensitivity", workspace, 10, 20260937)[0],
+        )
+        self.assertIn(
+            "tests.food_mapping_exclusion_review",
+            commands_for("food-mapping-exclusion-review", workspace, 1, 7, source_run_id="20260924T000000000000Z_abcdef12")[0],
         )
         self.assertIn(
             "tests.lp_meal_frequency_sensitivity",
@@ -719,6 +776,7 @@ class RevisedNutritionProtocolTests(unittest.TestCase):
             {
                 "configs/revised-nutrition-protocol.json",
                 "configs/profile-exclusions.json",
+                "configs/pending-food-mapping-exclusions.json",
                 "configs/ga-sensitivity/reduced-population.json",
                 "configs/ga-sensitivity/higher-mutation.json",
                 "configs/ga-sensitivity/shorter-stagnation.json",
@@ -733,6 +791,7 @@ class RevisedNutritionProtocolTests(unittest.TestCase):
             },
         )
         self.assertTrue(all(len(value) == 64 for value in provenance["input_sha256"].values()))
+        self.assertFalse(manifest["pending_mapping_exclusions_enabled"])
 
     def test_injected_protocol_targets_drive_ga_penalty_and_lp_constraints(self) -> None:
         minimums = {"Energia": 100.0, "Prote\u00edna": 40.0}

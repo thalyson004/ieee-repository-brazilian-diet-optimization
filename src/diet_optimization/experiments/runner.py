@@ -34,7 +34,11 @@ from diet_optimization.optimization.linear_optimizer import (
 from diet_optimization.optimization.pipeline import build_context, process_optimization_pipeline
 from diet_optimization.optimization.utils import load_json_file, save_json_file
 from diet_optimization.experiments.diagnostics import environment_metadata, evaluate_plan
-from diet_optimization.experiments.profile_integrity import load_exclusions, prepare_profile_diets
+from diet_optimization.experiments.profile_integrity import (
+    load_exclusions,
+    load_pending_mapping_exclusions,
+    prepare_profile_diets,
+)
 from diet_optimization.optimization.nutritional_targets import load_protocol
 
 
@@ -79,6 +83,11 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="JSON object of approved GA hyperparameter overrides for sensitivity runs.",
     )
+    parser.add_argument(
+        "--exclude-pending-food-mappings",
+        action="store_true",
+        help="Diagnostic sensitivity only: remove exact names in the unresolved-mapping exclusion config.",
+    )
     return parser.parse_args()
 
 
@@ -87,7 +96,9 @@ def copy_file(source: Path, destination: Path) -> None:
     shutil.copy2(source, destination)
 
 
-def stage_inputs(workspace: Path, mode: str) -> dict[str, Path]:
+def stage_inputs(
+    workspace: Path, mode: str, exclude_pending_food_mappings: bool = False
+) -> dict[str, Path]:
     if workspace.exists() and any(workspace.iterdir()):
         raise FileExistsError(
             f"Output directory is not empty: {workspace}. Choose a fresh path."
@@ -96,17 +107,56 @@ def stage_inputs(workspace: Path, mode: str) -> dict[str, Path]:
 
     diet_files: dict[str, Path] = {}
     exclusions = load_exclusions(PROJECT_ROOT / "configs" / "profile-exclusions.json")
-    preparation_report = {"mode": mode, "status": "only_exact_known_contradictions_excluded; complete_review_pending",
-                          "removed_items": []}
+    pending_config_path = PROJECT_ROOT / "configs" / "pending-food-mapping-exclusions.json"
+    pending_config = json.loads(pending_config_path.read_text(encoding="utf-8"))
+    pending_exclusions = (
+        load_pending_mapping_exclusions(pending_config_path)
+        if exclude_pending_food_mappings else {}
+    )
+    preparation_report = {
+        "mode": mode,
+        "status": "diagnostic_pending_mapping_exclusion" if exclude_pending_food_mappings else "only_exact_known_contradictions_excluded; complete_review_pending",
+        "pending_mapping_exclusion_config": str(pending_config_path.relative_to(PROJECT_ROOT)),
+        "pending_mapping_exclusions_enabled": exclude_pending_food_mappings,
+        "pending_source_foods_in_config": pending_config["unresolved_source_foods"],
+        "removed_items": [],
+        "pending_mapping_exclusion_counts_by_profile": {},
+    }
     for profile in PROFILES:
         source = PROJECT_ROOT / "diets-base" / f"dietas-{profile}.json"
         destination = workspace / "data" / "diets" / "base" / source.name
         copy_file(source, destination)
         if mode == "rerun":
             copy_file(source, workspace / "data" / "diets" / "source" / source.name)
-            prepared, removals = prepare_profile_diets(load_json_file(destination), profile, exclusions[profile])
+            original = load_json_file(destination)
+            pending_names = set(pending_exclusions.get(profile, []))
+            prepared, removals = prepare_profile_diets(
+                original, profile, exclusions[profile] | pending_names
+            )
+            known_names = exclusions[profile]
+            for removal in removals:
+                removal["exclusion_reason"] = (
+                    "confirmed_profile_contradiction"
+                    if removal["food_name"] in known_names
+                    else "unresolved_nutrient_mapping_sensitivity"
+                )
             save_json_file(destination, prepared)
             preparation_report["removed_items"].extend(removals)
+            preparation_report["pending_mapping_exclusion_counts_by_profile"][profile] = {
+                "configured_names": len(pending_names),
+                "incremental_source_occurrences_removed": sum(
+                    item["exclusion_reason"] == "unresolved_nutrient_mapping_sensitivity"
+                    for item in removals
+                ),
+                "already_excluded_by_profile_rule": sum(
+                    item["food_name"] in pending_names
+                    and item["exclusion_reason"] == "confirmed_profile_contradiction"
+                    for item in removals
+                ),
+                "configured_names_present": sorted({
+                    item["food_name"] for item in removals if item["food_name"] in pending_names
+                }),
+            }
         diet_files[profile] = destination
     if mode == "rerun":
         save_json_file(workspace / "input-preparation.json", preparation_report)
@@ -339,6 +389,7 @@ def source_provenance() -> dict:
     input_paths = [
         "configs/revised-nutrition-protocol.json",
         "configs/profile-exclusions.json",
+        "configs/pending-food-mapping-exclusions.json",
         "configs/ga-sensitivity/reduced-population.json",
         "configs/ga-sensitivity/higher-mutation.json",
         "configs/ga-sensitivity/shorter-stagnation.json",
@@ -439,6 +490,7 @@ def write_manifest(
     workspace: Path, mode: str, runs: int, seed: int, command: list[str],
     nutrition_protocol_id: str, nutrition_constraints_sha256: str,
     ga_overrides: dict | None = None,
+    pending_mapping_exclusions_enabled: bool = False,
 ) -> None:
     normalized_overrides = ga_overrides or {}
     overrides_hash = hashlib.sha256(
@@ -451,6 +503,7 @@ def write_manifest(
         "archive_source_commit": ARCHIVE_COMMIT,
         "source_provenance": source_provenance(),
         "ga_overrides": normalized_overrides,
+        "pending_mapping_exclusions_enabled": pending_mapping_exclusions_enabled,
         "ga_overrides_sha256": overrides_hash,
         "original_random_seeds_recorded": False,
         "replication_base_seed": seed if mode == "rerun" else None,
@@ -481,7 +534,10 @@ def write_manifest(
 def main() -> None:
     args = parse_args()
     workspace = args.output_dir.resolve()
-    diet_files = stage_inputs(workspace, args.mode)
+    diet_files = stage_inputs(
+        workspace, args.mode,
+        exclude_pending_food_mappings=args.exclude_pending_food_mappings,
+    )
     hyperparameters = GeneticAlgorithmHyperparameters()
     override_payload = {}
     if args.ga_overrides is not None:
@@ -520,6 +576,7 @@ def main() -> None:
         workspace, args.mode, args.runs, args.seed, sys.argv,
         hyperparameters.nutrition_protocol_id, constraints_hash,
         ga_overrides=applied_overrides,
+        pending_mapping_exclusions_enabled=args.exclude_pending_food_mappings,
     )
     if args.mode == "rerun":
         (workspace / "effective-nutrition-constraints.json").write_text(

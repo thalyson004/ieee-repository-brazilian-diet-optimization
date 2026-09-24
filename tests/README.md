@@ -241,3 +241,19 @@ python -m tests.run_experiments --experiments ga-objective-weight-review --sourc
 The review accepts the printed run ID with or without the
 `ga-objective-weight-sensitivity_` prefix and resolves the matrix summary in
 the run's `audit/` workspace.
+
+Measure the sensitivity to excluding, rather than reassigning, the 19 source
+food labels whose TBCA targets remain unresolved (439 occurrences in the
+adjudication queue). The baseline and exclusion variants share the same
+versioned inputs and seed IDs; the exclusion copy records every removed
+occurrence by profile. This is not a mapping decision or a primary result:
+
+```bash
+python -m tests.run_experiments --experiments food-mapping-exclusion-sensitivity --runs 10 --seed 20260937 --nutrition-protocol revised
+python -m tests.run_experiments --experiments food-mapping-exclusion-review --source-run-id <printed-sensitivity-run-id>
+```
+
+The review checks input hashes, clean shared commit, ten paired IDs, all 66
+outputs per variant, profile candidate scope, nutrient/environment outcomes,
+and computational metrics. Its bootstrap intervals are unadjusted and the
+excluded-label scenario does not adjudicate the actual food compositions.
