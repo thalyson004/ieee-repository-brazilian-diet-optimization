@@ -12,6 +12,7 @@ from diet_optimization.analysis.diet_audit import audit
 from diet_optimization.optimization.pipeline import derive_execution_seed
 from diet_optimization.optimization.linear_optimizer import food_names_in_diets, _compute_food_vectors
 from diet_optimization.experiments.profile_integrity import load_exclusions, prepare_profile_diets
+from diet_optimization.analysis.run_statistics import summarize_values
 from diet_optimization.optimization.data_types import NutritionalContext
 from diet_optimization.experiments.diagnostics import environment_metadata, evaluate_plan
 from tests.run_experiments import EXPERIMENTS, commands_for
@@ -77,6 +78,16 @@ class CommandCatalogTests(unittest.TestCase):
 
 
 class ExecutionDiagnosticsTests(unittest.TestCase):
+    def test_run_statistics_refuses_to_invent_single_run_interval(self) -> None:
+        one = summarize_values([10.0], 123)
+        self.assertIsNone(one["sample_sd"])
+        self.assertIsNone(one["mean_bootstrap_percentile_95_ci"])
+        repeated = summarize_values([10.0, 20.0, 30.0], 123, bootstrap_draws=100)
+        self.assertEqual(repeated["median"], 20.0)
+        self.assertEqual(repeated["sample_sd"], 10.0)
+        self.assertEqual(repeated["mean_bootstrap_percentile_95_ci"],
+                         summarize_values([10.0, 20.0, 30.0], 123, bootstrap_draws=100)["mean_bootstrap_percentile_95_ci"])
+
     def test_known_vegan_contradictions_are_removed_only_from_derived_copy(self) -> None:
         source = json.loads((PROJECT_ROOT / "diets-base" / "dietas-vegana.json").read_text(encoding="utf-8"))
         excluded = load_exclusions(PROJECT_ROOT / "configs" / "profile-exclusions.json")["vegana"]

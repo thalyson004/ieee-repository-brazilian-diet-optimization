@@ -279,6 +279,11 @@ def main() -> None:
         [sys.executable, "-m", "diet_optimization.analysis.article_outputs", "--workspace", str(workspace)],
         check=True,
     )
+    if args.mode == "rerun":
+        subprocess.run(
+            [sys.executable, "-m", "diet_optimization.analysis.run_statistics", "--workspace", str(workspace)],
+            check=True,
+        )
     print(f"Reproduction workspace: {workspace}")
 
 

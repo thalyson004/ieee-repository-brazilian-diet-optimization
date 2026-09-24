@@ -2,6 +2,13 @@
 
 Every experiment is launched by a named command. Each invocation writes an immutable JSON summary to `tests/results/`, a complete execution log to `tests/logs/`, and heavy generated artifacts below `tests/results/artifacts/`.
 
+New reruns also write `article_outputs/run_statistics/run-metrics-long.csv` and
+`run-statistics.json` from **individual final solutions**, never from source
+days or meals treated as independent runs. A one-run smoke test intentionally
+has no standard deviation or confidence interval. LP has one deterministic
+observation per profile and no sampling interval. No cross-method significance
+test is reported while the formulations remain non-equivalent.
+
 Fast deterministic regression tests:
 
 ```bash
