@@ -325,6 +325,9 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Presunto, porco, cozido, s/ capa de gordura": (
                 "Presunto, porco, cozido, s/ capa de gordura, Brasil", "BRC0248F"
             ),
+            "Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal": (
+                "Abóbora, moranga, refogada (c/ óleo, cebola e alho), c/ sal", "BRC0151B"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
