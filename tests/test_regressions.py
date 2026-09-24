@@ -36,6 +36,9 @@ from tests.nutrient_missingness_audit import required_nutrients, summarize_profi
 from tests.lp_food_diversity_sensitivity import observed_order_statistic, source_day_food_counts
 from tests.environmental_objective_sensitivity import OBJECTIVES as ENVIRONMENTAL_OBJECTIVES
 from tests.environmental_source_audit import compare_rounded_values
+from tests.environmental_source_range_sensitivity import METHODS as SOURCE_RANGE_METHODS
+from tests.environmental_source_range_sensitivity import PROFILES as SOURCE_RANGE_PROFILES
+from tests.environmental_source_range_sensitivity import source_range_maps, summarize_results
 from tests.lp_meal_frequency_sensitivity import source_max_repetitions_by_plan
 
 
@@ -104,6 +107,10 @@ class CommandCatalogTests(unittest.TestCase):
             commands_for("environmental-source-audit", workspace, 1, 7)[0],
         )
         self.assertIn(
+            "tests.environmental_source_range_sensitivity",
+            commands_for("environmental-source-range-sensitivity", workspace, 1, 7)[0],
+        )
+        self.assertIn(
             "tests.lp_meal_frequency_sensitivity",
             commands_for("lp-meal-frequency-sensitivity", workspace, 1, 7)[0],
         )
@@ -121,6 +128,56 @@ class CommandCatalogTests(unittest.TestCase):
         for metric in report["metrics"].values():
             self.assertEqual(metric["distributed_value_within_rounding_tolerance_of_any_official_row"], 1)
             self.assertEqual(metric["official_prep_labels_with_multiple_values"], 1)
+
+    def test_environmental_source_range_changes_only_ambiguous_active_metric(self) -> None:
+        distributed = {
+            "ambiguous": {"carbon_footprint": 5.0, "water_footprint": 6.0, "ecological_footprint": 7.0},
+            "stable": {"carbon_footprint": 8.0, "water_footprint": 9.0, "ecological_footprint": 10.0},
+        }
+        source_values = {
+            "ambiguous": [(1.0, 2.0, 3.0), (4.0, 5.0, 6.0)],
+            "stable": [(8.0, 9.0, 10.0), (8.0, 9.0, 10.0)],
+        }
+        variants = source_range_maps(distributed, source_values, "carbon_footprint")
+        self.assertEqual(variants["changed_ambiguous_labels"], 1)
+        self.assertEqual(variants["source_min"]["ambiguous"]["carbon_footprint"], 1.0)
+        self.assertEqual(variants["source_max"]["ambiguous"]["carbon_footprint"], 4.0)
+        self.assertEqual(variants["source_min"]["ambiguous"]["water_footprint"], 6.0)
+        self.assertEqual(variants["source_max"]["stable"], distributed["stable"])
+        self.assertEqual(variants["current"], distributed)
+
+    def test_environmental_source_range_summary_requires_and_compares_three_scenarios(self) -> None:
+        rows = []
+        for profile in SOURCE_RANGE_PROFILES:
+            for method in SOURCE_RANGE_METHODS:
+                for objective in ("carbon_footprint", "water_footprint", "ecological_footprint"):
+                    for scenario, score, plan, fallback, slacks in (
+                        ("current", 5.0, "plan-a", False, 0),
+                        ("source_min", 4.0, "plan-a", False, 0),
+                        ("source_max", 7.0, "plan-b", True, 2),
+                    ):
+                        rows.append({
+                            "profile": profile,
+                            "method": method,
+                            "objective": objective,
+                            "coefficient_scenario": scenario,
+                            "mean_daily_footprints": {objective: score},
+                            "final_solution": [plan],
+                            "solver": {
+                                "fallback_used": fallback,
+                                "slack_analysis": {"nonzero_slack_count": slacks},
+                            },
+                        })
+        summary = next(
+            row for row in summarize_results(rows)
+            if row["profile"] == "regular" and row["method"] == "LP-Meal"
+            and row["objective"] == "carbon_footprint"
+        )
+        self.assertEqual(summary["optimized_endpoint_score_min"], 4.0)
+        self.assertEqual(summary["optimized_endpoint_score_max"], 7.0)
+        self.assertFalse(summary["selected_plan_unchanged_across_scenarios"])
+        self.assertEqual(summary["fallback_scenarios"], ["source_max"])
+        self.assertEqual(summary["nonzero_slack_count_by_scenario"]["source_max"], 2)
 
     def test_ga_sensitivity_variants_are_versioned_and_loadable(self) -> None:
         from tests.ga_hyperparameter_sensitivity import VARIANTS

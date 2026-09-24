@@ -128,6 +128,18 @@ fails closed rather than silently updating the source:
 python -m tests.run_experiments --experiments environmental-source-audit
 ```
 
+Stress-test the LP endpoints against the per-label minimum and maximum values
+among exact-label rows in the pinned source workbook. It varies one environmental
+objective at a time and compares current/minimum/maximum maps within each profile
+and formulation (54 solves). This is an outer source-row envelope, not a
+probability interval: source rows may encode different foods, production origins,
+or system boundaries. Every cell is diagnostic and retains solver fallback/slack
+status; it must not be used as a primary result or a causal method comparison:
+
+```bash
+python -m tests.run_experiments --experiments environmental-source-range-sensitivity
+```
+
 Compare LP-Meal with no repeated-meal cap, a one-use-per-meal cap, and a
 profile-specific cap equal to the observed q95 of maximum exact-meal recurrence
 in the source plans. Identical meals are deduplicated only in capped scenarios,
