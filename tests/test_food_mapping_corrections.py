@@ -103,6 +103,12 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 "Coco, maduro, polpa,in natura, Brasil", "BRC0013C"
             ),
             "Repolho, cru": ("Repolho, branco, cru, Brasil", "BRC0033B"),
+            "Mamão, polpa, in natura": (
+                "Mamão, polpa,in natura, Brasil (média diferentes variedades)", "BRC0024C"
+            ),
+            "Torrada, trigo, integral": (
+                "Torrada, integral, c/ farinha de trigo refinada, Brasil", "BRC0170A"
+            ),
         }
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
