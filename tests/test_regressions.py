@@ -34,6 +34,7 @@ from tests.portion_support_audit import collect_support
 from tests.profile_ingredient_audit import build_queue as build_profile_ingredient_queue, risk_hits
 from tests.nutrient_missingness_audit import required_nutrients, summarize_profile
 from tests.lp_food_diversity_sensitivity import observed_order_statistic, source_day_food_counts
+from tests.environmental_objective_sensitivity import OBJECTIVES as ENVIRONMENTAL_OBJECTIVES
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -89,6 +90,13 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertIn("tests.portion_support_audit", commands_for("portion-support-audit", workspace, 10, 20260323)[0])
         self.assertIn("tests.profile_ingredient_audit", commands_for("profile-ingredient-audit", workspace, 10, 20260323)[0])
         self.assertIn("tests.nutrient_missingness_audit", commands_for("nutrient-missingness-audit", workspace, 10, 20260323)[0])
+        self.assertEqual(ENVIRONMENTAL_OBJECTIVES, (
+            "carbon_footprint", "water_footprint", "ecological_footprint"
+        ))
+        self.assertIn(
+            "tests.environmental_objective_sensitivity",
+            commands_for("environmental-objective-sensitivity", workspace, 1, 7)[0],
+        )
 
     def test_ga_sensitivity_variants_are_versioned_and_loadable(self) -> None:
         from tests.ga_hyperparameter_sensitivity import VARIANTS
