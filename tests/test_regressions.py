@@ -87,7 +87,10 @@ class CommandCatalogTests(unittest.TestCase):
     def test_every_registered_experiment_has_a_command(self) -> None:
         workspace = PROJECT_ROOT / "tests" / "results" / "artifacts" / "test"
         for experiment in EXPERIMENTS:
-            self.assertTrue(commands_for(experiment, workspace, 10, 20260323))
+            if experiment == "replication-resource-audit":
+                self.assertTrue(commands_for(experiment, workspace, 10, 20260323, source_run_id="20260924T000000000000Z_abcdef12"))
+            else:
+                self.assertTrue(commands_for(experiment, workspace, 10, 20260323))
         self.assertIn("tests.ga_hyperparameter_sensitivity", commands_for("ga-hyperparameter-sensitivity", workspace, 1, 7)[0])
         for experiment in ("ga-smoke", "full-replication"):
             commands = commands_for(experiment, workspace, 10, 20260323)

@@ -199,6 +199,15 @@ New full replication:
 python -m tests.run_experiments --experiments full-replication --runs 10 --seed 20260323
 ```
 
+Aggregate the per-execution runtime, exact GA fitness evaluations, stopping
+generations, sampled resident memory, and LP fallback/slack details from a
+completed full-replication workspace. The audit requires exactly 60 GA and 6 LP
+execution records and creates its own immutable result and log:
+
+```bash
+python -m tests.run_experiments --experiments replication-resource-audit --source-run-id <full-replication-run-id>
+```
+
 The smoke and full commands create new stochastic results. They do not recreate the unrecorded random streams used in March 2026.
 
 Each new GA run writes `data/outputs/optimization_runs/ag-*/runs/<diet>/execution-<n>.json`
