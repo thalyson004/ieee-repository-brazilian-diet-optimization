@@ -56,6 +56,15 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 "Feijão carioca, cozido (50% grão e 50% caldo), c/ óleo de soja, cebola e alho, c/ sal, Brasil",
                 "BRC0091T",
             ),
+            "Arroz, polido, cozido, c/ óleo, cebola e alho, c/ sal": (
+                "Arroz polido, cozido, c/ óleo de soja, cebola e alho, c/ sal, Brasil", "BRC0209A"
+            ),
+            "Biscoito, arroz": ("Biscoito, farinha de arroz (dado importado)", "BRC0836A"),
+            "Macarrão, trigo, cozido, drenado, s/ óleo, c/ sal": (
+                "Macarrão, farinha de trigo refinada, cozido, drenado, s/ óleo, c/ sal, Brasil",
+                "BRC0834A",
+            ),
+            "Pão, sírio, branco": ("Pão, sírio, farinha de trigo refinada (dado importado)", "BRC0575A"),
         }
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
