@@ -15,6 +15,12 @@ input profile and exact candidate-food inventory; the audit checks selected
 foods against that profile's staged base diets and writes
 `article_outputs/profile-scope-validation.json`.
 
+New GA/LP reruns default to `configs/revised-nutrition-protocol.json`; use
+`--nutrition-protocol historical` only to reproduce the prior implemented
+bounds. Each rerun stores `effective-nutrition-constraints.json`, its digest,
+and `nutrition-field-coverage.json`. Reruns remain diagnostic until the
+non-identity food mappings and missing nutrient values are adjudicated.
+
 Fast deterministic regression tests:
 
 ```bash
@@ -55,9 +61,8 @@ python -m tests.validate_candidate_scope --workspace tests/results/artifacts/<ru
 This command verifies that each selected food occurs in one of the 50 prepared
 base diets of its own profile. Preparation removes only two exact, documented
 vegan contradictions (five item occurrences), preserving the original files
-and recording every removal. It uses historical numerical targets and is not
-the revised article's final experiment. The remaining source foods still need
-complete ingredient-level review before claiming vegan compliance.
+and recording every removal. The remaining source foods still need complete
+ingredient-level review before claiming vegan compliance.
 
 New full replication:
 
@@ -70,7 +75,7 @@ The smoke and full commands create new stochastic results. They do not recreate 
 Each new GA run writes `data/outputs/optimization_runs/ag-*/runs/<diet>/execution-<n>.json`
 inside its result workspace. This file contains the effective configuration, seed,
 fitness trajectory, stop reason, duration, final solution, daily and mean nutrient
-and footprint metrics, and violations of the *historically implemented* bounds.
+and footprint metrics, and violations of the selected protocol's bounds.
 LP produces one `data/outputs/optimization_runs/pl-*/execution-<profile>.json`
 per profile with solver status, fallback details, final solution, and diagnostics.
 The workspace `run-manifest.json` captures the current OS, CPU, physical RAM,

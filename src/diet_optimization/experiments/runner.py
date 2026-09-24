@@ -334,11 +334,16 @@ def write_manifest(
         "input_preparation_report": "input-preparation.json" if mode == "rerun" else None,
         "nutrition_protocol_id": nutrition_protocol_id if mode == "rerun" else None,
         "effective_nutrition_constraints_sha256": nutrition_constraints_sha256 if mode == "rerun" else None,
+        "scientific_readiness": (
+            "diagnostic_pending_food_mapping_review_and_nutrient_missingness_sensitivity"
+            if mode == "rerun" else "archived_reconstruction"
+        ),
         "command": command,
         "notes": [
             "Archived mode rebuilds main tables from the fb34919 selected-solution snapshot and diversity from the e5f760c ten-run solution files, matching the published artifact history.",
             "Rerun mode is deterministic from the supplied base seed but cannot recreate the unrecorded random streams of March 2026.",
             "The 150 LLM-generated base diets are inputs; original API-call logs and inference settings were not preserved in this repository.",
+            "Reruns are diagnostic until the non-identity food mappings and nutrient missingness policy are adjudicated; the field-coverage report enumerates absent composition values.",
         ],
     }
     (workspace / "run-manifest.json").write_text(

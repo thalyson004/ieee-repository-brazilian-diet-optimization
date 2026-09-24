@@ -181,6 +181,18 @@ class RevisedNutritionProtocolTests(unittest.TestCase):
         self.assertNotIn("Colesterol", protocol["maximum_goals"])
         self.assertEqual([target["nutrient"] for target in protocol["secondary_targets"]], ["Ferro"])
 
+    def test_rerun_manifest_cannot_label_unreviewed_data_as_final(self) -> None:
+        from diet_optimization.experiments.runner import write_manifest
+
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            write_manifest(workspace, "rerun", 1, 7, [], "test-protocol", "abc")
+            manifest = json.loads((workspace / "run-manifest.json").read_text(encoding="utf-8"))
+        self.assertEqual(
+            manifest["scientific_readiness"],
+            "diagnostic_pending_food_mapping_review_and_nutrient_missingness_sensitivity",
+        )
+
     def test_injected_protocol_targets_drive_ga_penalty_and_lp_constraints(self) -> None:
         minimums = {"Energia": 100.0, "Prote\u00edna": 40.0}
         maximums = {"Energia": {"meta": 120.0, "tolerancia": 1.0}}
