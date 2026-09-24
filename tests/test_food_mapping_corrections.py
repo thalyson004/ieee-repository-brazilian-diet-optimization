@@ -202,6 +202,19 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Queijo, ricota": ("Queijo, ricota, Brasil", "BRC0051G"),
             "Pistache, cru, s/ sal": ("Pistache, cru, s/ sal (dado importado)", "BRC0015U"),
             "Melancia, polpa, in natura": ("Melancia, polpa,in natura, Brasil", "BRC0027C"),
+            "Uva, in natura": ("Uva,in natura, Brasil", "BRC0033C"),
+            "Chicória, crua": ("Chicória, crua, Brasil", "BRC0071B"),
+            "Espinafre, folha, cru": ("Espinafre, folha, cru, Brasil", "BRC0072B"),
+            "Rúcula, crua": ("Rúcula, crua, Brasil", "BRC0081B"),
+            "Soja, extrato, bebida (média de diferentes sabores)": (
+                "Soja, extrato, bebida (média de diferentes sabores), Brasil", "BRC0042T"
+            ),
+            "Geleia, s/ açúcar (média de diferentes sabores)": (
+                "Geleia, s/ açúcar, Brasil (média de diferentes sabores)", "BRC0058N"
+            ),
+            "Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal": (
+                "Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal, Brasil", "BRC0013D"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")

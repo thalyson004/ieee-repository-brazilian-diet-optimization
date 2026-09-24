@@ -86,7 +86,14 @@
     "Manteiga, c/ sal",
     "Queijo, ricota",
     "Pistache, cru, s/ sal",
-    "Melancia, polpa, in natura"
+    "Melancia, polpa, in natura",
+    "Uva, in natura",
+    "Chicória, crua",
+    "Espinafre, folha, cru",
+    "Rúcula, crua",
+    "Soja, extrato, bebida (média de diferentes sabores)",
+    "Geleia, s/ açúcar (média de diferentes sabores)",
+    "Margarina, c/ óleo interesterificado (65% lipídeos), s/ sal"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }
