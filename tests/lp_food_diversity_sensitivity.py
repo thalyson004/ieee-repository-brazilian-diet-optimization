@@ -7,7 +7,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-from diet_optimization.experiments.diagnostics import evaluate_plan
 from diet_optimization.experiments.profile_integrity import load_exclusions, prepare_profile_diets
 from diet_optimization.experiments.runner import source_provenance
 from diet_optimization.optimization.linear_optimizer import (
@@ -18,6 +17,7 @@ from diet_optimization.optimization.nutritional_targets import load_protocol
 from diet_optimization.optimization.pipeline import build_context
 from diet_optimization.optimization.utils import load_json_file, parse_quantity_in_grams
 from tests.lp_daily_quantity_support_sensitivity import cap_map, daily_quantity_support
+from diet_optimization.experiments.diagnostics import evaluate_plan
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
