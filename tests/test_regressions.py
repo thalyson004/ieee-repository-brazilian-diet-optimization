@@ -84,6 +84,8 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertEqual(len(queue), 170)
         self.assertTrue(all(row["review_status"] == "PENDING_MANUAL_REVIEW" for row in queue))
         self.assertTrue(all(row["automatic_acceptance"] is False for row in queue))
+        self.assertTrue(all(row["decision"] == "" for row in queue))
+        self.assertIn("evidence_url_or_reference", queue[0])
         self.assertTrue(all(len(row["suggestions"]) == 5 for row in queue))
         self.assertEqual(normalize_name("Pão francês, c/ óleo"), "pao frances oleo")
         tomato = next(row for row in queue if row["food_original"].startswith("Tomate"))

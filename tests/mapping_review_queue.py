@@ -75,6 +75,14 @@ def build_queue() -> list[dict]:
             "profiles": mapping["profiles"],
             "review_status": "PENDING_MANUAL_REVIEW",
             "automatic_acceptance": False,
+            "decision": "",
+            "approved_tbca_name": "",
+            "approved_tbca_code": "",
+            "decision_rationale": "",
+            "evidence_url_or_reference": "",
+            "reviewer": "",
+            "review_date": "",
+            "environmental_mapping_decision": "",
             "ranking_method": "normalized character similarity plus token Jaccard; suggestions are not equivalence evidence",
             "suggestions": ranked,
         })
@@ -92,14 +100,19 @@ def write_queue(output_dir: Path) -> tuple[Path, Path]:
         "unreviewed_mapping_count": len(rows),
         "rows": rows,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    columns = ["food_original", "current_tbca_name", "current_tbca_code", "occurrence_count", "profiles", "review_status"]
+    columns = [
+        "food_original", "current_tbca_name", "current_tbca_code", "occurrence_count",
+        "profiles", "review_status", "decision", "approved_tbca_name", "approved_tbca_code",
+        "decision_rationale", "evidence_url_or_reference", "reviewer", "review_date",
+        "environmental_mapping_decision",
+    ]
     for index in range(1, 6):
         columns.extend((f"candidate_{index}", f"candidate_{index}_code", f"candidate_{index}_score"))
     with csv_path.open("w", encoding="utf-8-sig", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=columns)
         writer.writeheader()
         for row in rows:
-            output = {key: row[key] for key in columns[:6]}
+            output = {key: row[key] for key in columns[:14]}
             for index, candidate in enumerate(row["suggestions"], start=1):
                 output[f"candidate_{index}"] = candidate["candidate_name"]
                 output[f"candidate_{index}_code"] = candidate["tbca_code"]

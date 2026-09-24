@@ -49,7 +49,7 @@ The frozen audit of the submitted input reports:
 
 Coverage does not establish validity. In particular, a complete join does not prove that the selected TBCA item is nutritionally equivalent to the generated item or that the footprint coefficient describes the same preparation, geography, production system, and system boundary.
 
-For review, `archive/audits/food-mapping-review-queue.csv` and its JSON counterpart list all 170 unresolved links, their current targets, occurrence counts, profiles, and five ranked TBCA name suggestions. Generate the queue with:
+For review, `archive/audits/food-mapping-review-queue.csv` and its JSON counterpart list all 170 unresolved links, their current targets, occurrence counts, profiles, and five ranked TBCA name suggestions. The CSV also provides blank decision, approved-target, rationale, evidence, reviewer/date, and environmental-map adjudication fields; no row is pre-approved. Generate the queue with:
 
 ```bash
 python -m tests.run_experiments --experiments mapping-review-queue
