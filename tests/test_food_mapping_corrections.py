@@ -92,6 +92,10 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 "Risoto de legumes, c/ arroz polido, c/ sal, Brasil", "BRC0623A"
             ),
             "Avelã , crua, s/ sal": ("Avelã , crua, s/ sal (dado importado)", "BRC0013U"),
+            "Manga, polpa, in natura": (
+                "Manga, polpa,in natura, Brasil (média diferentes variedades)", "BRC0025C"
+            ),
+            "Canela, em pó": ("Canela, em pó (dado importado)", "BRC0778B"),
         }
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
