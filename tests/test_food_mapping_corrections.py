@@ -234,6 +234,24 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Milho, verde, grão, cozido, drenado, c/ sal": (
                 "Milho, verde, grão, cozido, drenado, c/ sal, Brasil", "BRC0177A"
             ),
+            "Abobrinha, italiana, c/ casca, crua": (
+                "Abobrinha, italiana, c/ casca, crua, Brasil", "BRC0006B"
+            ),
+            "Azeitona, verde, conserva, drenada": (
+                "Azeitona, verde, conserva, drenada, Brasil", "BRC0121B"
+            ),
+            "Rabanete, c/ casca, cru": ("Rabanete, c/ casca, cru, Brasil", "BRC0079B"),
+            "Pêssego, in natura": ("Pêssego,in natura, Brasil", "BRC0031C"),
+            "Mandioca, farinha, crua": ("Mandioca, farinha, crua, Brasil", "BRC0087B"),
+            "Carne, boi, seca, cozida, s/ óleo": (
+                "Carne, boi, seca, cozida, s/ óleo, Brasil", "BRC0085F"
+            ),
+            "Peixe, água salgada, atum, sólido, conserva, light": (
+                "Peixe, água salgada, atum, sólido, conserva, light, Brasil", "BRC0053N"
+            ),
+            "Queijo, pasteurizado (média de diferentes amostras)": (
+                "Queijo, pasteurizado (média de diferentes amostras), Brasil", "BRC0062G"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")

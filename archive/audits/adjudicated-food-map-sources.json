@@ -102,7 +102,15 @@
     "Cebolinha, verde, crua",
     "Soja, extrato, solúvel, em pó",
     "Biscoito, doce, simples (média de diferentes tipos)",
-    "Milho, verde, grão, cozido, drenado, c/ sal"
+    "Milho, verde, grão, cozido, drenado, c/ sal",
+    "Abobrinha, italiana, c/ casca, crua",
+    "Azeitona, verde, conserva, drenada",
+    "Rabanete, c/ casca, cru",
+    "Pêssego, in natura",
+    "Mandioca, farinha, crua",
+    "Carne, boi, seca, cozida, s/ óleo",
+    "Peixe, água salgada, atum, sólido, conserva, light",
+    "Queijo, pasteurizado (média de diferentes amostras)"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }
