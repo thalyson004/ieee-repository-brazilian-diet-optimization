@@ -79,6 +79,10 @@ def audit(output_dir: Path) -> dict[str, Any]:
     generated_to_tbca_code = load_json(
         PROJECT_ROOT / "maps" / "derived" / "mapa-sustentavel-tbca.json"
     )
+    adjudication_index = load_json(
+        PROJECT_ROOT / "archive" / "audits" / "adjudicated-food-map-sources.json"
+    )
+    adjudicated_foods = set(adjudication_index.get("source_food_names", []))
     footprint_map = load_json(
         PROJECT_ROOT / "maps" / "base" / "mapa-sustentavel-pegadas.json"
     )
@@ -300,6 +304,8 @@ def audit(output_dir: Path) -> dict[str, Any]:
         mapping_kind = (
             "identity"
             if target_name == food_name
+            else "non_identity_recorded_decision"
+            if target_name and food_name in adjudicated_foods
             else "non_identity_unreviewed"
             if target_name
             else "missing"
@@ -309,7 +315,7 @@ def audit(output_dir: Path) -> dict[str, Any]:
             ambiguity_flags.append("many_used_names_to_one_target")
         if all_source_count > 1:
             ambiguity_flags.append("many_map_names_to_one_target")
-        if mapping_kind == "non_identity_unreviewed":
+        if mapping_kind in {"non_identity_recorded_decision", "non_identity_unreviewed"}:
             ambiguity_flags.append("mapping_classification_not_preserved")
         if not tbca_record:
             ambiguity_flags.append("missing_tbca_record")
@@ -319,6 +325,15 @@ def audit(output_dir: Path) -> dict[str, Any]:
             {
                 "food_original": food_name,
                 "mapping_kind": mapping_kind,
+                "adjudication_status": (
+                    "target_decision_recorded; residual_uncertainty_possible"
+                    if mapping_kind == "non_identity_recorded_decision"
+                    else "no_target_decision_recorded"
+                    if mapping_kind == "non_identity_unreviewed"
+                    else "identity"
+                    if mapping_kind == "identity"
+                    else "missing"
+                ),
                 "mapped_tbca_name": target_name,
                 "tbca_code": tbca_code,
                 "tbca_record_name": tbca_record.get("nome"),
@@ -335,6 +350,8 @@ def audit(output_dir: Path) -> dict[str, Any]:
                 "selection_provenance": (
                     "identity_match"
                     if mapping_kind == "identity"
+                    else "dated_manual_target_decision; review the linked correction ledger"
+                    if mapping_kind == "non_identity_recorded_decision"
                     else "preserved_map_only; original selection rationale unavailable"
                 ),
             }
@@ -372,8 +389,16 @@ def audit(output_dir: Path) -> dict[str, Any]:
             "identity_food_mappings": sum(
                 row["mapping_kind"] == "identity" for row in mapping_rows
             ),
-            "non_identity_mappings_without_preserved_classification": sum(
+            "non_identity_mappings_with_recorded_target_decision": sum(
+                row["mapping_kind"] == "non_identity_recorded_decision"
+                for row in mapping_rows
+            ),
+            "non_identity_mappings_without_recorded_target_decision": sum(
                 row["mapping_kind"] == "non_identity_unreviewed"
+                for row in mapping_rows
+            ),
+            "non_identity_mappings_without_preserved_classification": sum(
+                row["mapping_kind"] in {"non_identity_unreviewed", "non_identity_recorded_decision"}
                 for row in mapping_rows
             ),
             "used_mapping_targets_with_multiple_source_names": sum(
@@ -421,7 +446,7 @@ def audit(output_dir: Path) -> dict[str, Any]:
 - Plans: {totals['plans']} ({totals['plans_with_valid_schema']} with the expected 5-day/6-meal schema).
 - Food occurrences: {totals['food_occurrences']} across {totals['unique_food_names']} unique names.
 - Exact TBCA names: {totals['unique_food_names_exactly_in_tbca_name_map']}; names requiring the explicit preserved mapping: {totals['unique_food_names_requiring_explicit_name_mapping']}.
-- Identity mappings: {totals['identity_food_mappings']}; non-identity mappings without a preserved lexical-versus-semantic classification: {totals['non_identity_mappings_without_preserved_classification']}.
+- Identity mappings: {totals['identity_food_mappings']}; non-identity links with a dated target decision: {totals['non_identity_mappings_with_recorded_target_decision']}; without a target decision: {totals['non_identity_mappings_without_recorded_target_decision']}. The lexical-versus-semantic classification remains unpreserved for {totals['non_identity_mappings_without_preserved_classification']} non-identity links.
 - Used TBCA targets reached by multiple generated names: {totals['used_mapping_targets_with_multiple_source_names']}.
 - Invalid quantities: {totals['invalid_quantities']}.
 - Quantities above the 1000 g screening threshold: {totals['quantities_above_1000g_screening_threshold']}.

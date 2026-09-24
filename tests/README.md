@@ -39,6 +39,15 @@ Audit of all 150 normalized base diets:
 python -m tests.run_experiments --experiments base-diet-audit
 ```
 
+Quantify missing nutrient fields by profile and measure how a strict
+complete-case food pool would reduce observed foods, occurrences, and grams.
+The strict scenario is an attrition sensitivity only; it does not choose a
+primary missing-data policy or treat missing values as true zero:
+
+```bash
+python -m tests.run_experiments --experiments nutrient-missingness-audit
+```
+
 Create a ranked, non-accepting TBCA review queue for the 170 non-identity links:
 
 ```bash

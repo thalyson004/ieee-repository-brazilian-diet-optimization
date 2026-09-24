@@ -110,6 +110,10 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 "Torrada, integral, c/ farinha de trigo refinada, Brasil", "BRC0170A"
             ),
         }
+        adjudication = json.loads(
+            (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(set(adjudication["source_food_names"]), set(expected))
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
                 self.assertEqual(name_map[source], expected_name)

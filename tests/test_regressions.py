@@ -30,6 +30,7 @@ from tests.run_experiments import EXPERIMENTS, commands_for
 from tests.mapping_review_queue import build_queue, normalize_name
 from tests.portion_support_audit import collect_support
 from tests.profile_ingredient_audit import risk_hits
+from tests.nutrient_missingness_audit import required_nutrients, summarize_profile
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -82,6 +83,34 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertIn("tests.mapping_review_queue", commands_for("mapping-review-queue", workspace, 10, 20260323)[0])
         self.assertIn("tests.portion_support_audit", commands_for("portion-support-audit", workspace, 10, 20260323)[0])
         self.assertIn("tests.profile_ingredient_audit", commands_for("profile-ingredient-audit", workspace, 10, 20260323)[0])
+        self.assertIn("tests.nutrient_missingness_audit", commands_for("nutrient-missingness-audit", workspace, 10, 20260323)[0])
+
+    def test_missingness_complete_case_is_numeric_and_keeps_reported_zero(self) -> None:
+        protocol = {
+            "core_targets": [{"nutrient": "A", "tbca_field": "A"}],
+            "additional_rules": [{"nutrient": "B", "tbca_field": "B", "upper": 10, "model_rule": "hard daily upper bound"}],
+        }
+        nutrients = required_nutrients(protocol)
+        self.assertEqual([row["tbca_field"] for row in nutrients], ["A", "B"])
+        plans = [{"1": {"Lunch": [
+            {"alimento": "complete", "quantidade": 100},
+            {"alimento": "reported-zero", "quantidade": 50},
+            {"alimento": "missing", "quantidade": 25},
+        ]}}]
+        summary, field_rows, food_rows = summarize_profile(
+            "vegan", plans, {"complete": "1", "reported-zero": "2", "missing": "3"},
+            {
+                "1": {"nutrientes": {"A": 1, "B": 2}},
+                "2": {"nutrientes": {"A": 0, "B": 2}},
+                "3": {"nutrientes": {"A": None, "B": 2}},
+            },
+            nutrients,
+        )
+        self.assertEqual(summary["strict_complete_case_foods_retained"], 2)
+        self.assertEqual(summary["strict_complete_case_occurrences_excluded"], 1)
+        self.assertEqual(summary["strict_complete_case_grams_excluded"], 25)
+        self.assertEqual(field_rows[0]["occurrences_exposed_to_missing_value"], 1)
+        self.assertTrue(next(row for row in food_rows if row["food_original"] == "reported-zero")["strict_complete_case_retained"])
 
     def test_mapping_review_queue_never_auto_accepts_fuzzy_candidates(self) -> None:
         queue = build_queue()
@@ -241,9 +270,16 @@ class BaseDietAuditTests(unittest.TestCase):
         self.assertEqual(totals["unmapped_environmental_occurrences"], 0)
         self.assertEqual(
             totals["identity_food_mappings"]
-            + totals["non_identity_mappings_without_preserved_classification"],
+            + totals["non_identity_mappings_with_recorded_target_decision"]
+            + totals["non_identity_mappings_without_recorded_target_decision"],
             totals["unique_food_names"],
         )
+        adjudication = json.loads(
+            (PROJECT_ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(len(adjudication["source_food_names"]), 39)
+        self.assertEqual(totals["non_identity_mappings_with_recorded_target_decision"], 39)
+        self.assertEqual(totals["non_identity_mappings_without_recorded_target_decision"], 131)
         self.assertEqual(len(mapping_lines), totals["unique_food_names"] + 1)
 
 
