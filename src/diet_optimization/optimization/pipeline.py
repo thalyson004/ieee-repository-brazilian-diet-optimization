@@ -244,6 +244,12 @@ def process_optimization_pipeline(
             meal_pool, food_pool, base_chromosomes = build_meal_and_food_pools(
                 diets, nutritional_context
             )
+            candidate_food_names = sorted({
+                item.get("alimento")
+                for foods in food_pool.values()
+                for item in foods
+                if isinstance(item.get("alimento"), str)
+            })
             if any(not meal_pool[meal_type_name] for meal_type_name in MEAL_ORDER):
                 print(
                     f"Arquivo ignorado por falta de refeicoes completas: {diet_file_name}"
@@ -289,6 +295,9 @@ def process_optimization_pipeline(
                     "schema_version": "1.0",
                     "resolution": resolution_label,
                     "source_diet_file": diet_file_path.name,
+                    "candidate_pool_profile": diet_file_path.stem.removeprefix("dietas-"),
+                    "candidate_food_count": len(candidate_food_names),
+                    "candidate_food_names": candidate_food_names,
                     "execution_id": execution_identifier,
                     "effective_configuration": asdict(tuned_hyperparameters),
                     "seed": execution_seed,

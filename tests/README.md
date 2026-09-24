@@ -9,6 +9,12 @@ has no standard deviation or confidence interval. LP has one deterministic
 observation per profile and no sampling interval. No cross-method significance
 test is reported while the formulations remain non-equivalent.
 
+Both `ga-smoke` and `full-replication` run a post-execution candidate-scope
+audit across GA-Food, GA-Meal, LP-Food, and LP-Meal. GA artifacts record their
+input profile and exact candidate-food inventory; the audit checks selected
+foods against that profile's staged base diets and writes
+`article_outputs/profile-scope-validation.json`.
+
 Fast deterministic regression tests:
 
 ```bash
@@ -37,6 +43,13 @@ Audit the corrected LP-Food candidate set for all three profiles without GA:
 
 ```bash
 python -m tests.run_experiments --experiments lp-profile-scope
+```
+
+Inspect all four methods' candidate and output scope in an existing rerun
+workspace:
+
+```bash
+python -m tests.validate_candidate_scope --workspace tests/results/artifacts/<run-id>
 ```
 
 This command verifies that each selected food occurs in one of the 50 prepared

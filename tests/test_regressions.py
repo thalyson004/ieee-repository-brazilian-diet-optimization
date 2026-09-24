@@ -15,6 +15,7 @@ from diet_optimization.experiments.profile_integrity import load_exclusions, pre
 from diet_optimization.analysis.run_statistics import summarize_values
 from diet_optimization.optimization.data_types import NutritionalContext
 from diet_optimization.experiments.diagnostics import environment_metadata, evaluate_plan
+from tests.validate_candidate_scope import item_names
 from tests.run_experiments import EXPERIMENTS, commands_for
 
 
@@ -62,6 +63,9 @@ class CommandCatalogTests(unittest.TestCase):
         workspace = PROJECT_ROOT / "tests" / "results" / "artifacts" / "test"
         for experiment in EXPERIMENTS:
             self.assertTrue(commands_for(experiment, workspace, 10, 20260323))
+        for experiment in ("ga-smoke", "full-replication"):
+            commands = commands_for(experiment, workspace, 10, 20260323)
+            self.assertIn("tests.validate_candidate_scope", commands[-1])
 
     def test_ga_execution_seeds_are_stable_and_independent(self) -> None:
         seeds = {
@@ -78,6 +82,13 @@ class CommandCatalogTests(unittest.TestCase):
 
 
 class ExecutionDiagnosticsTests(unittest.TestCase):
+    def test_scope_audit_extracts_foods_from_nested_plans(self) -> None:
+        plan = {
+            "1": {"Lunch": [{"alimento": "beans", "quantidade": 100}]},
+            "2": {"Dinner": [{"alimento": "rice", "quantidade": 150}]},
+        }
+        self.assertEqual(item_names(plan), {"beans", "rice"})
+
     def test_run_statistics_refuses_to_invent_single_run_interval(self) -> None:
         one = summarize_values([10.0], 123)
         self.assertIsNone(one["sample_sd"])

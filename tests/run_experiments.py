@@ -86,8 +86,14 @@ def commands_for(experiment: str, workspace: Path, runs: int, seed: int) -> list
     if experiment == "lp-profile-scope":
         return [[sys.executable, "-m", "tests.validate_lp_profile_scope", "--output-dir", str(workspace / "audit")]]
     if experiment == "ga-smoke":
-        return [runner + ["--mode", "rerun", "--runs", "1", "--seed", str(seed), "--output-dir", str(workspace)]]
-    return [runner + ["--mode", "rerun", "--runs", str(runs), "--seed", str(seed), "--output-dir", str(workspace)]]
+        return [
+            runner + ["--mode", "rerun", "--runs", "1", "--seed", str(seed), "--output-dir", str(workspace)],
+            [sys.executable, "-m", "tests.validate_candidate_scope", "--workspace", str(workspace)],
+        ]
+    return [
+        runner + ["--mode", "rerun", "--runs", str(runs), "--seed", str(seed), "--output-dir", str(workspace)],
+        [sys.executable, "-m", "tests.validate_candidate_scope", "--workspace", str(workspace)],
+    ]
 
 
 def execute(experiment: str, runs: int, seed: int) -> Path:
