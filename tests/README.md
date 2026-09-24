@@ -225,7 +225,7 @@ working-set usage rather than exact peak memory.
 
 The base-diet audit writes item-, plan-, nutrient-, and summary-level evidence. It does not infer missing raw API responses, failures, or regeneration counts.
 
-The registered GA sensitivity command is `python -m tests.run_experiments --experiments ga-hyperparameter-sensitivity --runs 10 --seed 20260931 --nutrition-protocol revised`. It pairs execution IDs under one base seed for baseline, reduced population, higher mutation, and shorter stagnation. Each nested manifest records the effective override payload and hash. The post-run review command is `python -m tests.ga_sensitivity_review --source-run-id 20260924T193117251885Z_3da6e240`; it validates profile scope and writes paired differences with bootstrap intervals. The 1-run version is smoke validation only, not a sensitivity estimate.
+The registered GA sensitivity command is `python -m tests.run_experiments --experiments ga-hyperparameter-sensitivity --runs 10 --seed 20260936 --nutrition-protocol revised`. It pairs execution IDs under one base seed for baseline, reduced population, higher mutation, shorter stagnation, and crossover-repair disabled. Each nested manifest records the effective override payload and hash. The post-run review command validates profile scope and writes paired differences with bootstrap intervals. The repair-disabled arm is an algorithmic ablation, not a recommended configuration; the 1-run version is smoke validation only, not a sensitivity estimate.
 
 Compare the relative environmental objective weight while holding the nutritional
 weight at 1.0. The paired variants use environmental weights 0.5, 1.0, and 2.0

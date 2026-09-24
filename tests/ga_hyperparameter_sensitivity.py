@@ -15,6 +15,7 @@ VARIANTS = {
     "reduced-population": "configs/ga-sensitivity/reduced-population.json",
     "higher-mutation": "configs/ga-sensitivity/higher-mutation.json",
     "shorter-stagnation": "configs/ga-sensitivity/shorter-stagnation.json",
+    "repair-disabled": "configs/ga-sensitivity/repair-disabled.json",
 }
 
 

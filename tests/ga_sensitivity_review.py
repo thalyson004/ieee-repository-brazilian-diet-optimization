@@ -17,7 +17,10 @@ from tests.validate_candidate_scope import audit_workspace
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-VARIANTS = ("baseline", "reduced-population", "higher-mutation", "shorter-stagnation")
+VARIANTS = (
+    "baseline", "reduced-population", "higher-mutation", "shorter-stagnation",
+    "repair-disabled",
+)
 BOOTSTRAP_REPLICATES = 2000
 
 
@@ -66,7 +69,7 @@ def analyze_workspace(source_workspace: Path, review_workspace: Path) -> dict:
         raise ValueError("Source run is not the complete ten-run sensitivity matrix")
     listed_variants = {entry["variant"]: entry for entry in summary["variants"]}
     if set(listed_variants) != set(VARIANTS):
-        raise ValueError("Sensitivity run does not contain the registered four variants")
+        raise ValueError("Sensitivity run does not contain the registered five variants")
 
     provenance = {}
     metrics = {}

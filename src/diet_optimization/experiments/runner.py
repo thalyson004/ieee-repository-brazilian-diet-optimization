@@ -389,6 +389,7 @@ def source_provenance() -> dict:
 
 
 GA_OVERRIDE_LIMITS = {
+    "enable_crossover_repair": (bool, None, None),
     "population_size": (int, 1, None),
     "max_stagnation_generations": (int, 1, None),
     "max_generations": (int, 1, None),
@@ -413,15 +414,22 @@ def apply_ga_overrides(
     applied = {}
     for name, value in overrides.items():
         expected_type, minimum, maximum = GA_OVERRIDE_LIMITS[name]
-        if expected_type is int:
+        if expected_type is bool:
+            valid_type = isinstance(value, bool)
+        elif expected_type is int:
             valid_type = isinstance(value, int) and not isinstance(value, bool)
         else:
             valid_type = isinstance(value, (int, float)) and not isinstance(value, bool)
-        if not valid_type or not math.isfinite(value) or value < minimum:
+        if not valid_type:
             raise ValueError(f"Invalid value for GA override {name}: {value!r}")
-        if maximum is not None and value > maximum:
-            raise ValueError(f"GA override {name} must be at most {maximum}")
-        normalized = int(value) if expected_type is int else float(value)
+        if expected_type is bool:
+            normalized = value
+        else:
+            if not math.isfinite(value) or value < minimum:
+                raise ValueError(f"Invalid value for GA override {name}: {value!r}")
+            if maximum is not None and value > maximum:
+                raise ValueError(f"GA override {name} must be at most {maximum}")
+            normalized = int(value) if expected_type is int else float(value)
         setattr(hyperparameters, name, normalized)
         applied[name] = normalized
     return applied

@@ -212,7 +212,7 @@ class CommandCatalogTests(unittest.TestCase):
 
         self.assertEqual(
             set(VARIANTS),
-            {"baseline", "reduced-population", "higher-mutation", "shorter-stagnation"},
+            {"baseline", "reduced-population", "higher-mutation", "shorter-stagnation", "repair-disabled"},
         )
         for relative_path in VARIANTS.values():
             if relative_path is None:
@@ -635,15 +635,20 @@ class RevisedNutritionProtocolTests(unittest.TestCase):
                 "population_size": 30,
                 "default_local_mutation_rate": 0.3,
                 "environmental_criterion_weight": 0.5,
+                "enable_crossover_repair": False,
             },
         )
         self.assertEqual(applied["population_size"], 30)
         self.assertEqual(parameters.default_local_mutation_rate, 0.3)
         self.assertEqual(parameters.environmental_criterion_weight, 0.5)
+        self.assertFalse(parameters.enable_crossover_repair)
+        self.assertTrue(apply_ga_overrides(parameters, {"enable_crossover_repair": True})["enable_crossover_repair"])
         with self.assertRaisesRegex(ValueError, "Unsupported GA override"):
             apply_ga_overrides(parameters, {"nutritional_minimum_goals": {}})
         with self.assertRaisesRegex(ValueError, "Invalid value"):
             apply_ga_overrides(parameters, {"population_size": True})
+        with self.assertRaisesRegex(ValueError, "Invalid value"):
+            apply_ga_overrides(parameters, {"enable_crossover_repair": 1})
         with self.assertRaisesRegex(ValueError, "at most"):
             apply_ga_overrides(parameters, {"default_local_mutation_rate": 1.1})
         with self.assertRaisesRegex(ValueError, "at most"):
