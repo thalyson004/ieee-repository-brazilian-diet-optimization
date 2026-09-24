@@ -33,6 +33,7 @@ EXPERIMENTS = (
     "lp-daily-quantity-support-sensitivity",
     "lp-food-diversity-sensitivity",
     "environmental-objective-sensitivity",
+    "environmental-source-audit",
     "profile-ingredient-audit",
     "lp-profile-scope",
     "lp-slack-sensitivity",
@@ -115,6 +116,8 @@ def commands_for(
         return [[sys.executable, "-m", "tests.lp_food_diversity_sensitivity", "--output-dir", str(workspace / "audit")]]
     if experiment == "environmental-objective-sensitivity":
         return [[sys.executable, "-m", "tests.environmental_objective_sensitivity", "--output-dir", str(workspace / "audit")]]
+    if experiment == "environmental-source-audit":
+        return [[sys.executable, "-m", "tests.environmental_source_audit", "--output-dir", str(workspace / "audit")]]
     if experiment == "profile-ingredient-audit":
         return [[sys.executable, "-m", "tests.profile_ingredient_audit", "--output-dir", str(workspace / "audit")]]
     if experiment == "lp-profile-scope":
@@ -175,8 +178,8 @@ def execute(experiment: str, runs: int, seed: int, nutrition_protocol: str) -> P
             "duration_seconds": elapsed,
             "python": platform.python_version(),
             "platform": platform.platform(),
-            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
-            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
+            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
+            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
             "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "ga-hyperparameter-sensitivity", "full-replication"} else None,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),

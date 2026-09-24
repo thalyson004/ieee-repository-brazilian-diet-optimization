@@ -35,6 +35,7 @@ from tests.profile_ingredient_audit import build_queue as build_profile_ingredie
 from tests.nutrient_missingness_audit import required_nutrients, summarize_profile
 from tests.lp_food_diversity_sensitivity import observed_order_statistic, source_day_food_counts
 from tests.environmental_objective_sensitivity import OBJECTIVES as ENVIRONMENTAL_OBJECTIVES
+from tests.environmental_source_audit import compare_rounded_values
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -97,6 +98,24 @@ class CommandCatalogTests(unittest.TestCase):
             "tests.environmental_objective_sensitivity",
             commands_for("environmental-objective-sensitivity", workspace, 1, 7)[0],
         )
+        self.assertIn(
+            "tests.environmental_source_audit",
+            commands_for("environmental-source-audit", workspace, 1, 7)[0],
+        )
+
+    def test_environmental_source_audit_checks_rounding_and_ambiguous_rows(self) -> None:
+        report = compare_rounded_values(
+            {"rice": {
+                "carbon_footprint": 101.0,
+                "water_footprint": 55.0,
+                "ecological_footprint": 0.4,
+            }},
+            {"rice": [(100.805, 54.579, 0.391), (102.0, 55.1, 0.4)]},
+        )
+        self.assertEqual(report["exact_prep_label_matches"], 1)
+        for metric in report["metrics"].values():
+            self.assertEqual(metric["distributed_value_within_rounding_tolerance_of_any_official_row"], 1)
+            self.assertEqual(metric["official_prep_labels_with_multiple_values"], 1)
 
     def test_ga_sensitivity_variants_are_versioned_and_loadable(self) -> None:
         from tests.ga_hyperparameter_sensitivity import VARIANTS
