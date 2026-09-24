@@ -11,6 +11,7 @@ from collections import defaultdict
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+EXCLUSIONS_PATH = PROJECT_ROOT / "configs" / "profile-exclusions.json"
 ANIMAL_TERMS = {
     "meat_or_fish": (
         "carne", "boi", "bovina", "suina", "porco", "frango", "galinha", "peru",
@@ -48,6 +49,10 @@ def risk_hits(food_name: str, profile: str) -> dict[str, list[str]]:
         # Handle common lexical cases that are not animal ingredients.
         if risk_class == "dairy" and "coco" in words:
             matched = [term for term in matched if term != "leite"]
+        if risk_class == "dairy" and "couve" in words and "manteiga" in words:
+            tokens = normalized.split()
+            if any(tokens[index:index + 2] == ["couve", "manteiga"] for index in range(len(tokens) - 1)):
+                matched = [term for term in matched if term != "manteiga"]
         if risk_class == "dairy" and "sem" in words:
             tokens = normalized.split()
             matched = [
@@ -68,6 +73,11 @@ def risk_hits(food_name: str, profile: str) -> dict[str, list[str]]:
 def collect_profile(profile: str) -> list[dict]:
     path = PROJECT_ROOT / "diets-base" / f"dietas-{profile}.json"
     plans = json.loads(path.read_text(encoding="utf-8"))
+    exclusion_config = json.loads(EXCLUSIONS_PATH.read_text(encoding="utf-8"))
+    exclusions = {
+        item["food_name"]: item["reason"]
+        for item in exclusion_config["profiles"].get(profile, [])
+    }
     counts: dict[str, dict] = defaultdict(lambda: {"occurrences": 0, "diet_ids": set()})
     for diet_id, plan in enumerate(plans, start=1):
         for meals in plan.values():
@@ -90,9 +100,15 @@ def collect_profile(profile: str) -> list[dict]:
             "occurrence_count": values["occurrences"],
             "source_diet_count": len(values["diet_ids"]),
             "lexical_risk_hits": risk_hits(name, profile),
-            "review_status": "PENDING_INGREDIENT_VERIFICATION",
-            "decision": "",
-            "ingredient_evidence": "",
+            "review_status": (
+                "EXCLUDED_FROM_DERIVED_PROFILE_POOL"
+                if name in exclusions else "PENDING_INGREDIENT_VERIFICATION"
+            ),
+            "decision": exclusions.get(name, ""),
+            "ingredient_evidence": (
+                "configs/profile-exclusions.json; exact source name is removed only from derived optimizer input"
+                if name in exclusions else ""
+            ),
             "reviewer": "",
             "review_date": "",
         }

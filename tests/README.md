@@ -6,6 +6,8 @@ Latest mapping-review queue refresh (2026-09-24): 49 nutrition-target decisions 
 
 Latest audit refresh: 67 target decisions are indexed and the active queue has 103 unresolved links; see the experiment plan for run IDs and exact status. A duplicated natural-skim-yogurt TBCA label and generic raw walnut/pecan label are intentionally unresolved pending source specificity.
 
+The profile-ingredient audit is a lexical screen, not a vegan/vegetarian certificate. It now recognizes `couve-manteiga` as a vegetable variety, marks only the two exact configured vegan contradictions as excluded from derived optimizer inputs, and leaves 362 profile-food rows pending ingredient verification.
+
 New reruns also write `article_outputs/run_statistics/run-metrics-long.csv` and
 `run-statistics.json` from **individual final solutions**, never from source
 days or meals treated as independent runs. A one-run smoke test intentionally

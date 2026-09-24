@@ -29,7 +29,7 @@ from tests.validate_candidate_scope import item_names
 from tests.run_experiments import EXPERIMENTS, commands_for
 from tests.mapping_review_queue import build_queue, normalize_name
 from tests.portion_support_audit import collect_support
-from tests.profile_ingredient_audit import risk_hits
+from tests.profile_ingredient_audit import build_queue as build_profile_ingredient_queue, risk_hits
 from tests.nutrient_missingness_audit import required_nutrients, summarize_profile
 
 
@@ -137,11 +137,22 @@ class CommandCatalogTests(unittest.TestCase):
     def test_profile_ingredient_screen_flags_known_animal_terms_without_deciding(self) -> None:
         self.assertIn("meat_or_fish", risk_hits("Feijao cozido com carne de boi", "vegana"))
         self.assertIn("dairy", risk_hits("Leite de vaca integral", "vegana"))
+        self.assertEqual(risk_hits("Couve, manteiga, refogada", "vegana"), {})
+        self.assertIn("dairy", risk_hits("Couve refogada com manteiga", "vegana"))
         self.assertEqual(risk_hits("Iogurte natural", "vegetariana"), {})
         self.assertEqual(risk_hits("Ovo, galinha, cozido", "vegetariana"), {})
         self.assertEqual(risk_hits("Coco, leite", "vegana"), {})
         self.assertEqual(risk_hits("Tapioca, sem manteiga", "vegana"), {})
         self.assertIn("egg", risk_hits("Omelete de vegetais", "vegana"))
+
+    def test_profile_ingredient_audit_marks_only_configured_exact_exclusions(self) -> None:
+        rows = build_profile_ingredient_queue()
+        excluded = [row for row in rows if row["review_status"] == "EXCLUDED_FROM_DERIVED_PROFILE_POOL"]
+        self.assertEqual(len(excluded), 2)
+        self.assertTrue(all(row["ingredient_evidence"].startswith("configs/profile-exclusions.json") for row in excluded))
+        kale = next(row for row in rows if row["food_name"].startswith("Couve, manteiga") and row["profile"] == "vegana")
+        self.assertEqual(kale["lexical_risk_hits"], {})
+        self.assertEqual(kale["review_status"], "PENDING_INGREDIENT_VERIFICATION")
 
     def test_ga_execution_seeds_are_stable_and_independent(self) -> None:
         seeds = {
