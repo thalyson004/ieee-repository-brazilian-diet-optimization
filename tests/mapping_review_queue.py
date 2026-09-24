@@ -36,8 +36,9 @@ def similarity(source: str, candidate: str) -> float:
     return 0.55 * sequence + 0.45 * overlap
 
 
-def build_queue() -> list[dict]:
-    with AUDIT_SOURCE.open(encoding="utf-8-sig", newline="") as stream:
+def build_queue(audit_source: Path = AUDIT_SOURCE) -> list[dict]:
+    """Build a heuristic candidate queue from a frozen or current audit CSV."""
+    with audit_source.open(encoding="utf-8-sig", newline="") as stream:
         mappings = list(csv.DictReader(stream))
     tbca = json.loads(TBCA_SOURCE.read_text(encoding="utf-8"))
     records = [
@@ -91,14 +92,14 @@ def build_queue() -> list[dict]:
     return sorted(queue, key=lambda item: (-item["occurrence_count"], item["food_original"]))
 
 
-def write_queue(output_dir: Path) -> tuple[Path, Path]:
+def write_queue(output_dir: Path, audit_source: Path = AUDIT_SOURCE) -> tuple[Path, Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
-    rows = build_queue()
+    rows = build_queue(audit_source)
     json_path = output_dir / "food-mapping-review-queue.json"
     csv_path = output_dir / "food-mapping-review-queue.csv"
     json_path.write_text(json.dumps({
         "schema_version": "1.0",
-        "status": "suggestions_only_no_mapping_was_changed",
+        "status": "heuristic_suggestions_only_no_mapping_was_changed",
         "unreviewed_mapping_count": len(rows),
         "rows": rows,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -127,9 +128,22 @@ def write_queue(output_dir: Path) -> tuple[Path, Path]:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument(
+        "--current-maps",
+        action="store_true",
+        help="Build suggestions only for currently unadjudicated active-map rows.",
+    )
     args = parser.parse_args()
-    json_path, csv_path = write_queue(args.output_dir.resolve())
-    print(f"Unreviewed mappings: {len(build_queue())}")
+    output_dir = args.output_dir.resolve()
+    audit_source = AUDIT_SOURCE
+    if args.current_maps:
+        from diet_optimization.analysis.diet_audit import audit
+
+        live_audit_dir = output_dir / "active-map-audit"
+        audit(live_audit_dir)
+        audit_source = live_audit_dir / "food_mapping_audit.csv"
+    json_path, csv_path = write_queue(output_dir, audit_source)
+    print(f"Unreviewed mappings: {len(build_queue(audit_source))}")
     print(f"JSON queue: {json_path}")
     print(f"CSV queue: {csv_path}")
 

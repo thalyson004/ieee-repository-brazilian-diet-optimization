@@ -2,6 +2,10 @@
 
 Every experiment is launched by a named command. Each invocation writes an immutable JSON summary to `tests/results/`, a complete execution log to `tests/logs/`, and heavy generated artifacts below `tests/results/artifacts/`.
 
+Latest mapping-review queue refresh (2026-09-24): 49 nutrition-target decisions are indexed and the active-map queue has 121 unresolved links. This does not adjudicate ingredient formulation, preparation, or environmental equivalence.
+
+Latest audit refresh: 56 target decisions are indexed and the active queue has 114 unresolved links; see the experiment plan for run IDs and exact status. A duplicated natural-skim-yogurt TBCA label is intentionally left unresolved because the two records differ and one is brand-specific.
+
 New reruns also write `article_outputs/run_statistics/run-metrics-long.csv` and
 `run-statistics.json` from **individual final solutions**, never from source
 days or meals treated as independent runs. A one-run smoke test intentionally
@@ -52,6 +56,15 @@ Create a ranked, non-accepting TBCA review queue for the 170 non-identity links:
 
 ```bash
 python -m tests.run_experiments --experiments mapping-review-queue
+```
+
+Create a separate queue from active maps, excluding foods with a dated target
+decision. Its current count is recorded in `EXPERIMENT-EXECUTION-PLAN.md`;
+rows are ranked by occurrence, and the name-similarity suggestions are not
+equivalence evidence and are never applied automatically:
+
+```bash
+python -m tests.run_experiments --experiments mapping-review-queue-current
 ```
 
 Summarize positive food quantities by profile and meal for a bounded-quantity

@@ -2,6 +2,14 @@
 
 ## Scope
 
+Latest addendum (2026-09-24): four additional nutrition-target decisions correct unsweetened black tea (BRC0013H), unspecified whole guava (BRC0014C), raw mature pequi (BRC0173C), and unspecified raw bell pepper (BRC0031B). The index now records 45 decisions, leaving 125 of the 170 original non-identity links without a recorded target decision. Historical counts below are snapshots and are superseded by this addendum; ingredient, preparation, environmental-map, and formulation questions remain separate.
+
+Latest queue refresh (2026-09-24): four further decisions correct the unsweetened mate/herbal tea entries, the salt status of vegetable pasta (with recipe-level uncertainty retained), and the generic orange target. The index now records 49 nutrition targets; the active review queue contains 121 unresolved links. See the dated ledger and the newest experiment addendum for run IDs and post-correction diagnostics.
+
+Latest audit refresh (2026-09-24): four additional high-occurrence targets were individually checked and retained (broccoli preparation, raw Brazil nut, Papaia papaya pulp, and cooked quinoa). The index records 53 decisions and 117 active non-identity links remain unadjudicated. These four confirmations do not clear separate ingredient/environmental uncertainties.
+
+Latest source check: raw oats by type-average, raw generic lettuce, and fluid skim cow milk by sample-average were also verified and retained. The index now has 56 recorded target decisions and the active queue has 114 pending links. The high-occurrence skim natural yogurt is deliberately still pending: the TBCA snapshot exposes two same-label records with different values, and one is identified as Vigor; source brand is unavailable.
+
 Update, 2026-09-24: the frozen initial queue has 170 non-identity links. Forty-one nutrition-target decisions are now documented; 129 other original links remain without a recorded target decision. This does not establish ingredient or preparation equivalence, environmental-coefficient validity, or complete formulation matching. In particular, oil type, tofu salt, fluid-milk processing, coconut processing/maturity, pasta refinement, rice-cracker formulation, vegetable-risotto ingredients, toast brand/formulation, and couve variety remain uncertain; see the dated correction ledger below. The salted-couscous target now excludes butter and matches the stated steamed preparation, although serving/formulation details should still be checked against the original source. Where later text in this document reports older review counts, treat those as historical snapshots superseded by this update and the dated ledger.
 
 This document describes the exact mapping path used by the archived submission and the checks required by the revised study. It distinguishes exact identity, a non-identity link with a dated target decision, and a non-identity link still awaiting a target decision. The old artifacts do not classify all links as lexical normalization versus semantic substitution. Forty target decisions are indexed in [`archive/audits/adjudicated-food-map-sources.json`](../archive/audits/adjudicated-food-map-sources.json) and documented item by item in [`archive/audits/food-mapping-corrections-2026-09-24.md`](../archive/audits/food-mapping-corrections-2026-09-24.md); residual preparation, brand/variety, environmental, or ingredient uncertainty can remain even for those decisions.
@@ -58,6 +66,12 @@ For review, `archive/audits/food-mapping-review-queue.csv` and its JSON counterp
 
 ```bash
 python -m tests.run_experiments --experiments mapping-review-queue
+```
+
+Generate a current queue from the active maps (excluding foods with a dated target decision) using:
+
+```bash
+python -m tests.run_experiments --experiments mapping-review-queue-current
 ```
 
 The ranking is a string/token heuristic only. It never edits a mapping and never marks a candidate accepted; preparation, ingredients, food identity, and environmental-system boundaries require independent evidence and an explicit human decision.

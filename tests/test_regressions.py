@@ -81,6 +81,7 @@ class CommandCatalogTests(unittest.TestCase):
             commands = commands_for(experiment, workspace, 10, 20260323)
             self.assertIn("tests.validate_candidate_scope", commands[-1])
         self.assertIn("tests.mapping_review_queue", commands_for("mapping-review-queue", workspace, 10, 20260323)[0])
+        self.assertIn("--current-maps", commands_for("mapping-review-queue-current", workspace, 10, 20260323)[0])
         self.assertIn("tests.portion_support_audit", commands_for("portion-support-audit", workspace, 10, 20260323)[0])
         self.assertIn("tests.profile_ingredient_audit", commands_for("profile-ingredient-audit", workspace, 10, 20260323)[0])
         self.assertIn("tests.nutrient_missingness_audit", commands_for("nutrient-missingness-audit", workspace, 10, 20260323)[0])
@@ -263,6 +264,7 @@ class BaseDietAuditTests(unittest.TestCase):
             mapping_lines = (output / "food_mapping_audit.csv").read_text(
                 encoding="utf-8"
             ).splitlines()
+            current_queue = build_queue(output / "food_mapping_audit.csv")
 
         self.assertEqual(totals["plans"], 150)
         self.assertEqual(totals["plans_with_valid_schema"], 150)
@@ -277,10 +279,12 @@ class BaseDietAuditTests(unittest.TestCase):
         adjudication = json.loads(
             (PROJECT_ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(len(adjudication["source_food_names"]), 41)
-        self.assertEqual(totals["non_identity_mappings_with_recorded_target_decision"], 41)
-        self.assertEqual(totals["non_identity_mappings_without_recorded_target_decision"], 129)
+        self.assertEqual(len(adjudication["source_food_names"]), 56)
+        self.assertEqual(totals["non_identity_mappings_with_recorded_target_decision"], 56)
+        self.assertEqual(totals["non_identity_mappings_without_recorded_target_decision"], 114)
         self.assertEqual(len(mapping_lines), totals["unique_food_names"] + 1)
+        self.assertEqual(len(current_queue), 114)
+        self.assertTrue(all(row["automatic_acceptance"] is False for row in current_queue))
 
 
 class RevisedNutritionProtocolTests(unittest.TestCase):

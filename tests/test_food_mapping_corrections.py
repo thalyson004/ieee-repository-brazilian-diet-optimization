@@ -117,6 +117,49 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 "Torrada, tradicional, c/ farinha de trigo refinada, industrializada, Brasil (media diferentes amostras)",
                 "BRC0169A",
             ),
+            "Bebida, chá, preto, infusão 5%, s/ açúcar": (
+                "Bebida, chá, preto, infusão 5%, s/ açúcar, Brasil", "BRC0013H"
+            ),
+            "Goiaba, inteira, in natura": (
+                "Goiaba, inteira,in natura, Brasil (média diferentes amostras)", "BRC0014C"
+            ),
+            "Pequi, polpa, maduro, cru": (
+                "Pequi, polpa, maduro,in natura, Brasil (média diferentes amostras)", "BRC0173C"
+            ),
+            "Pimentão, cru": (
+                "Pimentão, cru, Brasil (média de diferentes tipos)", "BRC0031B"
+            ),
+            "Macarrão, trigo, c/ vegetais, c/ sal": (
+                "Macarrão, farinha de trigo refinada, c/ vegetais, c/ sal, Brasil", "BRC0596A"
+            ),
+            "Laranja, in natura": (
+                "Laranja,in natura, Brasil (média diferentes variedades)", "BRC0017C"
+            ),
+            "Bebida, chá, mate, infusão 5%, s/ açúcar": (
+                "Bebida, chá, mate, infusão 5%, s/ açúcar, Brasil", "BRC0011H"
+            ),
+            "Bebida, chá, infusão, s/ açúcar (média de várias ervas)": (
+                "Bebida, chá, infusão, s/ açúcar (média de várias ervas), Brasil", "BRC0015H"
+            ),
+            "Brócolos, flor, cozido, drenado, s/ óleo, c/ sal": (
+                "Brócolis, flor, cozido, drenado, s/ óleo, c/ sal", "BRC0150B"
+            ),
+            "Castanha do Brasil, crua": (
+                "Castanha do Brasil, crua, Brasil", "BRC0003U"
+            ),
+            "Mamão, Papaia, polpa, in natura": (
+                "Mamão, Papaia, polpa,in natura, Brasil", "BRC0044C"
+            ),
+            "Quinoa, grão, cozida, s/ óleo, s/ sal": (
+                "Quinoa, grão, cozida, s/ óleo, s/ sal (dado importado)", "BRC0399A"
+            ),
+            "Aveia, crua (média de diferentes tipos)": (
+                "Aveia, crua, Brasil (média de diferentes tipos)", "BRC0021A"
+            ),
+            "Alface, crua": ("Alface, crua, Brasil", "BRC0009B"),
+            "Leite, vaca, desnatado, fluído (média de diferentes amostras)": (
+                "Leite, vaca, desnatado, fluído (média de diferentes amostras), Brasil", "BRC0036G"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")

@@ -10,6 +10,7 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import os
 import platform
 import subprocess
 import sys
@@ -27,6 +28,7 @@ EXPERIMENTS = (
     "base-diet-audit",
     "nutrient-missingness-audit",
     "mapping-review-queue",
+    "mapping-review-queue-current",
     "portion-support-audit",
     "profile-ingredient-audit",
     "lp-profile-scope",
@@ -54,6 +56,8 @@ def parse_args() -> argparse.Namespace:
 
 def stream_command(command: list[str], log_path: Path) -> None:
     append_log(log_path, "$ " + subprocess.list2cmdline(command))
+    child_environment = os.environ.copy()
+    child_environment["PYTHONIOENCODING"] = "utf-8"
     process = subprocess.Popen(
         command,
         cwd=PROJECT_ROOT,
@@ -62,6 +66,7 @@ def stream_command(command: list[str], log_path: Path) -> None:
         text=True,
         encoding="utf-8",
         errors="replace",
+        env=child_environment,
     )
     assert process.stdout is not None
     for line in process.stdout:
@@ -96,6 +101,8 @@ def commands_for(
         return [[sys.executable, "-m", "tests.nutrient_missingness_audit", "--output-dir", str(workspace / "audit")]]
     if experiment == "mapping-review-queue":
         return [[sys.executable, "-m", "tests.mapping_review_queue", "--output-dir", str(workspace / "audit")]]
+    if experiment == "mapping-review-queue-current":
+        return [[sys.executable, "-m", "tests.mapping_review_queue", "--current-maps", "--output-dir", str(workspace / "audit")]]
     if experiment == "portion-support-audit":
         return [[sys.executable, "-m", "tests.portion_support_audit", "--output-dir", str(workspace / "audit")]]
     if experiment == "profile-ingredient-audit":
@@ -144,8 +151,8 @@ def execute(experiment: str, runs: int, seed: int, nutrition_protocol: str) -> P
             "duration_seconds": elapsed,
             "python": platform.python_version(),
             "platform": platform.platform(),
-            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
-            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
+            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
+            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
             "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "full-replication"} else None,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),

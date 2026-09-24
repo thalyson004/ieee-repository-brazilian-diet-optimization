@@ -43,7 +43,22 @@
     "Mamão, polpa, in natura",
     "Torrada, trigo, integral",
     "Pão, trigo, leite, industrializado (média de diferentes marcas)",
-    "Torrada, trigo, tradicional"
+    "Torrada, trigo, tradicional",
+    "Bebida, chá, preto, infusão 5%, s/ açúcar",
+    "Goiaba, inteira, in natura",
+    "Pequi, polpa, maduro, cru",
+    "Pimentão, cru",
+    "Macarrão, trigo, c/ vegetais, c/ sal",
+    "Laranja, in natura",
+    "Bebida, chá, mate, infusão 5%, s/ açúcar",
+    "Bebida, chá, infusão, s/ açúcar (média de várias ervas)",
+    "Brócolos, flor, cozido, drenado, s/ óleo, c/ sal",
+    "Castanha do Brasil, crua",
+    "Mamão, Papaia, polpa, in natura",
+    "Quinoa, grão, cozida, s/ óleo, s/ sal",
+    "Aveia, crua (média de diferentes tipos)",
+    "Alface, crua",
+    "Leite, vaca, desnatado, fluído (média de diferentes amostras)"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }
