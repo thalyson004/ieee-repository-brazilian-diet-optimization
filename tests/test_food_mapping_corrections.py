@@ -328,6 +328,43 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal": (
                 "Abóbora, moranga, refogada (c/ óleo, cebola e alho), c/ sal", "BRC0151B"
             ),
+            "Mandioca, s/ casca, cozida, assada, s/ óleo, c/ sal": (
+                "Mandioca (aipim, macaxeira), s/ casca, cozida, assada, s/ óleo, c/ sal", "BRC0361B"
+            ),
+            "Mandioca, farofa, temperada, c/ sal": (
+                "Mandioca, farofa, temperada, c/ sal, Brasil", "BRC0089B"
+            ),
+            "Melado, cana": ("Melado, cana, Brasil", "BRC0029K"),
+            "Beringela, c/ casca, cozida, drenada, s/ óleo, c/ sal": (
+                "Berinjela, c/ casca, cozida, drenada, s/ óleo, c/ sal", "BRC0157B"
+            ),
+            "Carne, frango, peito, s/ pele, refogado (c/ óleo, cebola e alho), c/ sal": (
+                "Carne, frango, peito, s/ pele, refogado (c/ óleo, cebola e alho), c/ sal, Brasil", "BRC0235F"
+            ),
+            "Queijo, parmesão, ralado": ("Queijo, parmesão, ralado, Brasil", "BRC0061G"),
+            "Cogumelo, Paris, cozido, drenado, s/ óleo, c/ sal": (
+                "Cogumelo, Paris, cozido, drenado, s/ óleo, c/ sal (dado importado)", "BRC0701B"
+            ),
+            "Alho, refogado c/ óleo de soja, s/ sal": (
+                "Alho, refogado (c/ óleo de soja), s/ sal, Brasil", "BRC0113B"
+            ),
+            "Bebida, infusão, erva-mate, chimarrão, (70g de matéria seca - 30% de ramos e 70% de folhas - em 1 L de água)": (
+                "Bebida, infusão, erva-mate, chimarrão, (70g de matéria seca - 30% de ramos e 70% de folhas - em 1 L de água),", "BRC0022H"
+            ),
+            "Suco, limonada), s/ açúcar": ("Suco, limonada, s/ açúcar", "BRC0161C"),
+            "Arroz, creme, cozido, s/ tempero": ("Arroz, creme, cozido, s/ tempero, Brasil", "BRC0012A"),
+            "Biscoito, salgado, cream cracker , integral": (
+                "Biscoito, salgado, cream cracker, integral, Brasil", "BRC0059A"
+            ),
+            "Sanduíche, queijo quente, pão francês, c/ queijo muçarela e manteiga": (
+                "Sanduíche, queijo quente, pão francês, c/ queijo muçarela, c/ manteiga", "BRC0280A"
+            ),
+            "Achocolatado, pó (média diferentes amostras)": (
+                "Achocolatado, em pó (média diferentes amostras), Brasil", "BRC0001K"
+            ),
+            "Pão, trigo, branco, hamburguer/hot dog/leite, de padaria (média de diferentes tipos)": (
+                "Pão, c/ farinha de trigo refinada, de padaria, hamburguer/hot dog/leite, Brasil (média de diferentes tipos)", "BRC0004A"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")

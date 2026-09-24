@@ -136,7 +136,22 @@
     "Cereais, barra (média de diferentes sabores)",
     "Presunto, porco, cozido, s/ capa de gordura",
     "Bebida, infusão, hortelã rasteira, planta, folha, s/ açúcar",
-    "Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal"
+    "Abóbora, moranga, refogada (c/ óleo, cebolha e alho), c/ sal",
+    "Mandioca, s/ casca, cozida, assada, s/ óleo, c/ sal",
+    "Mandioca, farofa, temperada, c/ sal",
+    "Melado, cana",
+    "Beringela, c/ casca, cozida, drenada, s/ óleo, c/ sal",
+    "Carne, frango, peito, s/ pele, refogado (c/ óleo, cebola e alho), c/ sal",
+    "Queijo, parmesão, ralado",
+    "Cogumelo, Paris, cozido, drenado, s/ óleo, c/ sal",
+    "Alho, refogado c/ óleo de soja, s/ sal",
+    "Bebida, infusão, erva-mate, chimarrão, (70g de matéria seca - 30% de ramos e 70% de folhas - em 1 L de água)",
+    "Suco, limonada), s/ açúcar",
+    "Arroz, creme, cozido, s/ tempero",
+    "Biscoito, salgado, cream cracker , integral",
+    "Sanduíche, queijo quente, pão francês, c/ queijo muçarela e manteiga",
+    "Achocolatado, pó (média diferentes amostras)",
+    "Pão, trigo, branco, hamburguer/hot dog/leite, de padaria (média de diferentes tipos)"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }
