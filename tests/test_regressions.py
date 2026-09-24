@@ -13,6 +13,7 @@ import numpy as np
 from diet_optimization.analysis.diet_audit import audit
 from diet_optimization.optimization.pipeline import derive_execution_seed
 from diet_optimization.optimization.linear_optimizer import (
+    _build_meal_energy_share_constraints,
     _build_nutrient_constraints,
     _compute_food_vectors,
     _solve_relaxed_meal_level,
@@ -247,6 +248,20 @@ class BaseDietAuditTests(unittest.TestCase):
 
 
 class RevisedNutritionProtocolTests(unittest.TestCase):
+    def test_meal_energy_share_constraints_use_injected_energy_target(self) -> None:
+        matrix, bounds = _build_meal_energy_share_constraints(
+            meal_pool={
+                "Café da Manhã": [{"nutrientes": {"Energia": 100.0}}]
+            },
+            variable_list=[("Café da Manhã", 0)],
+            n_vars=1,
+            days_per_plan=1,
+            meal_energy_share_limits={"Café da Manhã": {"min": 0.5, "max": 0.75}},
+            energy_target_kcal=200.0,
+        )
+        np.testing.assert_allclose(matrix[:, 0], [-100.0, 100.0])
+        np.testing.assert_allclose(bounds, [-100.0, 150.0])
+
     def test_protocol_loader_builds_expected_primary_and_secondary_constraints(self) -> None:
         protocol = load_protocol(PROJECT_ROOT / "configs" / "revised-nutrition-protocol.json")
         self.assertEqual(protocol["protocol_id"], "ieee2026-revision-adult-female-30-v1")

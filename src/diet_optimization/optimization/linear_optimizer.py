@@ -234,6 +234,7 @@ def _build_meal_energy_share_constraints(
     n_vars: int,
     days_per_plan: int,
     meal_energy_share_limits: Dict[str, Dict[str, float]],
+    energy_target_kcal: Optional[float] = None,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Monta restricoes de faixa de energia por tipo de refeicao no plano.
 
@@ -244,7 +245,10 @@ def _build_meal_energy_share_constraints(
     A_rows: List[np.ndarray] = []
     b_rows: List[float] = []
 
-    energy_target = float(MAXIMUM_GOALS.get("Energia", {}).get("meta", 0.0))
+    energy_target = (
+        float(MAXIMUM_GOALS.get("Energia", {}).get("meta", 0.0))
+        if energy_target_kcal is None else float(energy_target_kcal)
+    )
     if energy_target <= 0:
         return np.zeros((0, n_vars)), np.zeros(0)
 
@@ -634,6 +638,10 @@ def optimize_meal_level(
     nutrient_arrays: Dict[str, np.ndarray] = {}
     minimum_goals = MINIMUM_GOALS if minimum_goals is None else minimum_goals
     maximum_goals = MAXIMUM_GOALS if maximum_goals is None else maximum_goals
+    energy_target_kcal = (
+        float(maximum_goals.get("Energia", {}).get("meta", 0.0))
+        * float(maximum_goals.get("Energia", {}).get("tolerancia", 1.0))
+    )
     all_nutrient_keys = set(minimum_goals.keys()) | set(maximum_goals.keys())
     for nutrient in all_nutrient_keys:
         nutrient_arrays[nutrient] = np.array(
@@ -653,6 +661,7 @@ def optimize_meal_level(
         n_vars=n_vars,
         days_per_plan=days_per_plan,
         meal_energy_share_limits=meal_energy_share_limits,
+        energy_target_kcal=energy_target_kcal,
     )
     if meal_energy_A_ub.shape[0] > 0:
         A_ub = np.vstack([A_ub, meal_energy_A_ub])
@@ -660,7 +669,7 @@ def optimize_meal_level(
     constraint_labels = _nutrient_constraint_labels(
         minimum_goals, maximum_goals, days_multiplier=float(days_per_plan)
     )
-    energy_target = float(MAXIMUM_GOALS.get("Energia", {}).get("meta", 0.0))
+    energy_target = energy_target_kcal
     for meal_type in MEAL_ORDER:
         if meal_type not in meal_energy_share_limits:
             continue

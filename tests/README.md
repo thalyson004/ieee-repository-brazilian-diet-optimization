@@ -71,6 +71,18 @@ Audit the corrected LP-Food candidate set for all three profiles without GA:
 python -m tests.run_experiments --experiments lp-profile-scope
 ```
 
+Compare LP slack penalties (100, 1,000, 10,000, and 100,000) for both LP
+formulations and all three profiles. Each row exports labeled constraint slacks
+and metrics for the constructed plan:
+
+```bash
+python -m tests.run_experiments --experiments lp-slack-sensitivity
+```
+
+This is a diagnostic sensitivity, not a policy recommendation: the same penalty
+coefficient multiplies slacks with different physical units, so those units and
+the resulting violations must be interpreted separately.
+
 Inspect all four methods' candidate and output scope in an existing rerun
 workspace:
 
