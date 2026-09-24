@@ -116,10 +116,13 @@ class CommandCatalogTests(unittest.TestCase):
         }
         nutrients = required_nutrients(protocol)
         self.assertEqual([row["tbca_field"] for row in nutrients], ["A", "B"])
-        plans = [{"1": {"Lunch": [
+        plans = [{"1": {"Almoço": [
             {"alimento": "complete", "quantidade": 100},
             {"alimento": "reported-zero", "quantidade": 50},
             {"alimento": "missing", "quantidade": 25},
+        ], "Ceia": [
+            {"alimento": "complete", "quantidade": 100},
+            {"alimento": "reported-zero", "quantidade": 50},
         ]}}]
         summary, field_rows, food_rows = summarize_profile(
             "vegan", plans, {"complete": "1", "reported-zero": "2", "missing": "3"},
@@ -135,6 +138,10 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertEqual(summary["strict_complete_case_grams_excluded"], 25)
         self.assertEqual(field_rows[0]["occurrences_exposed_to_missing_value"], 1)
         self.assertTrue(next(row for row in food_rows if row["food_original"] == "reported-zero")["strict_complete_case_retained"])
+        self.assertEqual(summary["strict_complete_case_meal_candidates_by_type"]["Almoço"]["complete_case_meals"], 0)
+        self.assertEqual(summary["strict_complete_case_meal_candidates_by_type"]["Ceia"]["complete_case_meals"], 1)
+        self.assertEqual(summary["meal_types_without_complete_case_candidates"], ["Almoço"])
+        self.assertEqual(summary["required_meal_types_without_complete_case_candidates"], ["Almoço"])
 
     def test_mapping_review_queue_never_auto_accepts_fuzzy_candidates(self) -> None:
         queue = build_queue()

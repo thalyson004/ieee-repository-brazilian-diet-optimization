@@ -10,6 +10,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+from diet_optimization.optimization.hyperparameters import MEAL_ORDER, OPTIONAL_EMPTY_MEAL_TYPES
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PROFILE_FILES = {
@@ -128,6 +129,45 @@ def summarize_profile(
         for plan_index in range(1, len(plans) + 1)
         if any(plan_index in food_plan_counts[name] for name in complete_case_foods)
     )
+    nonempty_meal_candidates: Counter[str] = Counter()
+    complete_case_meal_candidates: Counter[str] = Counter()
+    for plan in plans:
+        for meals in plan.values():
+            if not isinstance(meals, dict):
+                continue
+            for meal_type, items in meals.items():
+                if not isinstance(items, list) or not items:
+                    continue
+                nonempty_meal_candidates[meal_type] += 1
+                names = [
+                    item.get("alimento")
+                    for item in items
+                    if isinstance(item, dict) and isinstance(item.get("alimento"), str)
+                ]
+                if len(names) == len(items) and all(
+                    name in complete_case_foods for name in names
+                ):
+                    complete_case_meal_candidates[meal_type] += 1
+    meal_support = {
+        meal_type: {
+            "nonempty_source_meals": nonempty_meal_candidates[meal_type],
+            "complete_case_meals": complete_case_meal_candidates[meal_type],
+            "retained_percent": round(
+                100.0 * complete_case_meal_candidates[meal_type]
+                / nonempty_meal_candidates[meal_type],
+                4,
+            ) if nonempty_meal_candidates[meal_type] else None,
+        }
+        for meal_type in sorted(nonempty_meal_candidates)
+    }
+    meal_types_without_complete_cases = sorted(
+        meal_type for meal_type in nonempty_meal_candidates
+        if complete_case_meal_candidates[meal_type] == 0
+    )
+    required_meal_types = set(MEAL_ORDER) - OPTIONAL_EMPTY_MEAL_TYPES
+    required_meal_types_without_complete_cases = sorted(
+        required_meal_types & set(meal_types_without_complete_cases)
+    )
     summary = {
         "profile": profile,
         "base_plans": len(plans),
@@ -148,6 +188,11 @@ def summarize_profile(
             100.0 * (total_grams - excluded_grams) / total_grams, 4
         ) if total_grams else None,
         "plans_with_at_least_one_complete_case_food": complete_case_plans,
+        "strict_complete_case_meal_candidates_by_type": meal_support,
+        "meal_types_without_complete_case_candidates": meal_types_without_complete_cases,
+        "required_meal_types_without_complete_case_candidates": required_meal_types_without_complete_cases,
+        "strict_complete_case_required_meal_support_complete": not required_meal_types_without_complete_cases,
+        "strict_complete_case_has_candidates_for_every_observed_meal_type": not meal_types_without_complete_cases,
         "strict_complete_case_is_primary_recommendation": False,
     }
     food_rows = [
@@ -191,6 +236,7 @@ def audit(output_dir: Path) -> dict[str, Any]:
         "current_calculator_behavior": "missing nutrient fields contribute zero in legacy nutrient totals and optimizer vectors",
         "strict_scenario": "retain a food only when every enforced core/additional nutrient field is numeric in the local TBCA snapshot",
         "strict_scenario_warning": "complete-case food filtering is an attrition sensitivity, not an endorsed primary policy or an imputation of true zero",
+        "strict_case_meal_support_warning": "the audit also counts full source meals whose every ingredient has numeric values for all 17 enforced fields; zero candidate support in a mandatory meal type makes a full meal-based strict-complete-case rerun unavailable for that profile without changing the meal structure",
         "protocol_id": protocol.get("protocol_id"),
         "required_nutrients": nutrients,
         "profiles": summaries,
