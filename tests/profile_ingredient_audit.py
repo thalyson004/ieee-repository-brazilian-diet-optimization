@@ -17,7 +17,9 @@ ANIMAL_TERMS = {
         "carne", "boi", "bovina", "suina", "porco", "frango", "galinha", "peru",
         "peixe", "sardinha", "atum", "bacalhau", "camarao", "bode", "linguica",
         "presunto", "bacon", "costela", "mignon", "alcatra", "patinho", "lagarto",
-        "musculo", "picanha", "charque", "carne seca",
+        "musculo", "picanha", "charque", "carne seca", "salsicha", "salame",
+        "mortadela", "calabresa", "frios", "anchova", "marisco", "frutos do mar",
+        "cordeiro", "carneiro", "caldo de galinha", "caldo de frango",
     ),
     "dairy": (
         "leite", "queijo", "iogurte", "manteiga", "requeijao", "coalho", "ricota",
@@ -46,8 +48,17 @@ def risk_hits(food_name: str, profile: str) -> dict[str, list[str]]:
             if (" " in normalize(term) and normalize(term) in normalized)
             or (" " not in normalize(term) and normalize(term) in words)
         ]
-        # Handle common lexical cases that are not animal ingredients.
-        if risk_class == "dairy" and "coco" in words:
+        # Handle a plant-milk label without hiding explicit cow-milk wording.
+        tokens = normalized.split()
+        coconut_milk_label = "leite de coco" in normalized or any(
+            tokens[index:index + 2] in (["leite", "coco"], ["coco", "leite"])
+            for index in range(len(tokens) - 1)
+        )
+        explicitly_animal_milk = any(
+            marker in words for marker in {"vaca", "condensado", "caseina", "lactose"}
+        )
+        if (risk_class == "dairy" and coconut_milk_label and tokens.count("leite") == 1
+                and not explicitly_animal_milk):
             matched = [term for term in matched if term != "leite"]
         if risk_class == "dairy" and "couve" in words and "manteiga" in words:
             tokens = normalized.split()
