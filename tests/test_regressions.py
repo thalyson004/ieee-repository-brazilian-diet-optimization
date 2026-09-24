@@ -90,6 +90,7 @@ class CommandCatalogTests(unittest.TestCase):
         self.assertIn("evidence_url_or_reference", queue[0])
         self.assertTrue(all(len(row["suggestions"]) == 5 for row in queue))
         self.assertEqual(normalize_name("Pão francês, c/ óleo"), "pao frances oleo")
+        self.assertEqual(sum(row["current_target_normalized_match"] for row in queue), 95)
         tomato = next(row for row in queue if row["food_original"].startswith("Tomate"))
         self.assertIn("Tomate", tomato["suggestions"][0]["candidate_name"])
 

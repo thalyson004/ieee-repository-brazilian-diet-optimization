@@ -71,6 +71,8 @@ def build_queue() -> list[dict]:
             "food_original": source,
             "current_tbca_name": current,
             "current_tbca_code": mapping["tbca_code"],
+            "current_target_normalized_match": normalize_name(source) == normalize_name(current),
+            "current_target_heuristic_similarity": round(similarity(source, current), 5),
             "occurrence_count": int(mapping["occurrence_count"]),
             "profiles": mapping["profiles"],
             "review_status": "PENDING_MANUAL_REVIEW",
@@ -102,6 +104,7 @@ def write_queue(output_dir: Path) -> tuple[Path, Path]:
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     columns = [
         "food_original", "current_tbca_name", "current_tbca_code", "occurrence_count",
+        "current_target_normalized_match", "current_target_heuristic_similarity",
         "profiles", "review_status", "decision", "approved_tbca_name", "approved_tbca_code",
         "decision_rationale", "evidence_url_or_reference", "reviewer", "review_date",
         "environmental_mapping_decision",
@@ -112,7 +115,7 @@ def write_queue(output_dir: Path) -> tuple[Path, Path]:
         writer = csv.DictWriter(stream, fieldnames=columns)
         writer.writeheader()
         for row in rows:
-            output = {key: row[key] for key in columns[:14]}
+            output = {key: row[key] for key in columns[:16]}
             for index, candidate in enumerate(row["suggestions"], start=1):
                 output[f"candidate_{index}"] = candidate["candidate_name"]
                 output[f"candidate_{index}_code"] = candidate["tbca_code"]
