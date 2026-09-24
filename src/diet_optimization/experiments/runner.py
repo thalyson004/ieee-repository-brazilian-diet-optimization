@@ -333,9 +333,9 @@ def source_provenance() -> dict:
     input_paths = [
         "configs/revised-nutrition-protocol.json",
         "configs/profile-exclusions.json",
-        "data/diets/source/dietas-regular.json",
-        "data/diets/source/dietas-vegetariana.json",
-        "data/diets/source/dietas-vegana.json",
+        "diets-base/dietas-regular.json",
+        "diets-base/dietas-vegetariana.json",
+        "diets-base/dietas-vegana.json",
         "maps/base/mapa-nome-tbca.json",
         "maps/base/mapa-tbca-completo.json",
         "maps/base/mapa-sustentavel-nome.json",

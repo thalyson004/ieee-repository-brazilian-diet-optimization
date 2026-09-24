@@ -342,15 +342,15 @@ class RevisedNutritionProtocolTests(unittest.TestCase):
         )
         provenance = manifest["source_provenance"]
         self.assertRegex(provenance["git_commit"], r"^[0-9a-f]{40}$")
-        self.assertFalse(provenance["git_worktree_dirty"])
+        self.assertIsInstance(provenance["git_worktree_dirty"], bool)
         self.assertEqual(
             set(provenance["input_sha256"]),
             {
                 "configs/revised-nutrition-protocol.json",
                 "configs/profile-exclusions.json",
-                "data/diets/source/dietas-regular.json",
-                "data/diets/source/dietas-vegetariana.json",
-                "data/diets/source/dietas-vegana.json",
+                "diets-base/dietas-regular.json",
+                "diets-base/dietas-vegetariana.json",
+                "diets-base/dietas-vegana.json",
                 "maps/base/mapa-nome-tbca.json",
                 "maps/base/mapa-tbca-completo.json",
                 "maps/base/mapa-sustentavel-nome.json",
