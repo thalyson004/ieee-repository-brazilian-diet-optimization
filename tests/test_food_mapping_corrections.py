@@ -183,6 +183,22 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Beterraba, s/ casca, crua": ("Beterraba, s/ casca, crua, Brasil", "BRC0015B"),
             "Acelga, crua": ("Acelga, crua, Brasil", "BRC0007B"),
             "Abacaxi, polpa, in natura": ("Abacaxi, polpa,in natura, Brasil", "BRC0002C"),
+            "Queijo, coalho": ("Queijo, coalho, Brasil", "BRC0048G"),
+            "Cream cheese (média de diferentes sabores)": (
+                "Cream cheese, Brasil (média de diferentes sabores)", "BRC0006G"
+            ),
+            "Iogurte, integral (média de diferentes sabores)": (
+                "Iogurte, integral (média de diferentes sabores), Brasil", "BRC0011G"
+            ),
+            "Queijo, requeijão (média de diferentes amostras)": (
+                "Queijo, requeijão (média de diferentes amostras), Brasil", "BRC0066G"
+            ),
+            "Pinhão, cozido, s/ sal": ("Pinhão, cozido, s/ sal, Brasil", "BRC0007U"),
+            "Repolho, roxo, cru": ("Repolho, roxo, cru, Brasil", "BRC0080B"),
+            "Chuchu, s/ casca, cozido, drenado, s/ óleo, c/ sal": (
+                "Chuchu, s/ casca, cozido, drenado, s/ óleo, c/ sal, Brasil", "BRC0154B"
+            ),
+            "Manteiga, c/ sal": ("Manteiga, c/ sal, Brasil", "BRC0007D"),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")

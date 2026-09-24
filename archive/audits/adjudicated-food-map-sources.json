@@ -75,7 +75,15 @@
     "Amêndoa, torrada, c/ sal",
     "Beterraba, s/ casca, crua",
     "Acelga, crua",
-    "Abacaxi, polpa, in natura"
+    "Abacaxi, polpa, in natura",
+    "Queijo, coalho",
+    "Cream cheese (média de diferentes sabores)",
+    "Iogurte, integral (média de diferentes sabores)",
+    "Queijo, requeijão (média de diferentes amostras)",
+    "Pinhão, cozido, s/ sal",
+    "Repolho, roxo, cru",
+    "Chuchu, s/ casca, cozido, drenado, s/ óleo, c/ sal",
+    "Manteiga, c/ sal"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }
