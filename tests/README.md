@@ -141,3 +141,5 @@ Python/dependency versions, and SciPy/HiGHS backend. Archived mode describes
 the machine doing the reconstruction, not the unknown original machine.
 
 The base-diet audit writes item-, plan-, nutrient-, and summary-level evidence. It does not infer missing raw API responses, failures, or regeneration counts.
+
+The registered GA sensitivity command is `python -m tests.run_experiments --experiments ga-hyperparameter-sensitivity --runs 10 --seed 20260930 --nutrition-protocol revised`. It compares paired seed streams for baseline, reduced population, higher mutation, and shorter stagnation. Each nested run manifest records the effective override payload and hash. Use `--runs 1` only for pipeline smoke validation, not as a sensitivity estimate.
