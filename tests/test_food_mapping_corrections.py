@@ -173,6 +173,10 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Cenoura, s/ casca, crua": ("Cenoura, s/ casca, crua, Brasil", "BRC0020B"),
             "Pepino, c/ casca, cru": ("Pepino, c/ casca, cru, Brasil", "BRC0030B"),
             "Tangerina, Ponkã, in natura": ("Tangerina, Ponkã,in natura, Brasil", "BRC0032C"),
+            "Pizza, muçarela, caseira": (
+                "Pizza, queijo muçarela, artesanal, assada, Brasil", "BRC0225A"
+            ),
+            "Cereal matinal, milho": ("Cereal matinal, milho, Brasil", "BRC0100A"),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
