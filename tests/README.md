@@ -4,7 +4,7 @@ Every experiment is launched by a named command. Each invocation writes an immut
 
 Latest mapping-review queue refresh (2026-09-24): 49 nutrition-target decisions are indexed and the active-map queue has 121 unresolved links. This does not adjudicate ingredient formulation, preparation, or environmental equivalence.
 
-Latest audit refresh: 56 target decisions are indexed and the active queue has 114 unresolved links; see the experiment plan for run IDs and exact status. A duplicated natural-skim-yogurt TBCA label is intentionally left unresolved because the two records differ and one is brand-specific.
+Latest audit refresh: 65 target decisions are indexed and the active queue has 105 unresolved links; see the experiment plan for run IDs and exact status. A duplicated natural-skim-yogurt TBCA label and generic raw walnut/pecan label are intentionally unresolved pending source specificity.
 
 New reruns also write `article_outputs/run_statistics/run-metrics-long.csv` and
 `run-statistics.json` from **individual final solutions**, never from source

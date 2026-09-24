@@ -160,6 +160,19 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Leite, vaca, desnatado, fluído (média de diferentes amostras)": (
                 "Leite, vaca, desnatado, fluído (média de diferentes amostras), Brasil", "BRC0036G"
             ),
+            "Melão, polpa, in natura": ("Melão, polpa,in natura, Brasil", "BRC0028C"),
+            "Ovo, galinha, mexido, c/ margarina, c/ sal": (
+                "Ovo, galinha, mexido, c/ margarina, c/ sal, Brasil", "BRC0027J"
+            ),
+            "Castanha de caju, crua, s/ sal": (
+                "Castanha de caju, crua, s/ sal, Brasil", "BRC0012U"
+            ),
+            "Linhaça, semente": ("Linhaça, semente, Brasil", "BRC0006U"),
+            "Chia, semente, seca": ("Chia, semente, seca (dado importado)", "BRC0402A"),
+            "Abacate, polpa, in natura": ("Abacate, polpa,in natura, Brasil", "BRC0001C"),
+            "Cenoura, s/ casca, crua": ("Cenoura, s/ casca, crua, Brasil", "BRC0020B"),
+            "Pepino, c/ casca, cru": ("Pepino, c/ casca, cru, Brasil", "BRC0030B"),
+            "Tangerina, Ponkã, in natura": ("Tangerina, Ponkã,in natura, Brasil", "BRC0032C"),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")

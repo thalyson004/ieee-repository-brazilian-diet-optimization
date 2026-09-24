@@ -58,7 +58,16 @@
     "Quinoa, grão, cozida, s/ óleo, s/ sal",
     "Aveia, crua (média de diferentes tipos)",
     "Alface, crua",
-    "Leite, vaca, desnatado, fluído (média de diferentes amostras)"
+    "Leite, vaca, desnatado, fluído (média de diferentes amostras)",
+    "Melão, polpa, in natura",
+    "Ovo, galinha, mexido, c/ margarina, c/ sal",
+    "Castanha de caju, crua, s/ sal",
+    "Linhaça, semente",
+    "Chia, semente, seca",
+    "Abacate, polpa, in natura",
+    "Cenoura, s/ casca, crua",
+    "Pepino, c/ casca, cru",
+    "Tangerina, Ponkã, in natura"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"
 }
