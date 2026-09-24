@@ -8,9 +8,17 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import numpy as np
+
 from diet_optimization.analysis.diet_audit import audit
 from diet_optimization.optimization.pipeline import derive_execution_seed
-from diet_optimization.optimization.linear_optimizer import food_names_in_diets, _compute_food_vectors
+from diet_optimization.optimization.linear_optimizer import (
+    _build_nutrient_constraints,
+    _compute_food_vectors,
+    food_names_in_diets,
+)
+from diet_optimization.optimization.nutritional_targets import load_protocol
+from diet_optimization.optimization.fitness_functions import criterion_penalty_for_nutritional_constraints
 from diet_optimization.experiments.profile_integrity import load_exclusions, prepare_profile_diets
 from diet_optimization.analysis.run_statistics import summarize_values
 from diet_optimization.optimization.data_types import NutritionalContext
@@ -164,6 +172,34 @@ class BaseDietAuditTests(unittest.TestCase):
 
 
 class RevisedNutritionProtocolTests(unittest.TestCase):
+    def test_protocol_loader_builds_expected_primary_and_secondary_constraints(self) -> None:
+        protocol = load_protocol(PROJECT_ROOT / "configs" / "revised-nutrition-protocol.json")
+        self.assertEqual(protocol["protocol_id"], "ieee2026-revision-adult-female-30-v1")
+        self.assertEqual(protocol["minimum_goals"]["Energia"], 1900.0)
+        self.assertEqual(protocol["maximum_goals"]["Energia"]["meta"], 2100.0)
+        self.assertEqual(protocol["maximum_goals"]["S\u00f3dio"]["meta"], 2000.0)
+        self.assertNotIn("Colesterol", protocol["maximum_goals"])
+        self.assertEqual([target["nutrient"] for target in protocol["secondary_targets"]], ["Ferro"])
+
+    def test_injected_protocol_targets_drive_ga_penalty_and_lp_constraints(self) -> None:
+        minimums = {"Energia": 100.0, "Prote\u00edna": 40.0}
+        maximums = {"Energia": {"meta": 120.0, "tolerancia": 1.0}}
+        penalty = criterion_penalty_for_nutritional_constraints(
+            {"Energia": 90.0, "Prote\u00edna": 20.0},
+            minimum_goals=minimums,
+            maximum_goals=maximums,
+        )
+        self.assertGreater(penalty, 0)
+
+        matrix, bounds = _build_nutrient_constraints(
+            {"Energia": np.array([1.0]), "Prote\u00edna": np.array([1.0])},
+            1,
+            minimum_goals=minimums,
+            maximum_goals=maximums,
+        )
+        self.assertEqual(matrix.shape, (3, 1))
+        self.assertEqual(bounds.tolist(), [-100.0, -40.0, 120.0])
+
     def test_revised_protocol_has_16_complete_core_targets(self) -> None:
         protocol = json.loads(
             (PROJECT_ROOT / "configs" / "revised-nutrition-protocol.json").read_text(

@@ -14,7 +14,6 @@ import sys
 from importlib import metadata
 
 from diet_optimization.optimization.hyperparameters import (
-    ENERGY_UPPER_FLEXIBILITY,
     LIMITES_ENERGIA_REFEICAO,
     MAXIMUM_GOALS,
     MINIMUM_GOALS,
@@ -22,8 +21,20 @@ from diet_optimization.optimization.hyperparameters import (
 from diet_optimization.optimization.utils import calculate_totals
 
 
-def evaluate_plan(plan: dict, context) -> dict:
+def evaluate_plan(
+    plan: dict,
+    context,
+    minimum_goals: dict[str, float] | None = None,
+    maximum_goals: dict[str, dict[str, float]] | None = None,
+    meal_energy_share_limits: dict[str, dict[str, float]] | None = None,
+    protocol_id: str = "historical-implemented-v1",
+) -> dict:
     """Recalculate daily and mean values from the serialized final solution."""
+    minimum_goals = MINIMUM_GOALS if minimum_goals is None else minimum_goals
+    maximum_goals = MAXIMUM_GOALS if maximum_goals is None else maximum_goals
+    meal_energy_share_limits = (
+        LIMITES_ENERGIA_REFEICAO if meal_energy_share_limits is None else meal_energy_share_limits
+    )
     daily = []
     energy_by_meal: dict[str, float] = {}
     for day, meals in sorted(plan.items(), key=lambda item: int(item[0])):
@@ -35,15 +46,13 @@ def evaluate_plan(plan: dict, context) -> dict:
             meal_energies[meal_name] = float(meal_nutrients.get("Energia", 0.0))
             energy_by_meal[meal_name] = energy_by_meal.get(meal_name, 0.0) + meal_energies[meal_name]
         violations = []
-        for name, lower in MINIMUM_GOALS.items():
+        for name, lower in minimum_goals.items():
             observed = float(nutrients.get(name, 0.0))
             if observed < lower - 1e-8:
                 violations.append({"nutrient": name, "bound": "minimum", "target": lower,
                                    "observed": observed, "amount": lower - observed})
-        for name, rule in MAXIMUM_GOALS.items():
-            upper = float(rule["meta"]) * (
-                1 + ENERGY_UPPER_FLEXIBILITY if name == "Energia" else float(rule["tolerancia"])
-            )
+        for name, rule in maximum_goals.items():
+            upper = float(rule["meta"]) * float(rule.get("tolerancia", 1.0))
             observed = float(nutrients.get(name, 0.0))
             if observed > upper + 1e-8:
                 violations.append({"nutrient": name, "bound": "maximum", "target": upper,
@@ -51,7 +60,7 @@ def evaluate_plan(plan: dict, context) -> dict:
         meal_share_violations = []
         day_energy = float(nutrients.get("Energia", 0.0))
         if day_energy > 0:
-            for meal_name, limits in LIMITES_ENERGIA_REFEICAO.items():
+            for meal_name, limits in meal_energy_share_limits.items():
                 if meal_name not in meals:
                     continue
                 share = meal_energies[meal_name] / day_energy
@@ -72,33 +81,31 @@ def evaluate_plan(plan: dict, context) -> dict:
                       for key in sorted(keys)} if count else {}
     mean_violations = []
     if count:
-        for name, lower in MINIMUM_GOALS.items():
+        for name, lower in minimum_goals.items():
             observed = float(mean_nutrients.get(name, 0.0))
             if observed < lower - 1e-8:
                 mean_violations.append({"nutrient": name, "bound": "minimum", "target": lower,
                                         "observed": observed, "amount": lower - observed})
-        for name, rule in MAXIMUM_GOALS.items():
-            upper = float(rule["meta"]) * (
-                1 + ENERGY_UPPER_FLEXIBILITY if name == "Energia" else float(rule["tolerancia"])
-            )
+        for name, rule in maximum_goals.items():
+            upper = float(rule["meta"]) * float(rule.get("tolerancia", 1.0))
             observed = float(mean_nutrients.get(name, 0.0))
             if observed > upper + 1e-8:
                 mean_violations.append({"nutrient": name, "bound": "maximum", "target": upper,
                                         "observed": observed, "amount": observed - upper})
     lp_meal_energy_violations = []
-    for meal_name, limits in LIMITES_ENERGIA_REFEICAO.items():
+    for meal_name, limits in meal_energy_share_limits.items():
         if meal_name not in energy_by_meal:
             continue
         observed = energy_by_meal[meal_name]
         for bound in ("min", "max"):
-            target = count * MAXIMUM_GOALS["Energia"]["meta"] * float(limits[bound])
+            target = count * maximum_goals["Energia"]["meta"] * float(limits[bound])
             amount = target - observed if bound == "min" else observed - target
             if amount > 1e-8:
                 lp_meal_energy_violations.append({"meal": meal_name, "bound": bound,
                                                   "target_energy": target, "observed_energy": observed,
                                                   "amount": amount})
     return {
-        "constraint_set": "historical_implemented_v1; not revised protocol or clinical validation",
+        "constraint_set": protocol_id,
         "daily": daily,
         "mean_daily_nutrients": mean_nutrients,
         "mean_daily_footprints": {key: sum(row["footprints"].get(key, 0.0) for row in daily) / count

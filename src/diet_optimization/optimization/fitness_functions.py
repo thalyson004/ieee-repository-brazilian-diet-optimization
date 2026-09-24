@@ -7,7 +7,6 @@ from typing import Dict, List, Tuple
 from .hyperparameters import (
     DAYS_PER_PLAN,
     ENVIRONMENTAL_NORMALIZATION_REFERENCES,
-    ENERGY_UPPER_FLEXIBILITY,
     LIMITES_ENERGIA_REFEICAO,
     MAXIMUM_GOALS,
     MEAL_ORDER,
@@ -50,6 +49,8 @@ NUTRIENT_PENALTY_FACTOR = 10007.0
 
 def criterion_penalty_for_nutritional_constraints(
     daily_nutrients: Dict[str, float],
+    minimum_goals: Dict[str, float] | None = None,
+    maximum_goals: Dict[str, Dict[str, float]] | None = None,
 ) -> float:
     """Calcula a penalidade nutricional para nutrientes fora de suas metas.
 
@@ -68,21 +69,20 @@ def criterion_penalty_for_nutritional_constraints(
     Retorna:
         Soma total das penalidades nutricionais.
     """
+    minimum_goals = MINIMUM_GOALS if minimum_goals is None else minimum_goals
+    maximum_goals = MAXIMUM_GOALS if maximum_goals is None else maximum_goals
     total_penalty = 0.0
 
     # Processar nutrientes que estão somente em MINIMUM_GOALS
-    for nutrient_name, min_target in MINIMUM_GOALS.items():
+    for nutrient_name, min_target in minimum_goals.items():
         nutrient_value = daily_nutrients.get(nutrient_name, 0.0)
 
-        if nutrient_name in MAXIMUM_GOALS:
+        if nutrient_name in maximum_goals:
             # Nutriente tem tanto minimo quanto maximo (ex: Energia)
-            max_rules = MAXIMUM_GOALS[nutrient_name]
+            max_rules = maximum_goals[nutrient_name]
             max_target = max_rules["meta"]
 
-            if nutrient_name == "Energia":
-                max_bound = max_target * (1.0 + ENERGY_UPPER_FLEXIBILITY)
-            else:
-                max_bound = max_target * max_rules.get("tolerancia", 1.0)
+            max_bound = max_target * max_rules.get("tolerancia", 1.0)
 
             # Verificar se está dentro do intervalo [min_target, max_bound]
             if nutrient_value < min_target:
@@ -99,8 +99,8 @@ def criterion_penalty_for_nutritional_constraints(
                 total_penalty += proportional_distance * NUTRIENT_PENALTY_FACTOR
 
     # Processar nutrientes que estão somente em MAXIMUM_GOALS (ex: Sódio, Colesterol)
-    for nutrient_name, max_rules in MAXIMUM_GOALS.items():
-        if nutrient_name in MINIMUM_GOALS:
+    for nutrient_name, max_rules in maximum_goals.items():
+        if nutrient_name in minimum_goals:
             continue  # Já processado acima
 
         nutrient_value = daily_nutrients.get(nutrient_name, 0.0)
@@ -187,6 +187,8 @@ def criterion_penalty_for_environmental_footprints(
 
 def criterion_penalty_for_nutritional_adequacy(
     daily_nutrients: Dict[str, float],
+    minimum_goals: Dict[str, float] | None = None,
+    maximum_goals: Dict[str, Dict[str, float]] | None = None,
 ) -> float:
     """Calcula a penalidade nutricional total para um cromossomo.
 
@@ -198,7 +200,9 @@ def criterion_penalty_for_nutritional_adequacy(
     Retorna:
         Penalidade nutricional total.
     """
-    return criterion_penalty_for_nutritional_constraints(daily_nutrients)
+    return criterion_penalty_for_nutritional_constraints(
+        daily_nutrients, minimum_goals, maximum_goals
+    )
 
 
 def criterion_penalty_for_meal_energy_share(
@@ -282,6 +286,8 @@ def evaluate_diet_fitness(
     footprint_normalization_functions: Dict[str, str],
     meal_energy_share_limits: Dict[str, Dict[str, float]],
     meal_energy_share_penalty_weight: float,
+    nutritional_minimum_goals: Dict[str, float] | None = None,
+    nutritional_maximum_goals: Dict[str, Dict[str, float]] | None = None,
 ) -> float:
     """Avalia o fitness de um cromossomo de dieta considerando múltiplos critérios.
 
@@ -308,7 +314,9 @@ def evaluate_diet_fitness(
     """
     daily_nutrients, daily_footprints = compute_daily_totals(chromosome)
 
-    nutritional_penalty = criterion_penalty_for_nutritional_adequacy(daily_nutrients)
+    nutritional_penalty = criterion_penalty_for_nutritional_adequacy(
+        daily_nutrients, nutritional_minimum_goals, nutritional_maximum_goals
+    )
 
     environmental_penalty = criterion_penalty_for_environmental_footprints(
         daily_footprints,

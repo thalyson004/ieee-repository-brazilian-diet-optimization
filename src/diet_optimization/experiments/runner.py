@@ -9,6 +9,7 @@ seeded replication. The original March 2026 GA seeds were not recorded.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import platform
@@ -33,6 +34,7 @@ from diet_optimization.optimization.pipeline import build_context, process_optim
 from diet_optimization.optimization.utils import load_json_file, save_json_file
 from diet_optimization.experiments.diagnostics import environment_metadata, evaluate_plan
 from diet_optimization.experiments.profile_integrity import load_exclusions, prepare_profile_diets
+from diet_optimization.optimization.nutritional_targets import load_protocol
 
 
 PROFILES = ("regular", "vegetariana", "vegana")
@@ -64,6 +66,12 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=PROJECT_ROOT / "tests" / "results" / "artifacts" / "manual-run",
         help="New output workspace. It must not already contain a run.",
+    )
+    parser.add_argument(
+        "--nutrition-protocol",
+        choices=("historical", "revised"),
+        default="revised",
+        help="Explicit constraint set for a new rerun; archived reconstruction ignores it.",
     )
     return parser.parse_args()
 
@@ -161,7 +169,8 @@ def stage_archived_results(workspace: Path) -> None:
 
 
 def run_optimizers(
-    workspace: Path, diet_files: dict[str, Path], runs: int, seed: int
+    workspace: Path, diet_files: dict[str, Path], runs: int, seed: int,
+    hyperparameters: GeneticAlgorithmHyperparameters,
 ) -> None:
     previous_cwd = Path.cwd()
     try:
@@ -170,11 +179,12 @@ def run_optimizers(
             diet_files=[str(diet_files[p]) for p in PROFILES],
             context_files=context_files(workspace),
             number_of_runs=runs,
-            hyperparameters=GeneticAlgorithmHyperparameters(),
+            hyperparameters=hyperparameters,
             base_seed=seed,
         )
 
         context = build_context(context_files(workspace))
+        _write_nutrient_coverage_audit(workspace, diet_files, context, hyperparameters)
         footprint_key = "carbon_footprint"
         for profile in PROFILES:
             profile_diets = load_json_file(diet_files[profile])
@@ -186,6 +196,8 @@ def run_optimizers(
                 allowed_food_names=allowed_food_names,
                 footprint_key=footprint_key,
                 diagnostics=food_diagnostics,
+                minimum_goals=hyperparameters.nutritional_minimum_goals,
+                maximum_goals=hyperparameters.nutritional_maximum_goals,
             )
             food_duration = time.perf_counter() - started
             save_json_file(
@@ -194,7 +206,18 @@ def run_optimizers(
                 {"schema_version": "1.0", "profile": profile, "resolution": "pl-alimentos",
                  "solver": food_diagnostics, "duration_seconds": food_duration,
                  "final_solution": food_result,
-                 "metrics_and_violations": evaluate_plan(food_result[0], context) if food_result else None},
+                 "effective_nutritional_constraints": {
+                     "protocol_id": hyperparameters.nutrition_protocol_id,
+                     "minimum_goals": hyperparameters.nutritional_minimum_goals,
+                     "maximum_goals": hyperparameters.nutritional_maximum_goals,
+                 },
+                 "metrics_and_violations": evaluate_plan(
+                     food_result[0], context,
+                     minimum_goals=hyperparameters.nutritional_minimum_goals,
+                     maximum_goals=hyperparameters.nutritional_maximum_goals,
+                     meal_energy_share_limits=hyperparameters.meal_energy_share_limits,
+                     protocol_id=hyperparameters.nutrition_protocol_id,
+                 ) if food_result else None},
             )
             if food_result:
                 save_json_file(
@@ -213,6 +236,9 @@ def run_optimizers(
                 profile_diets,
                 context,
                 footprint_key=footprint_key,
+                minimum_goals=hyperparameters.nutritional_minimum_goals,
+                maximum_goals=hyperparameters.nutritional_maximum_goals,
+                meal_energy_share_limits=hyperparameters.meal_energy_share_limits,
                 diagnostics=meal_diagnostics,
             )
             meal_duration = time.perf_counter() - started
@@ -222,7 +248,18 @@ def run_optimizers(
                 {"schema_version": "1.0", "profile": profile, "resolution": "pl-refeicoes",
                  "solver": meal_diagnostics, "duration_seconds": meal_duration,
                  "final_solution": meal_result,
-                 "metrics_and_violations": evaluate_plan(meal_result[0], context) if meal_result else None},
+                 "effective_nutritional_constraints": {
+                     "protocol_id": hyperparameters.nutrition_protocol_id,
+                     "minimum_goals": hyperparameters.nutritional_minimum_goals,
+                     "maximum_goals": hyperparameters.nutritional_maximum_goals,
+                 },
+                 "metrics_and_violations": evaluate_plan(
+                     meal_result[0], context,
+                     minimum_goals=hyperparameters.nutritional_minimum_goals,
+                     maximum_goals=hyperparameters.nutritional_maximum_goals,
+                     meal_energy_share_limits=hyperparameters.meal_energy_share_limits,
+                     protocol_id=hyperparameters.nutrition_protocol_id,
+                 ) if meal_result else None},
             )
             if meal_result:
                 save_json_file(
@@ -238,8 +275,50 @@ def run_optimizers(
         os.chdir(previous_cwd)
 
 
+def _write_nutrient_coverage_audit(
+    workspace: Path,
+    diet_files: dict[str, Path],
+    context,
+    hyperparameters: GeneticAlgorithmHyperparameters,
+) -> None:
+    target_fields = sorted(
+        set(hyperparameters.nutritional_minimum_goals)
+        | set(hyperparameters.nutritional_maximum_goals)
+        | {target["tbca_field"] for target in hyperparameters.secondary_nutrition_targets}
+        | {target["tbca_field"] for target in hyperparameters.descriptive_nutrition_targets}
+    )
+    by_profile = {}
+    for profile, path in diet_files.items():
+        diets = load_json_file(path)
+        names = sorted(food_names_in_diets(diets))
+        field_report = {}
+        for field in target_fields:
+            present, missing = [], []
+            for name in names:
+                code = context.tbca_map.get(name)
+                nutrient_record = context.tbca_database.get(code, {}).get("nutrientes", {}) if code else {}
+                value = nutrient_record.get(field)
+                (present if value is not None else missing).append(name)
+            field_report[field] = {
+                "available_food_count": len(present),
+                "missing_food_count": len(missing),
+                "missing_food_names": missing,
+            }
+        by_profile[profile] = {
+            "distinct_source_food_count": len(names),
+            "fields": field_report,
+        }
+    report = {
+        "protocol_id": hyperparameters.nutrition_protocol_id,
+        "missing_value_policy": "zero_contribution_in_legacy_calculators; missingness is explicitly listed and requires sensitivity analysis",
+        "profiles": by_profile,
+    }
+    save_json_file(workspace / "nutrition-field-coverage.json", report)
+
+
 def write_manifest(
-    workspace: Path, mode: str, runs: int, seed: int, command: list[str]
+    workspace: Path, mode: str, runs: int, seed: int, command: list[str],
+    nutrition_protocol_id: str, nutrition_constraints_sha256: str,
 ) -> None:
     manifest = {
         "schema_version": "1.0",
@@ -253,6 +332,8 @@ def write_manifest(
         "platform": platform.platform(),
         "execution_environment": environment_metadata(),
         "input_preparation_report": "input-preparation.json" if mode == "rerun" else None,
+        "nutrition_protocol_id": nutrition_protocol_id if mode == "rerun" else None,
+        "effective_nutrition_constraints_sha256": nutrition_constraints_sha256 if mode == "rerun" else None,
         "command": command,
         "notes": [
             "Archived mode rebuilds main tables from the fb34919 selected-solution snapshot and diversity from the e5f760c ten-run solution files, matching the published artifact history.",
@@ -269,11 +350,48 @@ def main() -> None:
     args = parse_args()
     workspace = args.output_dir.resolve()
     diet_files = stage_inputs(workspace, args.mode)
-    write_manifest(workspace, args.mode, args.runs, args.seed, sys.argv)
+    hyperparameters = GeneticAlgorithmHyperparameters()
+    protocol_payload = {
+        "protocol_id": hyperparameters.nutrition_protocol_id,
+        "minimum_goals": hyperparameters.nutritional_minimum_goals,
+        "maximum_goals": hyperparameters.nutritional_maximum_goals,
+        "meal_energy_share_limits": hyperparameters.meal_energy_share_limits,
+        "meal_energy_share_penalty_weight": hyperparameters.meal_energy_share_penalty_weight,
+    }
+    if args.mode == "rerun" and args.nutrition_protocol == "revised":
+        source_path = PROJECT_ROOT / "configs" / "revised-nutrition-protocol.json"
+        protocol_payload = load_protocol(source_path)
+        hyperparameters.nutritional_minimum_goals = protocol_payload["minimum_goals"]
+        hyperparameters.nutritional_maximum_goals = protocol_payload["maximum_goals"]
+        hyperparameters.nutrition_protocol_id = protocol_payload["protocol_id"]
+        hyperparameters.secondary_nutrition_targets = protocol_payload["secondary_targets"]
+        hyperparameters.descriptive_nutrition_targets = protocol_payload["descriptive_targets"]
+        hyperparameters.meal_energy_share_limits = protocol_payload["meal_energy_share_limits"]
+        hyperparameters.meal_energy_share_penalty_weight = protocol_payload["meal_energy_share_penalty_weight"]
+    effective_constraints = {
+        "protocol_id": hyperparameters.nutrition_protocol_id,
+        "minimum_goals": hyperparameters.nutritional_minimum_goals,
+        "maximum_goals": hyperparameters.nutritional_maximum_goals,
+        "secondary_targets": hyperparameters.secondary_nutrition_targets,
+        "descriptive_targets": hyperparameters.descriptive_nutrition_targets,
+        "meal_energy_share_limits": hyperparameters.meal_energy_share_limits,
+        "meal_energy_share_penalty_weight": hyperparameters.meal_energy_share_penalty_weight,
+    }
+    effective_constraints_json = json.dumps(effective_constraints, ensure_ascii=False, sort_keys=True)
+    constraints_hash = hashlib.sha256(effective_constraints_json.encode("utf-8")).hexdigest()
+    write_manifest(
+        workspace, args.mode, args.runs, args.seed, sys.argv,
+        hyperparameters.nutrition_protocol_id, constraints_hash,
+    )
+    if args.mode == "rerun":
+        (workspace / "effective-nutrition-constraints.json").write_text(
+            json.dumps({**effective_constraints, "sha256": constraints_hash}, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
     if args.mode == "archived":
         stage_archived_results(workspace)
     else:
-        run_optimizers(workspace, diet_files, args.runs, args.seed)
+        run_optimizers(workspace, diet_files, args.runs, args.seed, hyperparameters)
 
     subprocess.run(
         [sys.executable, "-m", "diet_optimization.analysis.article_outputs", "--workspace", str(workspace)],

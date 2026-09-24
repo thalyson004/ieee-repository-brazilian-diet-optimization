@@ -190,6 +190,17 @@ class GeneticAlgorithmHyperparameters:
     )
     big_m_penalty: float = BIG_M_PENALTY
     meal_energy_share_penalty_weight: float = MEAL_ENERGY_SHARE_PENALTY_WEIGHT
+    nutritional_minimum_goals: Dict[str, float] = field(
+        default_factory=lambda: MINIMUM_GOALS.copy()
+    )
+    nutritional_maximum_goals: Dict[str, Dict[str, float]] = field(
+        default_factory=lambda: {
+            name: rules.copy() for name, rules in MAXIMUM_GOALS.items()
+        }
+    )
+    nutrition_protocol_id: str = "historical-implemented-v1"
+    secondary_nutrition_targets: List[Dict[str, object]] = field(default_factory=list)
+    descriptive_nutrition_targets: List[Dict[str, object]] = field(default_factory=list)
     default_global_mutation_rate: float = MUTATION_RATES_DEFAULT["global_mutation"]
     default_local_mutation_rate: float = MUTATION_RATES_DEFAULT["local_mutation"]
     hyper_global_mutation_rate: float = MUTATION_RATES_HYPERMUTATION["global_mutation"]

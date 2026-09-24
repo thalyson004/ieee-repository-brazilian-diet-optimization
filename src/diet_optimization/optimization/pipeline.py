@@ -308,7 +308,13 @@ def process_optimization_pipeline(
                     "duration_seconds": duration_seconds,
                     "final_fitness": final_fitness,
                     "final_solution": final_plan,
-                    "metrics_and_violations": evaluate_plan(final_plan, nutritional_context),
+                    "metrics_and_violations": evaluate_plan(
+                        final_plan, nutritional_context,
+                        minimum_goals=tuned_hyperparameters.nutritional_minimum_goals,
+                        maximum_goals=tuned_hyperparameters.nutritional_maximum_goals,
+                        meal_energy_share_limits=tuned_hyperparameters.meal_energy_share_limits,
+                        protocol_id=tuned_hyperparameters.nutrition_protocol_id,
+                    ),
                 }
                 save_json_file(run_artifact, run_payload)
 

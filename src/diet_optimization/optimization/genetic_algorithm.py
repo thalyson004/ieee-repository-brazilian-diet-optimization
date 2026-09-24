@@ -56,6 +56,8 @@ class GeneticAlgorithm:
             footprint_normalization_functions=self.hyperparameters.footprint_normalization_functions,
             meal_energy_share_limits=self.hyperparameters.meal_energy_share_limits,
             meal_energy_share_penalty_weight=self.hyperparameters.meal_energy_share_penalty_weight,
+            nutritional_minimum_goals=self.hyperparameters.nutritional_minimum_goals,
+            nutritional_maximum_goals=self.hyperparameters.nutritional_maximum_goals,
         )
 
     def _candidate_meals_for_slot(
@@ -319,6 +321,10 @@ class GeneticAlgorithm:
                         meal_order=MEAL_ORDER,
                         days_per_plan=DAYS_PER_PLAN,
                         max_repair_attempts_per_day=self.hyperparameters.repair_max_attempts_per_day,
+                        energy_ceiling_kcal=(
+                            self.hyperparameters.nutritional_maximum_goals["Energia"]["meta"]
+                            * self.hyperparameters.nutritional_maximum_goals["Energia"].get("tolerancia", 1.0)
+                        ),
                     )
 
                 mutated_offspring = mutate_chromosome(

@@ -167,6 +167,7 @@ def repair_offspring_energy_limit(
     meal_order: List[str] = MEAL_ORDER,
     days_per_plan: int = DAYS_PER_PLAN,
     max_repair_attempts_per_day: int = 12,
+    energy_ceiling_kcal: float | None = None,
 ) -> List[Dict[str, Any]]:
     """Repara cromossomo pós-crossover para respeitar limite diário de energia.
 
@@ -187,7 +188,10 @@ def repair_offspring_energy_limit(
     repaired_chromosome = copy.deepcopy(offspring_chromosome)
     meals_per_day = len(meal_order)
     energy_target = float(MAXIMUM_GOALS["Energia"]["meta"])
-    energy_ceiling = energy_target * float(MAXIMUM_GOALS["Energia"]["tolerancia"])
+    energy_ceiling = (
+        energy_target * float(MAXIMUM_GOALS["Energia"]["tolerancia"])
+        if energy_ceiling_kcal is None else float(energy_ceiling_kcal)
+    )
 
     for day_index in range(days_per_plan):
         repair_attempts = 0

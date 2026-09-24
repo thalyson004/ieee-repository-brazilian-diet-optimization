@@ -43,6 +43,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--experiments", nargs="+", choices=EXPERIMENTS, default=["archived-reconstruction"])
     parser.add_argument("--runs", type=positive_integer, default=10, help="GA runs for full-replication.")
     parser.add_argument("--seed", type=int, default=20260323, help="Base seed for new replications.")
+    parser.add_argument("--nutrition-protocol", choices=("historical", "revised"), default="revised")
     return parser.parse_args()
 
 
@@ -66,7 +67,10 @@ def stream_command(command: list[str], log_path: Path) -> None:
         raise subprocess.CalledProcessError(return_code, command)
 
 
-def commands_for(experiment: str, workspace: Path, runs: int, seed: int) -> list[list[str]]:
+def commands_for(
+    experiment: str, workspace: Path, runs: int, seed: int,
+    nutrition_protocol: str = "revised",
+) -> list[list[str]]:
     runner = [sys.executable, "-m", "diet_optimization.experiments.runner"]
     if experiment == "archived-reconstruction":
         return [
@@ -87,20 +91,20 @@ def commands_for(experiment: str, workspace: Path, runs: int, seed: int) -> list
         return [[sys.executable, "-m", "tests.validate_lp_profile_scope", "--output-dir", str(workspace / "audit")]]
     if experiment == "ga-smoke":
         return [
-            runner + ["--mode", "rerun", "--runs", "1", "--seed", str(seed), "--output-dir", str(workspace)],
+            runner + ["--mode", "rerun", "--runs", "1", "--seed", str(seed), "--nutrition-protocol", nutrition_protocol, "--output-dir", str(workspace)],
             [sys.executable, "-m", "tests.validate_candidate_scope", "--workspace", str(workspace)],
         ]
     return [
-        runner + ["--mode", "rerun", "--runs", str(runs), "--seed", str(seed), "--output-dir", str(workspace)],
+        runner + ["--mode", "rerun", "--runs", str(runs), "--seed", str(seed), "--nutrition-protocol", nutrition_protocol, "--output-dir", str(workspace)],
         [sys.executable, "-m", "tests.validate_candidate_scope", "--workspace", str(workspace)],
     ]
 
 
-def execute(experiment: str, runs: int, seed: int) -> Path:
+def execute(experiment: str, runs: int, seed: int, nutrition_protocol: str) -> Path:
     run_id = build_run_id()
     workspace = RESULTS_DIR / "artifacts" / f"{experiment}_{run_id}"
     log_path = LOGS_DIR / f"{experiment}_{run_id}.log"
-    commands = commands_for(experiment, workspace, runs, seed)
+    commands = commands_for(experiment, workspace, runs, seed, nutrition_protocol)
     started_at_utc = datetime.now(timezone.utc).isoformat()
     started = time.perf_counter()
     status = "passed"
@@ -127,6 +131,7 @@ def execute(experiment: str, runs: int, seed: int) -> Path:
             "platform": platform.platform(),
             "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "lp-profile-scope"} else runs,
             "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "lp-profile-scope"} else seed,
+            "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "full-replication"} else None,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),
             "artifact_workspace": str(workspace.relative_to(PROJECT_ROOT)),
@@ -143,7 +148,7 @@ def execute(experiment: str, runs: int, seed: int) -> Path:
 def main() -> None:
     args = parse_args()
     for experiment in args.experiments:
-        execute(experiment, args.runs, args.seed)
+        execute(experiment, args.runs, args.seed, args.nutrition_protocol)
 
 
 if __name__ == "__main__":

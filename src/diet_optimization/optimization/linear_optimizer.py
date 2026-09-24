@@ -41,7 +41,6 @@ from scipy.optimize import linprog
 from .data_types import NutritionalContext
 from .hyperparameters import (
     DAYS_PER_PLAN,
-    ENERGY_UPPER_FLEXIBILITY,
     GRAMS_REFERENCE_FOOTPRINT,
     GRAMS_REFERENCE_TBCA,
     LIMITES_ENERGIA_REFEICAO,
@@ -63,6 +62,8 @@ def _compute_food_vectors(
     tbca_database: Dict[str, Any],
     footprint_map: Dict[str, Any],
     allowed_food_names: set[str],
+    minimum_goals: Optional[Dict[str, float]] = None,
+    maximum_goals: Optional[Dict[str, Dict[str, float]]] = None,
 ) -> Tuple[List[str], Dict[str, np.ndarray], Dict[str, np.ndarray]]:
     """Constrói vetores de pegada e nutrientes por grama para cada alimento disponível.
 
@@ -85,7 +86,9 @@ def _compute_food_vectors(
     footprint_lists: Dict[str, List[float]] = defaultdict(list)
     nutrient_lists: Dict[str, List[float]] = defaultdict(list)
 
-    all_nutrient_keys = set(MINIMUM_GOALS.keys()) | set(MAXIMUM_GOALS.keys())
+    minimum_goals = MINIMUM_GOALS if minimum_goals is None else minimum_goals
+    maximum_goals = MAXIMUM_GOALS if maximum_goals is None else maximum_goals
+    all_nutrient_keys = set(minimum_goals.keys()) | set(maximum_goals.keys())
 
     for food_name, tbca_code in tbca_map.items():
         if food_name not in allowed_food_names:
@@ -137,6 +140,8 @@ def _build_nutrient_constraints(
     nutrient_arrays: Dict[str, np.ndarray],
     n_vars: int,
     days_multiplier: float = 1.0,
+    minimum_goals: Optional[Dict[str, float]] = None,
+    maximum_goals: Optional[Dict[str, Dict[str, float]]] = None,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Monta as linhas da matriz de desigualdades para restrições nutricionais.
 
@@ -151,20 +156,19 @@ def _build_nutrient_constraints(
     Retorna:
         Tupla (A_ub, b_ub) com a matriz e vetor de desigualdades.
     """
+    minimum_goals = MINIMUM_GOALS if minimum_goals is None else minimum_goals
+    maximum_goals = MAXIMUM_GOALS if maximum_goals is None else maximum_goals
     A_rows: List[np.ndarray] = []
     b_rows: List[float] = []
 
-    for nutrient, min_target in MINIMUM_GOALS.items():
+    for nutrient, min_target in minimum_goals.items():
         vec = nutrient_arrays.get(nutrient, np.zeros(n_vars))
         A_rows.append(-vec)
         b_rows.append(-min_target * days_multiplier)
 
-    for nutrient, rules in MAXIMUM_GOALS.items():
+    for nutrient, rules in maximum_goals.items():
         vec = nutrient_arrays.get(nutrient, np.zeros(n_vars))
-        if nutrient == "Energia":
-            ceiling = rules["meta"] * (1.0 + ENERGY_UPPER_FLEXIBILITY)
-        else:
-            ceiling = rules["meta"] * rules["tolerancia"]
+        ceiling = rules["meta"] * rules.get("tolerancia", 1.0)
         A_rows.append(vec)
         b_rows.append(ceiling * days_multiplier)
 
@@ -232,6 +236,8 @@ def optimize_food_level(
     footprint_key: str = "carbon_footprint",
     days_per_plan: int = DAYS_PER_PLAN,
     diagnostics: Optional[Dict] = None,
+    minimum_goals: Optional[Dict[str, float]] = None,
+    maximum_goals: Optional[Dict[str, Dict[str, float]]] = None,
 ) -> Optional[List[Dict]]:
     """Otimiza a dieta no nível de alimentos usando Programação Linear.
 
@@ -259,6 +265,8 @@ def optimize_food_level(
         nutritional_context.tbca_database,
         nutritional_context.footprint_map,
         allowed_food_names,
+        minimum_goals,
+        maximum_goals,
     )
 
     if diagnostics is not None:
@@ -273,7 +281,9 @@ def optimize_food_level(
     n_foods = len(food_names)
     c = footprint_arrays.get(footprint_key, np.zeros(n_foods))
 
-    A_ub, b_ub = _build_nutrient_constraints(nutrient_arrays, n_foods)
+    A_ub, b_ub = _build_nutrient_constraints(
+        nutrient_arrays, n_foods, minimum_goals=minimum_goals, maximum_goals=maximum_goals
+    )
     bounds = [(0.0, None)] * n_foods
 
     result = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=bounds, method="highs")
@@ -502,6 +512,8 @@ def optimize_meal_level(
     days_per_plan: int = DAYS_PER_PLAN,
     meal_energy_share_limits: Dict[str, Dict[str, float]] = LIMITES_ENERGIA_REFEICAO,
     diagnostics: Optional[Dict] = None,
+    minimum_goals: Optional[Dict[str, float]] = None,
+    maximum_goals: Optional[Dict[str, Dict[str, float]]] = None,
 ) -> Optional[List[Dict]]:
     """Otimiza a dieta selecionando refeições existentes via Programação Linear.
 
@@ -551,7 +563,9 @@ def optimize_meal_level(
 
     # Restrições de nutrientes (escalonadas por D)
     nutrient_arrays: Dict[str, np.ndarray] = {}
-    all_nutrient_keys = set(MINIMUM_GOALS.keys()) | set(MAXIMUM_GOALS.keys())
+    minimum_goals = MINIMUM_GOALS if minimum_goals is None else minimum_goals
+    maximum_goals = MAXIMUM_GOALS if maximum_goals is None else maximum_goals
+    all_nutrient_keys = set(minimum_goals.keys()) | set(maximum_goals.keys())
     for nutrient in all_nutrient_keys:
         nutrient_arrays[nutrient] = np.array(
             [
@@ -561,7 +575,8 @@ def optimize_meal_level(
         )
 
     A_ub, b_ub = _build_nutrient_constraints(
-        nutrient_arrays, n_vars, days_multiplier=float(days_per_plan)
+        nutrient_arrays, n_vars, days_multiplier=float(days_per_plan),
+        minimum_goals=minimum_goals, maximum_goals=maximum_goals,
     )
     meal_energy_A_ub, meal_energy_b_ub = _build_meal_energy_share_constraints(
         meal_pool=meal_pool,
