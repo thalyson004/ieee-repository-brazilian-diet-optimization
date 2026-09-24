@@ -340,6 +340,25 @@ class RevisedNutritionProtocolTests(unittest.TestCase):
             manifest["scientific_readiness"],
             "diagnostic_pending_food_mapping_review_and_nutrient_missingness_sensitivity",
         )
+        provenance = manifest["source_provenance"]
+        self.assertRegex(provenance["git_commit"], r"^[0-9a-f]{40}$")
+        self.assertFalse(provenance["git_worktree_dirty"])
+        self.assertEqual(
+            set(provenance["input_sha256"]),
+            {
+                "configs/revised-nutrition-protocol.json",
+                "configs/profile-exclusions.json",
+                "data/diets/source/dietas-regular.json",
+                "data/diets/source/dietas-vegetariana.json",
+                "data/diets/source/dietas-vegana.json",
+                "maps/base/mapa-nome-tbca.json",
+                "maps/base/mapa-tbca-completo.json",
+                "maps/base/mapa-sustentavel-nome.json",
+                "maps/base/mapa-sustentavel-pegadas.json",
+                "maps/derived/mapa-sustentavel-tbca.json",
+            },
+        )
+        self.assertTrue(all(len(value) == 64 for value in provenance["input_sha256"].values()))
 
     def test_injected_protocol_targets_drive_ga_penalty_and_lp_constraints(self) -> None:
         minimums = {"Energia": 100.0, "Prote\u00edna": 40.0}

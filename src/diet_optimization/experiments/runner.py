@@ -328,6 +328,57 @@ def _write_nutrient_coverage_audit(
     save_json_file(workspace / "nutrition-field-coverage.json", report)
 
 
+def source_provenance() -> dict:
+    """Identify the exact repository revision and data files used by a run."""
+    input_paths = [
+        "configs/revised-nutrition-protocol.json",
+        "configs/profile-exclusions.json",
+        "data/diets/source/dietas-regular.json",
+        "data/diets/source/dietas-vegetariana.json",
+        "data/diets/source/dietas-vegana.json",
+        "maps/base/mapa-nome-tbca.json",
+        "maps/base/mapa-tbca-completo.json",
+        "maps/base/mapa-sustentavel-nome.json",
+        "maps/base/mapa-sustentavel-pegadas.json",
+        "maps/derived/mapa-sustentavel-tbca.json",
+    ]
+    input_sha256 = {}
+    for relative_path in input_paths:
+        path = PROJECT_ROOT / relative_path
+        input_sha256[relative_path] = (
+            hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
+        )
+
+    commit = None
+    worktree_dirty = None
+    try:
+        commit_result = subprocess.run(
+            ["git", "rev-parse", "--verify", "HEAD"],
+            cwd=PROJECT_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        commit = commit_result.stdout.strip()
+        status_result = subprocess.run(
+            ["git", "status", "--porcelain", "--untracked-files=no"],
+            cwd=PROJECT_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        worktree_dirty = bool(status_result.stdout.strip())
+    except (OSError, subprocess.SubprocessError):
+        pass
+    return {
+        "git_commit": commit,
+        "git_worktree_dirty": worktree_dirty,
+        "input_sha256": input_sha256,
+    }
+
+
 def write_manifest(
     workspace: Path, mode: str, runs: int, seed: int, command: list[str],
     nutrition_protocol_id: str, nutrition_constraints_sha256: str,
@@ -337,6 +388,7 @@ def write_manifest(
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "mode": mode,
         "archive_source_commit": ARCHIVE_COMMIT,
+        "source_provenance": source_provenance(),
         "original_random_seeds_recorded": False,
         "replication_base_seed": seed if mode == "rerun" else None,
         "ga_runs_per_profile_and_granularity": runs if mode == "rerun" else 10,
