@@ -99,6 +99,10 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Cuscuz de milho, cozido, c/ sal": (
                 "Farinha de milho, cuscuz, cozido no vapor, c/ sal, Brasil", "BRC0409A"
             ),
+            "Coco, polpa, in natura": (
+                "Coco, maduro, polpa,in natura, Brasil", "BRC0013C"
+            ),
+            "Repolho, cru": ("Repolho, branco, cru, Brasil", "BRC0033B"),
         }
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
