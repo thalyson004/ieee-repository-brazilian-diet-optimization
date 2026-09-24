@@ -46,6 +46,16 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 "Bebida, café, infusão 10%, s/ açúcar, Brasil", "BRC0007H"
             ),
             "Azeite, oliva": ("Azeite, oliva, Brasil", "BRC0002D"),
+            "Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal": (
+                "Arroz, integral, cozido, c/ óleo, cebola e alho, c/ sal, Brasil", "BRC0211A"
+            ),
+            "Maçã, c/ casca, in natura": (
+                "Maçã, c/ casca,in natura, Brasil (média diferentes variedades)", "BRC0023C"
+            ),
+            "Feijão, carioca, cozido (50% grão e 50% caldo), c/ óleo, cebola e alho, c/ sal": (
+                "Feijão carioca, cozido (50% grão e 50% caldo), c/ óleo de soja, cebola e alho, c/ sal, Brasil",
+                "BRC0091T",
+            ),
         }
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
