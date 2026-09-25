@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "status": "candidate_target_corrected_source_material_still_unresolved",
+  "source_food_label": "Cacau, in natura",
+  "occurrences": {"total": 3, "profile": "vegana"},
+  "source_pof_records": [
+    {"key": "6806301#99", "name_pof": "CACAU", "historical_tbca_code": "C0071C"},
+    {"key": "6804001#99", "name_pof": "JENIPAPO", "historical_tbca_code": "C0071C"}
+  ],
+  "previous_target": {
+    "name": "Pitaia,in natura",
+    "code": "BRC0225C",
+    "decision": "rejected_as_semantically_unsupported"
+  },
+  "current_candidate": {
+    "name": "Cacau, polpa,in natura, Brasil",
+    "code": "BRC0071C",
+    "official_description": "Cacau, polpa, in natura, Brasil",
+    "scientific_name": "Theobroma arábi L.",
+    "official_url": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=rSufGGBtSihNkQl2Jaorrg%3D%3D"
+  },
+  "environmental_source": {
+    "active_values_per_100g": {"carbon_footprint": 90.0, "water_footprint": 600.0, "ecological_footprint": 0.6},
+    "source_pof_values_per_100g": {"carbon_footprint": 89.6789, "water_footprint": 599.5594, "ecological_footprint": 0.6162},
+    "rounded_values_match": true,
+    "interpretation": "Both the CACAU and JENIPAPO source rows share historical code C0071C and identical footprints; this match does not disambiguate the nutritional material."
+  },
+  "decision": "Replace the unsupported pitaya target with the current TBCA cocoa-pulp candidate BRC0071C based on the exact POF CACAU row and matching historical code. Keep the label unresolved in the adjudication queue because the source does not explicitly distinguish pulp from seed/bean and the historical code is shared by another food label.",
+  "limitations": [
+    "The label 'Cacau, in natura' does not specify cocoa pulp, seed/bean, or another product.",
+    "POF key 6806301#99 names CACAU, but historical C0071C is also assigned to a JENIPAPO row; code identity alone is not material identity.",
+    "TBCA BRC0071C is specifically cocoa pulp and must not be treated as cocoa powder or cocoa bean/nib composition.",
+    "This candidate correction does not approve vegan recipe eligibility or change the environmental map."
+  ],
+  "adjudication_index_updated": false,
+  "environmental_map_changed": false
+}

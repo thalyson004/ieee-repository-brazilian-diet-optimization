@@ -397,15 +397,36 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 self.assertEqual(code_map[source], expected_code)
                 self.assertEqual(tbca_names[expected_name], expected_code)
 
-    def test_ambiguous_cacao_mapping_is_not_changed(self) -> None:
+    def test_cacao_candidate_uses_pof_and_tbca_lineage_but_stays_unadjudicated(self) -> None:
         name_map = json.loads(
             (ROOT / "maps/base/mapa-sustentavel-nome.json").read_text(encoding="utf-8")
         )
         code_map = json.loads(
             (ROOT / "maps/derived/mapa-sustentavel-tbca.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(name_map["Cacau, in natura"], "Pitaia,in natura")
-        self.assertEqual(code_map["Cacau, in natura"], "BRC0225C")
+        index = json.loads(
+            (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
+        )
+        pending = json.loads(
+            (ROOT / "configs/pending-food-mapping-exclusions.json").read_text(encoding="utf-8")
+        )
+        adjudication = json.loads(
+            (ROOT / "archive/audits/cacao-target-correction-2026-09-25.json")
+            .read_text(encoding="utf-8")
+        )
+        self.assertEqual(name_map["Cacau, in natura"], "Cacau, polpa,in natura, Brasil")
+        self.assertEqual(code_map["Cacau, in natura"], "BRC0071C")
+        self.assertNotIn("Cacau, in natura", index["source_food_names"])
+        self.assertIn("Cacau, in natura", pending["profiles"]["vegana"])
+        self.assertEqual(adjudication["source_pof_records"][0]["key"], "6806301#99")
+        self.assertEqual(adjudication["current_candidate"]["code"], "BRC0071C")
+        self.assertFalse(adjudication["adjudication_index_updated"])
+        self.assertEqual(
+            code_map["Cacau, in natura"],
+            json.loads((ROOT / "maps/base/mapa-nome-tbca.json").read_text(encoding="utf-8"))[
+                "Cacau, polpa,in natura, Brasil"
+            ],
+        )
 
     def test_vegetarian_feijoada_adjudication_is_limited_to_official_recipe(self) -> None:
         adjudication = json.loads(
