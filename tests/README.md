@@ -279,3 +279,21 @@ computational metrics, and all six LP execution records per variant (three per
 method). A completed run can include a documented relaxed LP solution.
 Bootstrap intervals are unadjusted and the excluded-label scenario does not
 adjudicate the actual food compositions.
+
+Run the profile-specific LP-Food meal-slot structure diagnostic:
+
+```bash
+python -m tests.run_experiments --experiments lp-food-meal-structure-sensitivity
+```
+
+This five-day MILP assigns foods only to meal slots observed in the same
+profile's source diets and applies empirical daily diversity, repeat, quantity,
+and meal-energy-share bounds. Nutrient targets are imposed separately on each
+day. If strict optimization has no feasible solution, only nutrient rows may
+receive nonnegative slack; all structural bounds remain hard. The JSON exports
+solver statuses, slack and nutrient diagnostics, the five-day plan, and an
+independent check of each structural invariant. A returned plan is therefore
+not proof of strict nutrient feasibility, ingredient compatibility, complete
+recipes, clinical suitability, or source-data validity. It is a diagnostic
+comparison with the existing aggregate LP-Food formulation, not a primary
+result.
