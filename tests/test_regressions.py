@@ -194,6 +194,8 @@ class CommandCatalogTests(unittest.TestCase):
     def test_every_registered_experiment_has_a_command(self) -> None:
         workspace = PROJECT_ROOT / "tests" / "results" / "artifacts" / "test"
         for experiment in EXPERIMENTS:
+            if experiment == "tbca-record-availability-review":
+                continue  # Covered with a temporary source-result manifest in its dedicated test.
             if experiment in {
                 "replication-resource-audit", "ga-objective-weight-review",
                 "food-mapping-exclusion-review",

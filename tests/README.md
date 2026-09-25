@@ -121,6 +121,14 @@ availability sensitivity only, not an adjudication or primary input policy:
 python -m tests.run_experiments --experiments tbca-record-availability-sensitivity --runs 10 --seed 20260938
 ```
 
+If optimization completes but report post-processing fails, review the saved
+variant workspaces without rerunning them (the source run ID is the suffix in
+its JSON/log filename):
+
+```bash
+python -m tests.run_experiments --experiments tbca-record-availability-review --source-run-id 20260925T084335974487Z_8badb72d
+```
+
 Create a ranked, non-accepting TBCA review queue for the 170 non-identity links:
 
 ```bash

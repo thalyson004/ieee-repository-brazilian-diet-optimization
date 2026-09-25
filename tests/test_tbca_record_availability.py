@@ -4,6 +4,7 @@ import json
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
 from diet_optimization.experiments.profile_integrity import (
     load_tbca_unavailable_record_exclusions,
@@ -71,6 +72,27 @@ class TbcaRecordAvailabilityTests(unittest.TestCase):
                 for item in items if item.get("alimento") == "Coco, polpa, in natura"),
             0,
         )
+
+    def test_review_command_reuses_the_named_source_artifact_and_records_its_failure(self) -> None:
+        with TemporaryDirectory() as temp:
+            results = Path(temp)
+            run_id = "20260925T084335974487Z_8badb72d"
+            (results / f"tbca-record-availability-sensitivity_{run_id}.json").write_text(
+                json.dumps({
+                    "experiment": "tbca-record-availability-sensitivity",
+                    "artifact_workspace": "tests/results/artifacts/source",
+                    "runs": 10, "seed": 20260938,
+                    "nutrition_protocol": "revised", "status": "failed",
+                }),
+                encoding="utf-8",
+            )
+            with patch("tests.run_experiments.RESULTS_DIR", results):
+                command = commands_for("tbca-record-availability-review", Path(temp) / "review", 1, 1, source_run_id=run_id)[0]
+        self.assertIn("--source-dir", command)
+        self.assertIn("--source-execution-status", command)
+        self.assertEqual(command[command.index("--runs") + 1], "10")
+        self.assertEqual(command[command.index("--seed") + 1], "20260938")
+        self.assertEqual(command[command.index("--source-execution-status") + 1], "failed")
 
 
 if __name__ == "__main__":

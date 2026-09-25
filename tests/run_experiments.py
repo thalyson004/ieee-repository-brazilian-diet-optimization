@@ -10,6 +10,7 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import platform
 import subprocess
@@ -30,6 +31,7 @@ EXPERIMENTS = (
     "nutrient-missingness-audit",
     "tbca-marker-audit",
     "tbca-record-availability-sensitivity",
+    "tbca-record-availability-review",
     "mapping-review-queue",
     "mapping-review-queue-current",
     "portion-support-audit",
@@ -126,6 +128,24 @@ def commands_for(
             sys.executable, "-m", "tests.tbca_record_availability_sensitivity",
             "--runs", str(runs), "--seed", str(seed),
             "--nutrition-protocol", nutrition_protocol,
+            "--output-dir", str(workspace / "audit"),
+        ]]
+    if experiment == "tbca-record-availability-review":
+        if source_run_id is None:
+            raise ValueError("--source-run-id is required for tbca-record-availability-review")
+        source_result_path = RESULTS_DIR / f"tbca-record-availability-sensitivity_{source_run_id}.json"
+        if not source_result_path.is_file():
+            raise FileNotFoundError(f"Missing source sensitivity result: {source_result_path}")
+        source_result = json.loads(source_result_path.read_text(encoding="utf-8"))
+        if source_result.get("experiment") != "tbca-record-availability-sensitivity":
+            raise ValueError("Source run ID does not identify a TBCA record-availability experiment")
+        source_workspace = PROJECT_ROOT / source_result["artifact_workspace"] / "audit"
+        return [[
+            sys.executable, "-m", "tests.tbca_record_availability_sensitivity",
+            "--runs", str(source_result["runs"]), "--seed", str(source_result["seed"]),
+            "--nutrition-protocol", source_result["nutrition_protocol"],
+            "--source-dir", str(source_workspace), "--source-run-id", source_run_id,
+            "--source-execution-status", source_result["status"],
             "--output-dir", str(workspace / "audit"),
         ]]
     if experiment == "mapping-review-queue":
@@ -241,8 +261,8 @@ def execute(
             "python": platform.python_version(),
             "platform": platform.platform(),
             "source_run_id": source_run_id,
-            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "unit-tests", "nutrient-missingness-audit", "tbca-marker-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "lp-food-meal-structure-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
-            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "unit-tests", "nutrient-missingness-audit", "tbca-marker-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "lp-food-meal-structure-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
+            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "unit-tests", "nutrient-missingness-audit", "tbca-marker-audit", "tbca-record-availability-review", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "lp-food-meal-structure-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
+            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "unit-tests", "nutrient-missingness-audit", "tbca-marker-audit", "tbca-record-availability-review", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "lp-food-meal-structure-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
             "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "ga-hyperparameter-sensitivity", "food-mapping-exclusion-sensitivity", "tbca-record-availability-sensitivity", "full-replication"} else None,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),
@@ -261,7 +281,7 @@ def main() -> None:
     args = parse_args()
     source_run_experiments = {
         "replication-resource-audit", "ga-objective-weight-review",
-        "food-mapping-exclusion-review",
+        "food-mapping-exclusion-review", "tbca-record-availability-review",
     }
     if source_run_experiments.intersection(args.experiments) and not args.source_run_id:
         raise SystemExit("--source-run-id is required for source-run audit/review experiments")

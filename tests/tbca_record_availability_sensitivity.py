@@ -50,14 +50,23 @@ def summarize_metrics(left: dict[tuple, float], right: dict[tuple, float], seed:
     return rows
 
 
-def run(runs: int, seed: int, nutrition_protocol: str, output_dir: Path) -> dict[str, Any]:
+def run(
+    runs: int, seed: int, nutrition_protocol: str, output_dir: Path,
+    source_dir: Path | None = None, source_run_id: str | None = None,
+    source_execution_status: str | None = None,
+) -> dict[str, Any]:
     if runs < 2:
         raise ValueError("At least two paired GA runs are needed for this sensitivity")
     output_dir.mkdir(parents=True, exist_ok=False)
-    workspaces = {
-        variant: execute_variant(variant, runs, seed, nutrition_protocol, output_dir)
-        for variant in VARIANTS
-    }
+    if source_dir is None:
+        workspaces = {
+            variant: execute_variant(variant, runs, seed, nutrition_protocol, output_dir)
+            for variant in VARIANTS
+        }
+    else:
+        workspaces = {variant: source_dir / variant for variant in VARIANTS}
+        if any(not path.is_dir() for path in workspaces.values()):
+            raise FileNotFoundError("Both completed source variant workspaces must exist")
     manifests = {
         key: json.loads((path / "run-manifest.json").read_text(encoding="utf-8"))
         for key, path in workspaces.items()
@@ -69,6 +78,13 @@ def run(runs: int, seed: int, nutrition_protocol: str, output_dir: Path) -> dict
         raise ValueError("Sensitivity variants must share one clean source commit")
     if not hashes[0] or hashes[0] != hashes[1]:
         raise ValueError("Sensitivity variants must use identical hashed inputs")
+    for variant, manifest in manifests.items():
+        if manifest.get("replication_base_seed") != seed:
+            raise ValueError(f"Unexpected seed in {variant}")
+        if manifest.get("ga_runs_per_profile_and_granularity") != runs:
+            raise ValueError(f"Unexpected run count in {variant}")
+        if manifest.get("nutrition_protocol_id") != manifests[VARIANTS[0]].get("nutrition_protocol_id"):
+            raise ValueError("Sensitivity variants used different nutrition protocols")
 
     scope: dict[str, dict[str, Any]] = {}
     prep: dict[str, Any] = {}
@@ -104,7 +120,7 @@ def run(runs: int, seed: int, nutrition_protocol: str, output_dir: Path) -> dict
                 })
         lp[variant] = lp_rows
 
-    if prep["baseline-local-snapshot"]["vegan"]["incremental_source_occurrences_removed"] != 0:
+    if prep["baseline-local-snapshot"]["vegana"]["incremental_source_occurrences_removed"] != 0:
         raise ValueError("Baseline unexpectedly excluded the unavailable-source food")
     if prep["current-record-food-excluded"]["vegana"]["incremental_source_occurrences_removed"] != 40:
         raise ValueError("Expected exactly the 40 vegan source occurrences of the flagged food")
@@ -115,6 +131,8 @@ def run(runs: int, seed: int, nutrition_protocol: str, output_dir: Path) -> dict
         "schema_version": "1.0",
         "status": "diagnostic_current_tbca_record_availability_sensitivity_not_primary_result",
         "source_git_commit": next(iter(commits)),
+        "source_run_id": source_run_id,
+        "source_experiment_wrapper_status": source_execution_status or ("passed" if source_dir is None else "not_recorded"),
         "input_sha256": hashes[0],
         "base_seed": seed,
         "ga_runs_per_profile_and_granularity": runs,
@@ -135,6 +153,7 @@ def run(runs: int, seed: int, nutrition_protocol: str, output_dir: Path) -> dict
             "The exclusion is exact-name and vegan-profile-specific because the 40 source occurrences are all in the vegan input; the base diets are unchanged.",
             "All contrasts remain diagnostic while mapping, nutrition-marker, ingredient eligibility, and method-comparability gates remain open.",
             "Bootstrap intervals are unadjusted across multiple metrics and strata.",
+            "If the source wrapper failed after optimization, this report independently validates its completed run workspaces and records the source wrapper status above.",
         ],
     }
     result_path = output_dir / "tbca-record-availability-sensitivity.json"
@@ -149,8 +168,14 @@ def main() -> None:
     parser.add_argument("--seed", type=int, required=True)
     parser.add_argument("--nutrition-protocol", choices=("historical", "revised"), default="revised")
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--source-dir", type=Path, help="Review an already completed pair instead of rerunning optimizers.")
+    parser.add_argument("--source-run-id", help="Original named experiment run ID when reviewing existing artifacts.")
+    parser.add_argument("--source-execution-status", choices=("passed", "failed"))
     args = parser.parse_args()
-    report = run(args.runs, args.seed, args.nutrition_protocol, args.output_dir)
+    report = run(
+        args.runs, args.seed, args.nutrition_protocol, args.output_dir,
+        args.source_dir, args.source_run_id, args.source_execution_status,
+    )
     print(json.dumps({
         "status": report["status"],
         "source_git_commit": report["source_git_commit"],
