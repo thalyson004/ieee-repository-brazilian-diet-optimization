@@ -380,6 +380,9 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Tomate, molho, industrializado": (
                 "Tomate, molho, industrializado, Brasil", "BRC0100B"
             ),
+            "Leite, vaca, c/ chocolate": (
+                "Leite, vaca, c/ chocolate, fluído, Brasil", "BRC0034G"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
@@ -447,6 +450,34 @@ class FoodMappingCorrectionTests(unittest.TestCase):
         self.assertEqual(tbca["Carboidrato disponível"], 5.42)
         self.assertTrue(adjudication["environmental_link"]["rounded_values_match_source_pof_record"])
         self.assertIn("does not reveal whether the source preparation was strained", adjudication["limitations"][0])
+
+    def test_chocolate_milk_uses_pof_fluid_target_and_keeps_vegan_exclusion(self) -> None:
+        adjudication = json.loads(
+            (ROOT / "archive/audits/chocolate-milk-adjudication-2026-09-25.json")
+            .read_text(encoding="utf-8")
+        )
+        name_map = json.loads(
+            (ROOT / "maps/base/mapa-sustentavel-nome.json").read_text(encoding="utf-8")
+        )
+        code_map = json.loads(
+            (ROOT / "maps/derived/mapa-sustentavel-tbca.json").read_text(encoding="utf-8")
+        )
+        profile_exclusions = json.loads(
+            (ROOT / "configs/profile-exclusions.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(adjudication["source_occurrences"], {
+            "total": 7, "vegetarian": 3, "vegan": 4,
+        })
+        self.assertEqual(adjudication["source_pof_records"]["historical_tbca_code"], "C0034G")
+        self.assertEqual(adjudication["current_tbca_target"]["code"], "BRC0034G")
+        self.assertEqual(adjudication["previous_target"]["code"], "BRC0035G")
+        self.assertEqual(code_map["Leite, vaca, c/ chocolate"], "BRC0034G")
+        self.assertIn("fluído", name_map["Leite, vaca, c/ chocolate"])
+        self.assertTrue(any(
+            row["food_name"] == "Leite, vaca, c/ chocolate"
+            for row in profile_exclusions["profiles"]["vegana"]
+        ))
+        self.assertTrue(adjudication["environmental_link"]["source_pof_values_match_after_rounding"])
 
 
 if __name__ == "__main__":

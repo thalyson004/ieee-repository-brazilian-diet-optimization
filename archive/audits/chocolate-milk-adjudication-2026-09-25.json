@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "decision_date": "2026-09-25",
+  "status": "nutrition_target_adjudicated_from_pof_code; vegan_exclusion_preserved; product_brand_uncertainty_remains",
+  "source_food_name": "Leite, vaca, c/ chocolate",
+  "source_occurrences": {
+    "total": 7,
+    "vegetarian": 3,
+    "vegan": 4
+  },
+  "source_pof_records": {
+    "keys": [
+      "6900822#99",
+      "7903101#99",
+      "7903102#99",
+      "7903109#99",
+      "7903110#99",
+      "8204503#99"
+    ],
+    "names": [
+      "TODDYNHO",
+      "LEITE COM SABOR",
+      "LEITE ACHOCOLATADO",
+      "LEITE AROMATIZADO",
+      "BEBIDA ACHOCOLATADA",
+      "CHOCOMILK"
+    ],
+    "historical_tbca_code": "C0034G",
+    "shared_nutrients_per_100g": {
+      "energy_kcal": 85.0,
+      "total_carbohydrate_g": 13.9,
+      "protein_g": 2.0,
+      "lipids_g": 2.4,
+      "fiber_g": 0.0
+    },
+    "shared_footprints_per_100g": {
+      "carbon_gco2eq": 79.4444,
+      "water_l": 1154.3725,
+      "ecological_points": 5.75
+    },
+    "source_map_path_in_parent_repository": "source/data/maps/base/mapa-pof-completo.json",
+    "source_map_sha256": "239762048a8977e199ed86700962a62ac30fc04676e6b405476b0425172b9e44"
+  },
+  "previous_target": {
+    "code": "BRC0035G",
+    "name": "Leite, vaca, c/ chocolate, em pó, Brasil",
+    "energy_kcal_per_100g": 322.0,
+    "target_mismatch": "The preserved source POF code C0034G and nutrient/footprint values identify a fluid chocolate milk, not the current powdered BRC0035G record."
+  },
+  "current_tbca_target": {
+    "code": "BRC0034G",
+    "name": "Leite, vaca, c/ chocolate, fluído, Brasil",
+    "official_description": "Leite, vaca, c/ chocolate, fluído, Brasil; brand Toddynho",
+    "official_source": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=GzmWSeObJzujJs%2BsVWHC1A%3D%3D",
+    "verified_values_per_100g": {
+      "energy_kcal": 85.0,
+      "total_carbohydrate_g": 13.9,
+      "available_carbohydrate_g": 13.9,
+      "protein_g": 2.0,
+      "lipids_g": 2.4,
+      "fiber_g": 0.0
+    }
+  },
+  "decision_rationale": "All six preserved POF records attached to the exact source label share the historical TBCA code C0034G, the same nutrient profile (85 kcal/100 g), and the same footprint coefficients. The current official TBCA successor BRC0034G is a fluid chocolate milk with matching nutrient values; BRC0035G is explicitly powder (322 kcal/100 g) and is not supported by the source code. The source mapping is therefore corrected to BRC0034G. The vegan profile exclusion remains in force because this is explicitly cow milk; the mapping decision does not establish recipe provenance.",
+  "environmental_link": {
+    "distributed_map_per_100g_rounded": {
+      "carbon_gco2eq": 79,
+      "water_l": 1154,
+      "ecological_points": 5.8
+    },
+    "source_pof_values_match_after_rounding": true
+  },
+  "profile_exclusion": {
+    "profile": "vegana",
+    "status": "retained",
+    "reason": "The source food label explicitly identifies cow milk; this is a source-name profile contradiction independent of the TBCA target correction."
+  },
+  "map_files_changed": [
+    "maps/base/mapa-sustentavel-nome.json",
+    "maps/derived/mapa-sustentavel-tbca.json"
+  ],
+  "limitations": [
+    "The current BRC0034G record is branded Toddynho; the original source label and several POF names do not specify that brand.",
+    "The evidence supports fluid milk rather than powder but does not recover the generated recipe or prompt provenance.",
+    "The vegan exclusion is preserved and the item remains excluded from vegan derived optimizer inputs."
+  ]
+}
