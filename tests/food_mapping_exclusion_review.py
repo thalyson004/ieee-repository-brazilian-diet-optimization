@@ -137,9 +137,23 @@ def analyze(source_workspace: Path, review_workspace: Path) -> dict[str, Any]:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-run-id", required=True)
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        help="Write the report here when managed by tests.run_experiments.",
+    )
     args = parser.parse_args()
-    run_id = build_run_id()
     source = resolve_source_workspace(args.source_run_id)
+    if args.output_dir is not None:
+        report = analyze(source, args.output_dir)
+        print(f"Artifact: {args.output_dir / 'food-mapping-exclusion-review.json'}")
+        print(
+            f"Validated {len(report['profile_scope_validation'])} variants, "
+            f"{len(report['paired_outcome_differences'])} outcome groups, and "
+            f"{len(report['paired_computational_differences'])} computational groups"
+        )
+        return
+    run_id = build_run_id()
     output = RESULTS_DIR / "artifacts" / f"food-mapping-exclusion-review_{run_id}"
     log_path = LOGS_DIR / f"food-mapping-exclusion-review_{run_id}.log"
     append_log(log_path, f"Source run: {source}")

@@ -213,10 +213,12 @@ class CommandCatalogTests(unittest.TestCase):
             "tests.food_mapping_exclusion_sensitivity",
             commands_for("food-mapping-exclusion-sensitivity", workspace, 10, 20260937)[0],
         )
-        self.assertIn(
-            "tests.food_mapping_exclusion_review",
-            commands_for("food-mapping-exclusion-review", workspace, 1, 7, source_run_id="20260924T000000000000Z_abcdef12")[0],
-        )
+        mapping_review_command = commands_for(
+            "food-mapping-exclusion-review", workspace, 1, 7,
+            source_run_id="20260924T000000000000Z_abcdef12",
+        )[0]
+        self.assertIn("tests.food_mapping_exclusion_review", mapping_review_command)
+        self.assertEqual(mapping_review_command[-2:], ["--output-dir", str(workspace)])
         self.assertIn(
             "tests.lp_meal_frequency_sensitivity",
             commands_for("lp-meal-frequency-sensitivity", workspace, 1, 7)[0],

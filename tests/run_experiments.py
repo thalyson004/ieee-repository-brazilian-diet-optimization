@@ -156,7 +156,10 @@ def commands_for(
     if experiment == "food-mapping-exclusion-review":
         if source_run_id is None:
             raise ValueError("--source-run-id is required for food-mapping-exclusion-review")
-        return [[sys.executable, "-m", "tests.food_mapping_exclusion_review", "--source-run-id", source_run_id]]
+        return [[
+            sys.executable, "-m", "tests.food_mapping_exclusion_review",
+            "--source-run-id", source_run_id, "--output-dir", str(workspace),
+        ]]
     if experiment == "profile-ingredient-audit":
         return [[sys.executable, "-m", "tests.profile_ingredient_audit", "--output-dir", str(workspace / "audit")]]
     if experiment == "lp-profile-scope":
