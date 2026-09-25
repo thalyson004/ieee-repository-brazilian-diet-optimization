@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "status": "diagnostic_exclusion_sensitivity_only_not_an_adjudication",
   "source_queue": "archive/audits/pending-food-mapping-adjudication-2026-09-24.md",
-  "queue_run_id": "mapping-review-queue-current_20260925T062127043266Z_3c6580de",
-  "unresolved_source_foods": 11,
+  "queue_run_id": "mapping-review-queue-current_20260925T064008917921Z_0dee8a44",
+  "unresolved_source_foods": 10,
   "profiles": {
     "regular": [
       "Noz, crua",
@@ -23,7 +23,6 @@
       "Noz, crua",
       "Soja, grão, cozido, drenado, c/ sal",
       "Pão, trigo, integral, caseiro",
-      "Canjica, milho, branca, cozida, drenada",
       "Suco, clorofila",
       "Cacau, in natura"
     ]

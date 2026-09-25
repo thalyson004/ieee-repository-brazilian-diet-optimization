@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "decision_date": "2026-09-25",
+  "status": "nutrition_target_and_environmental_link_adjudicated_source_sugar_wording_limited",
+  "source_food_name": "Canjica, milho, branca, cozida, drenada",
+  "source_map_sha256": "239762048a8977e199ed86700962a62ac30fc04676e6b405476b0425172b9e44",
+  "occurrences": {
+    "total": 4,
+    "profiles": {"vegana": 4}
+  },
+  "source_pof_records": [
+    {
+      "key": "6300706#99",
+      "pof_name": "CANJIQUINHA DE MILHO EM GRAO",
+      "historical_tbca_code": "C0185A",
+      "footprints_per_100g": {"carbon_gco2eq": 60.8387, "water_l": 117.3423, "ecological_points": 0.6462}
+    },
+    {
+      "key": "6300707#99",
+      "pof_name": "XEREM DE MILHO",
+      "historical_tbca_code": "C0185A",
+      "footprints_per_100g": {"carbon_gco2eq": 60.8387, "water_l": 117.3423, "ecological_points": 0.6462}
+    },
+    {
+      "key": "6303501#99",
+      "pof_name": "QUIRERA NAO ESPECIFICADA",
+      "historical_tbca_code": "C0185A",
+      "footprints_per_100g": {"carbon_gco2eq": 60.8387, "water_l": 117.3423, "ecological_points": 0.6462}
+    }
+  ],
+  "current_tbca_target": {
+    "code": "BRC0185A",
+    "name": "Canjica, milho, branca, cozida, drenada, s/ açúcar, Brasil",
+    "official_description_en": "Corn, grain, white, cooked, drained, without sugar, Brazil",
+    "official_source": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=y3LiMixAAXROTJ9wl%2BIn0g%3D%3D"
+  },
+  "decision_rationale": "All three exact POF records that support this source label preserve historical TBCA code C0185A and have identical nutrient vectors and footprints. The official current TBCA record BRC0185A is the corresponding white corn, cooked and drained, without-sugar target. This is a source-code-backed target decision for the listed item; the generated label does not itself spell out 'without sugar', and the decision does not reconstruct the generated recipe.",
+  "nutrition_target_scope": {
+    "decision": "Retain BRC0185A for nutrient lookup for this exact source label.",
+    "scope_limit": "The no-sugar qualifier comes from the historical/current food-composition target and matching POF nutrient vector, not explicit words in the generated food label. Do not infer a recipe or preparation beyond this item."
+  },
+  "environmental_link": {
+    "status": "matched_to_all_three_exact_pof_rows_after_rounding",
+    "source_rows_have_identical_footprints": true,
+    "distributed_values": {"carbon_gco2eq": 61, "water_l": 117, "ecological_points": 0.6},
+    "decision": "Keep current environmental coefficients; all three exact POF rows support the rounded values."
+  },
+  "profile_recipe_evidence": [
+    {
+      "profile": "vegana",
+      "source_food_name": "Canjica, milho, branca, cozida, drenada",
+      "decision": "The target is white corn cooked and drained without animal-derived ingredients; this supports plant-derived eligibility for this listed item only, not the full generated meal or prompt provenance.",
+      "source_url": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=y3LiMixAAXROTJ9wl%2BIn0g%3D%3D"
+    }
+  ],
+  "limitations": [
+    "The source food label omits the words 'without sugar'; the target choice relies on the preserved POF TBCA code and matching composition record.",
+    "The item-level evidence does not validate any other ingredients or prompt provenance for the generated meal.",
+    "This target decision does not alter the separate nutrient-missingness policy."
+  ]
+}
