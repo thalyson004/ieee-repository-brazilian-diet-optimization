@@ -400,6 +400,8 @@ class FoodMappingCorrectionTests(unittest.TestCase):
         expected[hominy_source] = (name_map[hominy_source], "BRC0185A")
         gnocchi_source = "Nhoque (batata, ovo, farinha de trigo), cozido, s/ molho, c/ sal"
         expected[gnocchi_source] = (name_map[gnocchi_source], "BRC0920B")
+        wholegrain_bread_source = "Pão, trigo, integral, caseiro"
+        expected[wholegrain_bread_source] = (name_map[wholegrain_bread_source], "BRC0149A")
         self.assertEqual(set(adjudication["source_food_names"]), set(expected))
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
@@ -714,6 +716,43 @@ class FoodMappingCorrectionTests(unittest.TestCase):
         self.assertNotIn(source_name, index["source_food_names"])
         self.assertIn(source_name, pending["profiles"]["vegetariana"])
         self.assertIn(source_name, pending["profiles"]["vegana"])
+
+    def test_wholegrain_bread_target_uses_six_matching_pof_rows_but_keeps_vegan_eligibility_pending(self) -> None:
+        from tests.profile_ingredient_audit import build_queue
+
+        source_name = "Pão, trigo, integral, caseiro"
+        adjudication = json.loads(
+            (ROOT / "archive/audits/wholegrain-bread-adjudication-2026-09-25.json")
+            .read_text(encoding="utf-8")
+        )
+        pof_path = ROOT.parent.parent.parent.parent / "source/data/maps/base/mapa-pof-completo.json"
+        pof = json.loads(pof_path.read_text(encoding="utf-8"))
+        tbca = json.loads((ROOT / "maps/base/mapa-tbca-completo.json").read_text(encoding="utf-8"))
+        name_map = json.loads((ROOT / "maps/base/mapa-sustentavel-nome.json").read_text(encoding="utf-8"))
+        code_map = json.loads((ROOT / "maps/derived/mapa-sustentavel-tbca.json").read_text(encoding="utf-8"))
+        footprints = json.loads((ROOT / "maps/base/mapa-sustentavel-pegadas.json").read_text(encoding="utf-8"))
+        index = json.loads((ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8"))
+        pending = json.loads((ROOT / "configs/pending-food-mapping-exclusions.json").read_text(encoding="utf-8"))
+        records = [pof[key] for key in adjudication["source_pof_records"]["keys"]]
+
+        self.assertEqual(adjudication["occurrences"], {"total": 15, "profiles": {"regular": 6, "vegana": 9}})
+        self.assertEqual(adjudication["source_map_sha256"], hashlib.sha256(pof_path.read_bytes()).hexdigest())
+        self.assertTrue(all(row["cod_tbca"] == "C0149A" for row in records))
+        self.assertTrue(all(row["nutrientes"] == records[0]["nutrientes"] for row in records))
+        self.assertTrue(all(row["pegadas"] == records[0]["pegadas"] for row in records))
+        self.assertEqual(adjudication["current_tbca_target"]["code"], "BRC0149A")
+        self.assertEqual(name_map[source_name], tbca["BRC0149A"]["nome"])
+        self.assertEqual(code_map[source_name], "BRC0149A")
+        self.assertEqual(records[0]["nutrientes"]["ENER_KCAL"], 232.0)
+        self.assertEqual(records[0]["nutrientes"]["PTN"], 10.72)
+        self.assertEqual(records[0]["nutrientes"]["SODIO"], 469.84)
+        self.assertEqual(footprints[source_name], {"carbon_footprint": 126, "water_footprint": 105, "ecological_footprint": 0.7})
+        self.assertIn(source_name, index["source_food_names"])
+        self.assertNotIn(source_name, pending["profiles"]["regular"])
+        self.assertNotIn(source_name, pending["profiles"]["vegana"])
+        vegan_row = next(row for row in build_queue() if row["profile"] == "vegana" and row["food_name"] == source_name)
+        self.assertEqual(vegan_row["review_status"], "PENDING_INGREDIENT_VERIFICATION")
+        self.assertEqual(adjudication["profile_eligibility"]["status"], "unverified_for_vegan_profile")
 
 
 if __name__ == "__main__":

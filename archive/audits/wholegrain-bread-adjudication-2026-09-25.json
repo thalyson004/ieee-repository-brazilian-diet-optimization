@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "decision_date": "2026-09-25",
+  "status": "nutrition_target_and_environmental_link_adjudicated_recipe_and_profile_eligibility_unverified",
+  "source_food_name": "Pão, trigo, integral, caseiro",
+  "source_map_sha256": "239762048a8977e199ed86700962a62ac30fc04676e6b405476b0425172b9e44",
+  "occurrences": {
+    "total": 15,
+    "profiles": {"regular": 6, "vegana": 9}
+  },
+  "source_pof_records": {
+    "keys": ["8001408#99", "8001409#99", "8001411#99", "8001412#99", "8001413#99", "8001414#99"],
+    "shared_historical_tbca_code": "C0149A",
+    "shared_nutrient_vector": {
+      "ENER_KCAL": 232.0,
+      "PTN": 10.72,
+      "CHOTOT": 45.94,
+      "FIBRA": 5.58,
+      "LIP": 1.79,
+      "SODIO": 469.84,
+      "VITA_RAE": 0.0,
+      "VITC": 0.0,
+      "NIACINA": 0.0
+    },
+    "shared_footprints_per_100g": {
+      "carbon_gco2eq": 126.4516,
+      "water_l": 104.52,
+      "ecological_points": 0.6793
+    }
+  },
+  "current_tbca_target": {
+    "code": "BRC0149A",
+    "name": "Pão, trigo, integral",
+    "official_description_en": "Bread, wheat, whole grain",
+    "official_source": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=fqQv3nWG142Wt5l0vWYhHQ%3D%3D"
+  },
+  "decision_rationale": "All six exact POF rows for this preserved source label share historical TBCA code C0149A, identical nutrient vectors and identical environmental coefficients. Their rounded composition matches the current generic TBCA whole-wheat bread record BRC0149A, and the distributed environmental coefficients match the POF values after rounding. This supports the table target and environmental link for the exact source label, but not an exact homemade recipe identity.",
+  "nutrition_target_scope": {
+    "decision": "Retain BRC0149A for nutrient lookup for this exact source label.",
+    "scope_limit": "The target is generic and does not reconstruct the homemade formula or ingredients. Nutrient status markers omitted from the local snapshot, including trace values, remain under the separate missingness audit."
+  },
+  "environmental_link": {
+    "status": "matched_to_all_six_exact_pof_rows_after_rounding",
+    "distributed_values": {
+      "carbon_gco2eq": 126,
+      "water_l": 105,
+      "ecological_points": 0.7
+    },
+    "decision": "Keep current environmental coefficients; all six exact POF rows support the rounded values."
+  },
+  "profile_eligibility": {
+    "status": "unverified_for_vegan_profile",
+    "decision": "Do not infer that the homemade bread is vegan from its whole-wheat label or TBCA nutrient target; recipe ingredients were not preserved. The item remains pending in the profile-ingredient audit."
+  },
+  "limitations": [
+    "The six POF source names identify several whole-wheat bread types, not the exact homemade recipe used in the generated plan.",
+    "The source item appears in the vegan pool, but no recipe ingredient evidence supports vegan eligibility; it remains pending separately.",
+    "The official BRC0149A record reports trace values for some fields that are absent in the local JSON; their status is not reconstructed by this target adjudication."
+  ]
+}

@@ -2,12 +2,11 @@
   "schema_version": "1.0",
   "status": "diagnostic_exclusion_sensitivity_only_not_an_adjudication",
   "source_queue": "archive/audits/pending-food-mapping-adjudication-2026-09-24.md",
-  "queue_run_id": "mapping-review-queue-current_20260925T065829610047Z_b63f3f2b",
-  "unresolved_source_foods": 9,
+  "queue_run_id": "mapping-review-queue-current_20260925T072832938370Z_7d61d9c4",
+  "unresolved_source_foods": 8,
   "profiles": {
     "regular": [
-      "Noz, crua",
-      "Pão, trigo, integral, caseiro"
+      "Noz, crua"
     ],
     "vegetariana": [
       "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
@@ -21,7 +20,6 @@
       "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
       "Noz, crua",
       "Soja, grão, cozido, drenado, c/ sal",
-      "Pão, trigo, integral, caseiro",
       "Suco, clorofila",
       "Cacau, in natura"
     ]
