@@ -51,6 +51,28 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class ArtifactPopulationTests(unittest.TestCase):
+    def test_lp_execution_audit_records_strict_status_and_fallback(self) -> None:
+        from tests.food_mapping_exclusion_review import read_lp_execution_audit
+
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            for method_dir in ("pl-alimentos", "pl-refeicoes"):
+                for profile in ("regular", "vegetariana", "vegana"):
+                    output = workspace / "data/outputs/optimization_runs" / method_dir
+                    output.mkdir(parents=True, exist_ok=True)
+                    fallback = method_dir == "pl-refeicoes" and profile == "vegana"
+                    (output / f"execution-{profile}.json").write_text(json.dumps({
+                        "profile": profile,
+                        "solver": {"initial_status": 2 if fallback else 0, "fallback_used": fallback},
+                        "final_solution": {"meals": []},
+                        "metrics_and_violations": {"violation_count": 2},
+                    }), encoding="utf-8")
+            report = read_lp_execution_audit(workspace)
+            self.assertEqual(report["observed_records"], 6)
+            self.assertEqual(report["strict_status_zero_records"], 5)
+            self.assertEqual(report["relaxed_fallback_records"], 1)
+            self.assertEqual(report["records_without_solution"], 0)
+
     def test_mapping_exclusion_sensitivity_uses_latest_successful_queue_id(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             result_dir = Path(directory)
@@ -184,6 +206,7 @@ class CommandCatalogTests(unittest.TestCase):
             commands = commands_for(experiment, workspace, 10, 20260323)
             self.assertIn("tests.validate_candidate_scope", commands[-1])
         self.assertIn("tests.mapping_review_queue", commands_for("mapping-review-queue", workspace, 10, 20260323)[0])
+        self.assertIn("unittest", commands_for("unit-tests", workspace, 10, 20260323)[0])
         self.assertIn("--current-maps", commands_for("mapping-review-queue-current", workspace, 10, 20260323)[0])
         self.assertIn("tests.portion_support_audit", commands_for("portion-support-audit", workspace, 10, 20260323)[0])
         self.assertIn("tests.profile_ingredient_audit", commands_for("profile-ingredient-audit", workspace, 10, 20260323)[0])

@@ -26,6 +26,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 EXPERIMENTS = (
     "archived-reconstruction",
     "base-diet-audit",
+    "unit-tests",
     "nutrient-missingness-audit",
     "mapping-review-queue",
     "mapping-review-queue-current",
@@ -111,6 +112,8 @@ def commands_for(
                 str(workspace / "audit"),
             ]
         ]
+    if experiment == "unit-tests":
+        return [[sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"]]
     if experiment == "nutrient-missingness-audit":
         return [[sys.executable, "-m", "tests.nutrient_missingness_audit", "--output-dir", str(workspace / "audit")]]
     if experiment == "mapping-review-queue":
@@ -224,8 +227,8 @@ def execute(
             "python": platform.python_version(),
             "platform": platform.platform(),
             "source_run_id": source_run_id,
-            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
-            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
+            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "unit-tests", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
+            "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "unit-tests", "nutrient-missingness-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
             "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "ga-hyperparameter-sensitivity", "food-mapping-exclusion-sensitivity", "full-replication"} else None,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),

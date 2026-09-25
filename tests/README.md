@@ -2,7 +2,13 @@
 
 Every experiment is launched by a named command. Each invocation writes an immutable JSON summary to `tests/results/`, a complete execution log to `tests/logs/`, and heavy generated artifacts below `tests/results/artifacts/`.
 
-Latest adjudication and sensitivity checkpoint (2026-09-25): official TBCA evidence links the source POF line `8511102#99` for arugula/sun-dried-tomato salad to preparation BRC0404B; this is target-specific evidence, not proof of generated-recipe or prompt provenance. The active ledger has 153 target decisions and 17 unresolved links. Audits `base-diet-audit_20260925T010621832272Z_53737ae6` (150 valid plans, 12,670 food occurrences), `mapping-review-queue-current_20260925T010622194565Z_927de1e4` (17 unresolved names), and `profile-ingredient-audit_20260925T010623123944Z_6fb6f05a` (364 rows: 359 pending, 3 target-specific recipe-evidence rows, 2 exclusions) confirm the state. Sensitivity `food-mapping-exclusion-sensitivity_20260925T010831613778Z_d075589f` and review `food-mapping-exclusion-review_20260925T012346565518Z_d8a68e31` passed at source commit `5274f5e61d84df691054fec76ccf463c0376e9b1`: 66 outputs per variant, paired 10-seed inputs, scope validation, and shared hashes. Exclusion removes incrementally 33 regular, 179 vegetarian, and 158 vegan occurrences; four further vegan occurrences were already excluded by profile rules. Unadjusted bootstrap intervals exclude zero for 2/24 outcome groups and 10/24 computational groups. These remain diagnostic only, not manuscript results. The managed review command now writes its report under its single result workspace and produces one manifest/log pair.
+Run the deterministic suite through the same result/log wrapper (one command, one JSON result, one full log):
+
+```bash
+python -m tests.run_experiments --experiments unit-tests
+```
+
+Latest adjudication and sensitivity checkpoint (2026-09-25): the wrong banana-porridge target BRC0055G was replaced by BRC0054G using exact POF record `6500616#99` and historical code C0054G; the milk/sugar recipe remains unverified and the ingredient audit stays open. The active ledger has 156 target decisions and 14 unresolved target links (321 occurrences). Audits `base-diet-audit_20260925T022413438460Z_1171645d` (150 valid plans, 12,670 food occurrences, 1,600 diagnostic nutrient violations), `mapping-review-queue-current_20260925T022413794059Z_5a900095` (14 unresolved names), and `profile-ingredient-audit_20260925T022414668863Z_5e435eff` (364 rows: 359 pending, 3 target-specific recipe-evidence rows, 2 exclusions) confirm the state. Sensitivity `food-mapping-exclusion-sensitivity_20260925T022449547493Z_dd8df00d` and review `food-mapping-exclusion-review_20260925T024000186746Z_ba911759` passed at clean source commit `3f6e835d7c1bf63a10dc7dabdb8c0f869f97de51`: 66 outputs per variant, ten paired seeds, valid profile scope, and identical input hashes. Exclusion removes 23 regular, 151 vegetarian, and 147 vegan occurrences. All 12 LP records produced a solution; 10 had strict solver status 0 and the two vegan LP-Meal outputs used the documented penalized-slack fallback. Unadjusted bootstrap intervals exclude zero for 0/24 outcome groups and 8/24 computational groups. These remain diagnostic only, not manuscript results.
 
 Earlier mapping-review checkpoint (2026-09-24): 49 nutrition-target decisions were indexed and the active-map queue had 121 unresolved links. This historical snapshot does not adjudicate ingredient formulation, preparation, or environmental equivalence.
 
@@ -246,9 +252,9 @@ The review accepts the printed run ID with or without the
 `ga-objective-weight-sensitivity_` prefix and resolves the matrix summary in
 the run's `audit/` workspace.
 
-Measure the sensitivity to excluding, rather than reassigning, the 18 source
-food labels whose TBCA targets remain unresolved (407 occurrences in the
-adjudication queue; 403 incremental removals after profile exclusions). The baseline and exclusion variants share the same
+Measure the sensitivity to excluding, rather than reassigning, the source
+food labels whose TBCA targets remain unresolved (14 labels, 321 occurrences
+in the current adjudication queue). The baseline and exclusion variants share the same
 versioned inputs and seed IDs; the exclusion copy records every removed
 occurrence by profile. This is not a mapping decision or a primary result:
 
@@ -259,5 +265,7 @@ python -m tests.run_experiments --experiments food-mapping-exclusion-review --so
 
 The review checks input hashes, clean shared commit, ten paired IDs, all 66
 outputs per variant, profile candidate scope, nutrient/environment outcomes,
-and computational metrics. Its bootstrap intervals are unadjusted and the
-excluded-label scenario does not adjudicate the actual food compositions.
+computational metrics, and all six LP execution records per variant (three per
+method). A completed run can include a documented relaxed LP solution.
+Bootstrap intervals are unadjusted and the excluded-label scenario does not
+adjudicate the actual food compositions.

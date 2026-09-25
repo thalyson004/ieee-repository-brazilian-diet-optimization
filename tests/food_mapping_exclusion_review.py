@@ -29,6 +29,36 @@ def resolve_source_workspace(source_run_id: str) -> Path:
     return PROJECT_ROOT / "tests" / "results" / "artifacts" / f"{SOURCE_PREFIX}{normalized_id}" / "audit"
 
 
+def read_lp_execution_audit(workspace: Path) -> dict[str, Any]:
+    """Preserve strict solver statuses and fallback use for all six LP outputs."""
+    records: list[dict[str, Any]] = []
+    for method_dir, method_name in (("pl-alimentos", "LP-Food"), ("pl-refeicoes", "LP-Meal")):
+        for profile in ("regular", "vegetariana", "vegana"):
+            path = workspace / "data" / "outputs" / "optimization_runs" / method_dir / f"execution-{profile}.json"
+            if not path.is_file():
+                raise ValueError(f"Missing LP execution record: {path.relative_to(workspace)}")
+            execution = json.loads(path.read_text(encoding="utf-8"))
+            solver = execution.get("solver") or {}
+            records.append({
+                "method": method_name,
+                "profile": profile,
+                "strict_solver_status": solver.get("initial_status"),
+                "relaxed_fallback_used": bool(solver.get("fallback_used", False)),
+                "solution_present": execution.get("final_solution") is not None,
+                "daily_nutrient_violation_count": (
+                    (execution.get("metrics_and_violations") or {}).get("violation_count")
+                ),
+            })
+    return {
+        "expected_records": 6,
+        "observed_records": len(records),
+        "strict_status_zero_records": sum(row["strict_solver_status"] == 0 for row in records),
+        "relaxed_fallback_records": sum(row["relaxed_fallback_used"] for row in records),
+        "records_without_solution": sum(not row["solution_present"] for row in records),
+        "records": records,
+    }
+
+
 def analyze(source_workspace: Path, review_workspace: Path) -> dict[str, Any]:
     summary = json.loads((source_workspace / "sensitivity-summary.json").read_text(encoding="utf-8"))
     if summary.get("status") != "completed" or summary.get("runs_per_profile_and_granularity") != 10:
@@ -40,11 +70,13 @@ def analyze(source_workspace: Path, review_workspace: Path) -> dict[str, Any]:
     computational: dict[str, dict[tuple, float]] = {}
     manifests: dict[str, dict[str, Any]] = {}
     scope: dict[str, dict[str, Any]] = {}
+    lp_status: dict[str, dict[str, Any]] = {}
     preparation: dict[str, Any] = {}
     for variant in VARIANTS:
         workspace = source_workspace / variant
         manifest = json.loads((workspace / "run-manifest.json").read_text(encoding="utf-8"))
         manifests[variant] = manifest
+        lp_status[variant] = read_lp_execution_audit(workspace)
         if manifest.get("replication_base_seed") != summary["paired_base_seed"]:
             raise ValueError(f"Seed mismatch in {variant}")
         if manifest.get("ga_runs_per_profile_and_granularity") != 10:
@@ -117,6 +149,7 @@ def analyze(source_workspace: Path, review_workspace: Path) -> dict[str, Any]:
         "source_git_commit": next(iter(commits)),
         "input_sha256": hashes[0],
         "profile_scope_validation": scope,
+        "lp_execution_audit": lp_status,
         "pending_exclusion_preparation_audit": preparation,
         "paired_outcome_differences": outcomes,
         "paired_computational_differences": costs,
