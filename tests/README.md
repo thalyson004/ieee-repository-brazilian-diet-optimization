@@ -100,6 +100,17 @@ primary missing-data policy or treat missing values as true zero:
 python -m tests.run_experiments --experiments nutrient-missingness-audit
 ```
 
+Query the official TBCA statistical pages for the mapped foods actually present
+in the preserved source diets. The report stores only aggregate counts of
+`NA`, trace, blank, and numeric provenance categories by nutrient/profile; it
+does not persist food-level compositions, numeric nutrient values, or source
+pages, and it does not impute values or modify the optimizer maps. Network
+access is required:
+
+```bash
+python -m tests.run_experiments --experiments tbca-marker-audit
+```
+
 Create a ranked, non-accepting TBCA review queue for the 170 non-identity links:
 
 ```bash
