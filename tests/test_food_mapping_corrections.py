@@ -394,6 +394,8 @@ class FoodMappingCorrectionTests(unittest.TestCase):
         )
         eggplant_source = "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal"
         expected[eggplant_source] = (name_map[eggplant_source], "BRC0287B")
+        tapioca_source = "Tapioca, c/ leite condensado e coco"
+        expected[tapioca_source] = (name_map[tapioca_source], "BRC0839B")
         self.assertEqual(set(adjudication["source_food_names"]), set(expected))
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
