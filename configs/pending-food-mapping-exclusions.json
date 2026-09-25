@@ -3,7 +3,7 @@
   "status": "diagnostic_exclusion_sensitivity_only_not_an_adjudication",
   "source_queue": "archive/audits/pending-food-mapping-adjudication-2026-09-24.md",
   "queue_run_id": "mapping-review-queue-current_20260925T024742543619Z_be0e967c",
-  "unresolved_source_foods": 14,
+  "unresolved_source_foods": 13,
   "profiles": {
     "regular": [
       "Noz, crua",
