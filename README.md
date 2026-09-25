@@ -4,6 +4,14 @@ This repository is the executable research project for the article **"Optimizing
 
 The active implementation lives in [`src/diet_optimization/`](src/diet_optimization/). Every experiment is launched through [`tests/run_experiments.py`](tests/run_experiments.py), which creates a JSON result in `tests/results/` and a complete log in `tests/logs/`. Historical submitted artifacts are isolated in [`archive/`](archive/README.md); they are evidence, not the destination for new results.
 
+## Latest revision checkpoint — 2026-09-25
+
+The POF/TBCA adjudication ledger contains 161 target decisions and 9 unresolved labels (271 occurrences). The gnocchi target BRC0920B is retained for its exact source label based on POF record `8500905#99`, historical code C0920B, matching reported nutrient composition within rounding, and environmental coefficients matching after rounding. The source label omits margarine, so this is a table-link decision, not proof of the generated recipe. Details: [`gnocchi-adjudication-2026-09-25.json`](archive/audits/gnocchi-adjudication-2026-09-25.json).
+
+The clean nine-label exclusion sensitivity `food-mapping-exclusion-sensitivity_20260925T065904369663Z_a7b97afe` ran ten paired seeds for 725.9 s on source commit `f150b7c74583acd0773f0059bf31aaf7f3798046`; review `food-mapping-exclusion-review_20260925T071116328202Z_e95db95d` passed. Each variant has 66 outputs, all 132 profile-scope checks passed, and 14 input hashes match. Exclusion removes 23/107/141 source occurrences (regular/vegetarian/vegan). Unadjusted paired bootstrap intervals excluded zero for 2/24 outcomes (vegan GA-Meal daily nutrient violations and vegetarian GA-Food energy) and 5/24 computational groups (all sampled RSS). Each variant returned six LP solutions: five strict and one vegan LP-Meal fallback; all six showed post-solution nutrient violations. This is diagnostic sensitivity only, not a primary result.
+
+The 9-label queue remains frozen because exact POF code alone did not resolve all targets. For example, soybeans have historical POF code C0148T, but POF sodium (254.94 mg/100 g) differs from current TBCA BRC0148T (183 mg/100 g); see the official [TBCA BRC0148T record](https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=bNgEa2SsZB6sfUXY%2FNX5Cw%3D%3D). Do not treat a code match as sufficient when the composition conflicts.
+
 ## Installation and commands
 
 ```bash

@@ -20,6 +20,8 @@ Adjudicação adicional: `Canjica, milho, branca, cozida, drenada` (quatro ocorr
 
 Adjudicação adicional: `Nhoque (batata, ovo, farinha de trigo), cozido, s/ molho, c/ sal` (21 ocorrências vegetarianas) mantém BRC0920B. O registro POF exato `8500905#99` preserva o código histórico C0920B; a composição coincide com o alvo TBCA dentro do arredondamento publicado e as pegadas correspondem aos coeficientes distribuídos após arredondamento. O rótulo de origem não cita margarina, que aparece na descrição TBCA; a evidência sustenta o vínculo de tabela do item, não a receita gerada nem suas proporções. Evidência em `gnocchi-adjudication-2026-09-25.json`.
 
+`Soja, grão, cozido, drenado, c/ sal` permanece pendente apesar do código POF histórico C0148T coincidir com o atual BRC0148T: na linha POF `6303001#99`, o sódio é 254,94 mg/100 g, enquanto a página TBCA atual registra 183 mg/100 g para BRC0148T. O rótulo gerado também não diz “sem óleo”, qualificador presente no alvo. Não decidir pelo código isoladamente; manter este item na sensibilidade de exclusão até reconciliar a composição ou recuperar uma fonte de receita apropriada.
+
 | Ocorrências | Rótulo exato da fonte | Alvo ativo candidato | Motivo para não adjudicar | Evidência necessária para decidir |
 |---:|---|---|---|---|
 | 112 | `Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal` | BRC0169T — proteína texturizada refogada com óleo de soja | A origem identifica caldo de legumes e óleo sem tipo; a TBCA especifica óleo de soja. O nome não descreve todos os ingredientes/quantidades do caldo. | Receita original, composição do caldo e tipo de óleo; conferir também pegada ambiental da preparação. |

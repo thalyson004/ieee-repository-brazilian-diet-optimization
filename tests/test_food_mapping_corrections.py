@@ -700,6 +700,21 @@ class FoodMappingCorrectionTests(unittest.TestCase):
         evidence_row = next(row for row in build_queue() if row["profile"] == "vegetariana" and row["food_name"] == source_name)
         self.assertEqual(evidence_row["review_status"], "SOURCE_RECIPE_EVIDENCE_VERIFIED_FOR_TARGET_ONLY")
 
+    def test_soybean_grain_stays_pending_when_historical_code_has_sodium_conflict(self) -> None:
+        source_name = "Soja, grão, cozido, drenado, c/ sal"
+        pof_path = ROOT.parent.parent.parent.parent / "source/data/maps/base/mapa-pof-completo.json"
+        pof = json.loads(pof_path.read_text(encoding="utf-8"))
+        tbca = json.loads((ROOT / "maps/base/mapa-tbca-completo.json").read_text(encoding="utf-8"))
+        index = json.loads((ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8"))
+        pending = json.loads((ROOT / "configs/pending-food-mapping-exclusions.json").read_text(encoding="utf-8"))
+
+        self.assertEqual(pof["6303001#99"]["cod_tbca"], "C0148T")
+        self.assertEqual(pof["6303001#99"]["nutrientes"]["SODIO"], 254.94)
+        self.assertEqual(tbca["BRC0148T"]["nutrientes"]["Sódio"], 183.0)
+        self.assertNotIn(source_name, index["source_food_names"])
+        self.assertIn(source_name, pending["profiles"]["vegetariana"])
+        self.assertIn(source_name, pending["profiles"]["vegana"])
+
 
 if __name__ == "__main__":
     unittest.main()
