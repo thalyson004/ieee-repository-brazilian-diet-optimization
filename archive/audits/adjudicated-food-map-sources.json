@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "as_of": "2026-09-24",
+  "as_of": "2026-09-25",
   "status": "manual_target_decision_recorded; residual formulation/environment uncertainty may remain",
   "source_food_names": [
     "Tomate, in natura",
@@ -154,6 +154,7 @@
     "Pão, trigo, branco, hamburguer/hot dog/leite, de padaria (média de diferentes tipos)",
     "Barra de cereal, diet",
     "Catchup, tomate, molho",
+    "Salada, folhas e vegetais, c/ óleo de soja e c/ sal",
     "Feijoada vegetariana"
   ],
   "decision_record": "archive/audits/food-mapping-corrections-2026-09-24.md"

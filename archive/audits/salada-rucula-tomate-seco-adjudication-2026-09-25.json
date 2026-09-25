@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "decision_date": "2026-09-25",
+  "status": "nutrition_target_and_specific_pof_footprint_link_adjudicated",
+  "source_food_name": "Salada, folhas e vegetais, c/ óleo de soja e c/ sal",
+  "occurrences": {
+    "total": 33,
+    "regular": 7,
+    "vegetarian": 18,
+    "vegan": 8
+  },
+  "source_pof_record": {
+    "key": "8511102#99",
+    "name": "SALADA DE RUCULA E TOMATE SECO",
+    "historical_tbca_code": "C0404B",
+    "source_map_path_in_parent_repository": "source/data/maps/base/mapa-pof-completo.json",
+    "source_map_sha256": "239762048a8977e199ed86700962a62ac30fc04676e6b405476b0425172b9e44",
+    "pof_footprints_per_100g": {
+      "carbon_gco2eq": 121.3093,
+      "water_l": 162.8753,
+      "ecological_points": 1.035
+    }
+  },
+  "current_tbca_target": {
+    "code": "BRC0404B",
+    "name": "Salada, folhas e vegetais, c/ óleo de soja, c/ sal",
+    "official_description": "Salada, folhas e vegetais, c/ óleo de soja, c/ sal (rúcula, tomate seco, c/ óleo de soja, c/ sal)",
+    "official_source": "https://tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=ywqX7DrfvY4EGMlKvI6F1g%3D%3D"
+  },
+  "decision_rationale": "The original diet label's broad leaf/vegetable description is joined in the preserved POF map to a unique POF item explicitly named arugula and sun-dried tomato. That item points to historical TBCA C0404B; the current official BRC0404B record lists the same ingredients and soy oil/salt qualifiers. This supports retaining the active nutrient target for this specific source item.",
+  "profile_recipe_evidence": [
+    {
+      "profile": "vegetariana",
+      "source_food_name": "Salada, folhas e vegetais, c/ óleo de soja e c/ sal",
+      "decision": "The linked standardized BRC0404B recipe lists only arugula, sun-dried tomato, soy oil, and salt; target-specific plant-only evidence does not verify the generated recipe or prompt provenance.",
+      "source_url": "https://tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=ywqX7DrfvY4EGMlKvI6F1g%3D%3D"
+    },
+    {
+      "profile": "vegana",
+      "source_food_name": "Salada, folhas e vegetais, c/ óleo de soja e c/ sal",
+      "decision": "The linked standardized BRC0404B recipe lists only arugula, sun-dried tomato, soy oil, and salt; target-specific plant-only evidence does not verify the generated recipe or prompt provenance.",
+      "source_url": "https://tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=ywqX7DrfvY4EGMlKvI6F1g%3D%3D"
+    }
+  ],
+  "environmental_link": {
+    "distributed_map_per_100g_rounded": {
+      "carbon_gco2eq": 121,
+      "water_l": 163,
+      "ecological_points": 1.0
+    },
+    "rounded_values_match_source_pof_record": true,
+    "scope": "This reconciles the footprint for the preserved POF key 8511102#99 only; it does not resolve multi-row environmental ambiguities for other foods."
+  },
+  "map_files_changed": false,
+  "limitations": [
+    "The active TBCA nutrient code and environmental coefficients did not change; only their review/provenance classification was updated.",
+    "The original generation API request and raw response are not preserved; this record joins the exact source food label to its preserved POF map row.",
+    "This decision is specific to arugula and sun-dried tomato salad and must not be generalized to other salads with the same broad label."
+  ]
+}

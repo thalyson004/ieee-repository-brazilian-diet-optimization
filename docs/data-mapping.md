@@ -2,7 +2,7 @@
 
 ## Scope
 
-Current status (2026-09-24): the nutrition-target ledger contains 152 decisions and the active queue has 18 unresolved non-identity links. The added `Feijoada vegetariana` decision is specific to TBCA preparation BRC0172T; it does not prove the generated recipe or prompt provenance. These target decisions are distinct from recipe, ingredient, preparation, and environmental-coefficient review. Current audit and queue identifiers are recorded at the top of `tests/README.md`; all optimization outputs remain diagnostic while these evidence gates are open.
+Current status (2026-09-25): the nutrition-target ledger contains 153 decisions and the active queue has 17 unresolved non-identity links. The `Feijoada vegetariana` decision is specific to TBCA preparation BRC0172T; the salad decision is specific to POF key 8511102#99 and TBCA preparation BRC0404B. Neither proves the provenance of every generated recipe. These target decisions are distinct from recipe, ingredient, preparation, and environmental-coefficient review. Current audit and queue identifiers are recorded at the top of `tests/README.md`; all optimization outputs remain diagnostic while these evidence gates are open.
 
 Latest addendum (2026-09-24): four additional nutrition-target decisions correct unsweetened black tea (BRC0013H), unspecified whole guava (BRC0014C), raw mature pequi (BRC0173C), and unspecified raw bell pepper (BRC0031B). The index now records 45 decisions, leaving 125 of the 170 original non-identity links without a recorded target decision. Historical counts below are snapshots and are superseded by this addendum; ingredient, preparation, environmental-map, and formulation questions remain separate.
 
@@ -76,11 +76,11 @@ The frozen submitted-map snapshot reports:
 - zero occurrences without a TBCA record;
 - zero occurrences without environmental coefficients.
 
-The current code audit is regenerated from the active maps, diets, and dated adjudication index. Latest checkpoint `base-diet-audit_20260925T003658202271Z_79a526ba` reports 152 recorded target decisions and 18 active non-identity links without a decision. The audit found zero unmapped TBCA/environmental occurrences and 1,597 target violations under the diagnostic calculation. The violation count is sensitive to map changes and is not a quality score. Earlier checkpoint counts are historical snapshots, not the present map state.
+The current code audit is regenerated from the active maps, diets, and dated adjudication index. The 25/09/2026 refresh after this update will report 153 recorded target decisions and 17 active non-identity links without a decision. Earlier checkpoints are historical snapshots. The audit previously found zero unmapped TBCA/environmental occurrences and 1,597 target violations under the diagnostic calculation; the violation count is sensitive to map changes and is not a quality score.
 
 Coverage does not establish validity. In particular, a complete join does not prove that the selected TBCA item is nutritionally equivalent to the generated item or that the footprint coefficient describes the same preparation, geography, production system, and system boundary.
 
-For review, `archive/audits/food-mapping-review-queue.csv` and its JSON counterpart are a frozen triage artifact generated from the original audit snapshot; they list all 170 originally non-identity links, their historical targets, occurrence counts, profiles, and five ranked TBCA name suggestions. The current dated index contains 152 target decisions; the regenerated active queue has 18 original links without a recorded target decision. A normalized-name flag and similarity score help triage the preserved target: neither high similarity nor same-label duplicate codes are automatically accepted. The CSV also provides blank decision, approved-target, rationale, evidence, reviewer/date, and environmental-map adjudication fields; no row is pre-approved. Generate a fresh lexical queue with:
+For review, `archive/audits/food-mapping-review-queue.csv` and its JSON counterpart are a frozen triage artifact generated from the original audit snapshot; they list all 170 originally non-identity links, their historical targets, occurrence counts, profiles, and five ranked TBCA name suggestions. The current dated index contains 153 target decisions; the regenerated active queue has 17 original links without a recorded target decision. A normalized-name flag and similarity score help triage the preserved target: neither high similarity nor same-label duplicate codes are automatically accepted. The CSV also provides blank decision, approved-target, rationale, evidence, reviewer/date, and environmental-map adjudication fields; no row is pre-approved. Generate a fresh lexical queue with:
 
 ```bash
 python -m tests.run_experiments --experiments mapping-review-queue
@@ -111,7 +111,7 @@ Primary comparative claims must be stable across these scenarios or explicitly l
 ## Provenance limits
 
 - The maps preserve the final links, not the human or automated procedure that selected the more sustainable variants.
-- The original map preserved no confidence score, reviewer identity, or target-selection rationale. The revised dated ledger now records 152 target decisions and their sources; it is not a complete record of the remaining 18 links or of all environmental equivalence questions.
+- The original map preserved no confidence score, reviewer identity, or target-selection rationale. The revised dated ledger now records 153 target decisions and their sources; it is not a complete record of the remaining 17 links or of all environmental equivalence questions.
 - Environmental values are keyed by the source name while nutrient values are reached through the selected TBCA target. The archived artifacts alone do not prove semantic co-identity between those two records.
 - Raw LLM responses and regeneration attempts were not preserved, so mapping completeness cannot be used to infer original prompt compliance.
 - The audit's 1,000 g threshold is only an anomaly screen and is not a portion recommendation.

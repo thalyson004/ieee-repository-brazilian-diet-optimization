@@ -371,6 +371,9 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Catchup, tomate, molho": (
                 "Catchup, tomate, molho (dado importado)", "BRC0030L"
             ),
+            "Salada, folhas e vegetais, c/ óleo de soja e c/ sal": (
+                "Salada, folhas e vegetais, c/ óleo de soja, c/ sal", "BRC0404B"
+            ),
             "Feijoada vegetariana": (
                 "Feijoada vegetariana, c/ sal, Brasil", "BRC0172T"
             ),
@@ -408,6 +411,19 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "compatible_with_the_standardized_tbca_preparation",
         )
         self.assertIn("not every dish named vegetarian feijoada", adjudication["limitations"][0])
+
+    def test_arugula_sun_dried_tomato_salad_adjudication_joins_pof_and_tbca(self) -> None:
+        adjudication = json.loads(
+            (ROOT / "archive/audits/salada-rucula-tomate-seco-adjudication-2026-09-25.json")
+            .read_text(encoding="utf-8")
+        )
+        self.assertEqual(adjudication["occurrences"]["total"], 33)
+        self.assertEqual(adjudication["source_pof_record"]["key"], "8511102#99")
+        self.assertEqual(adjudication["source_pof_record"]["historical_tbca_code"], "C0404B")
+        self.assertEqual(adjudication["current_tbca_target"]["code"], "BRC0404B")
+        self.assertIn("rúcula, tomate seco", adjudication["current_tbca_target"]["official_description"])
+        self.assertTrue(adjudication["environmental_link"]["rounded_values_match_source_pof_record"])
+        self.assertFalse(adjudication["map_files_changed"])
 
 
 if __name__ == "__main__":

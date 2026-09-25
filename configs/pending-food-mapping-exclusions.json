@@ -2,12 +2,11 @@
   "schema_version": "1.0",
   "status": "diagnostic_exclusion_sensitivity_only_not_an_adjudication",
   "source_queue": "archive/audits/pending-food-mapping-adjudication-2026-09-24.md",
-  "queue_run_id": "mapping-review-queue-current_20260924T201700618482Z_77923935",
-  "unresolved_source_foods": 18,
+  "queue_run_id": "mapping-review-queue-current_20260925T003658596443Z_02f08ffd",
+  "unresolved_source_foods": 17,
   "profiles": {
     "regular": [
       "Noz, crua",
-      "Salada, folhas e vegetais, c/ óleo de soja e c/ sal",
       "Tomate, molho, industrializado",
       "Pão, trigo, integral, caseiro",
       "Mingau, de amido de milho (maisena)"
@@ -15,7 +14,6 @@
     "vegetariana": [
       "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
       "Noz, crua",
-      "Salada, folhas e vegetais, c/ óleo de soja e c/ sal",
       "Soja, grão, cozido, drenado, c/ sal",
       "Tomate, molho, industrializado",
       "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",
@@ -30,7 +28,6 @@
     "vegana": [
       "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
       "Noz, crua",
-      "Salada, folhas e vegetais, c/ óleo de soja e c/ sal",
       "Soja, grão, cozido, drenado, c/ sal",
       "Tomate, molho, industrializado",
       "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",

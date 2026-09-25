@@ -12,7 +12,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 EXCLUSIONS_PATH = PROJECT_ROOT / "configs" / "profile-exclusions.json"
-ADJUDICATION_PATH = PROJECT_ROOT / "archive" / "audits" / "feijoada-vegetariana-adjudication-2026-09-24.json"
+ADJUDICATION_DIR = PROJECT_ROOT / "archive" / "audits"
 ANIMAL_TERMS = {
     "meat_or_fish": (
         "carne", "boi", "bovina", "suina", "porco", "frango", "galinha", "peru",
@@ -90,11 +90,11 @@ def collect_profile(profile: str) -> list[dict]:
         item["food_name"]: item["reason"]
         for item in exclusion_config["profiles"].get(profile, [])
     }
-    adjudications = json.loads(ADJUDICATION_PATH.read_text(encoding="utf-8"))
-    source_recipe_evidence = {
-        (entry["profile"], entry["source_food_name"]): entry
-        for entry in adjudications.get("profile_recipe_evidence", [])
-    }
+    source_recipe_evidence = {}
+    for adjudication_path in ADJUDICATION_DIR.glob("*-adjudication-*.json"):
+        adjudication = json.loads(adjudication_path.read_text(encoding="utf-8"))
+        for entry in adjudication.get("profile_recipe_evidence", []):
+            source_recipe_evidence[(entry["profile"], entry["source_food_name"])] = entry
     counts: dict[str, dict] = defaultdict(lambda: {"occurrences": 0, "diet_ids": set()})
     for diet_id, plan in enumerate(plans, start=1):
         for meals in plan.values():
@@ -148,7 +148,7 @@ def write_queue(output_dir: Path) -> tuple[Path, Path]:
     csv_path = output_dir / "profile-ingredient-review-queue.csv"
     json_path.write_text(json.dumps({
         "schema_version": "1.0",
-        "status": "lexical_screen_only_no_ingredient_claims_verified",
+        "status": "lexical_screen_with_target_specific_source_recipe_evidence_no_generated_recipe_claims",
         "scope": ["vegetariana", "vegana"],
         "rows": rows,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
