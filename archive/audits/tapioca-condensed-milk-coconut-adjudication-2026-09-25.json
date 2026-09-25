@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "decision_date": "2026-09-25",
+  "status": "nutrition_target_and_environmental_link_adjudicated_recipe_proportions_unverified",
+  "source_food_name": "Tapioca, c/ leite condensado e coco",
+  "source_map_sha256": "239762048a8977e199ed86700962a62ac30fc04676e6b405476b0425172b9e44",
+  "occurrences": {
+    "total": 2,
+    "profiles": {"vegetariana": 2}
+  },
+  "source_pof_records": [
+    {
+      "key": "6904501#99",
+      "pof_name": "SAROLHO",
+      "historical_tbca_code": "C0839B",
+      "footprints_per_100g": {
+        "carbon_gco2eq": 349.7597,
+        "water_l": 269.4762,
+        "ecological_points": 1.2712
+      }
+    },
+    {
+      "key": "6904502#99",
+      "pof_name": "BEIJU",
+      "historical_tbca_code": "C0839B",
+      "footprints_per_100g": {
+        "carbon_gco2eq": 349.7597,
+        "water_l": 269.4762,
+        "ecological_points": 1.2712
+      }
+    }
+  ],
+  "current_tbca_target": {
+    "code": "BRC0839B",
+    "name": "Tapioca*, c/ leite condensado** e coco, Brasil",
+    "official_description_en": "Tapyoki, with condensed milk and coconut (cassava flour, pan fried)",
+    "official_source": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=GtHH0ekXGv29F%2BinAV6wbw%3D%3D"
+  },
+  "decision_rationale": "Both exact POF source rows preserve historical code C0839B and identical nutrient vectors and environmental coefficients. Current official TBCA BRC0839B describes tapioca with condensed milk and coconut, and the active map already points to this code. The environmental values match the two POF rows after the map's published rounding. This supports the target for the archived source item but does not recover the source recipe proportions or prove the generated meal used that recipe.",
+  "nutrition_target_scope": {
+    "decision": "Retain BRC0839B for nutrient lookup for this exact source label.",
+    "scope_limit": "The POF source recipe and ingredient quantities were not preserved; TBCA is a standardized preparation. Nutrient fields absent from the POF remain subject to the separate missingness policy."
+  },
+  "environmental_link": {
+    "status": "matched_to_both_exact_pof_rows_after_rounding",
+    "source_rows_have_identical_footprints": true,
+    "distributed_values": {
+      "carbon_gco2eq": 350,
+      "water_l": 269,
+      "ecological_points": 1.3
+    },
+    "decision": "Keep the existing environmental coefficients; both exact POF rows support the rounded values."
+  },
+  "profile_recipe_evidence": [
+    {
+      "profile": "vegetariana",
+      "source_food_name": "Tapioca, c/ leite condensado e coco",
+      "decision": "The exact source label and official target name tapioca with condensed milk and coconut; this supports vegetarian compatibility for this listed item only, not the full generated meal or prompt provenance.",
+      "source_url": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=GtHH0ekXGv29F%2BinAV6wbw%3D%3D"
+    }
+  ],
+  "limitations": [
+    "The original recipe proportions and preparation details behind the POF item are not available; the TBCA record is standardized.",
+    "This evidence supports one listed vegetarian item and does not validate any other component of the generated meal.",
+    "This target decision does not alter the separate nutrient-missingness policy."
+  ]
+}

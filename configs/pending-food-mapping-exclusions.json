@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "status": "diagnostic_exclusion_sensitivity_only_not_an_adjudication",
   "source_queue": "archive/audits/pending-food-mapping-adjudication-2026-09-24.md",
-  "queue_run_id": "mapping-review-queue-current_20260925T055210318090Z_7a860f94",
-  "unresolved_source_foods": 12,
+  "queue_run_id": "mapping-review-queue-current_20260925T062008242943Z_921954e6",
+  "unresolved_source_foods": 11,
   "profiles": {
     "regular": [
       "Noz, crua",
@@ -14,7 +14,6 @@
       "Noz, crua",
       "Soja, grão, cozido, drenado, c/ sal",
       "Nhoque (batata, ovo, farinha de trigo), cozido, s/ molho, c/ sal",
-      "Tapioca, c/ leite condensado e coco",
       "Espinafre, folha, cozida, drenado, s/ óleo, c/ sal",
       "Pudim de leite",
       "Queijo, requeijão, zero % gordura"

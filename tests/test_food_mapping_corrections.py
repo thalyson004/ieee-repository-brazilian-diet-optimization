@@ -598,6 +598,36 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             )
             self.assertEqual(evidence_row["review_status"], "SOURCE_RECIPE_EVIDENCE_VERIFIED_FOR_TARGET_ONLY")
 
+    def test_condensed_milk_coconut_tapioca_uses_pof_lineage_and_matching_footprints(self) -> None:
+        from tests.profile_ingredient_audit import build_queue
+
+        source_name = "Tapioca, c/ leite condensado e coco"
+        adjudication = json.loads(
+            (ROOT / "archive/audits/tapioca-condensed-milk-coconut-adjudication-2026-09-25.json")
+            .read_text(encoding="utf-8")
+        )
+        pof_path = ROOT.parent.parent.parent.parent / "source/data/maps/base/mapa-pof-completo.json"
+        pof = json.loads(pof_path.read_text(encoding="utf-8"))
+        tbca = json.loads((ROOT / "maps/base/mapa-tbca-completo.json").read_text(encoding="utf-8"))
+        name_map = json.loads((ROOT / "maps/base/mapa-sustentavel-nome.json").read_text(encoding="utf-8"))
+        footprint_map = json.loads((ROOT / "maps/base/mapa-sustentavel-pegadas.json").read_text(encoding="utf-8"))
+        index = json.loads((ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8"))
+        pending = json.loads((ROOT / "configs/pending-food-mapping-exclusions.json").read_text(encoding="utf-8"))
+        source_rows = [pof[key] for key in ("6904501#99", "6904502#99")]
+
+        self.assertEqual(adjudication["occurrences"]["total"], 2)
+        self.assertEqual(adjudication["source_map_sha256"], hashlib.sha256(pof_path.read_bytes()).hexdigest())
+        self.assertTrue(all(row["cod_tbca"] == "C0839B" for row in source_rows))
+        self.assertEqual(source_rows[0]["nutrientes"], source_rows[1]["nutrientes"])
+        self.assertEqual(source_rows[0]["pegadas"], source_rows[1]["pegadas"])
+        self.assertEqual(adjudication["current_tbca_target"]["code"], "BRC0839B")
+        self.assertEqual(name_map[source_name], tbca["BRC0839B"]["nome"])
+        self.assertEqual(footprint_map[source_name], {"carbon_footprint": 350, "water_footprint": 269, "ecological_footprint": 1.3})
+        self.assertIn(source_name, index["source_food_names"])
+        self.assertNotIn(source_name, pending["profiles"]["vegetariana"])
+        evidence_row = next(row for row in build_queue() if row["profile"] == "vegetariana" and row["food_name"] == source_name)
+        self.assertEqual(evidence_row["review_status"], "SOURCE_RECIPE_EVIDENCE_VERIFIED_FOR_TARGET_ONLY")
+
 
 if __name__ == "__main__":
     unittest.main()
