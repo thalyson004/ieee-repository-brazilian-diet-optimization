@@ -1,6 +1,6 @@
 # Pendências de adjudicação de alimentos — atualização 25/09/2026
 
-Esta nota registra os 14 rótulos que seguem sem decisão de alvo nutricional após as adjudicações de `Feijoada vegetariana`, salada POF `8511102#99`, molho POF `7004801#99`, leite achocolatado POF `C0034G` e mingau de maisena POF `6500616#99`. A fila atual contém 321 ocorrências no conjunto das 150 dietas. As contagens priorizam a investigação, mas não dão maior certeza ao mapeamento. Para fechar um caso, recuperar descrição/receita da fonte, rótulo de produto ou outra evidência de origem; similaridade textual e o candidato mais próximo não bastam.
+Esta nota registra os 13 rótulos que seguem sem decisão de alvo nutricional após as adjudicações de `Feijoada vegetariana`, salada POF `8511102#99`, molho POF `7004801#99`, leite achocolatado POF `C0034G`, mingau de maisena POF `6500616#99` e óleo de soja POF `8400301#99`. A fila atual contém 320 ocorrências no conjunto das 150 dietas. As contagens priorizam a investigação, mas não dão maior certeza ao mapeamento. Para fechar um caso, recuperar descrição/receita da fonte, rótulo de produto ou outra evidência de origem; similaridade textual e o candidato mais próximo não bastam.
 
 Adjudicação encerrada nesta rodada: `Salada, folhas e vegetais, c/ óleo de soja e c/ sal` ocorre 33 vezes e é apoiada pelo registro POF `8511102#99` (“SALADA DE RUCULA E TOMATE SECO”), pelo código TBCA histórico `C0404B` e pela descrição oficial atual BRC0404B, que explicita rúcula, tomate seco, óleo de soja e sal. O vínculo ambiental específico dessa linha POF também foi reconciliado com os valores distribuídos arredondados. Evidência completa em `salada-rucula-tomate-seco-adjudication-2026-09-25.json`.
 
@@ -9,6 +9,8 @@ Adjudicação adicional: `Tomate, molho, industrializado` (32 ocorrências) liga
 Adjudicação adicional: `Leite, vaca, c/ chocolate` (7 ocorrências) está ligado a seis registros POF com o mesmo código TBCA histórico C0034G e nutrientes/pegadas compartilhados. A página TBCA atual confirma BRC0034G como bebida fluida; o alvo anterior BRC0035G era pó e incompatível. A marca Toddynho continua não comprovada, e o alimento continua excluído do pool vegano pela regra explícita de leite de vaca. Detalhes em `chocolate-milk-adjudication-2026-09-25.json`.
 
 Adjudicação adicional: `Mingau, de amido de milho (maisena)` (14 ocorrências) passa de BRC0055G, que inclui banana, para BRC0054G, mingau de amido de milho. O registro POF exato `6500616#99` (“MINGAU DE MAIZENA”) e o código histórico C0054G sustentam a classe do alimento; outros rótulos POF também compartilham esse código. Leite, açúcar, proporções e receita gerada não foram recuperados: a correção escolhe o alvo mais coerente, sem alegar identidade de receita. A auditoria de ingredientes continua necessária. Detalhes em `corn-starch-porridge-adjudication-2026-09-25.json`.
+
+Adjudicação adicional: `Óleo, soja` (uma ocorrência vegana) passa de BRC0048D (“Óleo, soja, frito”) para BRC0030D (“Óleo, soja, Brasil”). O rótulo e a linha POF exata `8400301#99`/C0030D não declaram fritura, e os coeficientes ambientais da linha oficial correspondem aos valores distribuídos após arredondamento. Mantêm-se os coeficientes ambientais existentes; a decisão não os estende a um processo de fritura. A página TBCA identifica a entrada como óleo de soja e a evidência de elegibilidade vegetal aplica-se somente ao item nomeado, não à refeição gerada. Detalhes em `soybean-oil-adjudication-2026-09-25.json`.
 
 | Ocorrências | Rótulo exato da fonte | Alvo ativo candidato | Motivo para não adjudicar | Evidência necessária para decidir |
 |---:|---|---|---|---|
@@ -25,7 +27,6 @@ Adjudicação adicional: `Mingau, de amido de milho (maisena)` (14 ocorrências)
 | 1 | `Espinafre, folha, cozida, drenado, s/ óleo, c/ sal` | BRC0146B — entrada identificada como *Tetragonia expansa* | A espécie do rótulo genérico “espinafre” não está declarada, e o alvo disponível tem identidade botânica específica. | Fonte original com espécie/variedade ou documentação que justifique equivalência. |
 | 1 | `Pudim de leite` | BRC0227K — pudim TBCA com leite integral, condensado, amido, ovo e calda de açúcar | A formulação TBCA inclui ingredientes/proporções que o nome da fonte não especifica. | Receita/ficha técnica original ou composição analítica da versão usada. |
 | 1 | `Queijo, requeijão, zero % gordura` | BRC0041N — requeijão zero gordura Danúbio | O código TBCA é específico da marca Danúbio; a fonte não informa marca. | Marca/rótulo de origem ou entrada TBCA sem marca com formulação equivalente. |
-| 1 | `Óleo, soja` | BRC0048D — óleo de soja frito | O alvo codifica óleo frito; a fonte declara apenas óleo de soja, sem preparo. | Confirmação do uso como óleo de fritura ou identificação de um registro compatível com óleo não frito. |
 
 ## Efeito sobre análises
 

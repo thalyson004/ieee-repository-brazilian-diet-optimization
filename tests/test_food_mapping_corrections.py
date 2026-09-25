@@ -46,6 +46,7 @@ class FoodMappingCorrectionTests(unittest.TestCase):
                 "Bebida, café, infusão 10%, s/ açúcar, Brasil", "BRC0007H"
             ),
             "Azeite, oliva": ("Azeite, oliva, Brasil", "BRC0002D"),
+            "Óleo, soja": ("Óleo, soja, Brasil", "BRC0030D"),
             "Arroz, integral, cozido, c/ óleo, cebolha e alho, c/ sal": (
                 "Arroz, integral, cozido, c/ óleo, cebola e alho, c/ sal, Brasil", "BRC0211A"
             ),
@@ -513,6 +514,42 @@ class FoodMappingCorrectionTests(unittest.TestCase):
         self.assertEqual(adjudication["current_tbca_target"]["code"], "BRC0054G")
         self.assertEqual(adjudication["previous_target"]["code"], "BRC0055G")
         self.assertIn("generated recipe used milk", adjudication["limitations"][0])
+
+    def test_soybean_oil_uses_unqualified_exact_pof_tbca_target(self) -> None:
+        from tests.profile_ingredient_audit import build_queue
+
+        adjudication = json.loads(
+            (ROOT / "archive/audits/soybean-oil-adjudication-2026-09-25.json")
+            .read_text(encoding="utf-8")
+        )
+        pof = json.loads(
+            (ROOT.parent.parent.parent.parent / "source/data/maps/base/mapa-pof-completo.json")
+            .read_text(encoding="utf-8")
+        )
+        tbca = json.loads(
+            (ROOT / "maps/base/mapa-tbca-completo.json").read_text(encoding="utf-8")
+        )
+        pending = json.loads(
+            (ROOT / "configs/pending-food-mapping-exclusions.json").read_text(encoding="utf-8")
+        )
+        index = json.loads(
+            (ROOT / "archive/audits/adjudicated-food-map-sources.json")
+            .read_text(encoding="utf-8")
+        )
+        self.assertEqual(adjudication["occurrences"]["total"], 1)
+        self.assertEqual(adjudication["source_pof_record"]["key"], "8400301#99")
+        self.assertEqual(pof["8400301#99"]["cod_tbca"], "C0030D")
+        self.assertEqual(adjudication["current_tbca_target"]["code"], "BRC0030D")
+        self.assertEqual(tbca["BRC0030D"]["nome"], "Óleo, soja, Brasil")
+        self.assertEqual(tbca["BRC0048D"]["nome"], "Óleo, soja, frito")
+        self.assertTrue(adjudication["environmental_link"]["rounded_values_match_source_pof_record"])
+        self.assertNotIn("Óleo, soja", pending["profiles"]["vegana"])
+        self.assertIn("Óleo, soja", index["source_food_names"])
+        evidence_row = next(
+            row for row in build_queue()
+            if row["profile"] == "vegana" and row["food_name"] == "Óleo, soja"
+        )
+        self.assertEqual(evidence_row["review_status"], "SOURCE_RECIPE_EVIDENCE_VERIFIED_FOR_TARGET_ONLY")
 
 
 if __name__ == "__main__":

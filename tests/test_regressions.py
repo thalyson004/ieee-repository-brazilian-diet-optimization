@@ -759,11 +759,11 @@ class BaseDietAuditTests(unittest.TestCase):
         adjudication = json.loads(
             (PROJECT_ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(len(adjudication["source_food_names"]), 156)
-        self.assertEqual(totals["non_identity_mappings_with_recorded_target_decision"], 156)
-        self.assertEqual(totals["non_identity_mappings_without_recorded_target_decision"], 14)
+        self.assertEqual(len(adjudication["source_food_names"]), 157)
+        self.assertEqual(totals["non_identity_mappings_with_recorded_target_decision"], 157)
+        self.assertEqual(totals["non_identity_mappings_without_recorded_target_decision"], 13)
         self.assertEqual(len(mapping_lines), totals["unique_food_names"] + 1)
-        self.assertEqual(len(current_queue), 14)
+        self.assertEqual(len(current_queue), 13)
         self.assertTrue(all(row["automatic_acceptance"] is False for row in current_queue))
 
 

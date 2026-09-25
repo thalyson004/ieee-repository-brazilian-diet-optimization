@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "decision_date": "2026-09-25",
+  "status": "nutrition_target_and_specific_pof_footprint_link_adjudicated",
+  "source_food_name": "Óleo, soja",
+  "occurrences": {
+    "total": 1,
+    "profile": "vegana",
+    "source_diets": 1
+  },
+  "source_pof_record": {
+    "key": "8400301#99",
+    "name": "OLEO DE SOJA",
+    "historical_tbca_code": "C0030D",
+    "source_map_path_in_parent_repository": "source/data/maps/base/mapa-pof-completo.json",
+    "source_map_sha256": "239762048a8977e199ed86700962a62ac30fc04676e6b405476b0425172b9e44",
+    "footprints_per_100g": {
+      "carbon_gco2eq": 169.2,
+      "water_l": 429.303,
+      "ecological_points": 3.8
+    }
+  },
+  "previous_tbca_target": {
+    "code": "BRC0048D",
+    "name": "Óleo, soja, frito",
+    "official_description": "Oil, soy, fried",
+    "official_source": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=YZEMnUwCNGPhy8XcLurXeg%3D%3D"
+  },
+  "current_tbca_target": {
+    "code": "BRC0030D",
+    "name": "Óleo, soja, Brasil",
+    "official_description": "Oil, soy, Brazil",
+    "food_type": "processed food ready for consumption",
+    "official_source": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=klKL45I%2BwM0njhxFKqbVkw%3D%3D"
+  },
+  "decision_rationale": "The source label and exact POF item identify soybean oil without specifying frying or another preparation. The official TBCA BRC0030D name is the matching unqualified soybean-oil entry; BRC0048D adds an unsupported fried-preparation qualifier. The target correction changes copper, alpha-tocopherol, and explicit added-fat/vegetable-protein metadata in the local TBCA snapshot; it is not numerically identical in every nutrient field.",
+  "environmental_link": {
+    "source_pof_record_key": "8400301#99",
+    "distributed_map_per_100g_rounded": {
+      "carbon_gco2eq": 169,
+      "water_l": 429,
+      "ecological_points": 3.8
+    },
+    "rounded_values_match_source_pof_record": true,
+    "scope": "The preserved POF row and rounded distributed coefficients match for this exact soybean-oil label; this does not establish impacts for a separately specified frying process."
+  },
+  "profile_recipe_evidence": [
+    {
+      "profile": "vegana",
+      "source_food_name": "Óleo, soja",
+      "decision": "The exact source item is soybean oil and the matching TBCA target is soybean oil; this target-specific evidence supports plant-derived eligibility for this listed ingredient only, not the full generated meal or prompt provenance.",
+      "source_url": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=klKL45I%2BwM0njhxFKqbVkw%3D%3D"
+    }
+  ],
+  "limitations": [
+    "The original generation request and raw response are not preserved; the adjudication applies to the exact archived label and POF linkage.",
+    "The mapping identifies the unqualified oil item and must not be interpreted as a coefficient for frying or a finished recipe.",
+    "This target-specific ingredient evidence does not certify the other ingredients in the vegan source meal."
+  ]
+}
