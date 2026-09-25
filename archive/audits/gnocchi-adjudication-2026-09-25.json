@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "decision_date": "2026-09-25",
+  "status": "nutrition_target_and_environmental_link_adjudicated_source_ingredient_wording_limited",
+  "source_food_name": "Nhoque (batata, ovo, farinha de trigo), cozido, s/ molho, c/ sal",
+  "source_map_sha256": "239762048a8977e199ed86700962a62ac30fc04676e6b405476b0425172b9e44",
+  "occurrences": {
+    "total": 21,
+    "profiles": {"vegetariana": 21}
+  },
+  "source_pof_record": {
+    "key": "8500905#99",
+    "pof_name": "NHOQUE",
+    "historical_tbca_code": "C0920B",
+    "nutrients_per_100g": {
+      "energy_kcal": 184.0,
+      "protein_g": 5.84,
+      "total_carbohydrate_g": 36.66,
+      "fiber_g": 1.77,
+      "lipid_g": 1.94,
+      "sodium_mg": 134.86
+    },
+    "footprints_per_100g": {
+      "carbon_gco2eq": 157.0897,
+      "water_l": 172.4665,
+      "ecological_points": 1.0466
+    }
+  },
+  "current_tbca_target": {
+    "code": "BRC0920B",
+    "name": "Nhoque (batata, ovo, margarina e farinha de trigo), cozido, s/ molho, c/ sal",
+    "official_description_en": "Gnocchi (potato, egg, margarine and wheat flour), cooked, without sauce, with salt",
+    "official_source": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=G0o0s32raxlQucYnAiRBLA%3D%3D"
+  },
+  "decision_rationale": "The exact POF preparation row preserves historical TBCA code C0920B, whose current official TBCA record is BRC0920B. The POF and TBCA nutrient vectors agree on the reported fields within published rounding, and the POF footprint values round to the currently distributed coefficients (157, 172, 1.0). This supports retaining the current nutrient target and environmental link for this exact source item. The generated source label does not mention margarine; the historical code and composition support the table link but do not prove the generated recipe used margarine or recover recipe proportions.",
+  "nutrition_target_scope": {
+    "decision": "Retain BRC0920B for nutrient lookup for this exact source label.",
+    "scope_limit": "The source label omits margarine. The preserved POF code and matching composition support this target assignment but do not establish the recipe ingredients or proportions used in generation. Nutrient fields absent from the POF remain subject to the separate missingness policy."
+  },
+  "environmental_link": {
+    "status": "matched_to_exact_pof_row_after_rounding",
+    "distributed_values": {
+      "carbon_gco2eq": 157,
+      "water_l": 172,
+      "ecological_points": 1.0
+    },
+    "decision": "Keep the existing environmental coefficients; they match the exact POF row after published rounding."
+  },
+  "profile_recipe_evidence": [
+    {
+      "profile": "vegetariana",
+      "source_food_name": "Nhoque (batata, ovo, farinha de trigo), cozido, s/ molho, c/ sal",
+      "decision": "The listed item and official TBCA target both specify potato, egg, and wheat flour; the target additionally specifies margarine. This supports vegetarian compatibility for this listed item only, not the full generated meal or prompt provenance.",
+      "source_url": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=G0o0s32raxlQucYnAiRBLA%3D%3D"
+    }
+  ],
+  "limitations": [
+    "The source label omits margarine; exact recipe identity and proportions are not recovered.",
+    "This item-level evidence does not validate any other ingredients or prompt provenance for the generated meal.",
+    "The target decision does not alter the separate nutrient-missingness policy."
+  ]
+}
