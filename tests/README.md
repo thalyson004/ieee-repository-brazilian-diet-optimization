@@ -111,6 +111,16 @@ access is required:
 python -m tests.run_experiments --experiments tbca-marker-audit
 ```
 
+Compare the preserved numeric snapshot with an exact-name scenario excluding
+the vegan-only food whose current official TBCA record page is blank. This
+paired experiment reruns all four formulations over repeated seeds and writes
+scope, source-hash, LP-status, outcome, and computational contrasts. It is an
+availability sensitivity only, not an adjudication or primary input policy:
+
+```bash
+python -m tests.run_experiments --experiments tbca-record-availability-sensitivity --runs 10 --seed 20260938
+```
+
 Create a ranked, non-accepting TBCA review queue for the 170 non-identity links:
 
 ```bash

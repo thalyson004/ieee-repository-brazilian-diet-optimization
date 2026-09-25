@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "status": "diagnostic_sensitivity_only_not_an_adjudication_or_primary_input_policy",
+  "source": "https://www.tbca.net.br/",
+  "official_record_page": "https://www.tbca.net.br/base-dados/int_composicao_estatistica.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=HDbM7qbArkkdezeHYAkU4Q%3D%3D",
+  "verified_on": "2026-09-25",
+  "source_version_context": "The current official BRC0013C statistical page returns no food description and no nutrient rows; the version/date underlying the preserved local numeric snapshot is unknown.",
+  "exclusions": {
+    "regular": [],
+    "vegetariana": [],
+    "vegana": [
+      {
+        "food_name": "Coco, polpa, in natura",
+        "tbca_code": "BRC0013C",
+        "reason": "Current official TBCA record page is blank; retain the local snapshot only in the baseline/archive scenario until its provenance is resolved."
+      }
+    ]
+  }
+}

@@ -29,6 +29,7 @@ EXPERIMENTS = (
     "unit-tests",
     "nutrient-missingness-audit",
     "tbca-marker-audit",
+    "tbca-record-availability-sensitivity",
     "mapping-review-queue",
     "mapping-review-queue-current",
     "portion-support-audit",
@@ -120,6 +121,13 @@ def commands_for(
         return [[sys.executable, "-m", "tests.nutrient_missingness_audit", "--output-dir", str(workspace / "audit")]]
     if experiment == "tbca-marker-audit":
         return [[sys.executable, "-m", "tests.tbca_marker_audit", "--output-dir", str(workspace / "audit")]]
+    if experiment == "tbca-record-availability-sensitivity":
+        return [[
+            sys.executable, "-m", "tests.tbca_record_availability_sensitivity",
+            "--runs", str(runs), "--seed", str(seed),
+            "--nutrition-protocol", nutrition_protocol,
+            "--output-dir", str(workspace / "audit"),
+        ]]
     if experiment == "mapping-review-queue":
         return [[sys.executable, "-m", "tests.mapping_review_queue", "--output-dir", str(workspace / "audit")]]
     if experiment == "mapping-review-queue-current":
@@ -235,7 +243,7 @@ def execute(
             "source_run_id": source_run_id,
             "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "unit-tests", "nutrient-missingness-audit", "tbca-marker-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "lp-food-meal-structure-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
             "seed": None if experiment in {"archived-reconstruction", "base-diet-audit", "unit-tests", "nutrient-missingness-audit", "tbca-marker-audit", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "lp-food-meal-structure-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
-            "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "ga-hyperparameter-sensitivity", "food-mapping-exclusion-sensitivity", "full-replication"} else None,
+            "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "ga-hyperparameter-sensitivity", "food-mapping-exclusion-sensitivity", "tbca-record-availability-sensitivity", "full-replication"} else None,
             "commands": commands,
             "log": str(log_path.relative_to(PROJECT_ROOT)),
             "artifact_workspace": str(workspace.relative_to(PROJECT_ROOT)),

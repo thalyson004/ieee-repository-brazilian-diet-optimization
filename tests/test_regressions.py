@@ -840,6 +840,7 @@ class RevisedNutritionProtocolTests(unittest.TestCase):
                 "configs/revised-nutrition-protocol.json",
                 "configs/profile-exclusions.json",
                 "configs/pending-food-mapping-exclusions.json",
+                "configs/tbca-unavailable-record-exclusions.json",
                 "configs/ga-sensitivity/reduced-population.json",
                 "configs/ga-sensitivity/higher-mutation.json",
                 "configs/ga-sensitivity/shorter-stagnation.json",
@@ -855,6 +856,7 @@ class RevisedNutritionProtocolTests(unittest.TestCase):
         )
         self.assertTrue(all(len(value) == 64 for value in provenance["input_sha256"].values()))
         self.assertFalse(manifest["pending_mapping_exclusions_enabled"])
+        self.assertFalse(manifest["tbca_unavailable_record_exclusions_enabled"])
 
     def test_injected_protocol_targets_drive_ga_penalty_and_lp_constraints(self) -> None:
         minimums = {"Energia": 100.0, "Prote\u00edna": 40.0}

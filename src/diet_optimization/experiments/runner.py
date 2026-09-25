@@ -37,6 +37,7 @@ from diet_optimization.experiments.diagnostics import environment_metadata, eval
 from diet_optimization.experiments.profile_integrity import (
     load_exclusions,
     load_pending_mapping_exclusions,
+    load_tbca_unavailable_record_exclusions,
     prepare_profile_diets,
 )
 from diet_optimization.optimization.nutritional_targets import load_protocol
@@ -88,6 +89,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Diagnostic sensitivity only: remove exact names in the unresolved-mapping exclusion config.",
     )
+    parser.add_argument(
+        "--exclude-tbca-unavailable-record-foods",
+        action="store_true",
+        help="Diagnostic sensitivity only: exclude exact foods whose current TBCA record has no composition page.",
+    )
     return parser.parse_args()
 
 
@@ -97,7 +103,8 @@ def copy_file(source: Path, destination: Path) -> None:
 
 
 def stage_inputs(
-    workspace: Path, mode: str, exclude_pending_food_mappings: bool = False
+    workspace: Path, mode: str, exclude_pending_food_mappings: bool = False,
+    exclude_tbca_unavailable_record_foods: bool = False,
 ) -> dict[str, Path]:
     if workspace.exists() and any(workspace.iterdir()):
         raise FileExistsError(
@@ -113,14 +120,22 @@ def stage_inputs(
         load_pending_mapping_exclusions(pending_config_path)
         if exclude_pending_food_mappings else {}
     )
+    unavailable_config_path = PROJECT_ROOT / "configs" / "tbca-unavailable-record-exclusions.json"
+    unavailable_exclusions = (
+        load_tbca_unavailable_record_exclusions(unavailable_config_path)
+        if exclude_tbca_unavailable_record_foods else {}
+    )
     preparation_report = {
         "mode": mode,
-        "status": "diagnostic_pending_mapping_exclusion" if exclude_pending_food_mappings else "only_exact_known_contradictions_excluded; complete_review_pending",
+        "status": "diagnostic_sensitivity_only" if (exclude_pending_food_mappings or exclude_tbca_unavailable_record_foods) else "only_exact_known_contradictions_excluded; complete_review_pending",
         "pending_mapping_exclusion_config": str(pending_config_path.relative_to(PROJECT_ROOT)),
         "pending_mapping_exclusions_enabled": exclude_pending_food_mappings,
+        "tbca_unavailable_record_exclusion_config": str(unavailable_config_path.relative_to(PROJECT_ROOT)),
+        "tbca_unavailable_record_exclusions_enabled": exclude_tbca_unavailable_record_foods,
         "pending_source_foods_in_config": pending_config["unresolved_source_foods"],
         "removed_items": [],
         "pending_mapping_exclusion_counts_by_profile": {},
+        "tbca_unavailable_record_exclusion_counts_by_profile": {},
     }
     for profile in PROFILES:
         source = PROJECT_ROOT / "diets-base" / f"dietas-{profile}.json"
@@ -130,8 +145,9 @@ def stage_inputs(
             copy_file(source, workspace / "data" / "diets" / "source" / source.name)
             original = load_json_file(destination)
             pending_names = set(pending_exclusions.get(profile, []))
+            unavailable_names = set(unavailable_exclusions.get(profile, []))
             prepared, removals = prepare_profile_diets(
-                original, profile, exclusions[profile] | pending_names
+                original, profile, exclusions[profile] | pending_names | unavailable_names
             )
             known_names = exclusions[profile]
             for removal in removals:
@@ -139,6 +155,8 @@ def stage_inputs(
                     "confirmed_profile_contradiction"
                     if removal["food_name"] in known_names
                     else "unresolved_nutrient_mapping_sensitivity"
+                    if removal["food_name"] in pending_names
+                    else "unavailable_current_tbca_record_sensitivity"
                 )
             save_json_file(destination, prepared)
             preparation_report["removed_items"].extend(removals)
@@ -155,6 +173,17 @@ def stage_inputs(
                 ),
                 "configured_names_present": sorted({
                     item["food_name"] for item in removals if item["food_name"] in pending_names
+                }),
+            }
+            preparation_report["tbca_unavailable_record_exclusion_counts_by_profile"][profile] = {
+                "configured_names": len(unavailable_names),
+                "incremental_source_occurrences_removed": sum(
+                    item["exclusion_reason"] == "unavailable_current_tbca_record_sensitivity"
+                    for item in removals
+                ),
+                "configured_names_present": sorted({
+                    item["food_name"] for item in removals
+                    if item["food_name"] in unavailable_names
                 }),
             }
         diet_files[profile] = destination
@@ -390,6 +419,7 @@ def source_provenance() -> dict:
         "configs/revised-nutrition-protocol.json",
         "configs/profile-exclusions.json",
         "configs/pending-food-mapping-exclusions.json",
+        "configs/tbca-unavailable-record-exclusions.json",
         "configs/ga-sensitivity/reduced-population.json",
         "configs/ga-sensitivity/higher-mutation.json",
         "configs/ga-sensitivity/shorter-stagnation.json",
@@ -491,6 +521,7 @@ def write_manifest(
     nutrition_protocol_id: str, nutrition_constraints_sha256: str,
     ga_overrides: dict | None = None,
     pending_mapping_exclusions_enabled: bool = False,
+    tbca_unavailable_record_exclusions_enabled: bool = False,
 ) -> None:
     normalized_overrides = ga_overrides or {}
     overrides_hash = hashlib.sha256(
@@ -504,6 +535,7 @@ def write_manifest(
         "source_provenance": source_provenance(),
         "ga_overrides": normalized_overrides,
         "pending_mapping_exclusions_enabled": pending_mapping_exclusions_enabled,
+        "tbca_unavailable_record_exclusions_enabled": tbca_unavailable_record_exclusions_enabled,
         "ga_overrides_sha256": overrides_hash,
         "original_random_seeds_recorded": False,
         "replication_base_seed": seed if mode == "rerun" else None,
@@ -537,6 +569,7 @@ def main() -> None:
     diet_files = stage_inputs(
         workspace, args.mode,
         exclude_pending_food_mappings=args.exclude_pending_food_mappings,
+        exclude_tbca_unavailable_record_foods=args.exclude_tbca_unavailable_record_foods,
     )
     hyperparameters = GeneticAlgorithmHyperparameters()
     override_payload = {}
@@ -577,6 +610,7 @@ def main() -> None:
         hyperparameters.nutrition_protocol_id, constraints_hash,
         ga_overrides=applied_overrides,
         pending_mapping_exclusions_enabled=args.exclude_pending_food_mappings,
+        tbca_unavailable_record_exclusions_enabled=args.exclude_tbca_unavailable_record_foods,
     )
     if args.mode == "rerun":
         (workspace / "effective-nutrition-constraints.json").write_text(

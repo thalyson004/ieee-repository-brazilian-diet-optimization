@@ -40,6 +40,29 @@ def load_pending_mapping_exclusions(config_path: Path) -> dict[str, set[str]]:
     return loaded
 
 
+def load_tbca_unavailable_record_exclusions(config_path: Path) -> dict[str, set[str]]:
+    """Load exact-name exclusions for a version-availability sensitivity only."""
+    config = json.loads(config_path.read_text(encoding="utf-8"))
+    if config.get("status") != "diagnostic_sensitivity_only_not_an_adjudication_or_primary_input_policy":
+        raise ValueError("TBCA unavailable-record exclusions must remain diagnostic")
+    profiles = config.get("exclusions")
+    if not isinstance(profiles, dict) or set(profiles) != {"regular", "vegetariana", "vegana"}:
+        raise ValueError("TBCA unavailable-record exclusions must define all profiles")
+    loaded: dict[str, set[str]] = {}
+    for profile, entries in profiles.items():
+        if not isinstance(entries, list):
+            raise ValueError(f"Invalid TBCA unavailable-record entries for {profile}")
+        names = []
+        for entry in entries:
+            if not isinstance(entry, dict) or not entry.get("food_name") or not entry.get("tbca_code"):
+                raise ValueError(f"Invalid TBCA unavailable-record entry for {profile}")
+            names.append(entry["food_name"])
+        if len(names) != len(set(names)):
+            raise ValueError(f"Duplicate TBCA unavailable-record food for {profile}")
+        loaded[profile] = set(names)
+    return loaded
+
+
 def prepare_profile_diets(diets: list[dict], profile: str, excluded: set[str]) -> tuple[list[dict], list[dict]]:
     """Remove only exact configured names, returning a row-level audit trail."""
     prepared = copy.deepcopy(diets)
