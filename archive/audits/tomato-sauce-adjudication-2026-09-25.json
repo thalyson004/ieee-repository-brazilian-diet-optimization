@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "decision_date": "2026-09-25",
+  "status": "nutrition_target_and_specific_pof_footprint_link_adjudicated_with_residual_preparation_uncertainty",
+  "source_food_name": "Tomate, molho, industrializado",
+  "occurrences": {
+    "total": 32,
+    "regular": 5,
+    "vegetarian": 16,
+    "vegan": 11
+  },
+  "source_pof_record": {
+    "key": "7004801#99",
+    "name": "MOLHO DE TOMATE",
+    "historical_tbca_code": "C0100B",
+    "source_map_path_in_parent_repository": "source/data/maps/base/mapa-pof-completo.json",
+    "source_map_sha256": "239762048a8977e199ed86700962a62ac30fc04676e6b405476b0425172b9e44",
+    "nutrients_per_100g": {
+      "energy_kcal": 45.0,
+      "energy_kj": 187.0,
+      "protein_g": 1.61,
+      "total_carbohydrate_g": 9.01,
+      "fiber_g": 3.64,
+      "lipids_g": 1.06
+    },
+    "footprints_per_100g": {
+      "carbon_gco2eq": 129.9667,
+      "water_l": 32.2282,
+      "ecological_points": 0.535
+    }
+  },
+  "current_tbca_target": {
+    "code": "BRC0100B",
+    "name": "Tomate, molho, industrializado, Brasil",
+    "official_description": "Tomate, molho, industrializado, não peneirado, Brasil",
+    "official_source": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=UBa5nSGsQe%2BEmtWoFjQqHA%3D%3D",
+    "verified_values_per_100g": {
+      "energy_kcal": 45.0,
+      "energy_kj": 188.0,
+      "total_carbohydrate_g": 9.06,
+      "available_carbohydrate_g": 5.42,
+      "protein_g": 1.61,
+      "lipids_g": 1.06,
+      "fiber_g": 3.64,
+      "sodium_mg": 488.0
+    }
+  },
+  "decision_rationale": "The preserved diet label maps directly to one POF item named MOLHO DE TOMATE (key 7004801#99), with historical TBCA code C0100B. The current official TBCA BRC0100B record retains the same standardized food category, and its energy/macronutrient values are consistent with the POF record after the current TBCA calculation/update (minor total-carbohydrate difference). The source POF footprints round exactly to the distributed 130 gCO2e, 32 L, and 0.5 ecological points per 100 g. Retain BRC0100B as the supported current nutrition target and footprint lineage for this source label. The official current description adds 'não peneirado', which is not specified in the diet or POF label; do not treat preparation equivalence as resolved.",
+  "local_snapshot_correction": {
+    "file": "maps/base/mapa-tbca-completo.json",
+    "previous_values": {
+      "energy_kcal": 36.0,
+      "total_carbohydrate_g": 9.01,
+      "available_carbohydrate_g": 3.18
+    },
+    "official_current_values": {
+      "energy_kcal": 45.0,
+      "total_carbohydrate_g": 9.06,
+      "available_carbohydrate_g": 5.42
+    },
+    "changed_fields": ["Energia", "Carboidrato total", "Carboidrato disponível"],
+    "reason": "The pinned local TBCA record disagreed with both the current official BRC0100B record and the preserved POF composition."
+  },
+  "environmental_link": {
+    "distributed_map_per_100g_rounded": {
+      "carbon_gco2eq": 130,
+      "water_l": 32,
+      "ecological_points": 0.5
+    },
+    "rounded_values_match_source_pof_record": true,
+    "scope": "This reconciles the environmental coefficients for POF key 7004801#99 only; the broader multi-row environmental ambiguities remain."
+  },
+  "limitations": [
+    "The POF/TBCA lineage supports this target choice but does not reveal whether the source preparation was strained.",
+    "The decision is specific to this source label and must not be generalized to other tomato sauces or brands.",
+    "Only three nutrient fields in the local target record were corrected; this is not a complete live refresh of the TBCA snapshot.",
+    "No generated recipe or prompt provenance is recovered by this source mapping."
+  ]
+}

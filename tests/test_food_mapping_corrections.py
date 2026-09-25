@@ -377,6 +377,9 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Feijoada vegetariana": (
                 "Feijoada vegetariana, c/ sal, Brasil", "BRC0172T"
             ),
+            "Tomate, molho, industrializado": (
+                "Tomate, molho, industrializado, Brasil", "BRC0100B"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
@@ -424,6 +427,26 @@ class FoodMappingCorrectionTests(unittest.TestCase):
         self.assertIn("rúcula, tomate seco", adjudication["current_tbca_target"]["official_description"])
         self.assertTrue(adjudication["environmental_link"]["rounded_values_match_source_pof_record"])
         self.assertFalse(adjudication["map_files_changed"])
+
+    def test_tomato_sauce_adjudication_joins_pof_and_corrects_official_nutrients(self) -> None:
+        adjudication = json.loads(
+            (ROOT / "archive/audits/tomato-sauce-adjudication-2026-09-25.json")
+            .read_text(encoding="utf-8")
+        )
+        tbca = json.loads(
+            (ROOT / "maps/base/mapa-tbca-completo.json").read_text(encoding="utf-8")
+        )["BRC0100B"]["nutrientes"]
+        self.assertEqual(adjudication["occurrences"], {
+            "total": 32, "regular": 5, "vegetarian": 16, "vegan": 11,
+        })
+        self.assertEqual(adjudication["source_pof_record"]["key"], "7004801#99")
+        self.assertEqual(adjudication["source_pof_record"]["historical_tbca_code"], "C0100B")
+        self.assertEqual(adjudication["current_tbca_target"]["code"], "BRC0100B")
+        self.assertEqual(tbca["Energia"], 45.0)
+        self.assertEqual(tbca["Carboidrato total"], 9.06)
+        self.assertEqual(tbca["Carboidrato disponível"], 5.42)
+        self.assertTrue(adjudication["environmental_link"]["rounded_values_match_source_pof_record"])
+        self.assertIn("does not reveal whether the source preparation was strained", adjudication["limitations"][0])
 
 
 if __name__ == "__main__":

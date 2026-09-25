@@ -2,12 +2,11 @@
   "schema_version": "1.0",
   "status": "diagnostic_exclusion_sensitivity_only_not_an_adjudication",
   "source_queue": "archive/audits/pending-food-mapping-adjudication-2026-09-24.md",
-  "queue_run_id": "mapping-review-queue-current_20260925T010622194565Z_927de1e4",
-  "unresolved_source_foods": 17,
+  "queue_run_id": "mapping-review-queue-current_20260925T014142544155Z_359fa498",
+  "unresolved_source_foods": 16,
   "profiles": {
     "regular": [
       "Noz, crua",
-      "Tomate, molho, industrializado",
       "Pão, trigo, integral, caseiro",
       "Mingau, de amido de milho (maisena)"
     ],
@@ -15,7 +14,6 @@
       "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
       "Noz, crua",
       "Soja, grão, cozido, drenado, c/ sal",
-      "Tomate, molho, industrializado",
       "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",
       "Nhoque (batata, ovo, farinha de trigo), cozido, s/ molho, c/ sal",
       "Mingau, de amido de milho (maisena)",
@@ -29,7 +27,6 @@
       "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
       "Noz, crua",
       "Soja, grão, cozido, drenado, c/ sal",
-      "Tomate, molho, industrializado",
       "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",
       "Pão, trigo, integral, caseiro",
       "Leite, vaca, c/ chocolate",
