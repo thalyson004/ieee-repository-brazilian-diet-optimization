@@ -2,13 +2,12 @@
   "schema_version": "1.0",
   "status": "diagnostic_exclusion_sensitivity_only_not_an_adjudication",
   "source_queue": "archive/audits/pending-food-mapping-adjudication-2026-09-24.md",
-  "queue_run_id": "mapping-review-queue-current_20260925T020017868398Z_02f078ad",
-  "unresolved_source_foods": 15,
+  "queue_run_id": "mapping-review-queue-current_20260925T022413794059Z_5a900095",
+  "unresolved_source_foods": 14,
   "profiles": {
     "regular": [
       "Noz, crua",
-      "Pão, trigo, integral, caseiro",
-      "Mingau, de amido de milho (maisena)"
+      "Pão, trigo, integral, caseiro"
     ],
     "vegetariana": [
       "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
@@ -16,7 +15,6 @@
       "Soja, grão, cozido, drenado, c/ sal",
       "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",
       "Nhoque (batata, ovo, farinha de trigo), cozido, s/ molho, c/ sal",
-      "Mingau, de amido de milho (maisena)",
       "Tapioca, c/ leite condensado e coco",
       "Espinafre, folha, cozida, drenado, s/ óleo, c/ sal",
       "Pudim de leite",

@@ -383,6 +383,9 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             "Leite, vaca, c/ chocolate": (
                 "Leite, vaca, c/ chocolate, fluído, Brasil", "BRC0034G"
             ),
+            "Mingau, de amido de milho (maisena)": (
+                "Mingau, de amido de milho (maisena), c/ açúcar*, Brasil", "BRC0054G"
+            ),
         }
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
@@ -478,6 +481,17 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             for row in profile_exclusions["profiles"]["vegana"]
         ))
         self.assertTrue(adjudication["environmental_link"]["source_pof_values_match_after_rounding"])
+
+    def test_cornstarch_porridge_uses_pof_maizena_target_not_banana(self) -> None:
+        adjudication = json.loads(
+            (ROOT / "archive/audits/corn-starch-porridge-adjudication-2026-09-25.json")
+            .read_text(encoding="utf-8")
+        )
+        self.assertEqual(adjudication["source_pof_record"]["key"], "6500616#99")
+        self.assertEqual(adjudication["source_pof_record"]["historical_tbca_code"], "C0054G")
+        self.assertEqual(adjudication["current_tbca_target"]["code"], "BRC0054G")
+        self.assertEqual(adjudication["previous_target"]["code"], "BRC0055G")
+        self.assertIn("generated recipe used milk", adjudication["limitations"][0])
 
 
 if __name__ == "__main__":

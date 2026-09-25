@@ -73,8 +73,8 @@ class ArtifactPopulationTests(unittest.TestCase):
         config_path = PROJECT_ROOT / "configs" / "pending-food-mapping-exclusions.json"
         exclusions = load_pending_mapping_exclusions(config_path)
         self.assertEqual(set(exclusions), {"regular", "vegetariana", "vegana"})
-        self.assertEqual(len(set.union(*exclusions.values())), 15)
-        self.assertEqual(tuple(len(exclusions[profile]) for profile in ("regular", "vegetariana", "vegana")), (3, 10, 9))
+        self.assertEqual(len(set.union(*exclusions.values())), 14)
+        self.assertEqual(tuple(len(exclusions[profile]) for profile in ("regular", "vegetariana", "vegana")), (2, 9, 9))
         self.assertNotIn("Leite, vaca, c/ chocolate", exclusions["vegana"])
         known_exclusions = load_exclusions(PROJECT_ROOT / "configs" / "profile-exclusions.json")
         self.assertIn("Leite, vaca, c/ chocolate", known_exclusions["vegana"])
@@ -92,7 +92,7 @@ class ArtifactPopulationTests(unittest.TestCase):
             PROJECT_ROOT / "configs" / "pending-food-mapping-exclusions.json"
         )
         known = load_exclusions(PROJECT_ROOT / "configs" / "profile-exclusions.json")
-        expected_incremental = {"regular": 28, "vegetariana": 160, "vegana": 147}
+        expected_incremental = {"regular": 23, "vegetariana": 151, "vegana": 147}
         files = {"regular": "regular", "vegetariana": "vegetariana", "vegana": "vegana"}
         for profile, suffix in files.items():
             diets = json.loads(
@@ -736,11 +736,11 @@ class BaseDietAuditTests(unittest.TestCase):
         adjudication = json.loads(
             (PROJECT_ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(len(adjudication["source_food_names"]), 155)
-        self.assertEqual(totals["non_identity_mappings_with_recorded_target_decision"], 155)
-        self.assertEqual(totals["non_identity_mappings_without_recorded_target_decision"], 15)
+        self.assertEqual(len(adjudication["source_food_names"]), 156)
+        self.assertEqual(totals["non_identity_mappings_with_recorded_target_decision"], 156)
+        self.assertEqual(totals["non_identity_mappings_without_recorded_target_decision"], 14)
         self.assertEqual(len(mapping_lines), totals["unique_food_names"] + 1)
-        self.assertEqual(len(current_queue), 15)
+        self.assertEqual(len(current_queue), 14)
         self.assertTrue(all(row["automatic_acceptance"] is False for row in current_queue))
 
 

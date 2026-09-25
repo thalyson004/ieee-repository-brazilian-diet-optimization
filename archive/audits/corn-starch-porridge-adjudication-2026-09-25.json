@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "adjudication_id": "corn-starch-porridge-target-2026-09-25",
+  "status": "target_corrected_recipe_formulation_remains_uncertain",
+  "source_food_label": "Mingau, de amido de milho (maisena)",
+  "source_occurrences": {
+    "total": 14,
+    "regular": 5,
+    "vegetarian": 9,
+    "vegan": 0
+  },
+  "source_pof_record": {
+    "key": "6500616#99",
+    "source_name": "MINGAU DE MAIZENA",
+    "historical_tbca_code": "C0054G",
+    "other_records_sharing_historical_code": [
+      "6500614#99",
+      "6500615#99",
+      "6500801#99",
+      "6500804#99",
+      "8502301#99"
+    ],
+    "lineage_note": "The exact POF record for cornstarch porridge and the source diet label both support the cornstarch category; other POF records sharing C0054G show that the historical code is not a recipe-level guarantee."
+  },
+  "previous_target": {
+    "name": "Mingau, de amido de milho (maisena), c/ banana",
+    "code": "BRC0055G",
+    "official_description": "Cornstarch porridge with banana",
+    "official_url": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=jDQaa73AHropMQKTOs6Rjw%3D%3D"
+  },
+  "current_tbca_target": {
+    "name": "Mingau, de amido de milho (maisena), c/ açúcar*, Brasil",
+    "code": "BRC0054G",
+    "official_description": "Cornstarch porridge prepared with whole milk and sugar",
+    "official_url": "https://www.tbca.net.br/base-dados/int_composicao_alimentos.php?n0REd3kv7e86D%2BViXWYUnQ%3D%3D=EfQzM%2FaGjAyppMm89OpOIQ%3D%3D"
+  },
+  "decision": "Replace BRC0055G with BRC0054G as the TBCA target for the cornstarch-porridge label. This corrects the unsupported banana ingredient and aligns with the exact POF MINGAU DE MAIZENA record and historical C0054G lineage.",
+  "limitations": [
+    "The source label does not establish whether the generated recipe used milk, sugar, or their amounts; the selected TBCA preparation includes whole milk and sugar.",
+    "The historical POF code C0054G is shared by several unlike porridge/product labels, so it does not prove recipe identity.",
+    "This target decision does not validate the generated ingredient list, profile eligibility, or environmental footprint attribution; those audits remain separate."
+  ],
+  "environmental_map_changed": false
+}
