@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import unittest
 from pathlib import Path
@@ -391,6 +392,8 @@ class FoodMappingCorrectionTests(unittest.TestCase):
         adjudication = json.loads(
             (ROOT / "archive/audits/adjudicated-food-map-sources.json").read_text(encoding="utf-8")
         )
+        eggplant_source = "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal"
+        expected[eggplant_source] = (name_map[eggplant_source], "BRC0287B")
         self.assertEqual(set(adjudication["source_food_names"]), set(expected))
         for source, (expected_name, expected_code) in expected.items():
             with self.subTest(source=source):
@@ -550,6 +553,50 @@ class FoodMappingCorrectionTests(unittest.TestCase):
             if row["profile"] == "vegana" and row["food_name"] == "Óleo, soja"
         )
         self.assertEqual(evidence_row["review_status"], "SOURCE_RECIPE_EVIDENCE_VERIFIED_FOR_TARGET_ONLY")
+
+    def test_grilled_eggplant_uses_exact_historical_target_but_keeps_footprint_ambiguity(self) -> None:
+        from tests.profile_ingredient_audit import build_queue
+
+        adjudication = json.loads(
+            (ROOT / "archive/audits/eggplant-grilled-adjudication-2026-09-25.json")
+            .read_text(encoding="utf-8")
+        )
+        pof_path = ROOT.parent.parent.parent.parent / "source/data/maps/base/mapa-pof-completo.json"
+        pof = json.loads(pof_path.read_text(encoding="utf-8"))
+        tbca = json.loads(
+            (ROOT / "maps/base/mapa-tbca-completo.json").read_text(encoding="utf-8")
+        )
+        index = json.loads(
+            (ROOT / "archive/audits/adjudicated-food-map-sources.json")
+            .read_text(encoding="utf-8")
+        )
+        pending = json.loads(
+            (ROOT / "configs/pending-food-mapping-exclusions.json").read_text(encoding="utf-8")
+        )
+        source_rows = [pof[key] for key in ("6705401#1", "6705401#8")]
+
+        self.assertEqual(adjudication["occurrences"]["total"], 22)
+        self.assertEqual(
+            adjudication["source_map_sha256"],
+            hashlib.sha256(pof_path.read_bytes()).hexdigest(),
+        )
+        self.assertEqual(adjudication["current_tbca_target"]["code"], "BRC0287B")
+        self.assertTrue(all(row["cod_tbca"] == "C0287B" for row in source_rows))
+        self.assertEqual(source_rows[0]["nutrientes"], source_rows[1]["nutrientes"])
+        self.assertNotEqual(
+            source_rows[0]["pegadas"]["carbon_footprint"],
+            source_rows[1]["pegadas"]["carbon_footprint"],
+        )
+        self.assertEqual(tbca["BRC0287B"]["codigo"], "BRC0287B")
+        self.assertEqual(adjudication["environmental_link"]["status"], "unresolved_source_row_attribution")
+        self.assertIn(adjudication["source_food_name"], index["source_food_names"])
+        for profile in ("vegetariana", "vegana"):
+            self.assertNotIn(adjudication["source_food_name"], pending["profiles"][profile])
+            evidence_row = next(
+                row for row in build_queue()
+                if row["profile"] == profile and row["food_name"] == adjudication["source_food_name"]
+            )
+            self.assertEqual(evidence_row["review_status"], "SOURCE_RECIPE_EVIDENCE_VERIFIED_FOR_TARGET_ONLY")
 
 
 if __name__ == "__main__":

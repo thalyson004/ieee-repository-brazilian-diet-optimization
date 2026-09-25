@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "decision_date": "2026-09-25",
+  "status": "nutrition_target_adjudicated_environmental_attribution_unresolved",
+  "source_food_name": "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",
+  "source_map_sha256": "239762048a8977e199ed86700962a62ac30fc04676e6b405476b0425172b9e44",
+  "occurrences": {
+    "total": 22,
+    "profiles": {
+      "vegetariana": 21,
+      "vegana": 1
+    }
+  },
+  "source_pof_records": [
+    {
+      "key": "6705401#1",
+      "historical_tbca_code": "C0287B",
+      "name": "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",
+      "source_map_path_in_parent_repository": "source/data/maps/base/mapa-pof-completo.json",
+      "footprints_per_100g": {
+        "carbon_gco2eq": 81.4458,
+        "water_l": 141.4707,
+        "ecological_points": 0.2567
+      }
+    },
+    {
+      "key": "6705401#8",
+      "historical_tbca_code": "C0287B",
+      "name": "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",
+      "source_map_path_in_parent_repository": "source/data/maps/base/mapa-pof-completo.json",
+      "footprints_per_100g": {
+        "carbon_gco2eq": 59.4708,
+        "water_l": 141.4707,
+        "ecological_points": 0.2567
+      }
+    }
+  ],
+  "current_tbca_target": {
+    "code": "BRC0287B",
+    "name": "Berinjela, c/ casca, grelhada, s/ óleo, c/ sal",
+    "official_description": "Eggplant, unpeeled, grilled, without oil, with salt, Solanum melongena L.",
+    "official_source": "https://www.tbca.net.br/base-dados-en/int_food_composition_2_edit.php?cod_produto=BRC0287B"
+  },
+  "decision_rationale": "The exact POF item preserves historical TBCA code C0287B, and the official current TBCA record BRC0287B is the grilled, unpeeled, salted eggplant entry with no oil. This adjudicates the nutrition target for the archived POF-coded item; it does not claim that the wording 'without fat' and 'without oil' is semantically identical for every preparation, nor does it reconstruct a generated recipe.",
+  "nutrition_target_scope": {
+    "decision": "Use BRC0287B for nutrient lookup for this exact source item.",
+    "evidence": "Both preserved POF rows carry historical code C0287B and the same nutrient vector; the official TBCA BRC0287B record has the corresponding grilled eggplant preparation and salt description.",
+    "local_tbca_snapshot_comparison": "The mapping follows the preserved POF code and current TBCA target; it is not a claim of numerical identity in every field. The local TBCA snapshot differs in some values/coverage, including thiamine, and missing nutrient fields remain subject to the separate missingness policy.",
+    "scope_limit": "This target decision does not certify other meal components, prompt provenance, or a complete recipe."
+  },
+  "environmental_link": {
+    "status": "unresolved_source_row_attribution",
+    "source_rows_share_label_and_historical_tbca_code": true,
+    "carbon_gco2eq_per_100g": [
+      81.4458,
+      59.4708
+    ],
+    "water_l_per_100g": [
+      141.4707,
+      141.4707
+    ],
+    "ecological_points_per_100g": [
+      0.2567,
+      0.2567
+    ],
+    "current_distributed_values": {
+      "carbon_gco2eq": 59,
+      "water_l": 141,
+      "ecological_points": 0.3
+    },
+    "decision": "Do not alter or endorse the distributed environmental coefficient based on the nutrition-target adjudication. Preserve the exact-row ambiguity as unresolved; both POF rows have the same name/code but distinct carbon values."
+  },
+  "profile_recipe_evidence": [
+    {
+      "profile": "vegetariana",
+      "source_food_name": "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",
+      "decision": "The exact named item is grilled eggplant with no fat and salt; this supports plant-derived eligibility for this listed item only, not the full generated meal or prompt provenance.",
+      "source_url": "https://www.tbca.net.br/base-dados-en/int_food_composition_2_edit.php?cod_produto=BRC0287B"
+    },
+    {
+      "profile": "vegana",
+      "source_food_name": "Berinjela, c/ casca, grelhada, s/ gordura, c/ sal",
+      "decision": "The exact named item is grilled eggplant with no fat and salt; this supports plant-derived eligibility for this listed item only, not the full generated meal or prompt provenance.",
+      "source_url": "https://www.tbca.net.br/base-dados-en/int_food_composition_2_edit.php?cod_produto=BRC0287B"
+    }
+  ],
+  "limitations": [
+    "The official TBCA description says 'without oil'; the POF label says 'without fat'. The archived POF code identifies the nutrition target, but this wording distinction is not erased by the mapping decision.",
+    "Two exact POF records share the same description and historical TBCA code but have different carbon footprints; environmental row attribution remains unresolved and no environmental coefficient was changed.",
+    "This item-level source evidence does not certify any other ingredients in the generated vegetarian or vegan meal."
+  ]
+}
