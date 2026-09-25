@@ -8,4 +8,4 @@ Run and log the screen with:
 python -m tests.run_experiments --experiments profile-ingredient-audit
 ```
 
-The 364 profile-food rows are preserved in `archive/audits/profile-ingredient-review-queue.csv` and `.json`. Three vegan names trigger lexical review, including the documented beef-containing bean dish and chocolate-flavored cow milk, plus the ambiguous *couve-manteiga* name. Every row remains pending manual ingredient verification; absence of a keyword is not proof of vegan/vegetarian eligibility.
+The latest generated queue contains 364 profile-food rows. Of these, 361 remain pending ingredient verification, two exact vegan contradictions are excluded from derived optimizer inputs, and one row (`Feijoada vegetariana`) carries official TBCA evidence only for standardized target BRC0172T. That evidence does not verify the generated recipe or prompt provenance. Three vegan names trigger lexical review, including the documented beef-containing bean dish and chocolate-flavored cow milk, plus the ambiguous *couve-manteiga* name. Absence of a keyword is not proof of vegan/vegetarian eligibility.

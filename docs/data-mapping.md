@@ -76,7 +76,7 @@ The frozen submitted-map snapshot reports:
 - zero occurrences without a TBCA record;
 - zero occurrences without environmental coefficients.
 
-The current code audit is regenerated from the active maps, diets, and dated adjudication index. Latest checkpoint `base-diet-audit_20260924T235359549035Z_4746b5ee` reports 152 recorded target decisions and 18 active non-identity links without a decision. The audit found zero unmapped TBCA/environmental occurrences and 1,597 target violations under the diagnostic calculation. The violation count is sensitive to map changes and is not a quality score. Earlier checkpoint counts are historical snapshots, not the present map state.
+The current code audit is regenerated from the active maps, diets, and dated adjudication index. Latest checkpoint `base-diet-audit_20260925T003658202271Z_79a526ba` reports 152 recorded target decisions and 18 active non-identity links without a decision. The audit found zero unmapped TBCA/environmental occurrences and 1,597 target violations under the diagnostic calculation. The violation count is sensitive to map changes and is not a quality score. Earlier checkpoint counts are historical snapshots, not the present map state.
 
 Coverage does not establish validity. In particular, a complete join does not prove that the selected TBCA item is nutritionally equivalent to the generated item or that the footprint coefficient describes the same preparation, geography, production system, and system boundary.
 

@@ -1,4 +1,4 @@
-"""Run a paired sensitivity excluding the 19 unresolved mapped food labels."""
+"""Run a paired sensitivity excluding the active unresolved mapped food labels."""
 
 from __future__ import annotations
 

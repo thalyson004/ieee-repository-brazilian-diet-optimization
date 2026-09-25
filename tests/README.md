@@ -2,7 +2,7 @@
 
 Every experiment is launched by a named command. Each invocation writes an immutable JSON summary to `tests/results/`, a complete execution log to `tests/logs/`, and heavy generated artifacts below `tests/results/artifacts/`.
 
-Latest adjudication checkpoint (2026-09-24): official TBCA recipe evidence for `Feijoada vegetariana` (BRC0172T) supports only that standardized plant-based preparation, not the generated recipe or prompt provenance. The active ledger now has 152 target decisions and 18 unresolved links (407 source occurrences before overlap with profile exclusions). The lexical profile audit now distinguishes this one target-specific evidence row from unresolved generated-recipe ingredient review. The pending-mapping exclusion sensitivity must be rerun against the 18-label queue; all outputs remain diagnostic.
+Latest adjudication and sensitivity checkpoint (2026-09-25): official TBCA recipe evidence for `Feijoada vegetariana` (BRC0172T) supports only that standardized plant-based preparation, not the generated recipe or prompt provenance. The active ledger has 152 target decisions and 18 unresolved links (407 source occurrences before overlap with profile exclusions). Audits `base-diet-audit_20260925T003658202271Z_79a526ba` and `mapping-review-queue-current_20260925T003658596443Z_02f08ffd` confirm the current state. The lexical profile audit has 361 rows pending ingredient verification, one target-specific recipe-evidence row, and two configured exclusions. Sensitivity `food-mapping-exclusion-sensitivity_20260925T003703554510Z_a73bc617` and review `food-mapping-exclusion-review_20260925T005049261312Z_3945010c` passed at source commit `6b223451106da53978c5514bab469f886c1cdbe5`: 66 outputs per variant, 24 outcome and 24 computational paired contrasts; 5 outcome intervals and 5 computational intervals exclude zero before multiplicity adjustment. Exclusion removes incrementally 40 regular, 197 vegetarian, and 166 vegan occurrences (403); four further occurrences were already removed by profile rules. These remain diagnostics, not manuscript results.
 
 Earlier mapping-review checkpoint (2026-09-24): 49 nutrition-target decisions were indexed and the active-map queue had 121 unresolved links. This historical snapshot does not adjudicate ingredient formulation, preparation, or environmental equivalence.
 
@@ -244,9 +244,9 @@ The review accepts the printed run ID with or without the
 `ga-objective-weight-sensitivity_` prefix and resolves the matrix summary in
 the run's `audit/` workspace.
 
-Measure the sensitivity to excluding, rather than reassigning, the 19 source
-food labels whose TBCA targets remain unresolved (439 occurrences in the
-adjudication queue). The baseline and exclusion variants share the same
+Measure the sensitivity to excluding, rather than reassigning, the 18 source
+food labels whose TBCA targets remain unresolved (407 occurrences in the
+adjudication queue; 403 incremental removals after profile exclusions). The baseline and exclusion variants share the same
 versioned inputs and seed IDs; the exclusion copy records every removed
 occurrence by profile. This is not a mapping decision or a primary result:
 
