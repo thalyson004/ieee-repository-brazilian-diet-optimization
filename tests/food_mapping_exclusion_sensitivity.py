@@ -9,9 +9,24 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from tests.result_writer import RESULTS_DIR
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 VARIANTS = ("baseline", "pending-mappings-excluded")
+
+
+def latest_mapping_queue_run_id(results_dir: Path = RESULTS_DIR) -> str | None:
+    """Return the newest successful active-map queue run, not a stale literal ID."""
+    candidates = []
+    for path in results_dir.glob("mapping-review-queue-current_*.json"):
+        try:
+            result = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if result.get("status") != "passed" or not result.get("run_id"):
+            continue
+        candidates.append((result.get("started_at_utc", ""), result["run_id"]))
+    return max(candidates)[1] if candidates else None
 
 
 def run(runs: int, seed: int, nutrition_protocol: str, output_dir: Path) -> dict[str, Any]:
@@ -25,7 +40,7 @@ def run(runs: int, seed: int, nutrition_protocol: str, output_dir: Path) -> dict
         "paired_base_seed": seed,
         "runs_per_profile_and_granularity": runs,
         "nutrition_protocol": nutrition_protocol,
-        "mapping_queue_run_id": "mapping-review-queue-current_20260924T201700618482Z_77923935",
+        "mapping_queue_run_id": latest_mapping_queue_run_id(),
         "variants": [],
         "interpretation": "Exclusion is a robustness scenario, not a food-mapping adjudication or final input policy.",
     }

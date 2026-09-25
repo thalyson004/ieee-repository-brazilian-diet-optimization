@@ -44,12 +44,29 @@ from tests.environmental_source_range_sensitivity import source_range_maps, summ
 from tests.lp_meal_frequency_sensitivity import source_max_repetitions_by_plan
 from tests.ga_objective_weight_review import resolve_source_workspace
 from tests.food_mapping_exclusion_review import resolve_source_workspace as resolve_mapping_exclusion_workspace
+from tests.food_mapping_exclusion_sensitivity import latest_mapping_queue_run_id
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class ArtifactPopulationTests(unittest.TestCase):
+    def test_mapping_exclusion_sensitivity_uses_latest_successful_queue_id(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result_dir = Path(directory)
+            fixtures = [
+                ("mapping-review-queue-current_old.json", "old", "2026-09-24T10:00:00Z", "passed"),
+                ("mapping-review-queue-current_latest.json", "latest", "2026-09-24T11:00:00Z", "passed"),
+                ("mapping-review-queue-current_failed.json", "failed", "2026-09-24T12:00:00Z", "failed"),
+            ]
+            for filename, run_id, started, status in fixtures:
+                (result_dir / filename).write_text(json.dumps({
+                    "run_id": run_id,
+                    "started_at_utc": started,
+                    "status": status,
+                }), encoding="utf-8")
+            self.assertEqual(latest_mapping_queue_run_id(result_dir), "latest")
+
     def test_pending_mapping_exclusion_config_is_exact_and_scenario_only(self) -> None:
         from diet_optimization.experiments.profile_integrity import load_pending_mapping_exclusions
 
