@@ -52,8 +52,11 @@ Named experiments write a JSON summary to `tests/results/`, a log to `tests/logs
 
 Optimization can be rerun from the supplied diets only after the necessary TBCA inputs have been obtained independently. The chat interactions that generated those diets are not part of the executable pipeline, and chat-only inference settings such as temperature and seed were not configured. See [TBCA's terms](https://www.tbca.net.br/) before using its material. The generated diets are research outputs, not individual dietary prescriptions.
 
-## Citation and license
+## Citation
 
+Peding...
+
+<!--
 For the manuscript, use the citation below until final publication details are available. [CITATION.cff](CITATION.cff) provides a machine-readable citation for the code repository.
 
 ```bibtex
@@ -64,5 +67,8 @@ For the manuscript, use the citation below until final publication details are a
   note = {Manuscript}
 }
 ```
+-->
+
+## License
 
 The software is licensed under the [MIT License](LICENSE). This license does not apply to third-party data, including TBCA material or the Brazilian food-footprint workbook.
