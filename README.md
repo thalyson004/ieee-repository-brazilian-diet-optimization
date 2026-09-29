@@ -54,7 +54,7 @@ Optimization can be rerun from the supplied diets only after the necessary TBCA 
 
 ## Citation
 
-Peding...
+Pending...
 
 <!--
 For the manuscript, use the citation below until final publication details are available. [CITATION.cff](CITATION.cff) provides a machine-readable citation for the code repository.
