@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this repository, cite this software record and the associated article when its publication details are available."
+type: software
+title: "Code for Optimizing LLM-Generated Diets for Sustainability"
+authors:
+  - family-names: da Silva
+    given-names: Thalyson G. N.
+  - family-names: de Oliveira
+    given-names: Thiago Q.
+  - family-names: de Campos
+    given-names: Gustavo A. L.
+  - family-names: Júnior
+    given-names: Bonfim A.
+  - family-names: Barros
+    given-names: Ana L. B. P.
+repository-code: "https://github.com/thalyson004/ieee-repository-brazilian-diet-optimization"
+url: "https://github.com/thalyson004/ieee-repository-brazilian-diet-optimization"

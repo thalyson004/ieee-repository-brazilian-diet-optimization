@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "status": "diagnostic_exclusion_sensitivity_only_not_an_adjudication",
+  "unresolved_source_foods": 8,
+  "profiles": {
+    "regular": [
+      "Noz, crua"
+    ],
+    "vegetariana": [
+      "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+      "Noz, crua",
+      "Soja, grão, cozido, drenado, c/ sal",
+      "Espinafre, folha, cozida, drenado, s/ óleo, c/ sal",
+      "Pudim de leite",
+      "Queijo, requeijão, zero % gordura"
+    ],
+    "vegana": [
+      "Soja, proteína, texturizada, hidratada (c/ caldo de legumes), refogada, c/ óleo, cebola e alho, c/ sal",
+      "Noz, crua",
+      "Soja, grão, cozido, drenado, c/ sal",
+      "Suco, clorofila",
+      "Cacau, in natura"
+    ]
+  }
+}

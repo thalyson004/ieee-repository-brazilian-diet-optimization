@@ -1,0 +1,106 @@
+{
+    "execucoes_por_arquivo": 10,
+    "tamanho_populacao": 45,
+    "elitismo_taxa": 0.05,
+    "pesos_funcao_objetivo": {
+        "peso_falta_base": 50.0,
+        "peso_criterio_nutricional": 1.0,
+        "peso_criterio_ambiental": 1.0,
+        "penalidade_big_m": 10000.0,
+        "peso_faixa_energia_por_refeicao": 200.0
+    },
+    "parametros_convergencia": {
+        "tolerancia_plato": 1e-06,
+        "max_geracoes_estagnacao": 18,
+        "max_geracoes_absoluto": 90,
+        "limiar_ativacao_hipermutacao": 15
+    },
+    "taxas_mutacao": {
+        "padrao": {
+            "mutacao_global": 0.05,
+            "mutacao_local": 0.15
+        },
+        "hipermutacao": {
+            "mutacao_global": 0.15,
+            "mutacao_local": 0.3
+        }
+    },
+    "crossover": {
+        "estrategia": "by_meal",
+        "estrategias_disponiveis": [
+            "by_meal",
+            "by_day",
+            "by_meal_type"
+        ],
+        "habilitar_reparo": true,
+        "max_tentativas_reparo_por_dia": 12
+    },
+    "restricoes_energia": {
+        "tolerancia_superior_energia_total": 0.05,
+        "limites_por_refeicao": {
+            "Café da Manhã": {
+                "min": 0.15,
+                "max": 0.25
+            },
+            "Lanche da Manhã": {
+                "min": 0.0,
+                "max": 0.1
+            },
+            "Almoço": {
+                "min": 0.25,
+                "max": 0.35
+            },
+            "Lanche da Tarde": {
+                "min": 0.0,
+                "max": 0.15
+            },
+            "Jantar": {
+                "min": 0.2,
+                "max": 0.3
+            },
+            "Ceia": {
+                "min": 0.0,
+                "max": 0.1
+            }
+        }
+    },
+    "expansao_construtiva_gulosa": {
+        "top_w": 0,
+        "sample_k": 0
+    },
+    "algoritmo_genetico": {
+        "tipo_resolucao": "ag-alimentos",
+        "mutacao_global_habilitada": false,
+        "mutacao_local_habilitada": true,
+        "operacoes_mutacao_local": [
+            "replace",
+            "add",
+            "remove"
+        ],
+        "inicializar_com_dietas_base": false
+    },
+    "normalizacao_ambiental": {
+        "carbon_footprint": 2000.0,
+        "water_footprint": 1500.0,
+        "ecological_footprint": 10.0
+    },
+    "configuracao_pegadas": {
+        "pegadas_ativas": [
+            "carbon_footprint"
+        ],
+        "pesos_por_pegada": {
+            "carbon_footprint": 1.0,
+            "water_footprint": 1.0,
+            "ecological_footprint": 1.0
+        },
+        "funcoes_normalizacao_por_pegada": {
+            "carbon_footprint": "ratio",
+            "water_footprint": "ratio",
+            "ecological_footprint": "ratio"
+        }
+    },
+    "estrutura_cromossomo": {
+        "dias_por_plano": 5,
+        "refeicoes_por_dia": 6
+    }
+}

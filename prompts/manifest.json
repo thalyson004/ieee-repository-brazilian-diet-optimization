@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "description": "Checksums for the available prompt files; the original chat transcripts were not retained.",
+  "files": [
+    {
+      "profile": "regular",
+      "path": "prompts/prompt-regular.txt",
+      "sha256": "f07d8700d10e603541115a4b5e592cc221edda824d0e601037505346dd254a43"
+    },
+    {
+      "profile": "vegetarian",
+      "path": "prompts/prompt-vegetariano.txt",
+      "sha256": "125576a9b0e0f6f24b7b41c5e649185643566725071b54431e371e0ade6082e9"
+    },
+    {
+      "profile": "vegan",
+      "path": "prompts/prompt-vegana.txt",
+      "sha256": "f53885e911ac2baf355fff9fed3f3accf518b792b15384fa742d41ae7d99d066"
+    }
+  ]
+}

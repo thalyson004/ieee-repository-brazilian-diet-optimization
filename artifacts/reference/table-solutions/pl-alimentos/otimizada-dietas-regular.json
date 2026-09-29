@@ -1,0 +1,224 @@
+[
+    {
+        "1": {
+            "Refeição LP": [
+                {
+                    "alimento": "Purê de abóbora",
+                    "quantidade": "8.4"
+                },
+                {
+                    "alimento": "Suplemento, à base de proteina, em pó",
+                    "quantidade": "33.3"
+                },
+                {
+                    "alimento": "Taioba, folha, crua",
+                    "quantidade": "72.2"
+                },
+                {
+                    "alimento": "Almeirão, cru",
+                    "quantidade": "84.4"
+                },
+                {
+                    "alimento": "Pimenta, vermelha, caiena, in natura",
+                    "quantidade": "17.2"
+                },
+                {
+                    "alimento": "Acerola, madura, polpa",
+                    "quantidade": "3.9"
+                },
+                {
+                    "alimento": "Caldo de peixe",
+                    "quantidade": "37.8"
+                },
+                {
+                    "alimento": "Bebida, água, rede pública, torneira",
+                    "quantidade": "19846.8"
+                },
+                {
+                    "alimento": "Bebida, chá, preto, infusão 5%, s/ açúcar",
+                    "quantidade": "3.7"
+                },
+                {
+                    "alimento": "Cevada, s/ casca (pérola), crua",
+                    "quantidade": "385.8"
+                }
+            ]
+        },
+        "2": {
+            "Refeição LP": [
+                {
+                    "alimento": "Purê de abóbora",
+                    "quantidade": "8.4"
+                },
+                {
+                    "alimento": "Suplemento, à base de proteina, em pó",
+                    "quantidade": "33.3"
+                },
+                {
+                    "alimento": "Taioba, folha, crua",
+                    "quantidade": "72.2"
+                },
+                {
+                    "alimento": "Almeirão, cru",
+                    "quantidade": "84.4"
+                },
+                {
+                    "alimento": "Pimenta, vermelha, caiena, in natura",
+                    "quantidade": "17.2"
+                },
+                {
+                    "alimento": "Acerola, madura, polpa",
+                    "quantidade": "3.9"
+                },
+                {
+                    "alimento": "Caldo de peixe",
+                    "quantidade": "37.8"
+                },
+                {
+                    "alimento": "Bebida, água, rede pública, torneira",
+                    "quantidade": "19846.8"
+                },
+                {
+                    "alimento": "Bebida, chá, preto, infusão 5%, s/ açúcar",
+                    "quantidade": "3.7"
+                },
+                {
+                    "alimento": "Cevada, s/ casca (pérola), crua",
+                    "quantidade": "385.8"
+                }
+            ]
+        },
+        "3": {
+            "Refeição LP": [
+                {
+                    "alimento": "Purê de abóbora",
+                    "quantidade": "8.4"
+                },
+                {
+                    "alimento": "Suplemento, à base de proteina, em pó",
+                    "quantidade": "33.3"
+                },
+                {
+                    "alimento": "Taioba, folha, crua",
+                    "quantidade": "72.2"
+                },
+                {
+                    "alimento": "Almeirão, cru",
+                    "quantidade": "84.4"
+                },
+                {
+                    "alimento": "Pimenta, vermelha, caiena, in natura",
+                    "quantidade": "17.2"
+                },
+                {
+                    "alimento": "Acerola, madura, polpa",
+                    "quantidade": "3.9"
+                },
+                {
+                    "alimento": "Caldo de peixe",
+                    "quantidade": "37.8"
+                },
+                {
+                    "alimento": "Bebida, água, rede pública, torneira",
+                    "quantidade": "19846.8"
+                },
+                {
+                    "alimento": "Bebida, chá, preto, infusão 5%, s/ açúcar",
+                    "quantidade": "3.7"
+                },
+                {
+                    "alimento": "Cevada, s/ casca (pérola), crua",
+                    "quantidade": "385.8"
+                }
+            ]
+        },
+        "4": {
+            "Refeição LP": [
+                {
+                    "alimento": "Purê de abóbora",
+                    "quantidade": "8.4"
+                },
+                {
+                    "alimento": "Suplemento, à base de proteina, em pó",
+                    "quantidade": "33.3"
+                },
+                {
+                    "alimento": "Taioba, folha, crua",
+                    "quantidade": "72.2"
+                },
+                {
+                    "alimento": "Almeirão, cru",
+                    "quantidade": "84.4"
+                },
+                {
+                    "alimento": "Pimenta, vermelha, caiena, in natura",
+                    "quantidade": "17.2"
+                },
+                {
+                    "alimento": "Acerola, madura, polpa",
+                    "quantidade": "3.9"
+                },
+                {
+                    "alimento": "Caldo de peixe",
+                    "quantidade": "37.8"
+                },
+                {
+                    "alimento": "Bebida, água, rede pública, torneira",
+                    "quantidade": "19846.8"
+                },
+                {
+                    "alimento": "Bebida, chá, preto, infusão 5%, s/ açúcar",
+                    "quantidade": "3.7"
+                },
+                {
+                    "alimento": "Cevada, s/ casca (pérola), crua",
+                    "quantidade": "385.8"
+                }
+            ]
+        },
+        "5": {
+            "Refeição LP": [
+                {
+                    "alimento": "Purê de abóbora",
+                    "quantidade": "8.4"
+                },
+                {
+                    "alimento": "Suplemento, à base de proteina, em pó",
+                    "quantidade": "33.3"
+                },
+                {
+                    "alimento": "Taioba, folha, crua",
+                    "quantidade": "72.2"
+                },
+                {
+                    "alimento": "Almeirão, cru",
+                    "quantidade": "84.4"
+                },
+                {
+                    "alimento": "Pimenta, vermelha, caiena, in natura",
+                    "quantidade": "17.2"
+                },
+                {
+                    "alimento": "Acerola, madura, polpa",
+                    "quantidade": "3.9"
+                },
+                {
+                    "alimento": "Caldo de peixe",
+                    "quantidade": "37.8"
+                },
+                {
+                    "alimento": "Bebida, água, rede pública, torneira",
+                    "quantidade": "19846.8"
+                },
+                {
+                    "alimento": "Bebida, chá, preto, infusão 5%, s/ açúcar",
+                    "quantidade": "3.7"
+                },
+                {
+                    "alimento": "Cevada, s/ casca (pérola), crua",
+                    "quantidade": "385.8"
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,34 @@
+﻿Dieta,Nutriente,Base,GA-Food,GA-Meal,LP-Food,LP-Meal
+Regular,Carboidrato disponível,197.64,216.78,236.16,240.63,257.24
+Regular,Colesterol,481.88,255.2,286.46,22.3,291.04
+Regular,Cálcio,1085.53,1319.13,1299.14,999.73,1094.55
+Regular,Energia,1916.31,2151.69,2022.26,2099.43,2150.78
+Regular,Ferro,11.85,15.17,13.76,15.97,16.49
+Regular,Fibra alimentar,28.98,34.14,35.38,72.72,49.89
+Regular,Lipídios,63.88,82.19,63.66,61.09,64.05
+Regular,Pegada de Carbono,6638.01,5304.71,5450.83,112.4,2499.8
+Regular,Proteína,123.35,119.18,108.53,109.95,111.67
+Regular,Sódio,2125.99,2784.96,2413.49,876.79,2288.89
+Regular,Vitamina C,161.5,265.0,348.91,89.49,268.79
+Vegana,Carboidrato disponível,282.44,234.34,251.86,240.63,251.13
+Vegana,Colesterol,26.36,45.45,60.18,22.3,45.45
+Vegana,Cálcio,607.49,1013.78,1012.28,999.73,1039.09
+Vegana,Energia,2268.38,2080.61,2017.25,2099.43,2139.28
+Vegana,Ferro,16.44,21.07,14.22,15.97,26.33
+Vegana,Fibra alimentar,51.5,53.18,57.93,72.72,47.94
+Vegana,Lipídios,86.41,74.86,66.41,61.09,66.87
+Vegana,Pegada de Carbono,1668.53,1229.03,1244.11,112.4,1552.67
+Vegana,Proteína,65.1,90.95,75.41,109.95,112.6
+Vegana,Sódio,1776.53,2307.78,2224.56,876.79,2352.71
+Vegana,Vitamina C,191.33,233.15,248.91,89.49,137.95
+Vegetariana,Carboidrato disponível,231.01,261.61,260.26,240.63,254.38
+Vegetariana,Colesterol,463.77,197.52,272.3,22.3,284.16
+Vegetariana,Cálcio,1229.63,1366.99,1532.26,999.73,1719.2
+Vegetariana,Energia,2046.58,2034.75,2119.84,2099.43,2103.5
+Vegetariana,Ferro,14.43,18.17,24.86,15.97,29.3
+Vegetariana,Fibra alimentar,35.82,57.56,59.07,72.72,50.3
+Vegetariana,Lipídios,81.82,60.18,68.32,61.09,60.26
+Vegetariana,Pegada de Carbono,2481.11,2418.07,2500.03,112.4,2408.58
+Vegetariana,Proteína,78.98,83.14,86.37,109.95,111.71
+Vegetariana,Sódio,2338.37,2371.02,2274.81,876.79,2360.56
+Vegetariana,Vitamina C,157.97,269.82,245.52,89.49,280.03

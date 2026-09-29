@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "status": "source-supported exact-name profile exclusions only; complete ingredient review pending",
+  "profiles": {
+    "regular": [],
+    "vegetariana": [
+      {
+        "food_name": "Omelete, frios, c/ sal",
+        "reason": "the active exact TBCA target BRC0036J lists ham among its ingredients; excluded from the derived vegetarian optimizer pool only (official source: https://www.tbca.net.br/base-dados-en/int_food_composition_2_edit.php?cod_produto=BRC0036J)"
+      }
+    ],
+    "vegana": [
+      {
+        "food_name": "Leite, vaca, c/ chocolate",
+        "reason": "cow milk is incompatible with the vegan profile"
+      },
+      {
+        "food_name": "Feijão, preto, cozido (50% grão e 50% caldo), c/ carne de boi, músculo, s/ gordura, c/ óleo, cebola e alho, c/ sal",
+        "reason": "the dish explicitly contains beef"
+      }
+    ]
+  }
+}

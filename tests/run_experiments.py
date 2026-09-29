@@ -1,0 +1,298 @@
+"""Execute named experiments, preserving a result JSON and full log for each run.
+
+Examples:
+    python -m tests.run_experiments --experiments article-reconstruction
+    python -m tests.run_experiments --experiments base-diet-audit
+    python -m tests.run_experiments --experiments ga-smoke --seed 20260323
+    python -m tests.run_experiments --experiments full-replication --runs 10 --seed 20260323
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import platform
+import subprocess
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+from tests.logging_utils import LOGS_DIR, append_log, build_run_id
+from tests.result_writer import RESULTS_DIR, save_result
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+EXPERIMENTS = (
+    "article-reconstruction",
+    "base-diet-audit",
+    "unit-tests",
+    "nutrient-missingness-audit",
+    "tbca-marker-audit",
+    "tbca-record-availability-sensitivity",
+    "tbca-record-availability-review",
+    "mapping-review-queue",
+    "mapping-review-queue-current",
+    "portion-support-audit",
+    "lp-daily-quantity-support-sensitivity",
+    "lp-food-diversity-sensitivity",
+    "lp-food-meal-structure-sensitivity",
+    "environmental-objective-sensitivity",
+    "environmental-source-audit",
+    "environmental-source-range-sensitivity",
+    "lp-meal-frequency-sensitivity",
+    "replication-resource-audit",
+    "ga-objective-trace-audit",
+    "ga-objective-weight-sensitivity",
+    "ga-objective-weight-review",
+    "food-mapping-exclusion-sensitivity",
+    "food-mapping-exclusion-review",
+    "profile-ingredient-audit",
+    "lp-profile-scope",
+    "lp-slack-sensitivity",
+    "ga-smoke",
+    "ga-hyperparameter-sensitivity",
+    "full-replication",
+)
+
+
+def positive_integer(raw: str) -> int:
+    value = int(raw)
+    if value <= 0:
+        raise argparse.ArgumentTypeError("value must be positive")
+    return value
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--experiments", nargs="+", choices=EXPERIMENTS, default=["article-reconstruction"])
+    parser.add_argument("--runs", type=positive_integer, default=10, help="GA runs for full-replication.")
+    parser.add_argument("--seed", type=int, default=20260323, help="Base seed for new replications.")
+    parser.add_argument("--nutrition-protocol", choices=("historical", "revised"), default="revised")
+    parser.add_argument("--source-run-id", help="Full-replication run ID for replication-resource-audit.")
+    return parser.parse_args()
+
+
+def stream_command(command: list[str], log_path: Path) -> None:
+    append_log(log_path, "$ " + subprocess.list2cmdline(command))
+    child_environment = os.environ.copy()
+    child_environment["PYTHONIOENCODING"] = "utf-8"
+    process = subprocess.Popen(
+        command,
+        cwd=PROJECT_ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        env=child_environment,
+    )
+    assert process.stdout is not None
+    for line in process.stdout:
+        print(line, end="")
+        append_log(log_path, line)
+    return_code = process.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, command)
+
+
+def commands_for(
+    experiment: str, workspace: Path, runs: int, seed: int,
+    nutrition_protocol: str = "revised",
+    source_run_id: str | None = None,
+) -> list[list[str]]:
+    runner = [sys.executable, "-m", "diet_optimization.experiments.runner"]
+    if experiment == "article-reconstruction":
+        return [
+            runner + ["--mode", "supplied", "--output-dir", str(workspace)],
+            [sys.executable, "-m", "tests.validate_reconstruction", "--workspace", str(workspace)],
+        ]
+    if experiment == "base-diet-audit":
+        return [
+            [
+                sys.executable,
+                "-m",
+                "diet_optimization.analysis.diet_audit",
+                "--output-dir",
+                str(workspace / "audit"),
+            ]
+        ]
+    if experiment == "unit-tests":
+        return [[sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"]]
+    if experiment == "nutrient-missingness-audit":
+        return [[sys.executable, "-m", "tests.nutrient_missingness_audit", "--output-dir", str(workspace / "audit")]]
+    if experiment == "tbca-marker-audit":
+        return [[sys.executable, "-m", "tests.tbca_marker_audit", "--output-dir", str(workspace / "audit")]]
+    if experiment == "tbca-record-availability-sensitivity":
+        return [[
+            sys.executable, "-m", "tests.tbca_record_availability_sensitivity",
+            "--runs", str(runs), "--seed", str(seed),
+            "--nutrition-protocol", nutrition_protocol,
+            "--output-dir", str(workspace / "audit"),
+        ]]
+    if experiment == "tbca-record-availability-review":
+        if source_run_id is None:
+            raise ValueError("--source-run-id is required for tbca-record-availability-review")
+        source_result_path = RESULTS_DIR / f"tbca-record-availability-sensitivity_{source_run_id}.json"
+        if not source_result_path.is_file():
+            raise FileNotFoundError(f"Missing source sensitivity result: {source_result_path}")
+        source_result = json.loads(source_result_path.read_text(encoding="utf-8"))
+        if source_result.get("experiment") != "tbca-record-availability-sensitivity":
+            raise ValueError("Source run ID does not identify a TBCA record-availability experiment")
+        source_workspace = PROJECT_ROOT / source_result["artifact_workspace"] / "audit"
+        return [[
+            sys.executable, "-m", "tests.tbca_record_availability_sensitivity",
+            "--runs", str(source_result["runs"]), "--seed", str(source_result["seed"]),
+            "--nutrition-protocol", source_result["nutrition_protocol"],
+            "--source-dir", str(source_workspace), "--source-run-id", source_run_id,
+            "--source-execution-status", source_result["status"],
+            "--output-dir", str(workspace / "audit"),
+        ]]
+    if experiment == "mapping-review-queue":
+        return [[sys.executable, "-m", "tests.mapping_review_queue", "--output-dir", str(workspace / "audit")]]
+    if experiment == "mapping-review-queue-current":
+        return [[sys.executable, "-m", "tests.mapping_review_queue", "--current-maps", "--output-dir", str(workspace / "audit")]]
+    if experiment == "portion-support-audit":
+        return [[sys.executable, "-m", "tests.portion_support_audit", "--output-dir", str(workspace / "audit")]]
+    if experiment == "lp-daily-quantity-support-sensitivity":
+        return [[sys.executable, "-m", "tests.lp_daily_quantity_support_sensitivity", "--output-dir", str(workspace / "audit")]]
+    if experiment == "lp-food-diversity-sensitivity":
+        return [[sys.executable, "-m", "tests.lp_food_diversity_sensitivity", "--output-dir", str(workspace / "audit")]]
+    if experiment == "lp-food-meal-structure-sensitivity":
+        return [[sys.executable, "-m", "tests.lp_food_meal_structure_sensitivity", "--output-dir", str(workspace / "audit")]]
+    if experiment == "environmental-objective-sensitivity":
+        return [[sys.executable, "-m", "tests.environmental_objective_sensitivity", "--output-dir", str(workspace / "audit")]]
+    if experiment == "environmental-source-audit":
+        return [[sys.executable, "-m", "tests.environmental_source_audit", "--output-dir", str(workspace / "audit")]]
+    if experiment == "environmental-source-range-sensitivity":
+        return [[sys.executable, "-m", "tests.environmental_source_range_sensitivity", "--output-dir", str(workspace / "audit")]]
+    if experiment == "lp-meal-frequency-sensitivity":
+        return [[sys.executable, "-m", "tests.lp_meal_frequency_sensitivity", "--output-dir", str(workspace / "audit")]]
+    if experiment == "replication-resource-audit":
+        if source_run_id is None:
+            raise ValueError("--source-run-id is required for replication-resource-audit")
+        return [[sys.executable, "-m", "tests.replication_resource_audit", "--source-run-id", source_run_id, "--output-dir", str(workspace / "audit")]]
+    if experiment == "ga-objective-trace-audit":
+        if source_run_id is None:
+            raise ValueError("--source-run-id is required for ga-objective-trace-audit")
+        return [[sys.executable, "-m", "tests.ga_objective_trace_audit", "--source-run-id", source_run_id, "--output-dir", str(workspace / "audit")]]
+    if experiment == "ga-objective-weight-sensitivity":
+        return [[
+            sys.executable, "-m", "tests.ga_objective_weight_sensitivity",
+            "--runs", str(runs), "--seed", str(seed),
+            "--nutrition-protocol", nutrition_protocol,
+            "--output-dir", str(workspace / "audit"),
+        ]]
+    if experiment == "ga-objective-weight-review":
+        if source_run_id is None:
+            raise ValueError("--source-run-id is required for ga-objective-weight-review")
+        return [[sys.executable, "-m", "tests.ga_objective_weight_review", "--source-run-id", source_run_id]]
+    if experiment == "food-mapping-exclusion-sensitivity":
+        return [[
+            sys.executable, "-m", "tests.food_mapping_exclusion_sensitivity",
+            "--runs", str(runs), "--seed", str(seed),
+            "--nutrition-protocol", nutrition_protocol,
+            "--output-dir", str(workspace / "audit"),
+        ]]
+    if experiment == "food-mapping-exclusion-review":
+        if source_run_id is None:
+            raise ValueError("--source-run-id is required for food-mapping-exclusion-review")
+        return [[
+            sys.executable, "-m", "tests.food_mapping_exclusion_review",
+            "--source-run-id", source_run_id, "--output-dir", str(workspace),
+        ]]
+    if experiment == "profile-ingredient-audit":
+        return [[sys.executable, "-m", "tests.profile_ingredient_audit", "--output-dir", str(workspace / "audit")]]
+    if experiment == "lp-profile-scope":
+        return [[sys.executable, "-m", "tests.validate_lp_profile_scope", "--output-dir", str(workspace / "audit")]]
+    if experiment == "lp-slack-sensitivity":
+        return [[sys.executable, "-m", "tests.lp_slack_sensitivity", "--output-dir", str(workspace)]]
+    if experiment == "ga-smoke":
+        return [
+            runner + ["--mode", "rerun", "--runs", "1", "--seed", str(seed), "--nutrition-protocol", nutrition_protocol, "--output-dir", str(workspace)],
+            [sys.executable, "-m", "tests.validate_candidate_scope", "--workspace", str(workspace)],
+        ]
+    if experiment == "ga-hyperparameter-sensitivity":
+        return [[
+            sys.executable,
+            "-m",
+            "tests.ga_hyperparameter_sensitivity",
+            "--runs",
+            str(runs),
+            "--seed",
+            str(seed),
+            "--nutrition-protocol",
+            nutrition_protocol,
+            "--output-dir",
+            str(workspace),
+        ]]
+    return [
+        runner + ["--mode", "rerun", "--runs", str(runs), "--seed", str(seed), "--nutrition-protocol", nutrition_protocol, "--output-dir", str(workspace)],
+        [sys.executable, "-m", "tests.validate_candidate_scope", "--workspace", str(workspace)],
+    ]
+
+
+def execute(
+    experiment: str, runs: int, seed: int, nutrition_protocol: str,
+    source_run_id: str | None = None,
+) -> Path:
+    run_id = build_run_id()
+    workspace = RESULTS_DIR / "artifacts" / f"{experiment}_{run_id}"
+    log_path = LOGS_DIR / f"{experiment}_{run_id}.log"
+    commands = commands_for(experiment, workspace, runs, seed, nutrition_protocol, source_run_id)
+    started_at_utc = datetime.now(timezone.utc).isoformat()
+    started = time.perf_counter()
+    status = "passed"
+    error = None
+    try:
+        for command in commands:
+            stream_command(command, log_path)
+    except Exception as exc:
+        status = "failed"
+        error = f"{type(exc).__name__}: {exc}"
+        append_log(log_path, error)
+    elapsed = time.perf_counter() - started
+    result_path = save_result(
+        experiment,
+        run_id,
+        {
+            "schema_version": "1.0",
+            "experiment": experiment,
+            "run_id": run_id,
+            "status": status,
+            "started_at_utc": started_at_utc,
+            "duration_seconds": elapsed,
+            "python": platform.python_version(),
+            "platform": platform.platform(),
+            "source_run_id": source_run_id,
+            "runs": 1 if experiment in {"ga-smoke", "base-diet-audit", "unit-tests", "nutrient-missingness-audit", "tbca-marker-audit", "tbca-record-availability-review", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "lp-food-meal-structure-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-trace-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else runs,
+            "seed": None if experiment in {"article-reconstruction", "base-diet-audit", "unit-tests", "nutrient-missingness-audit", "tbca-marker-audit", "tbca-record-availability-review", "mapping-review-queue", "mapping-review-queue-current", "portion-support-audit", "lp-daily-quantity-support-sensitivity", "lp-food-diversity-sensitivity", "lp-food-meal-structure-sensitivity", "environmental-objective-sensitivity", "environmental-source-audit", "environmental-source-range-sensitivity", "lp-meal-frequency-sensitivity", "replication-resource-audit", "ga-objective-trace-audit", "ga-objective-weight-review", "food-mapping-exclusion-review", "profile-ingredient-audit", "lp-profile-scope", "lp-slack-sensitivity"} else seed,
+            "nutrition_protocol": nutrition_protocol if experiment in {"ga-smoke", "ga-hyperparameter-sensitivity", "food-mapping-exclusion-sensitivity", "tbca-record-availability-sensitivity", "full-replication"} else None,
+            "commands": commands,
+            "log": str(log_path.relative_to(PROJECT_ROOT)),
+            "artifact_workspace": str(workspace.relative_to(PROJECT_ROOT)),
+            "error": error,
+        },
+    )
+    print(f"Result: {result_path}")
+    print(f"Log: {log_path}")
+    if status != "passed":
+        raise SystemExit(1)
+    return result_path
+
+
+def main() -> None:
+    args = parse_args()
+    source_run_experiments = {
+        "replication-resource-audit", "ga-objective-trace-audit", "ga-objective-weight-review",
+        "food-mapping-exclusion-review", "tbca-record-availability-review",
+    }
+    if source_run_experiments.intersection(args.experiments) and not args.source_run_id:
+        raise SystemExit("--source-run-id is required for source-run audit/review experiments")
+    for experiment in args.experiments:
+        execute(experiment, args.runs, args.seed, args.nutrition_protocol, args.source_run_id)
+
+
+if __name__ == "__main__":
+    main()

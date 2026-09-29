@@ -1,0 +1,23 @@
+.venv/
+build/
+dist/
+*.egg-info/
+**/__pycache__/
+*.py[cod]
+
+# Researcher-supplied TBCA extracts and mappings are kept locally only.
+maps/base/mapa-nome-tbca.json
+maps/base/mapa-sustentavel-nome.json
+maps/base/mapa-tbca-completo.json
+maps/derived/mapa-sustentavel-tbca.json
+artifacts/reference/table-input-maps/base/mapa-nome-tbca.json
+artifacts/reference/table-input-maps/base/mapa-sustentavel-nome.json
+artifacts/reference/table-input-maps/base/mapa-tbca-completo.json
+artifacts/reference/table-input-maps/derived/mapa-sustentavel-tbca.json
+tests/fixtures/food-mapping/
+tests/test_food_mapping_corrections.py
+
+tests/logs/*
+!tests/logs/.gitkeep
+tests/results/*
+!tests/results/.gitkeep
